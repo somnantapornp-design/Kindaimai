@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ไม่พบหน้านี้ — กินได้ไหม?</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2F5D50" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131917" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<!-- Styles are inline on purpose: GitHub Pages serves this page for any
+     missing address, so relative links to css/ may not resolve. -->
+<style>
+:root{--bg:#FBF6EC;--surface:#FFFFFF;--line:#E6DCC8;--ink:#1F2A26;--ink-2:#4B5651;--primary:#2F5D50;--primary-ink:#FFFFFF;--paw:#D9CDB4;--focus:#1B4FA0;color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#131917;--surface:#1C2421;--line:#35423D;--ink:#ECF1EE;--ink-2:#B4BFBA;--primary:#8FCDB8;--primary-ink:#0F1F19;--paw:#3A463F;--focus:#9BC0FF;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#131917;--surface:#1C2421;--line:#35423D;--ink:#ECF1EE;--ink-2:#B4BFBA;--primary:#8FCDB8;--primary-ink:#0F1F19;--paw:#3A463F;--focus:#9BC0FF;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;
+  padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(16px,env(safe-area-inset-left,0px))}
+main{max-width:440px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 0}
+svg{width:88px;height:88px;color:var(--paw)}
+h1{font-size:1.45rem;line-height:1.35;margin:12px 0 6px}
+p{margin:0 0 18px;color:var(--ink-2)}
+a.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:14px;background:var(--primary);color:var(--primary-ink);font-weight:600;text-decoration:none}
+a.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+  <svg aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="6" cy="9" rx="2.2" ry="2.8"/><ellipse cx="10" cy="5.2" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="5.2" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="9" rx="2.2" ry="2.8"/><path d="M12.2 10.5c-3 0-6.2 3.6-6.2 6.4 0 2.1 1.6 3 3.3 3 1.3 0 2-.6 2.9-.6s1.6.6 2.9.6c1.7 0 3.3-.9 3.3-3 0-2.8-3.2-6.4-6.2-6.4z"/></g></svg>
+  <h1>ไม่พบหน้านี้</h1>
+  <p>ลิงก์อาจพิมพ์ผิด หรือหน้านี้ถูกย้ายไปแล้ว กลับไปค้นหาว่าน้องกินอะไรได้บ้างที่หน้าแรก</p>
+  <a class="btn" id="home" href="./">กลับหน้าแรก</a>
+</main>
+<script>
+// On GitHub Pages project sites (user.github.io/repo/...), point "home" at /repo/
+(function(){
+  try {
+    var a = document.getElementById('home');
+    var seg = location.pathname.split('/').filter(Boolean);
+    if (/\.github\.io$/i.test(location.hostname) && seg.length) a.href = '/' + seg[0] + '/';
+    else a.href = '/';
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

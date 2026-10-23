@@ -1,0 +1,2256 @@
+[
+ {
+  "id": "grape",
+  "name_th": "องุ่น และลูกเกด",
+  "aliases": [
+   "องุ่น",
+   "ลูกเกด",
+   "องุ่นแห้ง",
+   "grape",
+   "grapes",
+   "raisin",
+   "raisins",
+   "sultana"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "toxic",
+   "note_th": "อาจทำให้ไตวายเฉียบพลันได้ แม้กินเพียงไม่กี่ลูก และยังไม่มีปริมาณที่ถือว่าปลอดภัย ระวังขนมปังหรือขนมที่ใส่ลูกเกดด้วย"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "มีรายงานไตวายในแมวและหน่วยงานด้านสวัสดิภาพสัตว์จัดเป็นอาหารต้องห้ามสำหรับแมว แม้กินปริมาณน้อย"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "Merck Veterinary Manual – Food Hazards",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   }
+  ]
+ },
+ {
+  "id": "chocolate",
+  "name_th": "ช็อกโกแลต และโกโก้",
+  "aliases": [
+   "ช็อกโกแลต",
+   "ช็อคโกแลต",
+   "โกโก้",
+   "ผงโกโก้",
+   "บราวนี่",
+   "chocolate",
+   "cocoa"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "toxic",
+   "note_th": "มีสารธีโอโบรมีนและคาเฟอีน ทำให้อาเจียน ท้องเสีย หัวใจเต้นผิดจังหวะ ชัก จนถึงเสียชีวิตได้ ดาร์กช็อกโกแลต ช็อกโกแลตสำหรับทำขนม และผงโกโก้อันตรายที่สุด"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "เป็นพิษต่อแมวเช่นกัน ความรุนแรงขึ้นกับชนิดและปริมาณ ช็อกโกแลตเข้มยิ่งอันตราย"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "Merck Veterinary Manual – Food Hazards",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
+   },
+   {
+    "title": "Pet Poison Helpline – Chocolate",
+    "url": "https://www.petpoisonhelpline.com/poison/chocolate/"
+   },
+   {
+    "title": "International Cat Care – Cats and poisons",
+    "url": "https://icatcare.org/articles/cats-and-poisons"
+   }
+  ]
+ },
+ {
+  "id": "onion",
+  "name_th": "หัวหอม (หอมใหญ่ หอมแดง ต้นหอม)",
+  "aliases": [
+   "หัวหอม",
+   "หอมใหญ่",
+   "หอมแดง",
+   "ต้นหอม",
+   "กุยช่าย",
+   "หอมเจียว",
+   "onion",
+   "shallot",
+   "chives",
+   "leek",
+   "ผงหัวหอม",
+   "onion powder"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ทำลายเม็ดเลือดแดงจนเกิดภาวะโลหิตจาง ทั้งแบบดิบ สุก ผง หรือที่ผสมในอาหาร ผงหัวหอมพบได้ในซุปสำเร็จรูป ผงปรุงรส และอาหารเด็กบางชนิด ควรอ่านฉลาก สุนัขพันธุ์ญี่ปุ่น เช่น อาคิตะ ชิบะ ไวต่อพิษมากกว่า อาการโลหิตจางอาจปรากฏช้าหลายวันหลังกิน"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "แมวไวต่อพิษจากพืชตระกูลหอมมากที่สุด แม้หัวหอมสุกปริมาณน้อยก็ทำลายเม็ดเลือดแดงได้ ห้ามให้อาหารคนที่ปรุงด้วยหอม รวมถึงซุปหรืออาหารเด็กที่มีผงหัวหอม อาการอาจปรากฏช้าหลายวัน"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Garlic",
+    "url": "https://www.petpoisonhelpline.com/poison/garlic/"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "AKC – Can Dogs Eat Onions?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-onions/"
+   },
+   {
+    "title": "Merck Veterinary Manual (Professional) – Garlic and Onion (Allium spp) Toxicosis in Animals",
+    "url": "https://www.merckvetmanual.com/toxicology/food-hazards/garlic-and-onion-allium-spp-toxicosis-in-animals"
+   }
+  ]
+ },
+ {
+  "id": "garlic",
+  "name_th": "กระเทียม",
+  "aliases": [
+   "กระเทียม",
+   "กระเทียมเจียว",
+   "กระเทียมดอง",
+   "ผงกระเทียม",
+   "ขนมปังกระเทียม",
+   "garlic"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "toxic",
+   "note_th": "อยู่ตระกูลเดียวกับหัวหอมและมีฤทธิ์แรงกว่า ทำลายเม็ดเลือดแดงและระคายเคืองทางเดินอาหาร อาหารไทยหลายอย่างใส่กระเทียม จึงไม่ควรแบ่งอาหารคนให้"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "แมวไวต่อพิษกระเทียมมาก กระเทียมแรงกว่าหัวหอมราว 5 เท่า ทำให้เลือดจาง เหงือกซีด หายใจเร็ว"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "Pet Poison Helpline – Garlic",
+    "url": "https://www.petpoisonhelpline.com/poison/garlic/"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   }
+  ]
+ },
+ {
+  "id": "xylitol",
+  "name_th": "ไซลิทอล (หมากฝรั่ง/ขนมไม่มีน้ำตาล)",
+  "aliases": [
+   "ไซลิทอล",
+   "หมากฝรั่ง",
+   "หมากฝรั่งไม่มีน้ำตาล",
+   "ลูกอมไม่มีน้ำตาล",
+   "ขนมไม่มีน้ำตาล",
+   "ยาสีฟัน",
+   "xylitol",
+   "birch sugar",
+   "sugar-free gum"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "toxic",
+   "note_th": "อันตรายร้ายแรงมาก ทำให้น้ำตาลในเลือดต่ำได้ภายในไม่กี่นาที และตับวายได้ พบในหมากฝรั่ง ลูกอม ขนม เนยถั่วบางยี่ห้อ ยาสีฟัน วิตามินเม็ดเคี้ยว ควรอ่านฉลากเสมอ"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "ข้อมูลในแมวยังมีน้อยกว่าสุนัข แต่สัตวแพทย์และ ASPCA แนะนำให้หลีกเลี่ยงเด็ดขาด และถือว่าเป็นเหตุฉุกเฉินหากแมวกินเข้าไป"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "Pet Poison Helpline – Xylitol",
+    "url": "https://www.petpoisonhelpline.com/poison/xylitol/"
+   },
+   {
+    "title": "Merck Veterinary Manual – Food Hazards",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "ASPCApro – Xylitol (ASPCA Animal Poison Control Center)",
+    "url": "https://www.aspcapro.org/sites/default/files/xylitol.pdf"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Peanut Butter?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-peanut-butter"
+   }
+  ]
+ },
+ {
+  "id": "macadamia",
+  "name_th": "แมคาเดเมีย",
+  "aliases": [
+   "แมคาเดเมีย",
+   "แมคคาเดเมีย",
+   "ถั่วแมคาเดเมีย",
+   "macadamia",
+   "macadamia nut"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ทำให้อ่อนแรง ขาหลังไม่มีแรง เดินเซ สั่น อาเจียน และมีไข้ มักเกิดภายใน 12 ชั่วโมง ระวังคุกกี้หรือช็อกโกแลตที่ใส่แมคาเดเมีย"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ยังไม่พบรายงานพิษเฉพาะในแมว (รายงานพบในสุนัข) แต่สัตวแพทย์แนะนำให้แมวงดถั่ว โดยเฉพาะแมคาเดเมียและวอลนัต เพราะไขมันสูง อาจทำให้อาเจียน ท้องเสีย หรือตับอ่อนอักเสบ"
+  },
+  "if_eaten_th": "สุนัข: ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน | แมว: ถ้ากินเล็กน้อย ให้สังเกตอาการอาเจียน ท้องเสีย ซึม ถ้ากินมาก หรือมีอาการผิดปกติ หรือเป็นขนมที่มีช็อกโกแลต/ลูกเกดผสม ให้ติดต่อสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "Merck Veterinary Manual – Food Hazards",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Macadamia Nuts",
+    "url": "https://www.petpoisonhelpline.com/poison/macadamia-nuts/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ]
+ },
+ {
+  "id": "avocado",
+  "name_th": "อะโวคาโด",
+  "aliases": [
+   "อะโวคาโด",
+   "อโวคาโด",
+   "avocado",
+   "เมล็ดอะโวคาโด"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "avoid",
+   "note_th": "AKC แนะนำว่าไม่ควรให้สุนัขกิน เมล็ด เปลือก และใบมีสารเพอร์ซินที่ทำให้อาเจียน ท้องเสีย เนื้อมีสารนี้น้อยกว่าแต่มีไขมันสูง อาจทำให้ท้องไส้ปั่นป่วนหรือตับอ่อนอักเสบ และเมล็ดอาจติดคอหรืออุดตันลำไส้"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่จัดเป็นพิษร้ายแรงต่อแมว (สัตว์ที่ไวต่อพิษคือนก กระต่าย ม้า แพะ แกะ) แต่ไม่มีประโยชน์ ไขมันสูงอาจทำให้ท้องเสีย และเมล็ดอาจอุดตันลำไส้ จึงไม่ควรให้"
+  },
+  "if_eaten_th": "ถ้าเผลอกินเนื้อเล็กน้อย ให้สังเกตอาการอาเจียนหรือท้องเสีย ถ้ากลืนเมล็ด กินเปลือก/ใบ หรือมีอาการอาเจียนซ้ำ ท้องอืด ปวดท้อง ไม่กินอาหาร ให้พาไปพบสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Avocado",
+    "url": "https://www.petpoisonhelpline.com/poison/avocado/"
+   },
+   {
+    "title": "Merck Veterinary Manual – Food Hazards",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
+   },
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   }
+  ]
+ },
+ {
+  "id": "alcohol",
+  "name_th": "แอลกอฮอล์ (เหล้า เบียร์ ไวน์)",
+  "aliases": [
+   "แอลกอฮอล์",
+   "เหล้า",
+   "เบียร์",
+   "ไวน์",
+   "สาโท",
+   "alcohol",
+   "beer",
+   "wine",
+   "liquor"
+  ],
+  "category": "เครื่องดื่ม",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ดูดซึมเร็ว ทำให้อาเจียน เดินเซ ซึม หายใจลำบาก ชัก หมดสติ จนถึงเสียชีวิตได้ รวมถึงขนมหรือลูกอมที่ผสมเหล้า"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข แม้ปริมาณน้อยก็ทำให้เดินเซ อาเจียน และกดระบบประสาทได้"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Alcohol",
+    "url": "https://www.petpoisonhelpline.com/poison/alcohol/"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   }
+  ]
+ },
+ {
+  "id": "caffeine",
+  "name_th": "กาแฟ ชา และเครื่องดื่มที่มีคาเฟอีน",
+  "aliases": [
+   "กาแฟ",
+   "ชา",
+   "ชาเย็น",
+   "ชาไทย",
+   "ชาเขียว",
+   "กาแฟเย็น",
+   "เมล็ดกาแฟ",
+   "กากกาแฟ",
+   "เครื่องดื่มชูกำลัง",
+   "โคล่า",
+   "คาเฟอีน",
+   "coffee",
+   "tea",
+   "caffeine",
+   "energy drink"
+  ],
+  "category": "เครื่องดื่ม",
+  "dog": {
+   "status": "toxic",
+   "note_th": "คาเฟอีนทำให้กระสับกระส่าย อาเจียน หัวใจเต้นเร็วผิดจังหวะ สั่น ชัก เมล็ดกาแฟ กากกาแฟ ถุงชา และเครื่องดื่มชูกำลังอันตรายกว่าการเลียกาแฟเพียงเล็กน้อย"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "แมวไวต่อคาเฟอีนมากกว่าคน ปริมาณสูงอาจถึงชีวิตและไม่มียาต้านพิษเฉพาะ ชาก็มีคาเฟอีนเช่นกัน"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Caffeine",
+    "url": "https://www.petpoisonhelpline.com/poison/caffeine/"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   }
+  ]
+ },
+ {
+  "id": "cow-milk",
+  "name_th": "นมวัว",
+  "aliases": [
+   "นม",
+   "นมวัว",
+   "นมจืด",
+   "นมสด",
+   "นมกล่อง",
+   "milk",
+   "cow milk"
+  ],
+  "category": "เครื่องดื่ม",
+  "dog": {
+   "status": "limited",
+   "note_th": "สุนัขหลายตัวย่อยแลคโตสได้ไม่ดี อาจท้องเสีย ท้องอืด ให้ได้เพียงไม่กี่ช้อนโต๊ะเป็นครั้งคราว ไม่ควรให้ทั้งชาม และไม่จำเป็นต่อสุขภาพ"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษ แต่แมวโตส่วนใหญ่มีเอนไซม์ย่อยน้ำตาลในนม (แลคโตส) น้อย จึงท้องเสียได้ สัตวแพทย์แนะนำให้งดนมและผลิตภัณฑ์นม ให้น้ำสะอาดแทน (ลูกแมวกำพร้าควรได้นมสูตรสำหรับลูกแมว ไม่ใช่นมวัว)"
+  },
+  "if_eaten_th": "นมไม่ใช่สารพิษ หากกินไปแล้วให้สังเกตอาการท้องเสียหรืออาเจียน ให้น้ำสะอาด หากท้องเสียหลายครั้ง ซึม หรือเป็นลูกสัตว์ ให้พาไปพบสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Drink Milk?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-drink-milk/"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ],
+  "serving_th": "สุนัข: ถ้าจะให้ ให้นมจืดเพียงเล็กน้อยนาน ๆ ครั้ง ไม่ใช่นมหวาน/นมปรุงแต่ง หยุดถ้าถ่ายเหลว"
+ },
+ {
+  "id": "boiled-egg",
+  "name_th": "ไข่ต้ม (ไข่สุก)",
+  "aliases": [
+   "ไข่ต้ม",
+   "ไข่สุก",
+   "ไข่คน",
+   "ไข่ไก่",
+   "boiled egg",
+   "cooked egg",
+   "egg",
+   "ไข่ต้มสุก"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "safe",
+   "note_th": "ให้ได้เมื่อปรุงสุกทั่ว ต้มหรือคนแบบไม่ใส่น้ำมัน เกลือ หรือเครื่องปรุง ให้เป็นของว่างเป็นครั้งคราว เพราะพลังงานค่อนข้างสูง (ไข่เจียว ไข่ดาวที่ทอดน้ำมันและใส่น้ำปลา ไม่ควรให้)"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ให้ได้ในปริมาณน้อยเมื่อสุกทั่วและไม่ปรุงรส ไข่ขาวสุกเหมาะกว่าไข่แดงซึ่งมีไขมันสูง ประมาณ 1 ช้อนโต๊ะโรยบนอาหารปกติ ไม่ใช้แทนอาหารหลัก"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Eggs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-eggs/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Eggs?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-eggs"
+   }
+  ],
+  "serving_th": "ต้มสุกทั่วจนไข่แดงแข็ง ไม่ใส่เกลือ/น้ำปลา/น้ำมัน หั่นชิ้นเล็ก ให้เป็นของว่าง"
+ },
+ {
+  "id": "raw-egg",
+  "name_th": "ไข่ดิบ / ไข่ไม่สุกทั่ว (ไข่ลวก ไข่ยางมะตูม)",
+  "aliases": [
+   "ไข่ดิบ",
+   "ไข่ไม่สุก",
+   "ไข่ลวก",
+   "ไข่ยางมะตูม",
+   "raw egg",
+   "ไข่ไม่สุกทั่ว",
+   "ไข่ดาวไม่สุก",
+   "ไข่แดงเยิ้ม"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษ แต่ไม่ควรให้ ไข่ที่ไม่สุกทั่วอาจมีเชื้อซัลโมเนลลาที่ทำให้ทั้งสุนัขและคนในบ้านป่วย และไข่ขาวดิบมีสารที่ขัดขวางการดูดซึมวิตามิน (ไบโอติน) ถ้าให้บ่อยอาจมีปัญหาผิวหนังและขน ควรต้มให้สุกทั่วก่อน"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษ แต่ไม่ควรให้ เสี่ยงเชื้อซัลโมเนลลา ทำให้อาเจียน ท้องเสีย และติดต่อสู่คนในบ้านได้ ควรปรุงให้สุกทั่วก่อน"
+  },
+  "if_eaten_th": "ไม่ต้องตกใจและไม่ต้องทำให้อาเจียน การกินครั้งเดียวมักไม่เป็นพิษ ให้สังเกตอาการในช่วงไม่กี่วันต่อมา ถ้ามีไข้ อาเจียน ท้องเสีย ซึม หรือไม่กินอาหาร ให้พาไปพบสัตวแพทย์ (สัตว์อายุน้อย ชรา หรือป่วยอยู่ ควรโทรปรึกษาสัตวแพทย์เลย) ล้างมือและชามอาหารให้สะอาด",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Eggs?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-eggs/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Eggs?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-eggs"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   }
+  ]
+ },
+ {
+  "id": "boiled-chicken",
+  "name_th": "ไก่ต้ม (ไม่ปรุง ไม่มีกระดูก)",
+  "aliases": [
+   "ไก่ต้ม",
+   "อกไก่",
+   "ไก่สุก",
+   "ไก่ลวก",
+   "chicken",
+   "boiled chicken"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "safe",
+   "note_th": "เป็นโปรตีนที่ดี ต้ม นึ่ง หรืออบให้สุก ไม่ใส่เครื่องปรุง ลอกหนังและแกะกระดูกออกทั้งหมด สุนัขบางตัวแพ้ไก่ ควรสังเกตเมื่อให้ครั้งแรก"
+  },
+  "cat": {
+   "status": "safe",
+   "note_th": "ให้เป็นของว่างได้ ปรุงสุกทั่ว ลอกหนัง แกะกระดูก ไม่ใส่เนย น้ำมัน หรือเครื่องปรุง ประมาณชิ้นขนาด 1 นิ้ววันละครั้ง ไม่ใช้แทนอาหารแมวที่ครบถ้วน"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Chicken?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-chicken/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   },
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   }
+  ],
+  "serving_th": "ต้ม/นึ่งสุกทั่ว ไม่ใส่เกลือ น้ำปลา กระเทียม ลอกหนัง แกะกระดูกออกหมด หั่นชิ้นเล็ก"
+ },
+ {
+  "id": "cooked-chicken-bone",
+  "name_th": "กระดูกไก่ และกระดูกสัตว์ที่ปรุงสุก",
+  "aliases": [
+   "กระดูกไก่",
+   "กระดูกไก่ต้ม",
+   "กระดูกไก่ทอด",
+   "ปีกไก่",
+   "น่องไก่",
+   "โครงไก่",
+   "กระดูก",
+   "chicken bone",
+   "cooked bone",
+   "กระดูกหมู",
+   "ซี่โครงหมู",
+   "กระดูกหมูต้ม",
+   "กระดูกสุก"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษ แต่อันตรายมาก กระดูกที่ปรุงสุกเปราะและแตกเป็นเสี้ยนแหลม อาจติดคอ บาดหรือทะลุหลอดอาหาร/ลำไส้ หรืออุดตันจนต้องผ่าตัด ห้ามให้"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษ แต่กระดูกสุกแตกเป็นเสี้ยน อาจทำให้ลำไส้อุดตันหรือฉีกขาด สัตวแพทย์แนะนำไม่ให้เนื้อที่ติดกระดูกแก่แมว"
+  },
+  "if_eaten_th": "อย่าไล่จับหรือดึงกระดูกออกจากปาก (สัตว์อาจรีบกลืนหรือกัด) และอย่าทำให้อาเจียนเอง ติดต่อสัตวแพทย์ทันทีเพื่อขอคำแนะนำ หากสำลัก ยืดคอ น้ำลายไหล อาเจียน กลืนลำบาก ท้องอืด หรือไม่กินอาหาร ต้องพาไปโรงพยาบาลสัตว์ทันที",
+  "sources": [
+   {
+    "title": "AKC – What to Do If Your Dog Eats a Chicken Bone",
+    "url": "https://www.akc.org/expert-advice/health/general-health/what-to-do-dog-eats-chicken-bone/"
+   },
+   {
+    "title": "AKC – Can Dogs Eat Chicken?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-chicken/"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ]
+ },
+ {
+  "id": "cooked-fish",
+  "name_th": "ปลาสุก (ไม่มีก้าง)",
+  "aliases": [
+   "ปลาสุก",
+   "ปลาต้ม",
+   "ปลานึ่ง",
+   "ปลาแซลมอน",
+   "fish",
+   "cooked fish",
+   "salmon",
+   "ปลาทูสดนึ่ง"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "safe",
+   "note_th": "ให้ได้เมื่อนึ่งหรือต้มสุก ไม่ใส่น้ำมันหรือเครื่องปรุง และต้องแกะก้างออกหมด เพราะก้างอาจติดคอหรือแทงทะลุทางเดินอาหาร ให้เป็นครั้งคราว"
+  },
+  "cat": {
+   "status": "safe",
+   "note_th": "ให้ได้เมื่อปรุงสุก ไม่ปรุงรส แกะหนังและก้างออก ประมาณชิ้นขนาด 1 นิ้วต่อวันเป็นของว่าง ไม่ควรให้ปลาเป็นอาหารหลักเพียงอย่างเดียว"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์ ถ้าสงสัยว่ากลืนก้างแล้วมีอาการไอ ขย้อน น้ำลายไหล หรือกลืนลำบาก ให้พาไปพบสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Fish?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-fish/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ],
+  "serving_th": "นึ่ง/ต้มปลาสดให้สุก ไม่ใส่เกลือหรือน้ำปลา แกะก้างและหนังออกหมด ไม่ใช้ปลาทูนึ่งที่ขายในตลาด (มีเกลือ)"
+ },
+ {
+  "id": "raw-fish",
+  "name_th": "ปลาดิบ",
+  "aliases": [
+   "ปลาดิบ",
+   "ซาชิมิ",
+   "ปลาไม่สุก",
+   "ปลาน้ำจืดดิบ",
+   "raw fish",
+   "sashimi",
+   "sushi"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษเฉียบพลัน แต่ไม่ควรให้ อาจมีเชื้อซัลโมเนลลาและลิสทีเรีย และปลาดิบบางชนิด (โดยเฉพาะปลาน้ำจืด) มีเอนไซม์ทำลายวิตามินบี 1 การทำให้สุกช่วยทำลายเชื้อและเอนไซม์นี้"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษเฉียบพลัน แต่ไม่ควรให้ ปลาดิบบางชนิดมีเอนไซม์ทำลายวิตามินบี 1 (ไทอามีน) ถ้ากินบ่อยแมวอาจขาดวิตามินบี 1 เบื่ออาหาร ชัก และมีอาการทางระบบประสาท และเสี่ยงเชื้อโรค ควรทำให้สุกก่อนเสมอ"
+  },
+  "if_eaten_th": "ไม่ต้องทำให้อาเจียน การกินครั้งเดียวมักไม่เป็นพิษ ให้สังเกตอาการในช่วงไม่กี่วันต่อมา ถ้าอาเจียน ท้องเสีย ซึม เดินเซ หรือไม่กินอาหาร ให้พาไปพบสัตวแพทย์ ถ้าแมวเคยกินปลาดิบเป็นประจำแล้วมีอาการเบื่ออาหาร เดินเซ หรือชัก ให้พาไปพบสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "Merck Veterinary Manual – Nutritional Requirements of Small Animals",
+    "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-and-related-diseases-of-small-animals"
+   },
+   {
+    "title": "AKC – Can Dogs Eat Fish?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-fish/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ]
+ },
+ {
+  "id": "canned-tuna",
+  "name_th": "ทูน่ากระป๋อง",
+  "aliases": [
+   "ทูน่า",
+   "ทูน่ากระป๋อง",
+   "ปลาทูน่า",
+   "tuna",
+   "canned tuna"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษเมื่อกินเล็กน้อย แต่ทูน่ามีปรอทสูง AKC แนะนำให้เลือกปลาชนิดอื่นที่ปรอทต่ำกว่า ถ้าให้ ควรเป็นชนิดในน้ำแร่/น้ำเปล่า ไม่ปรุงรส และนาน ๆ ครั้ง"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ให้เป็นขนมได้ไม่เกินประมาณ 1 ช้อนโต๊ะต่อสัปดาห์ เลือกแบบในน้ำ ไม่ใช่ในน้ำมันหรือปรุงรส การกินทูน่ามากเป็นประจำเสี่ยงสารปรอทและขาดวิตามินอี (ไขมันอักเสบ) ลูกแมวอายุต่ำกว่า 1 ปีไม่ควรกิน"
+  },
+  "if_eaten_th": "การกินครั้งเดียวมักไม่อันตราย ไม่ควรให้ต่อเนื่อง หากอาเจียนหรือท้องเสียต่อเนื่อง ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Fish?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-fish/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Tuna?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-tuna"
+   },
+   {
+    "title": "Merck Veterinary Manual – Nutritional Requirements of Small Animals",
+    "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-and-related-diseases-of-small-animals"
+   }
+  ],
+  "serving_th": "เลือกชนิดในน้ำแร่/น้ำเปล่า ไม่ใช่ในน้ำมันหรือปรุงรส ให้เป็นขนมนาน ๆ ครั้ง ไม่ใช่อาหารหลัก"
+ },
+ {
+  "id": "liver",
+  "name_th": "ตับ (ตับไก่ ตับหมู)",
+  "aliases": [
+   "ตับ",
+   "ตับไก่",
+   "ตับหมู",
+   "ตับวัว",
+   "liver",
+   "chicken liver"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "limited",
+   "note_th": "ให้ได้เล็กน้อยเมื่อปรุงสุกและไม่ปรุงรส แต่ตับมีวิตามินเอสูงมาก ถ้าให้กินบ่อยหรือเป็นอาหารหลักอาจเกิดพิษจากวิตามินเอ"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ให้ได้เล็กน้อยนาน ๆ ครั้งเมื่อปรุงสุก แมวเสี่ยงพิษวิตามินเอเมื่อกินตับมากเป็นประจำ ทำให้กระดูกคองอกผิดปกติ ปวด เคลื่อนไหวคอลำบาก โดยเฉพาะลูกแมว"
+  },
+  "if_eaten_th": "การกินครั้งเดียวมักไม่อันตราย ปัญหาเกิดจากการกินมากเป็นประจำ หากสัตว์เคยกินตับเป็นประจำแล้วมีอาการเจ็บคอ/หลัง เดินลำบาก ให้พาไปพบสัตวแพทย์",
+  "sources": [
+   {
+    "title": "Merck Veterinary Manual – Nutritional Requirements of Small Animals",
+    "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-and-related-diseases-of-small-animals"
+   }
+  ],
+  "serving_th": "ต้มสุก ไม่ปรุงรส หั่นชิ้นเล็ก ให้นาน ๆ ครั้ง ไม่ใช้เป็นอาหารหลักหรือให้ทุกวัน"
+ },
+ {
+  "id": "cooked-rice",
+  "name_th": "ข้าวสวย (ข้าวสุก)",
+  "aliases": [
+   "ข้าว",
+   "ข้าวสวย",
+   "ข้าวสุก",
+   "ข้าวกล้อง",
+   "rice",
+   "cooked rice",
+   "ข้าวต้มเปล่า"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "safe",
+   "note_th": "ข้าวขาวหุงสุกไม่ปรุงรสย่อยง่าย ให้เป็นส่วนเล็ก ๆ ของมื้อได้ ข้าวกล้องย่อยยากกว่า ไม่เหมาะเมื่อท้องเสีย สุนัขที่เป็นเบาหวานควรปรึกษาสัตวแพทย์"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษ แต่แมวเป็นสัตว์กินเนื้อและได้ประโยชน์จากข้าวน้อย ถ้าให้ ควรเป็นข้าวสุกไม่ปรุงรส น้อยกว่า 1 ช้อนโต๊ะต่อสัปดาห์ ไม่ควรให้ลูกแมว"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Rice?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-rice/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Rice?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-rice"
+   }
+  ],
+  "serving_th": "ข้าวสวย/ข้าวต้มเปล่าที่ไม่ใส่เกลือ น้ำซุป กระเทียมเจียว หรือเครื่องปรุงใด ๆ"
+ },
+ {
+  "id": "pumpkin",
+  "name_th": "ฟักทอง (สุก)",
+  "aliases": [
+   "ฟักทอง",
+   "ฟักทองนึ่ง",
+   "ฟักทองบด",
+   "pumpkin"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "safe",
+   "note_th": "ให้ได้เมื่อนึ่งหรือบดสุก ปอกเปลือก ไม่ใส่น้ำตาล เครื่องเทศ หรือเนย ช่วยเรื่องท้องเสียหรือท้องผูกได้"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ให้ฟักทองบดสุกไม่ปรุงรสได้ประมาณ 1 ช้อนโต๊ะ 2–3 ครั้งต่อสัปดาห์ ไม่ควรให้ฟักทองดิบ หากใช้แก้ปัญหาขับถ่ายควรปรึกษาสัตวแพทย์"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   },
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   }
+  ],
+  "serving_th": "นึ่ง/ต้มให้สุกนิ่ม ปอกเปลือก เอาเมล็ดออก บด ไม่ใส่น้ำตาล นม หรือเนย"
+ },
+ {
+  "id": "carrot",
+  "name_th": "แครอท",
+  "aliases": [
+   "แครอท",
+   "แคร์รอท",
+   "carrot"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "safe",
+   "note_th": "เป็นขนมแคลอรีต่ำ ให้ได้ทั้งดิบและสุก ควรหั่นชิ้นพอดีคำเพื่อป้องกันการติดคอ ไม่ปรุงรส"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษ ให้เป็นขนมได้เล็กน้อย ควรต้ม/นึ่งให้นิ่มและหั่นชิ้นเล็ก ไม่ปรุงรส แมวเป็นสัตว์กินเนื้อจึงได้ประโยชน์จากผักไม่มาก"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   },
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "Tufts Petfoodology (Cummings School of Veterinary Medicine) – Harmful vs Healthy Foods for Pets",
+    "url": "https://sites.tufts.edu/petfoodology/?p=9234"
+   }
+  ],
+  "serving_th": "หั่นชิ้นพอดีคำหรือขูดฝอย สำหรับแมวควรนึ่งให้นิ่มก่อน ไม่ปรุงรส"
+ },
+ {
+  "id": "watermelon",
+  "name_th": "แตงโม",
+  "aliases": [
+   "แตงโม",
+   "watermelon"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "safe",
+   "note_th": "ให้ได้เฉพาะเนื้อ ต้องเอาเมล็ดและเปลือกออก เพราะอาจทำให้ลำไส้อุดตัน"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ให้ได้เฉพาะเนื้อชิ้นเล็ก (ประมาณ 1 ซม.) สัปดาห์ละ 1–2 ครั้ง เอาเมล็ดและเปลือกออก มีน้ำตาลค่อนข้างสูง แมวเบาหวานไม่ควรกิน"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   },
+   {
+    "title": "Tufts Petfoodology (Cummings School of Veterinary Medicine) – Harmful vs Healthy Foods for Pets",
+    "url": "https://sites.tufts.edu/petfoodology/?p=9234"
+   }
+  ],
+  "serving_th": "เฉพาะเนื้อแดง เอาเมล็ดและเปลือกออก หั่นชิ้นเล็ก"
+ },
+ {
+  "id": "banana",
+  "name_th": "กล้วย",
+  "aliases": [
+   "กล้วย",
+   "กล้วยหอม",
+   "กล้วยน้ำว้า",
+   "กล้วยไข่",
+   "banana"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "limited",
+   "note_th": "ให้ได้เป็นขนมในปริมาณน้อย เพราะมีน้ำตาลสูง ไม่ควรเป็นอาหารหลัก และไม่ควรให้กินเปลือก"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษแต่มีประโยชน์น้อย ให้ได้ไม่เกินชิ้นเล็กประมาณ 1 นิ้ว ทุกสองสามสัปดาห์ ห้ามให้เปลือก แมวอ้วนหรือเป็นเบาหวานควรงด"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Bananas?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-bananas"
+   }
+  ],
+  "serving_th": "ปอกเปลือก หั่นชิ้นเล็ก ให้เป็นขนมนาน ๆ ครั้ง ไม่ใช่กล้วยทอด/กล้วยเชื่อม"
+ },
+ {
+  "id": "apple",
+  "name_th": "แอปเปิล (เนื้อ) — ห้ามเมล็ดและแกน",
+  "aliases": [
+   "แอปเปิล",
+   "แอปเปิ้ล",
+   "apple"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "limited",
+   "note_th": "เนื้อแอปเปิลให้ได้เป็นขนม แต่ต้องเอาแกน เมล็ด และก้านออก เพราะเมล็ด ก้าน และใบมีสารที่ปล่อยไซยาไนด์ และแกนอาจติดคอ"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "เนื้อแอปเปิลไม่เป็นพิษแต่มีประโยชน์น้อย ปอกเปลือก เอาเมล็ด แกน ก้านออก หั่นชิ้นเล็กให้เพียงเล็กน้อยนาน ๆ ครั้ง"
+  },
+  "if_eaten_th": "ถ้ากินเฉพาะเนื้อ ไม่ต้องกังวล ถ้ากลืนแกน/เมล็ด/ก้านหรือใบปริมาณมาก หรือมีอาการหายใจลำบาก อาเจียน ซึม ให้ติดต่อสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "ASPCA Poison Control – Toxic and Non-Toxic Plants: Apple",
+    "url": "https://www.aspca.org/node/4582"
+   },
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Apples?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-apples"
+   }
+  ],
+  "serving_th": "ล้าง ปอกเปลือก (สำหรับแมว) ตัดแกนและเมล็ดออกหมด หั่นชิ้นเล็ก"
+ },
+ {
+  "id": "mango",
+  "name_th": "มะม่วง (เนื้อสุก)",
+  "aliases": [
+   "มะม่วง",
+   "มะม่วงสุก",
+   "มะม่วงน้ำดอกไม้",
+   "mango"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "limited",
+   "note_th": "ให้เนื้อมะม่วงได้เป็นครั้งคราวเพราะน้ำตาลสูง ต้องปอกเปลือกและเอาเมล็ดออก เมล็ดอาจติดคอ/อุดตันลำไส้ และมีสารไซยาไนด์เล็กน้อย"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษ ให้เนื้อสุกชิ้นเล็กในปริมาณน้อย เอาเปลือก ก้าน และเมล็ดออก แมวเบาหวานไม่ควรกินผลไม้"
+  },
+  "if_eaten_th": "ถ้ากินเฉพาะเนื้อเล็กน้อยไม่ต้องกังวล ถ้ากลืนเมล็ดหรือมีอาการอาเจียน ท้องอืด ไม่ถ่าย ให้พาไปพบสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   }
+  ],
+  "serving_th": "เฉพาะเนื้อสุก ปอกเปลือก ตัดเนื้อออกจากเมล็ด หั่นชิ้นเล็ก ไม่ใช่มะม่วงดอง/มะม่วงน้ำปลาหวาน"
+ },
+ {
+  "id": "pineapple",
+  "name_th": "สับปะรด",
+  "aliases": [
+   "สับปะรด",
+   "สัปปะรด",
+   "pineapple"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "safe",
+   "note_th": "ให้ได้เฉพาะเนื้อสด ปอกเปลือกและตัดจุก/แกนแข็งออก หั่นชิ้นพอดีคำ หลีกเลี่ยงสับปะรดกระป๋องในน้ำเชื่อม"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษ ให้ได้เฉพาะเนื้อสดชิ้นเล็กในปริมาณน้อย แมวเบาหวานไม่ควรกิน"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   }
+  ],
+  "serving_th": "เนื้อสดเท่านั้น ปอกเปลือก ตัดแกนแข็งออก หั่นชิ้นเล็ก ไม่ใช่สับปะรดกระป๋องในน้ำเชื่อมหรือจิ้มเกลือ/พริกเกลือ"
+ },
+ {
+  "id": "cucumber",
+  "name_th": "แตงกวา",
+  "aliases": [
+   "แตงกวา",
+   "cucumber"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "safe",
+   "note_th": "ขนมแคลอรีต่ำ เหมาะกับสุนัขน้ำหนักเกิน หั่นชิ้นพอดีคำ ไม่ปรุงรส"
+  },
+  "cat": {
+   "status": "safe",
+   "note_th": "เป็นของว่างแคลอรีต่ำ ให้ชิ้นเล็ก ไม่ปรุงรส ในปริมาณน้อย"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   }
+  ],
+  "serving_th": "ล้างสะอาด หั่นชิ้นพอดีคำ ไม่จิ้มเกลือ/น้ำพริก ไม่ใช่แตงกวาดอง"
+ },
+ {
+  "id": "citrus",
+  "name_th": "ส้ม มะนาว (ผลไม้ตระกูลส้ม)",
+  "aliases": [
+   "ส้ม",
+   "ส้มเขียวหวาน",
+   "มะนาว",
+   "ส้มโอ",
+   "citrus",
+   "orange",
+   "lemon",
+   "lime"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "limited",
+   "note_th": "เนื้อส้มให้ได้เล็กน้อยโดยไม่เอาเปลือกและเมล็ด เปลือก เมล็ด และน้ำมันหอมระเหยอาจระคายเคืองทางเดินอาหาร สุนัขหลายตัวไม่ชอบรสเปรี้ยว"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "สัตวแพทย์แนะนำให้แมวหลีกเลี่ยงผลไม้ตระกูลส้ม เนื้อผลเล็กน้อยมักไม่เป็นพิษ แต่เปลือก เมล็ด และน้ำมันหอมระเหยทำให้อาเจียน ท้องเสีย และแมวไม่ได้ประโยชน์"
+  },
+  "if_eaten_th": "กินเนื้อเล็กน้อยมักแค่ท้องไส้ปั่นป่วน ถ้ากินเปลือก/เมล็ดมาก หรือมีอาการซึม สั่น อาเจียนต่อเนื่อง ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   }
+  ],
+  "serving_th": "สุนัข: ถ้าจะให้ ให้เนื้อส้มหวานเพียงเล็กน้อย แกะเปลือกและเมล็ดออก"
+ },
+ {
+  "id": "tomato",
+  "name_th": "มะเขือเทศ (สุก)",
+  "aliases": [
+   "มะเขือเทศ",
+   "มะเขือเทศสุก",
+   "มะเขือเทศดิบ",
+   "tomato"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "limited",
+   "note_th": "เนื้อมะเขือเทศสุกโดยทั่วไปปลอดภัยเล็กน้อย แต่ผลดิบสีเขียว ใบ และลำต้นมีสารโซลานีน ควรให้สุนัขอยู่ห่างจากต้นมะเขือเทศ"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ผลสุกให้ได้เล็กน้อย ห้ามผลดิบสีเขียว ใบ และลำต้น ซึ่งอาจทำให้น้ำลายไหล อาเจียน ท้องเสีย ซึม"
+  },
+  "if_eaten_th": "ถ้ากินผลสุกเล็กน้อยไม่ต้องกังวล ถ้ากินผลดิบสีเขียว ใบ หรือลำต้น และมีอาการผิดปกติ ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   }
+  ],
+  "serving_th": "เฉพาะผลสุกสีแดง ล้างและหั่นชิ้นเล็ก ไม่ให้ผลดิบสีเขียว ใบ หรือก้าน และไม่ใช่ซอสมะเขือเทศ"
+ },
+ {
+  "id": "coconut",
+  "name_th": "มะพร้าว และกะทิ",
+  "aliases": [
+   "มะพร้าว",
+   "เนื้อมะพร้าว",
+   "กะทิ",
+   "น้ำมันมะพร้าว",
+   "coconut",
+   "coconut milk",
+   "coconut oil"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "limited",
+   "note_th": "ปริมาณน้อยไม่น่าก่ออันตรายร้ายแรง แต่เนื้อและกะทิมีไขมัน อาจทำให้ท้องไส้ปั่นป่วนหรือถ่ายเหลว แกงกะทิของคนมักมีกระเทียม หอม และพริก ห้ามให้"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่จัดเป็นพิษร้ายแรง แต่สัตวแพทย์จัดกะทิไว้ในรายการที่แมวควรหลีกเลี่ยง ไขมันในเนื้อมะพร้าวและกะทิอาจทำให้ท้องเสีย และอาหารคนที่ใส่กะทิมักมีหอม กระเทียม ซึ่งเป็นพิษต่อแมว"
+  },
+  "if_eaten_th": "ถ้ากินเล็กน้อย สังเกตอาการท้องเสีย ถ้าเป็นแกงที่มีหอม/กระเทียม หรือท้องเสียรุนแรง ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ],
+  "serving_th": "สุนัข: ถ้าจะให้ ให้เนื้อมะพร้าวขูดไม่ปรุงเพียงเล็กน้อย ห้ามแกงกะทิหรือขนมกะทิที่ใส่น้ำตาล"
+ },
+ {
+  "id": "peanut-butter",
+  "name_th": "เนยถั่ว",
+  "aliases": [
+   "เนยถั่ว",
+   "peanut butter"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "limited",
+   "note_th": "ให้ได้เล็กน้อยเฉพาะชนิดที่ไม่มีไซลิทอล ไม่เค็ม ไม่หวาน ต้องอ่านฉลากทุกครั้ง เพราะไซลิทอลเป็นพิษร้ายแรง ไขมันสูงอาจทำให้อ้วนหรือตับอ่อนอักเสบ"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่แนะนำ ไม่มีประโยชน์ต่อแมวและไขมันสูง ถ้าเผลอเลียชนิดที่ไม่มีไซลิทอลเล็กน้อย มักแค่ท้องไส้ปั่นป่วน แต่ชนิดที่มีไซลิทอลเป็นเหตุฉุกเฉิน"
+  },
+  "if_eaten_th": "ตรวจฉลากทันที ถ้ามีไซลิทอล (xylitol / birch sugar) ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที ถ้าไม่มี ให้สังเกตอาการอาเจียนหรือท้องเสีย",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Peanut Butter?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-peanut-butter/"
+   },
+   {
+    "title": "PetMD (DVM-authored) – Can Cats Eat Peanut Butter?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-peanut-butter"
+   },
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   }
+  ],
+  "serving_th": "สุนัข: เลือกชนิดที่ส่วนผสมมีแค่ถั่ว ไม่มีไซลิทอล ไม่เค็ม ไม่หวาน ทาบาง ๆ หรือใส่ของเล่นเพียงเล็กน้อย"
+ },
+ {
+  "id": "bread",
+  "name_th": "ขนมปัง (อบสุก ไม่มีไส้)",
+  "aliases": [
+   "ขนมปัง",
+   "ขนมปังแผ่น",
+   "ขนมปังจืด",
+   "bread",
+   "toast"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "limited",
+   "note_th": "ขนมปังขาวหรือโฮลวีตธรรมดาให้ได้ชิ้นเล็กนาน ๆ ครั้ง ไม่มีประโยชน์เพิ่มและแคลอรีสูง ห้ามขนมปังลูกเกด ขนมปังกระเทียม หรือที่มีไซลิทอล/แมคาเดเมีย"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ขนมปังอบสุกธรรมดาไม่เป็นพิษ แต่แคลอรีสูงและไม่มีประโยชน์ต่อแมว ให้เพียงคำเล็กนาน ๆ ครั้ง และระวังไส้ที่มีลูกเกด กระเทียม หรือหอม"
+  },
+  "if_eaten_th": "ขนมปังธรรมดาไม่น่ากังวล ถ้าเป็นขนมปังที่มีลูกเกด กระเทียม หัวหอม ไซลิทอล หรือแมคาเดเมีย ให้ติดต่อสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Bread?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-bread/"
+   },
+   {
+    "title": "Tufts Petfoodology (Cummings School of Veterinary Medicine) – Harmful vs Healthy Foods for Pets",
+    "url": "https://sites.tufts.edu/petfoodology/?p=9234"
+   }
+  ],
+  "serving_th": "ขนมปังจืดธรรมดาชิ้นเล็กนาน ๆ ครั้ง ไม่มีไส้ ไม่ทาเนย/แยม ไม่ใช่ขนมปังกระเทียมหรือลูกเกด"
+ },
+ {
+  "id": "raw-dough",
+  "name_th": "แป้งขนมปังดิบ (แป้งหมักยีสต์)",
+  "aliases": [
+   "แป้งดิบ",
+   "แป้งโด",
+   "แป้งหมัก",
+   "แป้งขนมปังดิบ",
+   "แป้งซาลาเปาดิบ",
+   "raw dough",
+   "yeast dough",
+   "bread dough"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "toxic",
+   "note_th": "แป้งดิบที่มียีสต์จะขยายตัวในกระเพาะ ทำให้ท้องอืดรุนแรง กระเพาะอาจบิด และยีสต์สร้างแอลกอฮอล์ทำให้เกิดพิษแอลกอฮอล์"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "แป้งดิบที่มียีสต์จะขยายตัวและสร้างแก๊สในทางเดินอาหาร อาจทำให้กระเพาะหรือลำไส้แตก และเกิดพิษจากแอลกอฮอล์"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Merck Veterinary Manual – Food Hazards",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "Pet Poison Helpline – Alcohol",
+    "url": "https://www.petpoisonhelpline.com/poison/alcohol/"
+   }
+  ]
+ },
+ {
+  "id": "spicy-food",
+  "name_th": "อาหารรสจัด และพริก",
+  "aliases": [
+   "พริก",
+   "อาหารเผ็ด",
+   "อาหารรสจัด",
+   "น้ำพริก",
+   "ซอสพริก",
+   "chili",
+   "chilli",
+   "spicy food",
+   "พริกแห้ง",
+   "พริกป่น"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "avoid",
+   "note_th": "พริกไม่ใช่สารพิษร้ายแรง แต่ระคายเคืองปาก ตา และทางเดินอาหาร ทำให้อาเจียน ท้องเสียได้ ที่น่ากังวลกว่าคืออาหารไทยรสจัดมักมีกระเทียม หอม และเกลือ ซึ่งเป็นอันตรายต่อสุนัข (ดูหัวข้อ \"อาหารคนปรุงรส\")"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "พริกระคายเคืองปากและทางเดินอาหาร ทำให้อาเจียน ท้องเสีย ที่น่ากังวลกว่าคืออาหารรสจัดมักมีหอม กระเทียม และเกลือ ซึ่งเป็นพิษต่อแมวมาก จึงไม่ควรแบ่งให้"
+  },
+  "if_eaten_th": "ถ้าเลียพริกหรือน้ำพริกเล็กน้อย ให้น้ำสะอาดและสังเกตอาการ อย่าพยายามทำให้อาเจียนเอง ถ้าอาหารนั้นมีหอมหรือกระเทียม (เช่น น้ำพริก แกง) หรือสัตว์อาเจียน ท้องเสีย ซึม ให้ติดต่อสัตวแพทย์ทันที โดยเฉพาะแมว",
+  "sources": [
+   {
+    "title": "IVIS – Guide to Poisonous House and Garden Plants: Capsicum (Chili Pepper), A. Knight, Colorado State Univ.",
+    "url": "https://www.ivis.org/library/guide-to-poisonous-house-and-garden-plants/capsicum-species-chili-pepper"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats (สนับสนุนเฉพาะเรื่องหอม กระเทียม เกลือ ไม่ได้กล่าวถึงพริก)",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   }
+  ]
+ },
+ {
+  "id": "lean-cooked-meat",
+  "name_th": "เนื้อหมู/เนื้อวัวสุก (ไม่ติดมัน ไม่ปรุง)",
+  "aliases": [
+   "หมูต้ม",
+   "เนื้อวัว",
+   "เนื้อสุก",
+   "pork",
+   "beef",
+   "cooked meat"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "safe",
+   "note_th": "เนื้อไม่ติดมันที่ปรุงสุก ไม่มีกระดูกและเครื่องปรุง ให้ได้ในปริมาณน้อย หลีกเลี่ยงเนื้อแปรรูป เช่น ไส้กรอก แฮม เบคอน หมูยอ ที่เค็มและมันมาก"
+  },
+  "cat": {
+   "status": "safe",
+   "note_th": "เนื้อไม่ติดมันที่ปรุงสุก ไม่มีกระดูกและเครื่องปรุง ให้เป็นของว่างในปริมาณน้อย ไม่ใช้แทนอาหารแมวที่ครบถ้วน หลีกเลี่ยงเนื้อแปรรูปและเนื้อดิบ"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "ASPCA – Sharing is Caring: Foods You Can Safely Share with Your Pet",
+    "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ],
+  "serving_th": "ต้มสุกทั่ว ตัดมันและหนังออก ไม่มีกระดูก ไม่ใส่เกลือ น้ำปลา ซีอิ๊ว กระเทียม หั่นชิ้นเล็ก"
+ },
+ {
+  "id": "lily",
+  "name_th": "ดอกลิลลี่",
+  "aliases": [
+   "ลิลลี่",
+   "ดอกลิลลี่",
+   "เดย์ลิลลี่",
+   "ลิลลี่อีสเตอร์",
+   "ละอองเกสรลิลลี่",
+   "lily",
+   "lilies",
+   "daylily"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ลิลลี่แท้และเดย์ลิลลี่มักทำให้สุนัขเพียงท้องไส้ปั่นป่วน (อาการรุนแรงในแมวมากกว่ามาก) แต่ไม่ควรให้กิน ส่วนพืชที่ชื่อคล้ายกัน เช่น ลิลลี่ออฟเดอะแวลลีย์ มีสารที่มีผลต่อหัวใจ และดองดึงเป็นพิษร้ายแรง (ดูหัวข้อดองดึง)"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "อันตรายถึงชีวิต ทุกส่วนของลิลลี่แท้และเดย์ลิลลี่ รวมทั้งเกสรที่ติดขนแล้วแมวเลีย และน้ำในแจกัน ทำให้ไตวายเฉียบพลันได้ภายใน 3 วัน ไม่ควรมีลิลลี่ในบ้านที่เลี้ยงแมว"
+  },
+  "if_eaten_th": "แมว: ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้แมวยังไม่มีอาการ ยิ่งรักษาเร็วยิ่งดี (ถ้าช้าเกิน 18 ชั่วโมง ไตอาจเสียหายถาวร) ถ่ายรูปหรือนำต้นไม้ไปด้วยเพื่อระบุชนิด อย่าพยายามทำให้อาเจียนเองที่บ้าน | สุนัข: ลิลลี่แท้มักทำให้แค่อาเจียนหรือท้องเสีย ให้โทรปรึกษาสัตวแพทย์และสังเกตอาการ ถ้าเป็นลิลลี่ออฟเดอะแวลลีย์หรือดองดึง หรือมีอาการซึม หัวใจเต้นผิดปกติ ให้ติดต่อสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "U.S. FDA – Lovely Lilies and Curious Cats: A Dangerous Combination",
+    "url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/lovely-lilies-and-curious-cats-dangerous-combination"
+   },
+   {
+    "title": "ASPCA – Which Lilies Are Toxic to Pets?",
+    "url": "https://www.aspca.org/news/which-lilies-are-toxic-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Lilies",
+    "url": "https://www.petpoisonhelpline.com/poison/lilies/"
+   },
+   {
+    "title": "International Cat Care – Cats and poisons",
+    "url": "https://icatcare.org/articles/cats-and-poisons"
+   }
+  ]
+ },
+ {
+  "id": "tamarind",
+  "name_th": "มะขาม (มะขามหวาน มะขามเปียก มะขามแช่อิ่ม)",
+  "aliases": [
+   "มะขาม",
+   "มะขามหวาน",
+   "มะขามเปียก",
+   "มะขามเปรี้ยว",
+   "มะขามแช่อิ่ม",
+   "มะขามคลุก",
+   "tamarind"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "toxic",
+   "note_th": "มะขามมีกรดทาร์ทาริกเช่นเดียวกับองุ่น ซึ่งเชื่อว่าเป็นสาเหตุที่ทำให้สุนัขไตวายเฉียบพลัน จึงไม่ควรให้กินทุกรูปแบบ"
+  },
+  "cat": {
+   "status": "unknown",
+   "note_th": "ยังไม่มีข้อมูลยืนยันในแมวจากแหล่งอ้างอิงทางสัตวแพทย์ (ข้อมูลพิษมีเฉพาะในสุนัข) ไม่มีประโยชน์ต่อแมว จึงควรงดให้กินไว้ก่อน"
+  },
+  "if_eaten_th": "สุนัข: ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน | แมว: โทรปรึกษาสัตวแพทย์ และสังเกตอาการอาเจียน ซึม ไม่กินอาหาร หรือปัสสาวะผิดปกติ ถ้ามีอาการให้พาไปพบสัตวแพทย์ทันที",
+  "sources": [
+   {
+    "title": "ASPCApro – Tartaric acid and grape toxicity in dogs",
+    "url": "https://www.aspcapro.org/node/104073"
+   },
+   {
+    "title": "Merck Veterinary Manual – Food Hazards",
+    "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
+   }
+  ]
+ },
+ {
+  "id": "table-leftovers",
+  "name_th": "อาหารคนปรุงรส / อาหารเหลือจากโต๊ะ",
+  "aliases": [
+   "อาหารคน",
+   "อาหารเหลือ",
+   "เศษอาหาร",
+   "ข้าวต้ม",
+   "ข้าวต้มหมู",
+   "โจ๊ก",
+   "ข้าวผัด",
+   "ผัดกะเพรา",
+   "กะเพรา",
+   "ไก่ทอด",
+   "ไก่ย่าง",
+   "หมูทอด",
+   "หมูปิ้ง",
+   "หมูกระทะ",
+   "ส้มตำ",
+   "แกง",
+   "แกงเผ็ด",
+   "แกงจืด",
+   "แกงเขียวหวาน",
+   "ต้มยำ",
+   "ปลาทู",
+   "ปลาทูนึ่ง",
+   "ปลาทอด",
+   "ไข่เจียว",
+   "ไข่ดาว",
+   "ไข่พะโล้",
+   "ก๋วยเตี๋ยว",
+   "น้ำซุป",
+   "น้ำแกง",
+   "หนังไก่",
+   "หนังไก่ทอด",
+   "มันหมู",
+   "หนังหมู",
+   "แคบหมู",
+   "table scraps",
+   "leftovers"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ อาหารไทยเกือบทุกจานมีกระเทียม หอม (รวมถึงกระเทียมเจียว หอมเจียว ผงปรุงรส) ซึ่งทำลายเม็ดเลือดแดง และมีเกลือ น้ำปลา ซีอิ๊วสูง ของทอด หนัง และมันสัตว์ทำให้ท้องเสียและเสี่ยงตับอ่อนอักเสบ ปลาทูนึ่งตามตลาดผ่านการต้มเกลือมาแล้ว ถ้าอยากแบ่ง ให้แยกเนื้อสัตว์ต้มเปล่าออกมาก่อนปรุง"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ แมวไวต่อพิษจากหอมและกระเทียมมากที่สุด แม้ปริมาณน้อยในน้ำแกงหรือข้าวต้มก็ทำลายเม็ดเลือดแดงได้ และอาหารคนมีเกลือ ไขมัน และเครื่องเทศสูง ถ้าอยากแบ่ง ให้แยกเนื้อสัตว์ต้มเปล่าออกมาก่อนปรุง"
+  },
+  "if_eaten_th": "ถ้ากินเพียงเล็กน้อยและไม่มีหอม/กระเทียม ให้น้ำสะอาดและสังเกตอาการ ถ้าอาหารนั้นมีหอม กระเทียม หรือกินไปมาก หรือมีอาการอาเจียน ท้องเสีย ซึม เหงือกซีด หายใจเร็ว กระหายน้ำมากผิดปกติ ให้ติดต่อสัตวแพทย์ทันที (อาการเลือดจางจากหอม/กระเทียมอาจเกิดช้าหลายวัน) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Garlic",
+    "url": "https://www.petpoisonhelpline.com/poison/garlic/"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "AKC – Can Dogs Eat Onions?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-onions/"
+   },
+   {
+    "title": "AKC – Can Dogs Eat Ham?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-ham/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ]
+ },
+ {
+  "id": "salt-seasoning",
+  "name_th": "เกลือ น้ำปลา ซีอิ๊ว และผงปรุงรส",
+  "aliases": [
+   "เกลือ",
+   "น้ำปลา",
+   "ซีอิ๊ว",
+   "ซีอิ๊วขาว",
+   "ซอสปรุงรส",
+   "ผงปรุงรส",
+   "ซุปก้อน",
+   "ผงชูรส",
+   "กะปิ",
+   "ปลาร้า",
+   "น้ำเกลือ",
+   "น้ำทะเล",
+   "แป้งโดว์เกลือ",
+   "ขนมขบเคี้ยวรสเค็ม",
+   "มันฝรั่งทอดกรอบ",
+   "salt",
+   "fish sauce",
+   "soy sauce",
+   "msg",
+   "salty snacks"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ควรเติมเกลือหรือเครื่องปรุงในอาหารสุนัข เกลือมากทำให้กระหายน้ำ ปัสสาวะมาก อาเจียน ท้องเสีย และถ้าได้รับปริมาณมาก (เช่น กินเกลือ แป้งโดว์เกลือ หรือดื่มน้ำทะเล) อาจเกิดพิษจากโซเดียมจนสั่น ชัก และเสียชีวิตได้ ผงปรุงรสและซุปก้อนมักมีผงหัวหอม/กระเทียม ส่วนผงชูรสยังไม่พบข้อมูลจากแหล่งทางสัตวแพทย์ว่าเป็นพิษโดยตรง แต่ไม่มีประโยชน์และมักใช้คู่กับเครื่องปรุงเค็ม"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ควรเติมเกลือหรือเครื่องปรุงในอาหารแมว เกลือมากทำให้กระหายน้ำ ปัสสาวะมาก และอาจเกิดพิษจากโซเดียม ซึม สั่น มีไข้ ชักได้ แมวป่วยโรคไตหรือหัวใจยิ่งต้องจำกัดเกลือ ผงปรุงรสมักมีผงหัวหอม/กระเทียมซึ่งเป็นพิษต่อแมว"
+  },
+  "if_eaten_th": "ถ้าเลียน้ำแกงหรือขนมเค็มเล็กน้อย ให้มีน้ำสะอาดให้ดื่มตลอดและสังเกตอาการ ถ้ากินเกลือ น้ำปลา ซีอิ๊ว แป้งโดว์เกลือ หรือดื่มน้ำทะเลปริมาณมาก หรือมีอาการอาเจียน ท้องเสีย เดินเซ สั่น ชัก ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที ห้ามใช้น้ำเกลือกรอกเพื่อให้อาเจียนเด็ดขาด",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Pet Poison Helpline – Salt",
+    "url": "https://www.petpoisonhelpline.com/poison/salt/"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "Tufts Petfoodology (Cummings School of Veterinary Medicine) – Harmful vs Healthy Foods for Pets",
+    "url": "https://sites.tufts.edu/petfoodology/?p=9234"
+   },
+   {
+    "title": "AKC – Can Dogs Eat Onions?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-onions/"
+   }
+  ]
+ },
+ {
+  "id": "star-fruit",
+  "name_th": "มะเฟือง",
+  "aliases": [
+   "มะเฟือง",
+   "star fruit",
+   "starfruit",
+   "carambola"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "toxic",
+   "note_th": "มะเฟืองโดยเฉพาะพันธุ์เปรี้ยวมีสารออกซาเลตที่ละลายน้ำได้สูง ทำให้แคลเซียมในเลือดต่ำและไตบาดเจ็บเฉียบพลัน อาการคือ อาเจียน น้ำลายไหลมาก อ่อนแรง กล้ามเนื้อสั่น ปัสสาวะบ่อย มะเฟืองหวานมีสารนี้น้อยกว่า แต่เจ้าของแยกพันธุ์ได้ยาก จึงไม่ควรให้เลย"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "เป็นอันตรายต่อแมวเช่นเดียวกับสุนัข สารออกซาเลตในมะเฟืองเปรี้ยวทำให้แคลเซียมในเลือดต่ำและไตเสียหาย แมวที่มีปัญหาไตอยู่แล้วยิ่งเสี่ยง จึงไม่ควรให้เลย"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
+  "sources": [
+   {
+    "title": "Pet Poison Helpline – Star Fruit",
+    "url": "https://www.petpoisonhelpline.com/poison/starfruit/"
+   }
+  ]
+ },
+ {
+  "id": "raw-meat",
+  "name_th": "เนื้อสัตว์ดิบ (หมูดิบ เนื้อดิบ ลาบดิบ อาหารทะเลดิบ)",
+  "aliases": [
+   "เนื้อดิบ",
+   "หมูดิบ",
+   "เนื้อวัวดิบ",
+   "ไก่ดิบ",
+   "ลาบดิบ",
+   "ลาบเลือด",
+   "ก้อย",
+   "ซอยจุ๊",
+   "หลู้",
+   "เครื่องในดิบ",
+   "ปอดหมูดิบ",
+   "กุ้งดิบ",
+   "กุ้งแช่น้ำปลา",
+   "raw meat",
+   "raw pork",
+   "raw chicken"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ เนื้อดิบอาจมีเชื้อซัลโมเนลลาและอีโคไลที่ทำให้ทั้งสัตว์และคนในบ้านป่วย หมูดิบและเครื่องในหมูดิบอาจมีไวรัสโรคพิษสุนัขบ้าเทียม (Aujeszky's disease) ซึ่งเมื่อสุนัขหรือแมวติดแล้วมักเสียชีวิต อาหารทะเลดิบ (เช่น กุ้งแช่น้ำปลา) ก็มีเชื้อโรค และลาบ/ก้อยมีพริก หอม เกลือ ปรุงให้สุกทั่วทุกครั้ง"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ เนื้อดิบอาจมีเชื้อโรคที่ทำให้แมวป่วยและติดต่อสู่คนได้ แมวที่กินหมูดิบหรือเครื่องในหมูดิบเสี่ยงติดโรคพิษสุนัขบ้าเทียม (Aujeszky's disease) ซึ่งรุนแรงและมักเสียชีวิตภายในไม่กี่วัน การทำให้เนื้อและเครื่องในสุกทั่วช่วยป้องกันได้"
+  },
+  "if_eaten_th": "ไม่ต้องทำให้อาเจียน ให้สังเกตอาการในช่วงไม่กี่วันต่อมา ถ้ามีไข้ อาเจียน ท้องเสีย ซึม ไม่กินอาหาร ให้พาไปพบสัตวแพทย์ ถ้ากินหมูดิบหรือเครื่องในหมูดิบ ให้แจ้งสัตวแพทย์ และถ้ามีอาการคันรุนแรง เกาหรือกัดตัวเอง น้ำลายไหลมาก พฤติกรรมเปลี่ยน หรือหายใจลำบาก ต้องพาไปโรงพยาบาลสัตว์ทันที ล้างมือและภาชนะให้สะอาด",
+  "sources": [
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Thiry E. et al. (ABCD) – Aujeszky's disease/pseudorabies in cats: ABCD guidelines. J Feline Med Surg 2013;15(7):555–556",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11148944"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   },
+   {
+    "title": "AKC – Can Dogs Eat Shrimp?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-shrimp/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Shrimp?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-shrimp"
+   }
+  ]
+ },
+ {
+  "id": "processed-meat",
+  "name_th": "ไส้กรอก หมูยอ แฮม เบคอน และเนื้อแปรรูป",
+  "aliases": [
+   "ไส้กรอก",
+   "หมูยอ",
+   "แฮม",
+   "เบคอน",
+   "กุนเชียง",
+   "แหนม",
+   "หมูหยอง",
+   "หมูแผ่น",
+   "ลูกชิ้น",
+   "โบโลน่า",
+   "ไส้อั่ว",
+   "sausage",
+   "ham",
+   "bacon",
+   "hot dog",
+   "deli meat",
+   "processed meat"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ เนื้อแปรรูปมีเกลือและสารกันเสียที่มีโซเดียมสูง และมีไขมันมาก ทำให้ท้องเสีย อาเจียน และเสี่ยงตับอ่อนอักเสบ หลายชนิดปรุงด้วยกระเทียม/หอม (เช่น ไส้กรอก ไส้อั่ว แหนม) ถ้าเผลอกินชิ้นเล็กครั้งเดียวมักไม่อันตราย แต่ไม่ควรใช้เป็นขนม"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ เนื้อแปรรูปมีโซเดียมสูงและมักปรุงด้วยกระเทียมหรือหอมซึ่งเป็นพิษต่อแมว แมวโรคไตหรือหัวใจยิ่งไม่ควรได้รับ ถ้าอยากให้เนื้อหมู ให้ใช้เนื้อสดต้มสุกเองโดยไม่ปรุง"
+  },
+  "if_eaten_th": "ชิ้นเล็กครั้งเดียวมักไม่เป็นอันตราย ให้น้ำสะอาดและสังเกตอาการ ถ้ากินไปมาก หรือเป็นชนิดที่มีกระเทียม/หอม (เช่น ไส้อั่ว แหนม ไส้กรอกปรุงรส) หรือมีอาการอาเจียน ท้องเสีย ปวดท้อง ซึม ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Ham?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-ham/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Ham?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-ham"
+   },
+   {
+    "title": "Tufts Petfoodology (Cummings School of Veterinary Medicine) – Harmful vs Healthy Foods for Pets",
+    "url": "https://sites.tufts.edu/petfoodology/?p=9234"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   }
+  ]
+ },
+ {
+  "id": "shrimp",
+  "name_th": "กุ้ง (สุก แกะเปลือก)",
+  "aliases": [
+   "กุ้ง",
+   "กุ้งต้ม",
+   "กุ้งนึ่ง",
+   "กุ้งสุก",
+   "เปลือกกุ้ง",
+   "shrimp",
+   "prawn"
+  ],
+  "category": "เนื้อสัตว์/ไข่",
+  "dog": {
+   "status": "limited",
+   "note_th": "ให้ได้เล็กน้อยนาน ๆ ครั้ง เฉพาะกุ้งต้มหรือนึ่งสุก แกะเปลือก หัว และหางออก เพราะเปลือกอาจติดคอหรืออุดตันลำไส้ กุ้งมีคอเลสเตอรอลสูง ห้ามกุ้งดิบ (กุ้งแช่น้ำปลา) กุ้งทอดชุบแป้ง หรือกุ้งที่ผัดกระเทียม"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษ ให้ได้เป็นขนมเล็กน้อยสัปดาห์ละ 1–2 ครั้ง ต้องปรุงสุก ไม่ใส่เครื่องปรุง (กระเทียมเป็นพิษ) แกะเปลือกและหางออก ห้ามกุ้งดิบ ไม่ใช้แทนอาหารหลัก"
+  },
+  "if_eaten_th": "กุ้งสุกเล็กน้อยไม่ต้องกังวล ให้สังเกตอาการอาเจียนหรือท้องเสีย ถ้ากินเปลือก/หางมากแล้วมีอาการขย้อน อาเจียนซ้ำ ท้องอืด ไม่ถ่าย หรือเป็นกุ้งที่ผัดกระเทียม ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Shrimp?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-shrimp/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Shrimp?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-shrimp"
+   }
+  ],
+  "serving_th": "ต้ม/นึ่งสุก ไม่ปรุงรส แกะเปลือก หัว หาง และเส้นดำออก หั่นชิ้นเล็ก เริ่มจากปริมาณน้อยเพื่อดูการแพ้"
+ },
+ {
+  "id": "corn",
+  "name_th": "ข้าวโพด (เฉพาะเมล็ดสุก)",
+  "aliases": [
+   "ข้าวโพด",
+   "ข้าวโพดต้ม",
+   "เมล็ดข้าวโพด",
+   "ข้าวโพดหวาน",
+   "corn",
+   "sweet corn"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "limited",
+   "note_th": "เมล็ดข้าวโพดสุกที่แกะออกจากซังแล้ว ไม่ใส่เนย เกลือ หรือเครื่องปรุง ให้ได้เล็กน้อยเป็นครั้งคราว ห้ามให้ซังข้าวโพด (ดูหัวข้อซังข้าวโพด)"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษ ให้เมล็ดข้าวโพดสุกไม่ปรุงรสได้เล็กน้อยนาน ๆ ครั้ง (น้อยกว่า 1 ช้อนโต๊ะต่อสัปดาห์) ไม่ให้ข้าวโพดดิบ ป๊อปคอร์น ข้าวโพดครีม หรือซัง"
+  },
+  "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Corn?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-corn/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Corn?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-corn"
+   }
+  ],
+  "serving_th": "ต้ม/นึ่งสุก แกะเมล็ดออกจากซัง ไม่ใส่เนย เกลือ นมข้น หรือน้ำตาล"
+ },
+ {
+  "id": "corn-cob",
+  "name_th": "ซังข้าวโพด",
+  "aliases": [
+   "ซังข้าวโพด",
+   "ข้าวโพดทั้งฝัก",
+   "ฝักข้าวโพด",
+   "corn cob"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษ แต่อันตรายมาก สุนัขมักกลืนซังเป็นชิ้นใหญ่หรือทั้งท่อน ทำให้ติดคอหรืออุดตันลำไส้จนต้องผ่าตัด ทิ้งซังในถังขยะที่มีฝาปิดสนิท"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ใช่สารพิษ แต่ซังข้าวโพดอาจทำให้ติดคอหรืออุดตันลำไส้ ห้ามให้แทะเล่น"
+  },
+  "if_eaten_th": "อย่าพยายามทำให้อาเจียนเอง ติดต่อสัตวแพทย์เพื่อขอคำแนะนำ แม้ยังไม่มีอาการ ถ้ามีอาการอาเจียนซ้ำ ขย้อน ไม่กินอาหาร ท้องอืด ปวดท้อง ซึม หรือไม่ถ่าย ให้พาไปโรงพยาบาลสัตว์ทันที",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Corn?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-corn/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Corn?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-corn"
+   }
+  ]
+ },
+ {
+  "id": "potato",
+  "name_th": "มันฝรั่ง (ดิบ / สีเขียว / สุก)",
+  "aliases": [
+   "มันฝรั่ง",
+   "มันฝรั่งดิบ",
+   "มันฝรั่งสีเขียว",
+   "มันฝรั่งงอก",
+   "มันบด",
+   "เฟรนช์ฟรายส์",
+   "potato",
+   "french fries",
+   "mashed potato"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "limited",
+   "note_th": "มันฝรั่งต้มหรือนึ่งสุกเปล่า ๆ ให้ได้เล็กน้อย แต่มันฝรั่งดิบ ส่วนที่เป็นสีเขียว และต้นอ่อนที่งอก มีสารโซลานีนที่เป็นพิษ ห้ามให้ เฟรนช์ฟรายส์และมันบดใส่เนย/เกลือก็ไม่ควรให้"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "หน่วยงานด้านสวัสดิภาพสัตว์จัดมันฝรั่งไว้ในรายการอาหารที่แมวควรหลีกเลี่ยง มันฝรั่งดิบและส่วนสีเขียวมีสารโซลานีน แมวเป็นสัตว์กินเนื้อจึงไม่ได้ประโยชน์จากมันฝรั่ง"
+  },
+  "if_eaten_th": "ถ้ากินมันฝรั่งสุกเปล่าเล็กน้อยไม่ต้องกังวล ถ้ากินมันฝรั่งดิบ ส่วนสีเขียว หรือต้นอ่อนที่งอก หรือมีอาการอาเจียน ท้องเสีย ซึม อ่อนแรง ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Potatoes?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-potatoes/"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   }
+  ],
+  "serving_th": "สุนัข: ปอกเปลือก ตัดส่วนสีเขียวและตาที่งอกออก ต้ม/นึ่งสุกนิ่ม ไม่ใส่เนย เกลือ นม หรือเครื่องเทศ"
+ },
+ {
+  "id": "wild-mushroom",
+  "name_th": "เห็ดป่า / เห็ดที่ไม่รู้ชนิด",
+  "aliases": [
+   "เห็ด",
+   "เห็ดป่า",
+   "เห็ดในสนาม",
+   "เห็ดขึ้นเอง",
+   "เห็ดพิษ",
+   "เห็ดระโงก",
+   "mushroom",
+   "wild mushroom"
+  ],
+  "category": "ผัก",
+  "dog": {
+   "status": "toxic",
+   "note_th": "เห็ดป่าบางชนิดมีพิษร้ายแรงต่อตับ ไต และระบบประสาท อาจถึงชีวิต บางชนิดแสดงอาการช้า 6–12 ชั่วโมงหรือนานกว่านั้น แม้ผู้เชี่ยวชาญก็แยกชนิดด้วยตาได้ยาก ให้ถือว่าเห็ดที่ขึ้นเองในสนามหรือป่าเป็นพิษเสมอ เห็ดจากตลาดที่ล้างสะอาดโดยทั่วไปไม่เป็นอันตราย แต่ไม่จำเป็นต้องให้"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "เห็ดพิษเป็นอันตรายต่อสัตว์เลี้ยงทุกชนิด รวมทั้งแมว และแยกชนิดด้วยตาได้ยาก ให้ถือว่าเห็ดป่าหรือเห็ดที่ขึ้นเองเป็นพิษเสมอ ไม่ควรให้เห็ดทุกชนิดแก่แมว"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปเห็ดให้ชัด (ทั้งด้านบน ด้านใต้หมวก และบริเวณที่ขึ้น) หรือเก็บใส่ถุงกระดาษนำไปด้วยเพื่อช่วยระบุชนิด อย่ารอให้มีอาการ",
+  "sources": [
+   {
+    "title": "Pet Poison Helpline – Mushrooms",
+    "url": "https://www.petpoisonhelpline.com/poison/mushrooms/"
+   },
+   {
+    "title": "ASPCA – Not-So-Magic Mushrooms: Tips to Keep Your Pets Safe",
+    "url": "https://www.aspca.org/node/59202"
+   },
+   {
+    "title": "Merck Veterinary Manual (Professional) – Overview of Mushrooms Toxic to Animals",
+    "url": "https://www.merckvetmanual.com/toxicology/poisonous-mushrooms/overview-of-mushrooms-toxic-to-animals"
+   },
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   }
+  ]
+ },
+ {
+  "id": "fruit-pits",
+  "name_th": "เมล็ดและแกนผลไม้ (เม็ดเชอร์รี่ ท้อ/พีช พลัม เมล็ดแอปเปิล เม็ดมะม่วง)",
+  "aliases": [
+   "เมล็ดผลไม้",
+   "เม็ดผลไม้",
+   "เมล็ดแอปเปิล",
+   "เมล็ดแอปเปิ้ล",
+   "แกนแอปเปิล",
+   "แกนแอปเปิ้ล",
+   "เชอร์รี่",
+   "เม็ดเชอร์รี่",
+   "ลูกพีช",
+   "ลูกท้อ",
+   "เม็ดพีช",
+   "พลัม",
+   "ลูกพลัม",
+   "เม็ดมะม่วง",
+   "เมล็ดมะม่วง",
+   "apple seeds",
+   "apple core",
+   "cherry pit",
+   "peach pit",
+   "plum pit",
+   "fruit pit"
+  ],
+  "category": "ผลไม้",
+  "dog": {
+   "status": "avoid",
+   "note_th": "เมล็ด ก้าน และใบของเชอร์รี่ พีช พลัม และแอปเปิลมีสารที่ปล่อยไซยาไนด์ เมล็ดแข็งขนาดใหญ่ (เช่น เม็ดพีช เม็ดมะม่วง) ยังอาจติดคอหรืออุดตันลำไส้ ให้ได้เฉพาะเนื้อผลไม้ที่ตัดออกจากเมล็ดแล้ว และทิ้งเมล็ดในถังขยะที่มีฝาปิด เชอร์รี่ทั้งลูกไม่ควรให้"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "เมล็ด ก้าน และใบของพืชกลุ่มนี้มีสารที่ปล่อยไซยาไนด์ และเป็นพิษต่อแมวด้วย ให้เอาเมล็ด ก้าน และแกนออกทุกครั้งก่อนให้เนื้อผลไม้เล็กน้อย"
+  },
+  "if_eaten_th": "อย่าพยายามทำให้อาเจียนเอง ถ้ากลืนเมล็ดแข็งทั้งเม็ด (เช่น เม็ดพีช เม็ดมะม่วง) หรือเคี้ยวเมล็ด/แกนจำนวนมาก ให้ติดต่อสัตวแพทย์เพื่อขอคำแนะนำ ถ้ามีอาการหายใจลำบาก หอบ เหงือกแดงจัด รูม่านตาขยาย อาเจียนซ้ำ ท้องอืด หรือไม่ถ่าย ให้พาไปโรงพยาบาลสัตว์ทันที",
+  "sources": [
+   {
+    "title": "ASPCA Poison Control – Toxic and Non-Toxic Plants: Peach (stems, leaves, seeds)",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/peach"
+   },
+   {
+    "title": "ASPCA Poison Control – Toxic and Non-Toxic Plants: Apple",
+    "url": "https://www.aspca.org/node/4582"
+   },
+   {
+    "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
+    "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
+   },
+   {
+    "title": "PetMD (Teresa Manucy, DVM) – What Fruits Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
+   }
+  ]
+ },
+ {
+  "id": "peanuts",
+  "name_th": "ถั่วลิสง",
+  "aliases": [
+   "ถั่วลิสง",
+   "ถั่วคั่ว",
+   "ถั่วลิสงคั่ว",
+   "ถั่วอบเกลือ",
+   "peanut",
+   "peanuts"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "limited",
+   "note_th": "ถั่วลิสงคั่วหรือดิบแบบไม่ใส่เกลือ แกะเปลือก ให้ได้ไม่กี่เม็ดนาน ๆ ครั้ง ถั่วมีไขมันสูง อาจทำให้ท้องเสียหรือตับอ่อนอักเสบถ้ากินมาก ห้ามถั่วอบเกลือ ถั่วเคลือบน้ำผึ้ง/ปรุงรส และเปลือกที่อาจติดคอ"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "สัตวแพทย์แนะนำให้แมวงดถั่ว ไขมันสูงทำให้อาเจียน ท้องเสีย และอาจตับอ่อนอักเสบ และไม่มีประโยชน์ต่อแมว"
+  },
+  "if_eaten_th": "ถ้ากินถั่วลิสงเปล่าไม่กี่เม็ด ให้สังเกตอาการอาเจียนหรือท้องเสีย ถ้ากินมาก กินทั้งเปลือก เป็นถั่วเค็ม/ปรุงรส หรือมีอาการอาเจียนซ้ำ ปวดท้อง ซึม ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Peanuts?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-peanuts/"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   }
+  ],
+  "serving_th": "สุนัข: แกะเปลือก ไม่ใส่เกลือ ไม่ปรุงรส ให้ไม่กี่เม็ด สุนัขพันธุ์เล็กควรบดหรือหักก่อน"
+ },
+ {
+  "id": "cheese",
+  "name_th": "ชีส",
+  "aliases": [
+   "ชีส",
+   "เนยแข็ง",
+   "ชีสแผ่น",
+   "มอสซาเรลลา",
+   "เชดดาร์",
+   "cheese"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "limited",
+   "note_th": "ให้ได้ชิ้นเล็กเป็นครั้งคราว เช่น ใช้เป็นรางวัลฝึก ชีสมีไขมันสูง ถ้าให้มากหรือบ่อยทำให้อ้วนและเสี่ยงตับอ่อนอักเสบ สุนัขที่ย่อยแลคโตสไม่ได้อาจท้องเสีย ห้ามชีสที่ผสมกระเทียม หอม หรือสมุนไพร"
+  },
+  "cat": {
+   "status": "limited",
+   "note_th": "ไม่เป็นพิษ แต่แมวหลายตัวย่อยแลคโตสไม่ได้หรือแพ้ผลิตภัณฑ์นม ถ้าให้ ควรเป็นชีสแข็งธรรมดาชิ้นเล็กมากนาน ๆ ครั้ง หลีกเลี่ยงชีสนิ่ม (ครีมชีส มอสซาเรลลา) ชีสแปรรูป และชีสเค้ก ถ้าท้องเสียหรืออาเจียนให้งด"
+  },
+  "if_eaten_th": "ชีสธรรมดาเล็กน้อยไม่น่ากังวล ให้สังเกตอาการท้องเสียหรืออาเจียน ถ้ากินมาก เป็นชีสที่มีกระเทียม/หอม หรือมีอาการอาเจียนซ้ำ ปวดท้อง ซึม ให้ติดต่อสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Cheese?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-cheese/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Cheese?",
+    "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-cheese"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   }
+  ],
+  "serving_th": "ชีสแข็งธรรมดา ไม่ปรุงรส หั่นเป็นลูกเต๋าเล็ก ๆ ให้ครั้งละชิ้นเดียว"
+ },
+ {
+  "id": "yogurt",
+  "name_th": "โยเกิร์ต",
+  "aliases": [
+   "โยเกิร์ต",
+   "โยเกิร์ตรสธรรมชาติ",
+   "กรีกโยเกิร์ต",
+   "นมเปรี้ยว",
+   "yogurt",
+   "yoghurt"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "limited",
+   "note_th": "ให้ได้เล็กน้อยเฉพาะโยเกิร์ตรสธรรมชาติ ไม่หวาน ไม่ใส่สารให้ความหวาน (ไซลิทอลเป็นพิษร้ายแรง) สุนัขบางตัวย่อยแลคโตสไม่ได้ ควรเริ่มจากปริมาณน้อยแล้วดูอาการ ไม่ให้โยเกิร์ตรสผลไม้หรือนมเปรี้ยวที่มีน้ำตาลสูง"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "สัตวแพทย์จัดโยเกิร์ตและผลิตภัณฑ์นมไว้ในรายการที่แมวควรหลีกเลี่ยง เพราะแมวโตส่วนใหญ่ย่อยแลคโตสได้น้อย อาจท้องเสียหรืออาเจียน"
+  },
+  "if_eaten_th": "ตรวจฉลากทันที ถ้ามีไซลิทอล (xylitol) ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที ถ้าไม่มี ให้สังเกตอาการท้องเสียหรืออาเจียน ถ้ามีอาการต่อเนื่องหรือซึม ให้ปรึกษาสัตวแพทย์",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Yogurt?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-yogurt/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   }
+  ],
+  "serving_th": "สุนัข: โยเกิร์ตรสธรรมชาติไม่หวาน อ่านฉลากว่าไม่มีไซลิทอล ให้ทีละน้อย"
+ },
+ {
+  "id": "ice-cream",
+  "name_th": "ไอศกรีม",
+  "aliases": [
+   "ไอศกรีม",
+   "ไอติม",
+   "ไอศครีม",
+   "ไอศกรีมกะทิ",
+   "ice cream"
+  ],
+  "category": "ขนม/ของหวาน",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ ไอศกรีมมีน้ำตาลและไขมันสูง สุนัขหลายตัวย่อยแลคโตสไม่ได้จึงท้องเสีย อาเจียน และไขมันสูงเสี่ยงตับอ่อนอักเสบ รสช็อกโกแลต กาแฟ ลูกเกด แมคาเดเมีย และแบบไม่มีน้ำตาล (อาจมีไซลิทอล) เป็นพิษ"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ แมวโตส่วนใหญ่ย่อยแลคโตสได้น้อย ผลิตภัณฑ์นมทำให้ท้องเสีย และไอศกรีมมีน้ำตาลและไขมันสูง รสช็อกโกแลตหรือกาแฟเป็นพิษ"
+  },
+  "if_eaten_th": "ถ้าเลียไอศกรีมรสธรรมดาเล็กน้อย ให้สังเกตอาการท้องเสียหรืออาเจียน ถ้าเป็นรสช็อกโกแลต กาแฟ ลูกเกด แมคาเดเมีย หรือชนิดไม่มีน้ำตาล (อาจมีไซลิทอล) ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Ice Cream?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-ice-cream/"
+   },
+   {
+    "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – What Human Foods Can Cats Eat?",
+    "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   }
+  ]
+ },
+ {
+  "id": "baby-food",
+  "name_th": "อาหารเด็กสำเร็จรูป (ที่อาจมีผงหัวหอม/กระเทียม)",
+  "aliases": [
+   "อาหารเด็ก",
+   "อาหารเด็กสำเร็จรูป",
+   "อาหารเด็กบด",
+   "ซุปเด็ก",
+   "baby food"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "avoid",
+   "note_th": "ไม่ควรใช้อาหารเด็กแทนอาหารสุนัขหรือเพื่อป้อนสัตว์ป่วย เพราะบางสูตร (โดยเฉพาะซุปหรือเนื้อบด) ใส่ผงหัวหอมหรือกระเทียม ซึ่งทำลายเม็ดเลือดแดง และสารอาหารไม่ครบสำหรับสุนัข ถ้าสัตว์ไม่กินอาหาร ควรปรึกษาสัตวแพทย์"
+  },
+  "cat": {
+   "status": "avoid",
+   "note_th": "ไม่ควรให้ แมวไวต่อผงหัวหอมและกระเทียมมาก แม้ปริมาณน้อย และอาหารเด็กสารอาหารไม่ครบสำหรับแมว ถ้าแมวไม่ยอมกินอาหาร ควรปรึกษาสัตวแพทย์แทนการป้อนอาหารเด็ก"
+  },
+  "if_eaten_th": "อ่านฉลากทันที ถ้ามีหัวหอม กระเทียม หรือผงปรุงรส (onion/garlic powder) ให้ติดต่อสัตวแพทย์ทันที แม้ยังไม่มีอาการ เพราะอาการเลือดจางอาจเกิดช้าหลายวัน ถ้าไม่มีส่วนผสมเหล่านี้ ให้สังเกตอาการอาเจียนหรือท้องเสีย",
+  "sources": [
+   {
+    "title": "AKC – Can Dogs Eat Onions?",
+    "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-onions/"
+   },
+   {
+    "title": "Merck Veterinary Manual (Professional) – Garlic and Onion (Allium spp) Toxicosis in Animals",
+    "url": "https://www.merckvetmanual.com/toxicology/food-hazards/garlic-and-onion-allium-spp-toxicosis-in-animals"
+   },
+   {
+    "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
+    "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
+   },
+   {
+    "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
+    "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
+   }
+  ]
+ },
+ {
+  "id": "paracetamol",
+  "name_th": "ยาพาราเซตามอล (ยาลดไข้แก้ปวดของคน)",
+  "aliases": [
+   "พาราเซตามอล",
+   "ยาพารา",
+   "ยาลดไข้",
+   "ยาแก้ปวด",
+   "ยาคน",
+   "acetaminophen",
+   "paracetamol"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ห้ามให้ยาของคนเองเด็ดขาด พาราเซตามอลเป็นพิษต่อสุนัข ทำลายตับและเลือด ปริมาณที่ปลอดภัยสำหรับคนอาจเป็นอันตรายต่อสุนัข ถ้าสุนัขมีไข้หรือเจ็บปวด ให้พาไปพบสัตวแพทย์"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "อันตรายร้ายแรงมาก แมวกำจัดยานี้ได้น้อยมาก แม้ปริมาณเพียงเล็กน้อยก็ทำให้ป่วยหนักและเสียชีวิตได้ ห้ามให้แมวเด็ดขาด เก็บยาให้พ้นมือสัตว์"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน นำแผงยาหรือกล่องยาไปด้วย",
+  "sources": [
+   {
+    "title": "Pet Poison Helpline – Acetaminophen (Paracetamol)",
+    "url": "https://www.petpoisonhelpline.com/poison/acetaminophen/"
+   },
+   {
+    "title": "International Cat Care – Cats and poisons",
+    "url": "https://icatcare.org/articles/cats-and-poisons"
+   }
+  ]
+ },
+ {
+  "id": "nsaids",
+  "name_th": "ยาแก้ปวดลดอักเสบของคน (ไอบูโพรเฟน แอสไพริน และยากลุ่ม NSAIDs)",
+  "aliases": [
+   "ไอบูโพรเฟน",
+   "ยาแก้อักเสบ",
+   "ยาแก้ปวดลดอักเสบ",
+   "แอสไพริน",
+   "ยาแก้ปวดกล้ามเนื้อ",
+   "ibuprofen",
+   "aspirin",
+   "nsaid",
+   "nsaids",
+   "naproxen",
+   "diclofenac"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ห้ามให้ยาของคนเด็ดขาด สุนัขไวต่อยากลุ่มนี้มาก ทำให้กระเพาะเป็นแผล อาเจียนหรือถ่ายเป็นเลือด ไตวาย และอาจซึม ชัก จนถึงเสียชีวิตได้ ถ้าสุนัขเจ็บปวด สัตวแพทย์มียาที่เหมาะสมกับสัตว์"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "ห้ามให้แมวเด็ดขาด แมวไวต่อยากลุ่มนี้มาก ทำให้กระเพาะเป็นแผล ไตวาย และเสียชีวิตได้ ห้ามให้ยาที่ใช้กับคนแก่แมว เว้นแต่สัตวแพทย์สั่ง"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน นำแผงยาหรือกล่องยาไปด้วย",
+  "sources": [
+   {
+    "title": "Pet Poison Helpline – Ibuprofen",
+    "url": "https://www.petpoisonhelpline.com/poison/ibuprofen/"
+   },
+   {
+    "title": "International Cat Care – Cats and poisons",
+    "url": "https://icatcare.org/articles/cats-and-poisons"
+   }
+  ]
+ },
+ {
+  "id": "sago-palm",
+  "name_th": "ปรง (ปรงญี่ปุ่น / ปรงสาคู)",
+  "aliases": [
+   "ปรง",
+   "ปรงญี่ปุ่น",
+   "ปรงสาคู",
+   "ต้นปรง",
+   "เมล็ดปรง",
+   "sago palm",
+   "cycad",
+   "cycas"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ทุกส่วนของต้นปรงเป็นพิษ โดยเฉพาะเมล็ด ทำให้อาเจียน ถ่ายดำ ตัวเหลือง เลือดออกง่าย ตับวาย และเสียชีวิตได้ ไม่ควรปลูกในบริเวณที่สุนัขเข้าถึง"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ทำให้ตับเสียหายรุนแรงและเสียชีวิตได้"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปต้นไม้หรือนำส่วนที่กินไปด้วย",
+  "sources": [
+   {
+    "title": "ASPCA Poison Control – Toxic and Non-Toxic Plants: Sago Palm",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/sago-palm"
+   },
+   {
+    "title": "Pet Poison Helpline – Sago Palm",
+    "url": "https://www.petpoisonhelpline.com/poison/sago-palm/"
+   }
+  ]
+ },
+ {
+  "id": "oleander",
+  "name_th": "ยี่โถ",
+  "aliases": [
+   "ยี่โถ",
+   "ดอกยี่โถ",
+   "ใบยี่โถ",
+   "oleander",
+   "nerium"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ยี่โถมีสารที่มีผลต่อหัวใจ (คาร์ดิแอกไกลโคไซด์) ทำให้น้ำลายไหล ปวดท้อง ท้องเสีย ซึม หัวใจเต้นผิดปกติ และเสียชีวิตได้"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ทำให้น้ำลายไหล ท้องเสีย ซึม และมีผลต่อหัวใจจนเสียชีวิตได้"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปต้นไม้หรือนำส่วนที่กินไปด้วย",
+  "sources": [
+   {
+    "title": "ASPCA Poison Control – Toxic and Non-Toxic Plants: Oleander",
+    "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/oleander"
+   }
+  ]
+ },
+ {
+  "id": "gloriosa",
+  "name_th": "ดองดึง (Gloriosa lily)",
+  "aliases": [
+   "ดองดึง",
+   "ดาวดึง",
+   "ดอกดองดึง",
+   "หัวดองดึง",
+   "gloriosa",
+   "glory lily",
+   "flame lily"
+  ],
+  "category": "อื่นๆ",
+  "dog": {
+   "status": "toxic",
+   "note_th": "ดองดึงไม่ใช่ลิลลี่แท้ แต่มีสารคล้ายโคลชิซีนที่เป็นพิษร้ายแรง ทำให้น้ำลายไหล อาเจียนและท้องเสียเป็นเลือด ช็อก ไตวาย ตับเสียหาย และไขกระดูกถูกกด"
+  },
+  "cat": {
+   "status": "toxic",
+   "note_th": "เป็นพิษร้ายแรงต่อแมวเช่นเดียวกับสุนัข ทำให้อาเจียนและท้องเสียเป็นเลือด ไตวาย ตับเสียหาย และไขกระดูกถูกกด"
+  },
+  "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปต้นไม้หรือนำส่วนที่กินไปด้วย",
+  "sources": [
+   {
+    "title": "ASPCA Poison Control – Toxic and Non-Toxic Plants: Gloriosa Lily",
+    "url": "https://www.aspca.org/node/4940"
+   }
+  ]
+ }
+]
