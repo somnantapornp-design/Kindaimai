@@ -348,3 +348,6 @@ footer.disc .foot-links .link-btn{display:inline-flex;align-items:center}
 .doc .meta{color:var(--ink-2);font-size:.9rem}
 .doc-top{display:flex;align-items:center;gap:8px;padding:12px 0 6px}
 @media (prefers-reduced-motion:reduce){.loading svg{animation:none}}
+
+/* ไม่แสดงกรอบโฟกัสบนหัวข้อที่ย้ายโฟกัสให้อัตโนมัติเมื่อเปลี่ยนหน้า */
+[tabindex="-1"]:focus{outline:none}
