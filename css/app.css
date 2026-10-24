@@ -1,9 +1,10 @@
 /* ===== Theme tokens (light) — every color in the app comes from here ===== */
 :root{
-  --bg:#FBF6EC; --surface:#FFFFFF; --surface-2:#F4EDDF; --line:#E6DCC8;
-  --ink:#1F2A26; --ink-2:#4B5651; --ph:#6B736F;
-  --primary:#2F5D50; --primary-ink:#FFFFFF; --primary-soft:#E3EEE9;
-  --dog:#2F5D50; --dog-soft:#E3EEE9; --cat:#A04E2B; --cat-soft:#F8E6DC;
+  /* โทนสีจากรูปน้องหมาน้องแมว: ครีมขนนุ่ม เขียวชุดไดโนเสาร์ ส้มขนคอร์กี้ ชมพูจมูกน้องแมว */
+  --bg:#FFF8EF; --surface:#FFFFFF; --surface-2:#FBEEDC; --line:#EEDBC2;
+  --ink:#33281E; --ink-2:#665446; --ph:#7A6A5C;
+  --primary:#4E6B26; --primary-ink:#FFFFFF; --primary-soft:#EDF3E0;
+  --dog:#A9551A; --dog-soft:#FBE7D3; --cat:#A8435C; --cat-soft:#FBE4EA;
   --safe:#1C6B3A; --safe-bg:#E4F3E8; --safe-line:#9FD0AE;
   --lim:#7A4A00;  --lim-bg:#FFF1D4;  --lim-line:#E9C27A;
   --avo:#8F3A0E;  --avo-bg:#FDE9DA;  --avo-line:#EBB08A;
@@ -13,48 +14,48 @@
   --danger:#B3261E; --danger-ink:#FFFFFF; --danger-hover:#931F18;
   --heart:#B3261E;
   --focus:#1B4FA0; --focus-ring:rgba(27,79,160,.35);
-  --paw:#D9CDB4;
-  --shadow:0 1px 2px rgba(47,40,20,.06),0 4px 14px rgba(47,40,20,.06);
+  --paw:#E8CFAE;
+  --shadow:0 1px 2px rgba(90,55,20,.07),0 4px 14px rgba(90,55,20,.08);
   --r:18px; --r-sm:12px;
   color-scheme:light;
 }
 /* ===== Dark theme (system preference unless forced light) ===== */
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#131917; --surface:#1C2421; --surface-2:#232E2A; --line:#35423D;
-    --ink:#ECF1EE; --ink-2:#B4BFBA; --ph:#93A09A;
-    --primary:#8FCDB8; --primary-ink:#0F1F19; --primary-soft:#22403A;
-    --dog:#8FCDB8; --dog-soft:#22403A; --cat:#F2A783; --cat-soft:#40291F;
+    --bg:#1A1511; --surface:#241D17; --surface-2:#2E251E; --line:#46392D;
+    --ink:#F6EDE2; --ink-2:#CDBCA9; --ph:#A8957F;
+    --primary:#B5D38A; --primary-ink:#1A2410; --primary-soft:#2E3A1E;
+    --dog:#F2A86A; --dog-soft:#3D2717; --cat:#F3A0B5; --cat-soft:#3E2229;
     --safe:#86D9A5; --safe-bg:#14301F; --safe-line:#2F6B45;
     --lim:#F2C66E;  --lim-bg:#33270E;  --lim-line:#7A5B1F;
     --avo:#F5A97F;  --avo-bg:#3A2216;  --avo-line:#87492A;
     --tox:#FF9F96;  --tox-bg:#3E1917;  --tox-line:#8C3A33;
     --unk:#C6CED5;  --unk-bg:#2A3036;  --unk-line:#5A646D;
-    --glyph:#131917;
+    --glyph:#1A1511;
     --danger:#C0322A; --danger-ink:#FFFFFF; --danger-hover:#D8443B;
     --heart:#FF9F96;
     --focus:#9BC0FF; --focus-ring:rgba(155,192,255,.4);
-    --paw:#3A463F;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+    --paw:#4A3B2E;
+    --shadow:0 1px 2px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.3);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#131917; --surface:#1C2421; --surface-2:#232E2A; --line:#35423D;
-  --ink:#ECF1EE; --ink-2:#B4BFBA; --ph:#93A09A;
-  --primary:#8FCDB8; --primary-ink:#0F1F19; --primary-soft:#22403A;
-  --dog:#8FCDB8; --dog-soft:#22403A; --cat:#F2A783; --cat-soft:#40291F;
+  --bg:#1A1511; --surface:#241D17; --surface-2:#2E251E; --line:#46392D;
+  --ink:#F6EDE2; --ink-2:#CDBCA9; --ph:#A8957F;
+  --primary:#B5D38A; --primary-ink:#1A2410; --primary-soft:#2E3A1E;
+  --dog:#F2A86A; --dog-soft:#3D2717; --cat:#F3A0B5; --cat-soft:#3E2229;
   --safe:#86D9A5; --safe-bg:#14301F; --safe-line:#2F6B45;
   --lim:#F2C66E;  --lim-bg:#33270E;  --lim-line:#7A5B1F;
   --avo:#F5A97F;  --avo-bg:#3A2216;  --avo-line:#87492A;
   --tox:#FF9F96;  --tox-bg:#3E1917;  --tox-line:#8C3A33;
   --unk:#C6CED5;  --unk-bg:#2A3036;  --unk-line:#5A646D;
-  --glyph:#131917;
+  --glyph:#1A1511;
   --danger:#C0322A; --danger-ink:#FFFFFF; --danger-hover:#D8443B;
   --heart:#FF9F96;
   --focus:#9BC0FF; --focus-ring:rgba(155,192,255,.4);
-  --paw:#3A463F;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+  --paw:#4A3B2E;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.3);
   color-scheme:dark;
 }
 
@@ -366,3 +367,17 @@ a.row-btn{text-decoration:none;color:inherit}
 .for-bar .who .pet-ph{width:30px;height:30px}
 .seg button .pet-ph{width:32px;height:32px}
 .opt .pet-ph{width:28px;height:28px}
+
+/* การ์ดเลือกสัตว์เลี้ยงแบบวงกลม: รูปเป็นปุ่ม ชื่ออยู่ใต้รูป */
+.species{gap:18px;margin-top:22px;justify-items:center}
+.sp-card{background:none;border:0;box-shadow:none;padding:4px 0 6px;min-height:0;gap:12px;border-radius:24px;font-size:1.3rem;font-weight:700}
+.sp-card[data-sp="dog"]{color:var(--dog)}
+.sp-card[data-sp="cat"]{color:var(--cat)}
+.sp-card .pet-ph{width:min(38vw,150px);height:min(38vw,150px);transition:transform .15s,box-shadow .15s}
+.sp-card[data-sp="dog"] .pet-ph{box-shadow:0 0 0 4px var(--bg),0 0 0 8px var(--dog),0 8px 22px rgba(90,55,20,.18)}
+.sp-card[data-sp="cat"] .pet-ph{box-shadow:0 0 0 4px var(--bg),0 0 0 8px var(--cat),0 8px 22px rgba(90,55,20,.18)}
+.sp-card:hover .pet-ph{transform:scale(1.04)}
+.sp-card:hover,.sp-card[data-sp="cat"]:hover{border-color:transparent}
+.sp-card:focus-visible{outline:none}
+.sp-card:focus-visible .pet-ph{outline:3px solid var(--focus);outline-offset:12px}
+@media (prefers-reduced-motion:reduce){.sp-card .pet-ph{transition:none}.sp-card:hover .pet-ph{transform:none}}
