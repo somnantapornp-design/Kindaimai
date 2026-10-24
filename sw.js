@@ -6,7 +6,7 @@
    ให้เพิ่มเลข CACHE_VERSION ด้านล่าง เช่น 'v1' → 'v2'
    ผู้ใช้เดิมจะเห็นแถบ "มีเวอร์ชันใหม่ — แตะเพื่ออัปเดต"
    ========================================================================= */
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v6';
 
 const APP_CACHE = 'kdm-app-' + CACHE_VERSION;
 const FONT_CACHE = 'kdm-fonts';          // Google Fonts (kept across versions)

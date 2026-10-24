@@ -303,12 +303,16 @@
   }
 
   /* ---------- views ---------- */
-  var VIEWS = ['loading','error','pet','search','result','notfound','emergency','profile','about','feedback','nearby'];
+  var VIEWS = ['loading','error','pet','search','result','notfound','emergency','profile','about','feedback','nearby','adopt'];
   function show(name){
     VIEWS.forEach(function(v){ $('#view-'+v).hidden = (v !== name); });
     var hint = $('#ios-hint'); if (hint) hint.hidden = !(name === 'pet' || name === 'search') || !iosHintWanted();
     document.body.classList.toggle('cat', species === 'cat');
     $$('.js-draft').forEach(function(b){ b.hidden = !!REVIEW.reviewer; });
+    var tab = {pet:'home', search:'eat', result:'eat', notfound:'eat', nearby:'nearby', adopt:'adopt', profile:'profile'}[name] || '';
+    $$('.tabbar [data-tab]').forEach(function(b){
+      if (b.getAttribute('data-tab') === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
   }
   function focusMain(el){
     var t = el || $('#main');
@@ -786,6 +790,18 @@
         '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">(เปิด Google Maps ในหน้าต่างใหม่)</span></a>';
     }).join('') : '<p class="muted">ยังไม่ได้ตั้งค่ารายการบริการ</p>';
   }
+  function linkRow(href, ic, title, sub){
+    return '<a class="row-btn" href="'+esc(href)+'" target="_blank" rel="noopener">'+icon(ic)+
+      '<span>'+esc(title)+(sub ? '<span class="sub">'+esc(sub)+'</span>' : '')+'</span>'+
+      '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">(เปิดในหน้าต่างใหม่)</span></a>';
+  }
+  function renderAdopt(){
+    var s = (Array.isArray(CFG.ADOPT_SEARCH) ? CFG.ADOPT_SEARCH : []).filter(function(n){ return n && n.title && n.query; });
+    $('#adopt-search').innerHTML = s.map(function(n){ return linkRow(mapsUrl(n.query), 'i-pin', n.title, n.sub); }).join('');
+    var o = (Array.isArray(CFG.ADOPT_ORGS) ? CFG.ADOPT_ORGS : []).filter(function(n){ return n && n.name && /^https?:\/\//.test(n.url || ''); });
+    $('#adopt-orgs').innerHTML = o.length ? o.map(function(n){ return linkRow(n.url, 'i-adopt', n.name, n.sub); }).join('')
+      : '<p class="muted small">ยังไม่มีรายชื่อองค์กร</p>';
+  }
   function renderEmgNearby(){
     var box = $('#emg-near'); if (!box) return;
     var n = nearbyItems().filter(function(x){ return x.icon === 'clock'; })[0] || {query:'โรงพยาบาลสัตว์ 24 ชั่วโมง ใกล้ฉัน'};
@@ -899,6 +915,7 @@
     if (token === 'about'){ renderAbout(); show('about'); focusMain($('#about-h')); return; }
     if (token === 'feedback'){ renderFeedback(); show('feedback'); focusMain($('#fb-h')); return; }
     if (token === 'nearby'){ renderNearby(); show('nearby'); focusMain($('#near-h')); return; }
+    if (token === 'adopt'){ renderAdopt(); show('adopt'); focusMain($('#adopt-h')); return; }
     if (!dataReady){ show(dataFailed ? 'error' : 'loading'); return; }
     if (!species || token === '' || token === 'pet' || !needsSpecies(token)){
       if (needsSpecies(token)) pendingToken = token;
@@ -987,6 +1004,9 @@
       case 'profile': go('profile'); break;
       case 'about': go('about'); break;
       case 'nearby': go('nearby'); break;
+      case 'adopt': go('adopt'); break;
+      case 'tab-home': go('pet'); break;
+      case 'tab-eat': if (species) goSearch(false); else go('pet'); break;
       case 'other-species':
         setSpecies(species === 'dog' ? 'cat' : 'dog');
         if (currentFoodId) go('food-' + currentFoodId, {replace:true});
@@ -1185,7 +1205,7 @@
   var dataFailed = false;
   function loadFoods(){
     dataFailed = false;
-    if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby') show('loading');
+    if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby' && current !== 'adopt') show('loading');
     return fetch(DATA_URL, {cache:'no-cache'}).then(function(r){
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
@@ -1195,12 +1215,12 @@
       dataReady = true;
       renderCategories();
       if (current === 'emergency') renderEmergency();          // keep focus where the user is
-      else if (current === 'profile' || current === 'about' || current === 'feedback' || current === 'nearby') { /* static screens */ }
+      else if (current === 'profile' || current === 'about' || current === 'feedback' || current === 'nearby' || current === 'adopt') { /* static screens */ }
       else render(current === '' && species ? 'search' : current);
     }).catch(function(err){
       console.error('โหลด data/foods.json ไม่สำเร็จ', err);
       dataFailed = true;
-      if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby') show('error');
+      if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby' && current !== 'adopt') show('error');
     });
   }
 
@@ -1209,7 +1229,7 @@
   var start = tokenFromLocation();
   try { history.replaceState({t:start, q:nfQuery}, '', location.hash || location.pathname + location.search); } catch(e){}
   current = start;
-  if (start === 'emergency' || start === 'profile' || start === 'about' || start === 'feedback' || start === 'nearby') render(start);
+  if (start === 'emergency' || start === 'profile' || start === 'about' || start === 'feedback' || start === 'nearby' || start === 'adopt') render(start);
   else show('loading');
   loadFoods();
   registerSW();
