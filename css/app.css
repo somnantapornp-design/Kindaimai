@@ -357,3 +357,12 @@ a.row-btn{text-decoration:none;color:inherit}
 .row-btn .ext{width:18px;height:18px;margin-left:auto;flex:none;color:var(--ink-2)}
 #emg-near{margin-top:14px}
 #emg-near .btn-danger{text-decoration:none}
+
+/* รูปน้องหมา น้องแมว (แทนลายเส้นเดิม) */
+.pet-ph{display:block;flex:none;border-radius:50%;object-fit:cover;background:var(--surface-2, var(--line))}
+.sp-card .pet-ph{width:104px;height:104px;box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--line)}
+.sp-card[data-sp="dog"] .pet-ph{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--dog)}
+.sp-card[data-sp="cat"] .pet-ph{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--cat)}
+.for-bar .who .pet-ph{width:30px;height:30px}
+.seg button .pet-ph{width:32px;height:32px}
+.opt .pet-ph{width:28px;height:28px}

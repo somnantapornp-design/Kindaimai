@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>กินได้ไหม? — อาหารสุนัขและแมว</title>
-<meta name="description" content="เช็กง่าย ๆ ว่าอาหารคนชนิดไหนที่สุนัขหรือแมวกินได้ กินได้บ้าง ควรหลีกเลี่ยง หรือห้ามกิน พร้อมโหมดฉุกเฉินเมื่อน้องกินไปแล้ว">
+<title>กินได้ไหม? — อาหารน้องหมาและน้องแมว</title>
+<meta name="description" content="เช็กง่าย ๆ ว่าอาหารคนชนิดไหนที่น้องหมาหรือน้องแมวกินได้ กินได้บ้าง ควรหลีกเลี่ยง หรือห้ามกิน พร้อมโหมดฉุกเฉินเมื่อน้องกินไปแล้ว">
 <meta name="theme-color" content="#2F5D50" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131917" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-title" content="กินได้ไหม">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:type" content="website">
-<meta property="og:title" content="กินได้ไหม? — อาหารสุนัขและแมว">
-<meta property="og:description" content="เช็กง่าย ๆ ว่าอาหารคนชนิดไหนที่สุนัขหรือแมวกินได้ พร้อมโหมดฉุกเฉินเมื่อน้องกินไปแล้ว">
+<meta property="og:title" content="กินได้ไหม? — อาหารน้องหมาและน้องแมว">
+<meta property="og:description" content="เช็กง่าย ๆ ว่าอาหารคนชนิดไหนที่น้องหมาหรือน้องแมวกินได้ พร้อมโหมดฉุกเฉินเมื่อน้องกินไปแล้ว">
 <meta property="og:url" content="https://somnantapornp-design.github.io/Kindaimai/">
 <meta property="og:image" content="https://somnantapornp-design.github.io/Kindaimai/icons/og.png">
 <meta property="og:image:width" content="1200">
@@ -104,10 +104,10 @@
     <section class="view" id="view-pet" aria-labelledby="pet-h" hidden>
       <div class="draft-banner js-draft" hidden><svg aria-hidden="true"><use href="#i-shield"/></svg><span>ฉบับร่าง: ข้อมูลยังรอสัตวแพทย์ตรวจทาน <a href="#about" data-action="about">อ่านเพิ่ม</a></span></div>
       <h1 id="pet-h">สัตว์เลี้ยงของคุณคือ...</h1>
-      <div class="intro-note"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="muted" style="margin:0">อาหารที่ปลอดภัยสำหรับสุนัขและแมวไม่เหมือนกัน เลือกสัตว์เลี้ยงก่อน แล้วค่อยค้นหาอาหาร</p></div>
+      <div class="intro-note"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="muted" style="margin:0">อาหารที่ปลอดภัยสำหรับน้องหมาและน้องแมวไม่เหมือนกัน เลือกสัตว์เลี้ยงก่อน แล้วค่อยค้นหาอาหาร</p></div>
       <div class="species" role="group" aria-label="เลือกชนิดสัตว์เลี้ยง">
-        <button type="button" class="sp-card" data-sp="dog"><svg aria-hidden="true"><use href="#i-dog"/></svg>สุนัข</button>
-        <button type="button" class="sp-card" data-sp="cat"><svg aria-hidden="true"><use href="#i-cat"/></svg>แมว</button>
+        <button type="button" class="sp-card" data-sp="dog"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="96" height="96">น้องหมา</button>
+        <button type="button" class="sp-card" data-sp="cat"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="96" height="96">น้องแมว</button>
       </div>
       <div class="home-links">
         <button type="button" class="row-btn" data-action="nearby"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>บริการใกล้ฉัน<span class="sub">คลินิกสัตว์ ร้านอาหารสัตว์ อาบน้ำตัดขน ฝากเลี้ยง</span></span></button>
@@ -123,7 +123,7 @@
     <section class="view" id="view-search" aria-labelledby="search-h" hidden>
       <div class="draft-banner js-draft" hidden><svg aria-hidden="true"><use href="#i-shield"/></svg><span>ฉบับร่าง: ข้อมูลยังรอสัตวแพทย์ตรวจทาน <a href="#about" data-action="about">อ่านเพิ่ม</a></span></div>
       <div class="for-bar">
-        <span class="who"><svg aria-hidden="true"><use class="sp-icon" href="#i-dog"/></svg><span>กำลังค้นหาสำหรับ: <strong class="sp-name">สุนัข</strong></span></span>
+        <span class="who"><img class="pet-ph sp-icon" src="icons/pet-dog.jpg" alt="" width="28" height="28"><span>กำลังค้นหาสำหรับ: <strong class="sp-name">น้องหมา</strong></span></span>
         <button type="button" class="btn-ghost" data-action="change-pet" aria-label="เปลี่ยนชนิดสัตว์เลี้ยง"><svg aria-hidden="true"><use href="#i-swap"/></svg>เปลี่ยน</button>
       </div>
       <h1 id="search-h">น้องหมากินอันนี้ได้ไหม?</h1>
@@ -196,8 +196,8 @@
 
       <h2 id="emg-sp-h">น้องเป็น...</h2>
       <div class="seg" role="group" aria-labelledby="emg-sp-h">
-        <button type="button" data-emg-sp="dog" aria-pressed="false"><svg aria-hidden="true"><use href="#i-dog"/></svg>สุนัข</button>
-        <button type="button" data-emg-sp="cat" aria-pressed="false"><svg aria-hidden="true"><use href="#i-cat"/></svg>แมว</button>
+        <button type="button" data-emg-sp="dog" aria-pressed="false"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="96" height="96">น้องหมา</button>
+        <button type="button" data-emg-sp="cat" aria-pressed="false"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="96" height="96">น้องแมว</button>
       </div>
 
       <form class="field" role="search" id="emg-form" autocomplete="off" style="margin-top:14px">
@@ -239,8 +239,8 @@
         <fieldset class="form-row">
           <legend>ชนิด</legend>
           <div class="opt-grid two">
-            <label class="opt"><input type="radio" name="pf-sp" value="dog"><span><svg aria-hidden="true"><use href="#i-dog"/></svg>สุนัข</span></label>
-            <label class="opt"><input type="radio" name="pf-sp" value="cat"><span><svg aria-hidden="true"><use href="#i-cat"/></svg>แมว</span></label>
+            <label class="opt"><input type="radio" name="pf-sp" value="dog"><span><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="96" height="96">น้องหมา</span></label>
+            <label class="opt"><input type="radio" name="pf-sp" value="cat"><span><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="96" height="96">น้องแมว</span></label>
           </div>
         </fieldset>
         <div class="form-row">
@@ -273,7 +273,7 @@
       <h1 id="about-h">เกี่ยวกับข้อมูล</h1>
       <div id="about-review"></div>
       <h2>ผลแต่ละรายการมาจากไหน</h2>
-      <p>ทีมผู้จัดทำรวบรวมข้อมูลจากแหล่งอ้างอิงด้านสัตวแพทย์และสวัสดิภาพสัตว์ที่เชื่อถือได้ เช่น คู่มือสัตวแพทย์ ศูนย์พิษวิทยาสัตว์ และหน่วยงานรัฐ แยกผลสำหรับสุนัขและแมว เพราะร่างกายต่างกัน เมื่อแหล่งข้อมูลไม่ตรงกัน เราเลือกคำตอบที่ระมัดระวังกว่าไว้ก่อน ทุกผลลัพธ์มีลิงก์แหล่งอ้างอิงให้ตรวจสอบเองได้</p>
+      <p>ทีมผู้จัดทำรวบรวมข้อมูลจากแหล่งอ้างอิงด้านสัตวแพทย์และสวัสดิภาพสัตว์ที่เชื่อถือได้ เช่น คู่มือสัตวแพทย์ ศูนย์พิษวิทยาสัตว์ และหน่วยงานรัฐ แยกผลสำหรับน้องหมาและน้องแมว เพราะร่างกายต่างกัน เมื่อแหล่งข้อมูลไม่ตรงกัน เราเลือกคำตอบที่ระมัดระวังกว่าไว้ก่อน ทุกผลลัพธ์มีลิงก์แหล่งอ้างอิงให้ตรวจสอบเองได้</p>
       <h2>ความหมายของ 5 สถานะ</h2>
       <ul class="legend" id="about-legend"></ul>
       <h2>สิ่งที่แอปนี้ไม่ใช่</h2>
@@ -315,8 +315,8 @@
         <fieldset class="form-row" id="fb-pets-row" aria-describedby="fb-pets-err">
           <legend>เลี้ยงอะไร</legend>
           <div class="opt-grid">
-            <label class="opt"><input type="radio" name="fb-pets" value="dog"><span>สุนัข</span></label>
-            <label class="opt"><input type="radio" name="fb-pets" value="cat"><span>แมว</span></label>
+            <label class="opt"><input type="radio" name="fb-pets" value="dog"><span>น้องหมา</span></label>
+            <label class="opt"><input type="radio" name="fb-pets" value="cat"><span>น้องแมว</span></label>
             <label class="opt"><input type="radio" name="fb-pets" value="both"><span>ทั้งสอง</span></label>
           </div>
           <p class="field-err" id="fb-pets-err" hidden></p>

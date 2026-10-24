@@ -36,8 +36,8 @@
     unknown: {lvl:'call',  icon:'i-phone',   text:'โทรปรึกษาสัตวแพทย์'}
   };
   var SPECIES = {
-    dog:{name:'สุนัข', nick:'น้องหมา', icon:'#i-dog'},
-    cat:{name:'แมว',  nick:'น้องแมว', icon:'#i-cat'}
+    dog:{name:'น้องหมา', nick:'น้องหมา', icon:'icons/pet-dog.jpg'},
+    cat:{name:'น้องแมว', nick:'น้องแมว', icon:'icons/pet-cat.jpg'}
   };
   var LS = {species:'kdm-species', profile:'kdm-profile', favs:'kdm-favs', recent:'kdm-recent', requests:'kdm-requests',
             notice:'kdm-notice', optout:'kdm-optout', local:'kdm-feedback-local', iosHint:'kdm-ios-hint'};
@@ -182,8 +182,8 @@
        notice has been seen, and the user has not turned on the opt-out.
      - Google's response cannot be read (no-cors), so "resolved" = sent.
      ===================================================================== */
-  var SP_TXT = {dog:'สุนัข', cat:'แมว', both:'ทั้งสอง'};
-  var PETS_TXT = {dog:'สุนัข', cat:'แมว', both:'ทั้งสุนัขและแมว'};
+  var SP_TXT = {dog:'น้องหมา', cat:'น้องแมว', both:'ทั้งสอง'};
+  var PETS_TXT = {dog:'น้องหมา', cat:'น้องแมว', both:'ทั้งน้องหมาและน้องแมว'};
   var RET_TXT = {yes:'ใช้แน่', maybe:'อาจจะ', no:'คงไม่'};
   function entryName(id){
     id = String(id || '').trim();
@@ -320,7 +320,7 @@
   function renderSearchChrome(){
     var sp = SPECIES[species];
     $$('.sp-name').forEach(function(n){ n.textContent = sp.name; });
-    $$('.sp-icon').forEach(function(n){ n.setAttribute('href', sp.icon); });
+    $$('.sp-icon').forEach(function(n){ n.setAttribute('src', sp.icon); });
     $('#search-h').textContent = sp.nick + 'กินอันนี้ได้ไหม?';
   }
 
@@ -744,7 +744,7 @@
     var head = '<div class="sec-head"><p style="margin:0"><strong>'+esc(food.name_th)+'</strong></p>'+
       '<button type="button" class="link-btn" data-action="emg-clear">เลือกใหม่</button></div>';
     if (!emgSpecies){
-      box.innerHTML = head + '<p class="card">เลือกด้านบนก่อนว่าน้องเป็นสุนัขหรือแมว เพราะความอันตรายต่างกัน</p>';
+      box.innerHTML = head + '<p class="card">เลือกด้านบนก่อนว่าเป็นน้องหมาหรือน้องแมว เพราะความอันตรายต่างกัน</p>';
       return;
     }
     box.innerHTML = head + '<p style="margin:6px 0 0">'+badge(statusOf(food, emgSpecies))+' สำหรับ'+SPECIES[emgSpecies].name+'</p>'+
@@ -808,7 +808,7 @@
   function saveProfileFromForm(){
     var spEl = $('input[name="pf-sp"]:checked');
     var msg = $('#pf-msg');
-    if (!spEl){ msg.hidden = false; msg.textContent = 'กรุณาเลือกว่าเป็นสุนัขหรือแมว'; return false; }
+    if (!spEl){ msg.hidden = false; msg.textContent = 'กรุณาเลือกว่าเป็นน้องหมาหรือน้องแมว'; return false; }
     var kgRaw = $('#pf-kg').value.replace(',', '.').trim();
     var kg = kgRaw ? parseFloat(kgRaw) : null;
     if (kgRaw && !(kg > 0 && kg < 150)){ msg.hidden = false; msg.textContent = 'น้ำหนักไม่ถูกต้อง ใส่เป็นตัวเลขกิโลกรัม เช่น 4.5'; return false; }
