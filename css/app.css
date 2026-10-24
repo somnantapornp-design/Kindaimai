@@ -571,3 +571,5 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px))}
 .card.hb-empty h2{justify-content:center}
 .hb-empty .btn-primary{margin-top:12px}
 #clear-host .confirm{margin-top:10px}
+
+.hb-quickw{width:100%;margin-top:12px;justify-content:center}

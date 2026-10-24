@@ -1223,7 +1223,8 @@
       '<div class="hb-sum-top"><img class="pet-ph" src="'+SPECIES[p.species].icon+'" alt="" width="64" height="64">'+
         '<div class="hb-sum-name"><h2 id="sum-h">'+esc(p.name)+'</h2><span class="sp-badge sp-'+p.species+'">'+SPECIES[p.species].name+'</span></div>'+
         '<button type="button" class="mini-btn" data-action="pet-edit" aria-label="แก้ไขข้อมูล '+esc(p.name)+'">'+icon('i-edit')+'แก้ไข</button></div>'+
-      '<dl class="hb-facts">'+facts.map(function(f){ return '<div><dt>'+f[0]+'</dt><dd>'+f[1]+'</dd></div>'; }).join('')+'</dl></section>'+
+      '<dl class="hb-facts">'+facts.map(function(f){ return '<div><dt>'+f[0]+'</dt><dd>'+f[1]+'</dd></div>'; }).join('')+'</dl>'+
+      '<button type="button" class="btn-sec hb-quickw" data-action="hb-add-weight">'+icon('i-plus')+'บันทึกน้ำหนักวันนี้</button></section>'+
       treatCardHTML(p, true);
   }
 
@@ -1852,6 +1853,7 @@
       case 'hb-tab': hbTab = t.getAttribute('data-k'); hbForm = null; rerenderKeep('#tab-' + hbTab); break;
       case 'hb-add': openEntryForm(t.getAttribute('data-kind'), null); break;
       case 'hb-add-weight': openEntryForm('weight', null); break;
+      case 'quick-weight': go('profile'); if (activePet()) openEntryForm('weight', null); break;
       case 'hb-edit': openEntryForm(t.getAttribute('data-kind'), t.getAttribute('data-id')); break;
       case 'hb-cancel': hbForm = null; rerenderKeep('.hb-add'); break;
       case 'hb-del': deleteEntry(t); break;
