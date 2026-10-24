@@ -39,7 +39,7 @@
     dog:{name:'น้องหมา', nick:'น้องหมา', icon:'icons/pet-dog.jpg'},
     cat:{name:'น้องแมว', nick:'น้องแมว', icon:'icons/pet-cat.jpg'}
   };
-  var LS = {species:'kdm-species', profile:'kdm-profile', favs:'kdm-favs', recent:'kdm-recent', requests:'kdm-requests',
+  var LS = {species:'kdm-species', profile:'kdm-profile', pets:'kdm-pets-v1', petsDamaged:'kdm-pets-v1-damaged', favs:'kdm-favs', recent:'kdm-recent', requests:'kdm-requests',
             notice:'kdm-notice', optout:'kdm-optout', local:'kdm-feedback-local', iosHint:'kdm-ios-hint'};
   var MAX_RECENT = 8;
   var DISH_RE = /(ทอด|ย่าง|ปิ้ง|ผัด|แกง|ต้ม|ส้มตำ|ตำ|ข้าวมัน|ลูกชิ้น|ยำ|ลาบ|น้ำตก|กะเพรา|ก๋วยเตี๋ยว|โจ๊ก|ข้าวขาหมู|ข้าวหมก|หมูกระทะ|สุกี้|ชาบู|ทอดมัน)/;
@@ -266,10 +266,164 @@
     }, 1500);
   }
 
+  /* =====================================================================
+     HEALTH BOOK DATA (สมุดสุขภาพน้อง) — key kdm-pets-v1, on this device only.
+     {activeId, pets:[{id,name,species,birthDate,ageYears,ageMonths,ageSetAt,
+       sex,sterilized,lifeStage,flags:{overweight,kidney},weights[],vaccines[],
+       deworm[],createdAt}]}
+     Works in memory when storage is blocked (storageOK = false → note shown).
+     ===================================================================== */
+  var TH_MON = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  var MAX_LIST = 500, MAX_PETS = 50;
+  var ISO_RE = /^\d{4}-\d{2}-\d{2}$/, ID_RE = /^[A-Za-z0-9_-]{1,40}$/;
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+  function isoOf(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }   // local date, no UTC shift
+  function todayISO(){ return isoOf(new Date()); }
+  function parseISO(s){
+    if (!ISO_RE.test(String(s || ''))) return null;
+    var p = s.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return (d.getFullYear() === +p[0] && d.getMonth() === +p[1] - 1 && d.getDate() === +p[2]) ? d : null;
+  }
+  function validISO(s){ return !!parseISO(s) && s >= '1980-01-01' && s <= '2200-12-31'; }
+  function dayNum(s){ var p = s.split('-'); return Math.round(Date.UTC(+p[0], +p[1] - 1, +p[2]) / 864e5); }
+  function daysUntil(s){ return dayNum(s) - dayNum(todayISO()); }
+  function thDate(s){ var d = parseISO(s); return d ? d.getDate() + ' ' + TH_MON[d.getMonth()] + ' ' + (d.getFullYear() + 543) : ''; }
+  function thDateShort(s, withYear){ var d = parseISO(s); return d ? d.getDate() + ' ' + TH_MON[d.getMonth()] + (withYear ? ' ' + String(d.getFullYear() + 543).slice(2) : '') : ''; }
+  function newId(p){ return (p || 'x') + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function cleanStr(v, max){ return String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max); }
+  function kgFmt(kg){ return (Math.round(kg * 10) / 10).toFixed(1); }
+  function emptyBook(){ return {activeId:null, pets:[]}; }
+
+  // Strict validation + sanitising. Returns a clean book, or throws Error(Thai message).
+  function validateBook(raw){
+    function bad(m){ throw new Error(m); }
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) bad('ไฟล์ไม่ใช่ข้อมูลสมุดสุขภาพ');
+    if (!Array.isArray(raw.pets)) bad('ไม่พบรายชื่อน้องในไฟล์');
+    if (raw.pets.length > MAX_PETS) bad('ไฟล์มีจำนวนน้องมากเกินไป');
+    function optDate(v, what){ if (v == null || v === '') return ''; if (!validISO(v)) bad('วันที่' + what + 'ไม่ถูกต้อง'); return v; }
+    function reqDate(v, what){ if (!validISO(v)) bad('วันที่' + what + 'ไม่ถูกต้อง'); return v; }
+    function idOf(v){ if (!ID_RE.test(String(v || ''))) bad('รหัสรายการในไฟล์ไม่ถูกต้อง'); return String(v); }
+    function list(v, what){ if (v == null) return []; if (!Array.isArray(v)) bad('ข้อมูล' + what + 'ไม่ถูกต้อง'); if (v.length > MAX_LIST) bad('ข้อมูล' + what + 'มากเกินไป'); return v; }
+    function obj(v, what){ if (!v || typeof v !== 'object' || Array.isArray(v)) bad('ข้อมูล' + what + 'ไม่ถูกต้อง'); return v; }
+    var seen = {};
+    var pets = raw.pets.map(function(p){
+      obj(p, 'น้อง');
+      var id = idOf(p.id); if (seen[id]) bad('รหัสน้องซ้ำกันในไฟล์'); seen[id] = 1;
+      var name = cleanStr(p.name, 30); if (!name) bad('มีน้องที่ไม่มีชื่อ');
+      if (!SPECIES[p.species]) bad('ชนิดสัตว์ของ ' + name + ' ไม่ถูกต้อง');
+      function intOrNull(v, max){ if (v == null || v === '') return null; if (typeof v !== 'number' || v !== Math.floor(v) || v < 0 || v > max) bad('อายุของ ' + name + ' ไม่ถูกต้อง'); return v; }
+      var flags = p.flags == null ? {} : obj(p.flags, 'ภาวะพิเศษ');
+      if (['', 'male', 'female'].indexOf(p.sex == null ? '' : p.sex) === -1) bad('เพศของ ' + name + ' ไม่ถูกต้อง');
+      if (['', 'yes', 'no'].indexOf(p.sterilized == null ? '' : p.sterilized) === -1) bad('ข้อมูลทำหมันของ ' + name + ' ไม่ถูกต้อง');
+      if (['young', 'adult', 'senior'].indexOf(p.lifeStage) === -1) bad('ช่วงวัยของ ' + name + ' ไม่ถูกต้อง');
+      var eids = {};
+      function eid(v){ var i = idOf(v); if (eids[i]) bad('รหัสบันทึกซ้ำกันในไฟล์'); eids[i] = 1; return i; }
+      return {
+        id:id, name:name, species:p.species,
+        birthDate: optDate(p.birthDate, 'เกิด'),
+        ageYears: intOrNull(p.ageYears, 40), ageMonths: intOrNull(p.ageMonths, 11),
+        ageSetAt: optDate(p.ageSetAt, 'บันทึกอายุ'),
+        sex: p.sex || '', sterilized: p.sterilized || '', lifeStage: p.lifeStage,
+        flags: {overweight: flags.overweight === true, kidney: flags.kidney === true},
+        weights: list(p.weights, 'น้ำหนัก').map(function(w){
+          obj(w, 'น้ำหนัก');
+          if (typeof w.kg !== 'number' || !(w.kg >= 0.1 && w.kg <= 150)) bad('น้ำหนักในไฟล์ไม่ถูกต้อง');
+          return {id:eid(w.id), date:reqDate(w.date, 'ชั่งน้ำหนัก'), kg:Math.round(w.kg * 10) / 10};
+        }),
+        vaccines: list(p.vaccines, 'วัคซีน').map(function(v){
+          obj(v, 'วัคซีน');
+          var n = cleanStr(v.name, 60); if (!n) bad('มีบันทึกวัคซีนที่ไม่มีชื่อ');
+          return {id:eid(v.id), date:reqDate(v.date, 'ฉีดวัคซีน'), name:n, nextDue:optDate(v.nextDue, 'นัด'), note:cleanStr(v.note, 200)};
+        }),
+        deworm: list(p.deworm, 'ถ่ายพยาธิ').map(function(v){
+          obj(v, 'ถ่ายพยาธิ');
+          var n = cleanStr(v.product, 60); if (!n) bad('มีบันทึกถ่ายพยาธิที่ไม่มีชื่อผลิตภัณฑ์');
+          return {id:eid(v.id), date:reqDate(v.date, 'ถ่ายพยาธิ'), product:n, nextDue:optDate(v.nextDue, 'นัด'), note:cleanStr(v.note, 200)};
+        }),
+        createdAt: cleanStr(p.createdAt, 40)
+      };
+    });
+    var active = pets.some(function(p){ return p.id === raw.activeId; }) ? raw.activeId : (pets[0] ? pets[0].id : null);
+    return {activeId:active, pets:pets};
+  }
+  function probeStorage(){
+    try { localStorage.setItem('kdm-probe', '1'); localStorage.removeItem('kdm-probe'); return true; } catch(e){ return false; }
+  }
+  var storageOK = probeStorage();
+  // Old single profile {species, weight, stage:'baby'|'adult'|'senior', overweight, kidney, name} → first pet
+  function migrateOldProfile(){
+    var p = lsGet(LS.profile, null);
+    if (!p || typeof p !== 'object' || !SPECIES[p.species]) return null;
+    var kg = parseFloat(p.weight), today = todayISO();
+    var pet = {
+      id:newId('p'), name:cleanStr(p.name, 30) || SPECIES[p.species].nick, species:p.species,
+      birthDate:'', ageYears:null, ageMonths:null, ageSetAt:'', sex:'', sterilized:'',
+      lifeStage: p.stage === 'baby' ? 'young' : (p.stage === 'senior' ? 'senior' : 'adult'),
+      flags:{overweight:!!p.overweight, kidney:!!p.kidney},
+      weights: (kg >= 0.1 && kg <= 150) ? [{id:newId('w'), date:today, kg:Math.round(kg * 10) / 10}] : [],
+      vaccines:[], deworm:[], createdAt:new Date().toISOString()
+    };
+    return {activeId:pet.id, pets:[pet]};
+  }
+  function loadBook(){
+    var raw = lsGet(LS.pets, null);
+    if (raw != null){
+      try { return validateBook(raw); }
+      catch(e){ lsSet(LS.petsDamaged, raw); return emptyBook(); }   // keep a copy, never crash
+    }
+    var mig = migrateOldProfile();
+    if (mig){
+      if (lsSet(LS.pets, mig)) lsDel(LS.profile);   // remove the old key only once the new one is saved
+      return mig;
+    }
+    return emptyBook();
+  }
+  function saveBook(){
+    var ok = lsSet(LS.pets, book);
+    if (!ok) storageOK = false;
+    return ok;
+  }
+  function petById(id){ return book.pets.filter(function(p){ return p.id === id; })[0] || null; }
+  function activePet(){ return petById(book.activeId) || book.pets[0] || null; }
+  function sortedDesc(arr){ return arr.slice().sort(function(a, b){ return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }); }
+  function latestWeight(p){ return p && p.weights.length ? sortedDesc(p.weights)[0] : null; }
+  // Age in whole months: from birthDate, or the approximate age advanced by time since ageSetAt
+  function ageMonthsOf(p){
+    var now = new Date();
+    function monthsSince(d){ var m = (now.getFullYear() - d.getFullYear()) * 12 + now.getMonth() - d.getMonth(); if (now.getDate() < d.getDate()) m--; return Math.max(0, m); }
+    var b = parseISO(p && p.birthDate);
+    if (b) return monthsSince(b);
+    if (p && (p.ageYears != null || p.ageMonths != null)){
+      var base = (p.ageYears || 0) * 12 + (p.ageMonths || 0), set = parseISO(p.ageSetAt);
+      return base + (set ? monthsSince(set) : 0);
+    }
+    return null;
+  }
+  function ageText(m){
+    if (m == null) return '';
+    var y = Math.floor(m / 12), mo = m % 12;
+    if (!y && !mo) return 'ไม่ถึง 1 เดือน';
+    return (y ? y + ' ปี' : '') + (y && mo ? ' ' : '') + (mo ? mo + ' เดือน' : '');
+  }
+  function stageOf(p){ var m = ageMonthsOf(p); return (m != null && m < 12) ? 'young' : p.lifeStage; }
+  // Upcoming / overdue appointments across all pets (nextDue within `days`, or overdue)
+  function dueItems(days){
+    var out = [];
+    book.pets.forEach(function(p){
+      p.vaccines.forEach(function(v){ if (v.nextDue) out.push({pet:p, kind:'vaccine', item:v, due:v.nextDue, d:daysUntil(v.nextDue)}); });
+      p.deworm.forEach(function(v){ if (v.nextDue) out.push({pet:p, kind:'deworm', item:v, due:v.nextDue, d:daysUntil(v.nextDue)}); });
+    });
+    return out.filter(function(x){ return x.d <= days; }).sort(function(a, b){ return a.d - b.d; });
+  }
+  function dueTitle(x){
+    if (x.kind === 'vaccine') return (/^วัคซีน/.test(x.item.name) ? '' : 'วัคซีน') + x.item.name;
+    return 'ถ่ายพยาธิ/เห็บหมัด: ' + x.item.product;
+  }
+
   /* ---------- state ---------- */
   var species = SPECIES[lsGet(LS.species, null)] ? lsGet(LS.species, null) : null;
-  var profile = loadProfile();
-  if (!species && profile && SPECIES[profile.species]) species = profile.species;
+  var book = loadBook();
+  if (!species && activePet()) species = activePet().species;
   var emgSpecies = null;     // species chosen inside emergency mode
   var emgFoodId = null;      // food selected inside emergency mode
   var nfQuery = '';          // query shown on the not-found screen
@@ -280,10 +434,6 @@
   function setSpecies(sp){
     species = sp;
     lsSet(LS.species, sp);
-  }
-  function loadProfile(){
-    var p = lsGet(LS.profile, null);
-    return (p && typeof p === 'object') ? p : null;
   }
   function getFavs(){ var a = lsGet(LS.favs, []); return Array.isArray(a) ? a.filter(function(id){ return BY_ID[id]; }) : []; }
   function getRecent(){ var a = lsGet(LS.recent, []); return Array.isArray(a) ? a.filter(function(id){ return BY_ID[id]; }) : []; }
@@ -444,29 +594,34 @@
 
   /* ---------- treat guideline (WSAVA 10%) ---------- */
   // Rough estimate only: RER = 70 x kg^0.75, times a conservative maintenance factor
+  // p = a pet from the health book; uses its latest weight, life stage (auto 'young' < 12 months) and flags
   function treatKcal(p){
-    var kg = parseFloat(p && p.weight);
-    if (!(kg > 0 && kg < 150) || p.stage === 'baby') return null;
-    var factor = (p.stage === 'senior' || p.overweight) ? 1.0 : (p.species === 'cat' ? 1.2 : 1.6);
+    var w = latestWeight(p), kg = w ? w.kg : NaN, stage = stageOf(p);
+    if (!(kg > 0 && kg < 150) || stage === 'young') return null;
+    var factor = (stage === 'senior' || p.flags.overweight) ? 1.0 : (p.species === 'cat' ? 1.2 : 1.6);
     var rer = 70 * Math.pow(kg, 0.75);
     return Math.round(rer * factor * 0.10);
   }
-  function treatCardHTML(){
-    var p = profile && profile.species === species ? profile : null;
+  // inBook = shown inside the health book (pet given explicitly); otherwise the active pet if it matches the species searched
+  function treatCardHTML(pet, inBook){
+    var p = pet || null;
+    if (!inBook){ p = activePet(); if (p && p.species !== species) p = null; }
     var html = '<div class="card treat"><h2>'+icon('i-paw')+'ปริมาณขนมต่อวัน</h2>'+
       '<p>ขนมและอาหารเสริมทุกชนิดรวมกันไม่ควรเกิน 10% ของพลังงานต่อวัน (แนวทาง WSAVA)</p>';
     if (p){
-      var kc = treatKcal(p);
-      var who = p.name ? esc(p.name) : esc(SPECIES[species].nick);
+      var kc = treatKcal(p), w = latestWeight(p);
       if (kc != null){
-        html += '<p class="kcal">'+who+' ('+esc(p.weight)+' กก.): ไม่เกินประมาณ '+kc+' kcal ต่อวัน</p>'+
+        html += '<p class="kcal">'+esc(p.name)+' ('+kgFmt(w.kg)+' กก.): ไม่เกินประมาณ '+kc+' kcal ต่อวัน</p>'+
           '<p class="est-note">ค่าประมาณคร่าว ๆ ปรึกษาสัตวแพทย์สำหรับตัวเลขที่เหมาะกับน้อง</p>';
+      } else if (!w){
+        html += '<p class="small muted">'+(inBook ? '<button type="button" class="link-btn" style="padding:0" data-action="hb-add-weight">เพิ่มบันทึกน้ำหนัก</button>'
+          : '<button type="button" class="link-btn" style="padding:0" data-action="profile">เพิ่มน้ำหนักในสมุดสุขภาพ</button>')+' เพื่อดูตัวเลขโดยประมาณ</p>';
       }
-      if (p.kidney || p.stage === 'baby'){
+      if (p.flags.kidney || stageOf(p) === 'young'){
         html += '<div class="caveat">น้องมีภาวะพิเศษ ควรถามสัตวแพทย์ก่อนให้อาหารนอกมื้อ</div>';
       }
     } else {
-      html += '<p class="small muted"><button type="button" class="link-btn" style="padding:0;min-height:44px" data-action="profile">ใส่น้ำหนักน้องในโปรไฟล์</button> เพื่อดูตัวเลขโดยประมาณ</p>';
+      html += '<p class="small muted"><button type="button" class="link-btn" style="padding:0;min-height:44px" data-action="profile">ใส่ข้อมูลน้องในสมุดสุขภาพ</button> เพื่อดูตัวเลขโดยประมาณ</p>';
     }
     html += '<p class="small"><a href="'+esc(WSAVA_URL)+'" target="_blank" rel="noopener noreferrer">WSAVA – Feeding treats to your cat (PDF)<span class="sr-only"> (เปิดในแท็บใหม่)</span></a></p></div>';
     return html;
@@ -926,42 +1081,515 @@
       '<p class="small muted" style="margin:8px 0 0">เปิด Google Maps ควรโทรยืนยันว่าเปิดอยู่ก่อนเดินทาง</p>';
   }
 
-  /* ---------- profile ---------- */
-  function fillProfileForm(){
-    var p = profile || {};
-    $('#pf-name').value = p.name || '';
-    var sp = p.species || species;
-    $$('input[name="pf-sp"]').forEach(function(r){ r.checked = r.value === sp; });
-    $('#pf-kg').value = p.weight || '';
-    $$('input[name="pf-stage"]').forEach(function(r){ r.checked = r.value === (p.stage || 'adult'); });
-    $('#pf-over').checked = !!p.overweight;
-    $('#pf-kidney').checked = !!p.kidney;
-    $('#pf-msg').hidden = true;
+  /* =====================================================================
+     HEALTH BOOK UI (สมุดสุขภาพน้อง) — tokens: profile, pet-new, pet-edit.
+     All three live in #view-profile; the "โปรไฟล์" tab stays highlighted.
+     Never computes or suggests vaccine/deworming schedules or doses.
+     ===================================================================== */
+  var hbTab = 'weight';          // weight | vaccine | deworm
+  var hbForm = null;             // {kind, id|null} — inline entry form that is open
+  var pfEditId = null;           // pet being edited on the pet form (null = new pet)
+  var pendingConfirm = null;     // {fn, back} for the in-page confirmation
+  var HB_TABS = [{k:'weight', t:'น้ำหนัก'}, {k:'vaccine', t:'วัคซีน'}, {k:'deworm', t:'ถ่ายพยาธิ'}];
+  var HB_LIST = {weight:'weights', vaccine:'vaccines', deworm:'deworm'};
+  var HB_NAME = {weight:'น้ำหนัก', vaccine:'วัคซีน', deworm:'ถ่ายพยาธิ / ป้องกันเห็บหมัด'};
+  var SEX_TXT = {male:'ผู้', female:'เมีย', '':'ไม่ระบุเพศ'};
+  var STER_TXT = {yes:'ทำหมันแล้ว', no:'ยังไม่ทำหมัน', '':'ไม่ทราบเรื่องทำหมัน'};
+  var STAGE_TXT = {young:'ลูก', adult:'โต', senior:'สูงวัย'};
+  var VAX_SUGGEST = ['พิษสุนัขบ้า','วัคซีนรวมน้องหมา','วัคซีนรวมน้องแมว','ลิวคีเมียแมว','อื่นๆ'];
+  var SCHEDULE_NOTE = 'ตารางวัคซีนและการถ่ายพยาธิขึ้นกับอายุ สุขภาพ และการเลี้ยงดู ให้ใส่วันนัดตามที่สัตวแพทย์แนะนำ';
+
+  function setActive(id){
+    var p = petById(id); if (!p) return;
+    book.activeId = id; saveBook(); setSpecies(p.species);
   }
-  function saveProfileFromForm(){
-    var spEl = $('input[name="pf-sp"]:checked');
-    var msg = $('#pf-msg');
-    if (!spEl){ msg.hidden = false; msg.textContent = 'กรุณาเลือกว่าเป็นน้องหมาหรือน้องแมว'; return false; }
-    var kgRaw = $('#pf-kg').value.replace(',', '.').trim();
-    var kg = kgRaw ? parseFloat(kgRaw) : null;
-    if (kgRaw && !(kg > 0 && kg < 150)){ msg.hidden = false; msg.textContent = 'น้ำหนักไม่ถูกต้อง ใส่เป็นตัวเลขกิโลกรัม เช่น 4.5'; return false; }
-    var stEl = $('input[name="pf-stage"]:checked');
-    profile = {
-      name: $('#pf-name').value.trim().slice(0, 30),
-      species: spEl.value,
-      weight: kg ? Math.round(kg * 10) / 10 : null,
-      stage: stEl ? stEl.value : 'adult',
-      overweight: $('#pf-over').checked,
-      kidney: $('#pf-kidney').checked
+  function savedToast(msg){ toast(storageOK ? msg : msg + ' (เฉพาะตอนนี้ เบราว์เซอร์บันทึกถาวรไม่ได้)'); }
+
+  /* ---------- in-page confirmation (no confirm()/alert()) ---------- */
+  function askInline(host, msg, yesLabel, onYes){
+    closeConfirm();
+    pendingConfirm = {fn:onYes, back:document.activeElement};
+    var box = document.createElement('div');
+    box.className = 'confirm';
+    box.setAttribute('role', 'alertdialog'); box.setAttribute('aria-labelledby', 'cf-msg');
+    box.innerHTML = '<p id="cf-msg">'+icon('i-limited')+'<span>'+esc(msg)+'</span></p>'+
+      '<div class="confirm-row"><button type="button" class="btn-del" data-action="confirm-yes">'+esc(yesLabel)+'</button>'+
+      '<button type="button" class="mini-btn" data-action="confirm-no">ยกเลิก</button></div>';
+    host.appendChild(box);
+    box.querySelector('[data-action="confirm-no"]').focus();
+    if (box.scrollIntoView) box.scrollIntoView({block:'nearest'});
+  }
+  function closeConfirm(){ $$('.confirm').forEach(function(b){ b.parentNode.removeChild(b); }); }
+
+  /* ---------- downloads (.ics / backup) ---------- */
+  function downloadFile(text, name, type){
+    try {
+      var url = URL.createObjectURL(new Blob([text], {type:type}));
+      var a = document.createElement('a');
+      a.href = url; a.download = name; a.hidden = true;
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(url); if (a.parentNode) a.parentNode.removeChild(a); }, 2000);
+      return true;
+    } catch(e){ toast('ดาวน์โหลดไฟล์ไม่ได้ในเบราว์เซอร์นี้'); return false; }
+  }
+  function fileSafe(s){ return String(s).replace(/[\\\/:*?"<>|#%&{}$!'@+`=\u0000-\u001f]+/g, '').replace(/\s+/g, '-').slice(0, 40) || 'pet'; }
+  function icsEsc(s){ return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+  // RFC 5545: fold lines at 75 octets without splitting a UTF-8 character
+  function icsFold(line){
+    var out = [], cur = '', bytes = 0, limit = 75;
+    for (var i = 0; i < line.length; i++){
+      var c = line.charCodeAt(i), ch = line.charAt(i), n;
+      if (c >= 0xD800 && c <= 0xDBFF && i + 1 < line.length){ ch += line.charAt(++i); n = 4; }
+      else n = c < 0x80 ? 1 : c < 0x800 ? 2 : 3;
+      if (bytes + n > limit){ out.push(cur); cur = ''; bytes = 0; limit = 74; }
+      cur += ch; bytes += n;
+    }
+    out.push(cur);
+    return out.join('\r\n ');
+  }
+  function icsFor(x){
+    var d = parseISO(x.due), day = x.due.replace(/-/g, '');
+    var end = isoOf(new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1)).replace(/-/g, '');
+    var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z');
+    var summary = dueTitle(x) + ' — ' + x.pet.name;
+    var desc = 'นัดจากสมุดสุขภาพน้อง แอป กินได้ไหม?' + (x.item.note ? '\n' + x.item.note : '');
+    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//kindaimai//health-book//TH', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+      'BEGIN:VEVENT', 'UID:' + x.item.id + '-' + day + '@kindaimai', 'DTSTAMP:' + stamp,
+      'DTSTART;VALUE=DATE:' + day, 'DTEND;VALUE=DATE:' + end,
+      'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc), 'TRANSP:TRANSPARENT',
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEsc('พรุ่งนี้: ' + summary), 'TRIGGER:-P1D', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'].map(icsFold).join('\r\n') + '\r\n';
+  }
+  function downloadIcs(petId, kind, id){
+    var p = petById(petId); if (!p) return;
+    var item = (p[HB_LIST[kind]] || []).filter(function(e){ return e.id === id; })[0];
+    if (!item || !item.nextDue) return;
+    var x = {pet:p, kind:kind, item:item, due:item.nextDue};
+    if (downloadFile(icsFor(x), 'kindaimai-' + fileSafe(p.name) + '-' + item.nextDue + '.ics', 'text/calendar;charset=utf-8'))
+      toast('ดาวน์โหลดไฟล์ปฏิทินแล้ว เปิดไฟล์เพื่อเพิ่มลงปฏิทิน');
+  }
+
+  /* ---------- pieces of the book screen ---------- */
+  function storeNoteHTML(){
+    return storageOK ? '' : '<p class="store-warn" role="status">'+icon('i-limited')+'<span><strong>เบราว์เซอร์นี้บันทึกข้อมูลไม่ได้</strong> ใช้งานได้ตามปกติ แต่ข้อมูลจะหายเมื่อปิดแอป ลองปิดโหมดไม่ระบุตัวตน หรือกด “สำรองข้อมูล” เก็บไว้</span></p>';
+  }
+  function switcherHTML(active){
+    return '<div class="hb-switch" role="group" aria-label="เลือกน้อง">'+book.pets.map(function(p){
+      var on = p.id === active.id;
+      return '<button type="button" class="pet-chip sp-'+p.species+'" data-action="pet-pick" data-id="'+esc(p.id)+'" aria-pressed="'+on+'">'+
+        '<img class="pet-ph" src="'+SPECIES[p.species].icon+'" alt="" width="56" height="56">'+
+        '<span class="pc-name">'+esc(p.name)+'</span><span class="sr-only"> ('+SPECIES[p.species].name+')</span></button>';
+    }).join('')+
+    '<button type="button" class="pet-chip add" data-action="pet-new"><span class="pc-plus">'+icon('i-plus')+'</span><span class="pc-name">เพิ่มน้อง</span></button></div>';
+  }
+  function dueState(x){
+    if (x.d < 0) return {cls:'over', ic:'i-limited', when:'เลยกำหนด ' + (-x.d) + ' วัน'};
+    return {cls:'soon', ic:'i-clock', when: x.d === 0 ? 'ถึงกำหนดวันนี้' : 'อีก ' + x.d + ' วัน'};
+  }
+  function dueRowHTML(x, withCal){
+    var s = dueState(x), what = dueTitle(x) + ' — ' + x.pet.name;
+    return '<li class="due '+s.cls+'">'+
+      '<button type="button" class="due-main" data-action="due-open" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'">'+icon(s.ic)+
+        '<span><span class="due-when">'+s.when+'</span><span class="due-what">'+esc(what)+'</span><span class="due-date">นัด '+thDate(x.due)+'</span></span></button>'+
+      (withCal && x.d >= 0 ? '<button type="button" class="mini-btn" data-action="ics" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'" data-id="'+esc(x.item.id)+'" aria-label="เพิ่มลงปฏิทิน: '+esc(what)+'">'+icon('i-cal')+'เพิ่มลงปฏิทิน</button>' : '')+
+    '</li>';
+  }
+  function upcomingHTML(){
+    var items = dueItems(30);
+    if (!items.length) return '';
+    return '<section class="hb-due" aria-labelledby="due-h"><h2 id="due-h">'+icon('i-clock')+'นัดที่ใกล้ถึง</h2>'+
+      '<p class="small muted">นัดภายใน 30 วันและนัดที่เลยกำหนด ของน้องทุกตัว</p>'+
+      '<ul class="due-list">'+items.map(function(x){ return dueRowHTML(x, true); }).join('')+'</ul></section>';
+  }
+  function renderHomeDue(){
+    var box = $('#home-due'); if (!box) return;
+    var items = dueItems(7);
+    box.hidden = !items.length;
+    box.innerHTML = !items.length ? '' :
+      '<h2 id="hd-h">'+icon('i-clock')+'นัดที่ใกล้ถึง</h2><ul class="due-list">'+items.slice(0, 3).map(function(x){ return dueRowHTML(x, false); }).join('')+'</ul>'+
+      (items.length > 3 ? '<p class="small muted" style="margin:6px 0 0">และอีก '+(items.length - 3)+' รายการในสมุดสุขภาพ</p>' : '');
+  }
+  function summaryHTML(p){
+    var m = ageMonthsOf(p), w = latestWeight(p);
+    var facts = [
+      ['อายุ', m == null ? 'ยังไม่ระบุ' : ageText(m) + (p.birthDate ? '<span class="sub">เกิด '+thDate(p.birthDate)+'</span>' : '<span class="sub">โดยประมาณ</span>')],
+      ['น้ำหนักล่าสุด', w ? kgFmt(w.kg)+' กก.<span class="sub">'+thDate(w.date)+'</span>' : 'ยังไม่มีบันทึก'],
+      ['เพศ / ทำหมัน', SEX_TXT[p.sex] + '<span class="sub">' + STER_TXT[p.sterilized] + '</span>'],
+      ['ช่วงวัย', STAGE_TXT[stageOf(p)]]
+    ];
+    var fl = [p.flags.overweight ? 'น้ำหนักเกิน' : '', p.flags.kidney ? 'โรคไต' : ''].filter(Boolean);
+    if (fl.length) facts.push(['ภาวะพิเศษ', fl.join(', ')]);
+    return '<section class="card hb-sum sp-'+p.species+'" aria-labelledby="sum-h">'+
+      '<div class="hb-sum-top"><img class="pet-ph" src="'+SPECIES[p.species].icon+'" alt="" width="64" height="64">'+
+        '<div class="hb-sum-name"><h2 id="sum-h">'+esc(p.name)+'</h2><span class="sp-badge sp-'+p.species+'">'+SPECIES[p.species].name+'</span></div>'+
+        '<button type="button" class="mini-btn" data-action="pet-edit" aria-label="แก้ไขข้อมูล '+esc(p.name)+'">'+icon('i-edit')+'แก้ไข</button></div>'+
+      '<dl class="hb-facts">'+facts.map(function(f){ return '<div><dt>'+f[0]+'</dt><dd>'+f[1]+'</dd></div>'; }).join('')+'</dl></section>'+
+      treatCardHTML(p, true);
+  }
+
+  /* ---------- weight chart (inline SVG, single series, colors from tokens) ---------- */
+  function niceStep(range, n){
+    var raw = range / n, mag = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10)), f = raw / mag;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * mag;
+  }
+  function weightsAsc(p){
+    return p.weights.map(function(w, i){ return {w:w, i:i}; })
+      .sort(function(a, b){ return a.w.date < b.w.date ? -1 : a.w.date > b.w.date ? 1 : a.i - b.i; })
+      .map(function(x){ return x.w; });
+  }
+  function weightChartHTML(p){
+    var pts = weightsAsc(p);
+    if (pts.length < 2) return '';
+    var W = 320, H = 176, L = 42, R = 18, T = 26, B = 30;
+    var xs = pts.map(function(w){ return dayNum(w.date); });
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+    if (x1 === x0){ x0 -= 1; x1 += 1; }
+    var ks = pts.map(function(w){ return w.kg; });
+    var lo = Math.min.apply(null, ks), hi = Math.max.apply(null, ks);
+    if (hi - lo < 0.4){ lo -= 0.5; hi += 0.5; } else { var pad = (hi - lo) * 0.12; lo -= pad; hi += pad; }
+    var step = niceStep(hi - lo, 4), y0 = Math.max(0, Math.floor(lo / step) * step), y1 = Math.ceil(hi / step) * step;
+    var dec = step >= 1 && step % 1 === 0 ? 0 : (Math.round(step * 10) === step * 10 ? 1 : 2);
+    function sx(d){ return L + (d - x0) / (x1 - x0) * (W - L - R); }
+    function sy(v){ return T + (y1 - v) / (y1 - y0) * (H - T - B); }
+    function r1(n){ return Math.round(n * 10) / 10; }
+    var g = '';
+    for (var v = y0; v <= y1 + step / 1000; v += step){
+      var yy = r1(sy(v));
+      g += '<line class="ch-grid" x1="'+L+'" x2="'+(W - R)+'" y1="'+yy+'" y2="'+yy+'"/>'+
+        '<text class="ch-tick" x="'+(L - 6)+'" y="'+(yy + 4)+'" text-anchor="end">'+v.toFixed(dec)+'</text>';
+    }
+    var first = pts[0], last = pts[pts.length - 1];
+    var withYear = first.date.slice(0, 4) !== last.date.slice(0, 4);
+    g += '<text class="ch-tick" x="'+L+'" y="'+(H - 8)+'" text-anchor="start">'+thDateShort(first.date, withYear)+'</text>'+
+      '<text class="ch-tick" x="'+(W - R)+'" y="'+(H - 8)+'" text-anchor="end">'+thDateShort(last.date, withYear)+'</text>';
+    var path = pts.map(function(w, i){ return (i ? 'L' : 'M') + r1(sx(dayNum(w.date))) + ' ' + r1(sy(w.kg)); }).join(' ');
+    g += '<path class="ch-line" d="'+path+'"/>';
+    pts.forEach(function(w, i){
+      var isLast = i === pts.length - 1;
+      g += '<circle class="'+(isLast ? 'ch-last' : 'ch-pt')+'" cx="'+r1(sx(dayNum(w.date)))+'" cy="'+r1(sy(w.kg))+'" r="'+(isLast ? 6 : 4)+'"><title>'+thDate(w.date)+': '+kgFmt(w.kg)+' กก.</title></circle>';
+    });
+    var lx = r1(sx(dayNum(last.date))), ly = r1(sy(last.kg));
+    g += '<text class="ch-lab" x="'+lx+'" y="'+(ly < T + 14 ? ly + 22 : ly - 12)+'" text-anchor="'+(lx > W - 60 ? 'end' : 'middle')+'">'+kgFmt(last.kg)+' กก.</text>';
+    var label = 'กราฟน้ำหนัก ' + p.name + ' ' + pts.length + ' บันทึก จาก ' + kgFmt(first.kg) + ' กก. (' + thDate(first.date) + ') เป็น ' + kgFmt(last.kg) + ' กก. (' + thDate(last.date) + ')';
+    return '<figure class="hb-chart sp-'+p.species+'"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(label)+'">'+g+'</svg></figure>';
+  }
+
+  /* ---------- health book tabs, lists and inline entry forms ---------- */
+  function chgText(diff){
+    if (Math.abs(diff) < 0.05) return 'เท่าเดิม';
+    return (diff > 0 ? '+' : '-') + kgFmt(Math.abs(diff)) + ' กก.';
+  }
+  function itemActs(kind, e, what){
+    return '<div class="hb-acts">'+
+      '<button type="button" class="mini-btn" data-action="hb-edit" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="แก้ไข '+esc(what)+'">'+icon('i-edit')+'แก้ไข</button>'+
+      '<button type="button" class="mini-btn" data-action="hb-del" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="ลบ '+esc(what)+'">'+icon('i-trash')+'ลบ</button></div>';
+  }
+  function listHTML(p, kind){
+    if (kind === 'weight'){
+      var asc = weightsAsc(p);
+      if (!asc.length) return '<p class="muted small hb-none">ยังไม่มีบันทึกน้ำหนัก</p>';
+      var rows = asc.map(function(w, i){ return {w:w, diff: i ? w.kg - asc[i - 1].kg : null}; }).reverse();
+      return weightChartHTML(p) + '<ul class="hb-list">'+rows.map(function(r){
+        var what = 'น้ำหนัก ' + kgFmt(r.w.kg) + ' กก. วันที่ ' + thDate(r.w.date);
+        return '<li class="hb-item"><div class="hb-main"><span class="hb-val">'+kgFmt(r.w.kg)+' กก.</span>'+
+          '<span class="hb-date">'+thDate(r.w.date)+'</span>'+
+          (r.diff != null ? '<span class="hb-chg">'+chgText(r.diff)+' <span class="muted">จากครั้งก่อน</span></span>' : '')+'</div>'+
+          itemActs(kind, r.w, what)+'</li>';
+      }).join('')+'</ul>';
+    }
+    var arr = sortedDesc(p[HB_LIST[kind]]);
+    var html = !arr.length ? '<p class="muted small hb-none">ยังไม่มีบันทึก'+HB_NAME[kind]+'</p>' :
+      '<ul class="hb-list">'+arr.map(function(e){
+        var name = kind === 'vaccine' ? e.name : e.product;
+        var what = name + ' วันที่ ' + thDate(e.date), due = '';
+        if (e.nextDue){
+          var x = {pet:p, kind:kind, item:e, due:e.nextDue, d:daysUntil(e.nextDue)};
+          var s = x.d <= 30 ? dueState(x) : null;
+          due = '<p class="hb-next">นัดครั้งถัดไป '+thDate(e.nextDue)+
+            (s ? ' <span class="due-tag '+s.cls+'">'+icon(s.ic)+s.when+'</span>' : '')+'</p>'+
+            (x.d >= 0 ? '<button type="button" class="mini-btn hb-cal" data-action="ics" data-pet="'+esc(p.id)+'" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="เพิ่มลงปฏิทิน: '+esc(dueTitle(x)+' — '+p.name)+'">'+icon('i-cal')+'เพิ่มลงปฏิทิน</button>' : '');
+        }
+        return '<li class="hb-item"><div class="hb-main"><span class="hb-val">'+esc(name)+'</span>'+
+          '<span class="hb-date">'+(kind === 'vaccine' ? 'ฉีดเมื่อ ' : 'ให้เมื่อ ')+thDate(e.date)+'</span>'+due+
+          (e.note ? '<p class="hb-note">'+esc(e.note)+'</p>' : '')+'</div>'+itemActs(kind, e, what)+'</li>';
+      }).join('')+'</ul>';
+    return html + '<p class="hb-sched">'+icon('i-info')+'<span>'+SCHEDULE_NOTE+'</span></p>';
+  }
+  function entryFormHTML(p, kind, id){
+    var e = id ? (p[HB_LIST[kind]] || []).filter(function(x){ return x.id === id; })[0] : null;
+    var today = todayISO();
+    function row(forId, label, input){ return '<div class="form-row"><label for="'+forId+'">'+label+'</label>'+input+'</div>'; }
+    var html = '<form class="hb-form" data-kind="'+kind+'" novalidate aria-labelledby="hbf-h">'+
+      '<h3 id="hbf-h">'+(e ? 'แก้ไข' : 'เพิ่ม')+'บันทึก'+HB_NAME[kind]+'</h3>'+
+      row('hbf-date', kind === 'weight' ? 'วันที่ชั่ง' : kind === 'vaccine' ? 'วันที่ฉีด' : 'วันที่ให้',
+        '<input class="text-in" type="date" id="hbf-date" max="'+today+'" value="'+esc(e ? e.date : today)+'" required aria-describedby="hbf-err">');
+    if (kind === 'weight'){
+      html += row('hbf-kg', 'น้ำหนัก (กิโลกรัม)', '<input class="text-in" type="text" inputmode="decimal" id="hbf-kg" placeholder="เช่น 4.5" value="'+(e ? kgFmt(e.kg) : '')+'" required aria-describedby="hbf-err">');
+    } else {
+      var nm = e ? (kind === 'vaccine' ? e.name : e.product) : '';
+      html += row('hbf-name', kind === 'vaccine' ? 'ชื่อวัคซีน' : 'ชื่อยาหรือผลิตภัณฑ์',
+        '<input class="text-in" type="text" id="hbf-name" maxlength="60" autocomplete="off" value="'+esc(nm)+'" required aria-describedby="hbf-err"'+
+        (kind === 'vaccine' ? ' list="vax-list" placeholder="เลือกหรือพิมพ์ชื่อวัคซีน">'+
+          '<datalist id="vax-list">'+VAX_SUGGEST.map(function(v){ return '<option value="'+esc(v)+'">'; }).join('')+'</datalist>' : ' placeholder="ชื่อตามฉลาก">'));
+      html += row('hbf-due', 'วันนัดครั้งถัดไป (ไม่บังคับ)',
+        '<input class="text-in" type="date" id="hbf-due" value="'+esc(e ? e.nextDue : '')+'" aria-describedby="hbf-due-hint hbf-err">'+
+        '<p class="hint" id="hbf-due-hint">ใส่ตามที่สัตวแพทย์นัด</p>');
+      html += row('hbf-note', 'หมายเหตุ (ไม่บังคับ)', '<textarea class="fb-text" id="hbf-note" maxlength="200">'+esc(e ? e.note : '')+'</textarea>');
+    }
+    return html + '<p class="field-err" id="hbf-err" role="alert" hidden></p>'+
+      '<div class="form-actions"><button type="submit" class="btn-primary">บันทึก</button>'+
+      '<button type="button" class="btn-sec" data-action="hb-cancel">ยกเลิก</button></div></form>';
+  }
+  function bookHTML(p){
+    var tabs = '<div class="hb-tabs" role="tablist" aria-label="บันทึกสุขภาพของ '+esc(p.name)+'">'+HB_TABS.map(function(t){
+      var on = t.k === hbTab;
+      return '<button type="button" role="tab" id="tab-'+t.k+'" aria-controls="panel-'+t.k+'" aria-selected="'+on+'" tabindex="'+(on ? 0 : -1)+'" data-action="hb-tab" data-k="'+t.k+'">'+t.t+'</button>';
+    }).join('')+'</div>';
+    var panels = HB_TABS.map(function(t){
+      var on = t.k === hbTab, open = on && hbForm && hbForm.kind === t.k;
+      return '<div class="hb-panel" role="tabpanel" id="panel-'+t.k+'" aria-labelledby="tab-'+t.k+'"'+(on ? '' : ' hidden')+'>'+
+        (on ? (open ? entryFormHTML(p, t.k, hbForm.id) :
+          '<button type="button" class="btn-sec hb-add" data-action="hb-add" data-kind="'+t.k+'">'+icon('i-plus')+'เพิ่มบันทึก<span class="sr-only">'+HB_NAME[t.k]+'</span></button>') +
+          listHTML(p, t.k) : '')+'</div>';
+    }).join('');
+    return '<h2 class="hb-book-h" id="book-h">บันทึกสุขภาพ</h2>' + tabs + panels;
+  }
+  function backupHTML(){
+    return '<section class="hb-backup" aria-labelledby="bk-h"><h2 id="bk-h">'+icon('i-lock')+'สำรองและกู้คืนข้อมูล</h2>'+
+      '<p class="small">ข้อมูลอยู่ในเครื่องนี้เท่านั้น ถ้าลบแอปหรือล้างข้อมูลเบราว์เซอร์จะหาย ควรสำรองเป็นระยะ ไฟล์สำรองจะบันทึกไว้ในที่ที่คุณเลือก แอปไม่ส่งไปที่ไหน</p>'+
+      '<div class="bk-row"><button type="button" class="btn-sec" data-action="backup"'+(book.pets.length ? '' : ' disabled')+'>'+icon('i-download')+'สำรองข้อมูล</button>'+
+      '<label class="btn-sec file-btn">'+icon('i-upload')+'กู้คืนข้อมูล<input type="file" id="restore-file" class="file-in" accept=".json,application/json"></label></div>'+
+      '<p class="field-err" id="restore-err" role="alert" hidden></p><div id="restore-host"></div></section>';
+  }
+  function renderProfile(){
+    closeConfirm();
+    $('#prof-h').textContent = 'สมุดสุขภาพน้อง';
+    var p = activePet(), html = storeNoteHTML();
+    if (p) book.activeId = p.id;
+    if (!p){
+      html += '<div class="card hb-empty"><div class="hb-empty-ph"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="72" height="72"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="72" height="72"></div>'+
+        '<h2>ยังไม่มีน้องในสมุดสุขภาพ</h2><p>จดน้ำหนัก วัคซีน และการถ่ายพยาธิของน้องไว้ในที่เดียว พร้อมเตือนวันนัดในแอป</p>'+
+        '<button type="button" class="btn-primary" data-action="pet-new">'+icon('i-plus')+'เพิ่มน้องตัวแรก</button></div>';
+    } else {
+      html += switcherHTML(p) + upcomingHTML() + summaryHTML(p) + bookHTML(p);
+    }
+    $('#hb-root').innerHTML = html + backupHTML();
+  }
+  function rerenderKeep(sel){
+    renderProfile();
+    var el = sel && $(sel);
+    if (el){ try { el.focus({preventScroll:true}); } catch(e){ el.focus(); } if (el.scrollIntoView) el.scrollIntoView({block:'nearest'}); }
+  }
+  function openEntryForm(kind, id){
+    hbTab = kind; hbForm = {kind:kind, id:id || null};
+    rerenderKeep('#hbf-' + (kind === 'weight' && !id ? 'kg' : 'date'));
+    var f = $('.hb-form'); if (f && f.scrollIntoView) f.scrollIntoView({block:'start'});
+  }
+  function saveEntry(form){
+    var kind = form.getAttribute('data-kind'), p = activePet(), today = todayISO(), err = $('#hbf-err');
+    if (!p) return;
+    $$('[aria-invalid]', form).forEach(function(el){ el.removeAttribute('aria-invalid'); });
+    function fail(sel, msg){ var el = $(sel); el.setAttribute('aria-invalid', 'true'); err.hidden = false; err.textContent = msg; el.focus(); }
+    var date = $('#hbf-date').value;
+    if (!validISO(date)) return fail('#hbf-date', 'กรุณาใส่วันที่');
+    if (date > today) return fail('#hbf-date', 'วันที่ต้องไม่เกินวันนี้');
+    var rec;
+    if (kind === 'weight'){
+      var raw = $('#hbf-kg').value.replace(',', '.').trim(), kg = parseFloat(raw);
+      if (!/^\d+(\.\d+)?$/.test(raw) || !(kg >= 0.1 && kg <= 150)) return fail('#hbf-kg', 'น้ำหนักต้องเป็นตัวเลข 0.1–150 กิโลกรัม เช่น 4.5');
+      rec = {date:date, kg:Math.round(kg * 10) / 10};
+    } else {
+      var name = cleanStr($('#hbf-name').value, 60), due = $('#hbf-due').value;
+      if (!name) return fail('#hbf-name', kind === 'vaccine' ? 'กรุณาใส่ชื่อวัคซีน' : 'กรุณาใส่ชื่อยาหรือผลิตภัณฑ์');
+      if (due && !validISO(due)) return fail('#hbf-due', 'วันนัดไม่ถูกต้อง');
+      if (due && due < date) return fail('#hbf-due', 'วันนัดครั้งถัดไปต้องไม่ก่อนวันที่ให้');
+      rec = {date:date, nextDue:due || '', note:cleanStr($('#hbf-note').value, 200)};
+      rec[kind === 'vaccine' ? 'name' : 'product'] = name;
+    }
+    var list = p[HB_LIST[kind]];
+    var old = hbForm && hbForm.id ? list.filter(function(x){ return x.id === hbForm.id; })[0] : null;
+    if (old) Object.keys(rec).forEach(function(k){ old[k] = rec[k]; });
+    else {
+      if (list.length >= MAX_LIST) return fail('#hbf-date', 'บันทึกครบ ' + MAX_LIST + ' รายการแล้ว ลบรายการเก่าก่อน');
+      rec.id = newId(kind.charAt(0)); list.push(rec);
+    }
+    saveBook(); hbForm = null;
+    rerenderKeep('.hb-add');
+    savedToast('บันทึก' + HB_NAME[kind] + 'แล้ว');
+  }
+  function deleteEntry(btn){
+    var kind = btn.getAttribute('data-kind'), id = btn.getAttribute('data-id'), p = activePet();
+    if (!p) return;
+    askInline(btn.closest('.hb-item'), 'ลบบันทึกนี้? ลบแล้วกู้คืนไม่ได้', 'ลบบันทึก', function(){
+      p[HB_LIST[kind]] = p[HB_LIST[kind]].filter(function(x){ return x.id !== id; });
+      if (hbForm && hbForm.id === id) hbForm = null;
+      saveBook(); rerenderKeep('.hb-add'); savedToast('ลบบันทึกแล้ว');
+    });
+  }
+
+  /* ---------- add / edit pet form ---------- */
+  function optRadios(name, opts, val){
+    return opts.map(function(o){
+      return '<label class="opt"><input type="radio" name="'+name+'" value="'+o[0]+'"'+(o[0] === val ? ' checked' : '')+'><span>'+o[1]+'</span></label>';
+    }).join('');
+  }
+  function renderPetForm(){
+    closeConfirm();
+    var p = pfEditId ? petById(pfEditId) : null, today = todayISO();
+    $('#prof-h').textContent = p ? 'แก้ไขข้อมูล ' + p.name : 'เพิ่มน้อง';
+    var m = p ? ageMonthsOf(p) : null, approx = !!(p && !p.birthDate && m != null);
+    var html = storeNoteHTML() + '<form id="pet-form" novalidate>'+
+      '<div class="form-row"><label for="pf-name">ชื่อน้อง <span class="req">(จำเป็น)</span></label>'+
+        '<input class="text-in" id="pf-name" type="text" maxlength="30" autocomplete="off" required value="'+esc(p ? p.name : '')+'" aria-describedby="pf-err"></div>'+
+      '<fieldset class="form-row" id="pf-sp-row"><legend>น้องหมา หรือ น้องแมว <span class="req">(จำเป็น)</span></legend><div class="opt-grid two">'+
+        ['dog', 'cat'].map(function(s){
+          return '<label class="opt sp-opt sp-'+s+'"><input type="radio" name="pf-sp" value="'+s+'"'+(p && p.species === s ? ' checked' : '')+'>'+
+            '<span><img class="pet-ph" src="'+SPECIES[s].icon+'" alt="" width="64" height="64">'+SPECIES[s].name+'</span></label>';
+        }).join('')+'</div></fieldset>'+
+      '<fieldset class="form-row"><legend>อายุ (ไม่บังคับ)</legend>'+
+        '<div class="opt-grid two">'+optRadios('pf-agemode', [['birth', 'รู้วันเกิด'], ['approx', 'อายุโดยประมาณ']], approx ? 'approx' : 'birth')+'</div>'+
+        '<div class="age-box" id="pf-birth-box"><label for="pf-birth">วันเกิด</label>'+
+          '<input class="text-in" type="date" id="pf-birth" min="1980-01-01" max="'+today+'" value="'+esc(p ? p.birthDate : '')+'" aria-describedby="pf-age-out"></div>'+
+        '<div class="age-box hb-approx" id="pf-approx-box">'+
+          '<div><label for="pf-ay">ปี</label><input class="text-in" type="number" id="pf-ay" min="0" max="40" step="1" inputmode="numeric" value="'+(approx ? Math.floor(m / 12) : '')+'" aria-describedby="pf-age-out"></div>'+
+          '<div><label for="pf-am">เดือน</label><input class="text-in" type="number" id="pf-am" min="0" max="11" step="1" inputmode="numeric" value="'+(approx ? m % 12 : '')+'" aria-describedby="pf-age-out"></div></div>'+
+        '<p class="hint" id="pf-age-out" aria-live="polite"></p></fieldset>'+
+      '<fieldset class="form-row"><legend>เพศ</legend><div class="opt-grid">'+optRadios('pf-sex', [['male', 'ผู้'], ['female', 'เมีย'], ['', 'ไม่ระบุ']], p ? p.sex : '')+'</div></fieldset>'+
+      '<fieldset class="form-row"><legend>ทำหมัน</legend><div class="opt-grid">'+optRadios('pf-ster', [['yes', 'ทำแล้ว'], ['no', 'ยังไม่ทำ'], ['', 'ไม่ทราบ']], p ? p.sterilized : '')+'</div></fieldset>'+
+      '<fieldset class="form-row" aria-describedby="pf-stage-hint"><legend>ช่วงวัย</legend><div class="opt-grid">'+
+        optRadios('pf-stage', [['young', 'ลูก'], ['adult', 'โต'], ['senior', 'สูงวัย']], p ? p.lifeStage : 'adult')+'</div>'+
+        '<p class="hint" id="pf-stage-hint"></p></fieldset>'+
+      '<fieldset class="form-row"><legend>ภาวะพิเศษ</legend>'+
+        '<label class="check"><input type="checkbox" id="pf-over"'+(p && p.flags.overweight ? ' checked' : '')+'>น้ำหนักเกิน</label>'+
+        '<label class="check"><input type="checkbox" id="pf-kidney"'+(p && p.flags.kidney ? ' checked' : '')+'>โรคไต</label></fieldset>'+
+      (p ? '' : '<div class="form-row"><label for="pf-kg">น้ำหนักวันนี้ (กิโลกรัม, ไม่บังคับ)</label>'+
+        '<input class="text-in" id="pf-kg" type="text" inputmode="decimal" placeholder="เช่น 4.5" aria-describedby="pf-kg-hint pf-err">'+
+        '<p class="hint" id="pf-kg-hint">จะเป็นบันทึกน้ำหนักแรกในสมุด ใช้คำนวณปริมาณขนมโดยประมาณ</p></div>')+
+      '<p class="field-err" id="pf-err" role="alert" hidden></p>'+
+      '<div class="form-actions"><button type="submit" class="btn-primary">บันทึก</button>'+
+        '<button type="button" class="btn-sec" data-action="pet-cancel">ยกเลิก</button></div>'+
+      (p ? '<div class="del-host" id="pf-del-host"><button type="button" class="btn-del-outline" data-action="pet-delete">'+icon('i-trash')+'ลบ '+esc(p.name)+' ออกจากสมุด</button></div>' : '')+
+      '</form>';
+    $('#hb-root').innerHTML = html;
+    petFormAge();
+  }
+  function formAgeMonths(){
+    if (radioVal('pf-agemode') === 'birth'){
+      var b = $('#pf-birth').value;
+      return (validISO(b) && b <= todayISO()) ? ageMonthsOf({birthDate:b}) : null;
+    }
+    var y = $('#pf-ay').value.trim(), mo = $('#pf-am').value.trim();
+    if (y === '' && mo === '') return null;
+    var yi = y === '' ? 0 : Number(y), mi = mo === '' ? 0 : Number(mo);
+    if (!(yi >= 0 && yi <= 40 && yi % 1 === 0 && mi >= 0 && mi <= 11 && mi % 1 === 0)) return null;
+    return yi * 12 + mi;
+  }
+  function petFormAge(){
+    var mode = radioVal('pf-agemode');
+    $('#pf-birth-box').hidden = mode !== 'birth';
+    $('#pf-approx-box').hidden = mode !== 'approx';
+    var m = formAgeMonths(), young = m != null && m < 12;
+    $('#pf-age-out').textContent = m == null ? '' : 'อายุตอนนี้: ' + ageText(m);
+    $$('input[name="pf-stage"]').forEach(function(r){
+      if (young){ r.checked = r.value === 'young'; r.disabled = r.value !== 'young'; }
+      else r.disabled = false;
+    });
+    $('#pf-stage-hint').textContent = young ? 'อายุน้อยกว่า 1 ปี จึงตั้งเป็น “ลูก” ให้อัตโนมัติ' : '';
+  }
+  function savePet(){
+    var p = pfEditId ? petById(pfEditId) : null, err = $('#pf-err'), today = todayISO();
+    $$('#pet-form [aria-invalid]').forEach(function(el){ el.removeAttribute('aria-invalid'); });
+    function fail(sel, msg){ var el = $(sel); el.setAttribute('aria-invalid', 'true'); err.hidden = false; err.textContent = msg; el.focus(); return false; }
+    var name = cleanStr($('#pf-name').value, 30);
+    if (!name) return fail('#pf-name', 'กรุณาใส่ชื่อน้อง');
+    var sp = radioVal('pf-sp');
+    if (!SPECIES[sp]) return fail('input[name="pf-sp"]', 'กรุณาเลือกว่าเป็นน้องหมาหรือน้องแมว');
+    var mode = radioVal('pf-agemode'), birth = '', ay = null, am = null, setAt = '';
+    if (mode === 'birth'){
+      birth = $('#pf-birth').value;
+      if (birth && (!validISO(birth) || birth > today)) return fail('#pf-birth', 'วันเกิดไม่ถูกต้อง ต้องไม่เกินวันนี้');
+    } else {
+      var y = $('#pf-ay').value.trim(), mo = $('#pf-am').value.trim();
+      if (y !== '' || mo !== ''){
+        ay = y === '' ? 0 : Number(y); am = mo === '' ? 0 : Number(mo);
+        if (!(ay >= 0 && ay <= 40 && ay % 1 === 0)) return fail('#pf-ay', 'ปีต้องเป็นจำนวนเต็ม 0–40');
+        if (!(am >= 0 && am <= 11 && am % 1 === 0)) return fail('#pf-am', 'เดือนต้องเป็นจำนวนเต็ม 0–11');
+        setAt = today;
+      }
+    }
+    var kg = null;
+    if (!p && $('#pf-kg').value.trim()){
+      var raw = $('#pf-kg').value.replace(',', '.').trim(); kg = parseFloat(raw);
+      if (!/^\d+(\.\d+)?$/.test(raw) || !(kg >= 0.1 && kg <= 150)) return fail('#pf-kg', 'น้ำหนักต้องเป็นตัวเลข 0.1–150 กิโลกรัม เช่น 4.5');
+    }
+    if (!p && book.pets.length >= MAX_PETS) return fail('#pf-name', 'เพิ่มน้องได้สูงสุด ' + MAX_PETS + ' ตัว');
+    var m = formAgeMonths();
+    var data = {
+      name:name, species:sp, birthDate:birth, ageYears:ay, ageMonths:am, ageSetAt:setAt,
+      sex:radioVal('pf-sex') || '', sterilized:radioVal('pf-ster') || '',
+      lifeStage:(m != null && m < 12) ? 'young' : (radioVal('pf-stage') || 'adult'),
+      flags:{overweight:$('#pf-over').checked, kidney:$('#pf-kidney').checked}
     };
-    var ok = lsSet(LS.profile, profile);
-    setSpecies(profile.species);
-    toast(ok ? 'บันทึกโปรไฟล์แล้ว' : 'ใช้โปรไฟล์ได้ แต่บันทึกในเครื่องนี้ไม่ได้');
+    if (p) Object.keys(data).forEach(function(k){ p[k] = data[k]; });
+    else {
+      p = data; p.id = newId('p'); p.createdAt = new Date().toISOString();
+      p.weights = kg ? [{id:newId('w'), date:today, kg:Math.round(kg * 10) / 10}] : [];
+      p.vaccines = []; p.deworm = [];
+      book.pets.push(p);
+    }
+    setActive(p.id);
+    hbForm = null; hbTab = 'weight';
+    savedToast('บันทึกข้อมูล ' + p.name + ' แล้ว');
     return true;
   }
+  function deletePet(){
+    var p = petById(pfEditId); if (!p) return;
+    askInline($('#pf-del-host'), 'ลบ ' + p.name + ' และบันทึกสุขภาพทั้งหมดของน้อง? ลบแล้วกู้คืนไม่ได้ ถ้าไม่มีไฟล์สำรอง', 'ลบน้อง', function(){
+      book.pets = book.pets.filter(function(x){ return x.id !== p.id; });
+      book.activeId = book.pets[0] ? book.pets[0].id : null;
+      if (book.pets[0]) setSpecies(book.pets[0].species);
+      saveBook(); hbForm = null; pfEditId = null;
+      savedToast('ลบ ' + p.name + ' แล้ว');
+      go('profile', {replace:true});
+    });
+  }
+
+  /* ---------- backup / restore ---------- */
+  function doBackup(){
+    var data = {app:'kindaimai', type:'health-book-backup', version:1, exportedAt:new Date().toISOString(), data:book};
+    if (downloadFile(JSON.stringify(data, null, 2), 'kindaimai-backup-' + todayISO() + '.json', 'application/json'))
+      toast('ดาวน์โหลดไฟล์สำรองแล้ว เก็บไฟล์ไว้ในที่ปลอดภัย');
+  }
+  function onRestoreFile(input){
+    var f = input.files && input.files[0], err = $('#restore-err');
+    function fail(m){ err.hidden = false; err.textContent = m; input.value = ''; }
+    err.hidden = true; closeConfirm();
+    if (!f) return;
+    if (f.size > 2 * 1024 * 1024) return fail('ไฟล์ใหญ่เกินไป ไม่ใช่ไฟล์สำรองของแอปนี้');
+    var r = new FileReader();
+    r.onerror = function(){ fail('อ่านไฟล์ไม่ได้ ลองเลือกไฟล์อีกครั้ง'); };
+    r.onload = function(){
+      var obj, nb;
+      try { obj = JSON.parse(String(r.result)); } catch(e){ return fail('อ่านไฟล์ไม่ได้ ต้องเป็นไฟล์สำรอง .json จากแอปนี้'); }
+      if (!obj || typeof obj !== 'object' || obj.app !== 'kindaimai' || obj.type !== 'health-book-backup' || obj.version !== 1)
+        return fail('ไฟล์นี้ไม่ใช่ไฟล์สำรองสมุดสุขภาพของแอป กินได้ไหม?');
+      try { nb = validateBook(obj.data); } catch(e){ return fail('ไฟล์สำรองไม่ถูกต้อง: ' + e.message + ' จึงไม่ได้นำเข้า'); }
+      input.value = '';
+      askInline($('#restore-host'), 'แทนที่ข้อมูลในเครื่องนี้ด้วยไฟล์สำรอง? ไฟล์มีน้อง ' + nb.pets.length + ' ตัว ข้อมูลเดิมในเครื่องจะถูกแทนที่ทั้งหมด', 'แทนที่ข้อมูล', function(){
+        book = nb; hbForm = null; hbTab = 'weight';
+        var a = activePet(); if (a) setSpecies(a.species);
+        saveBook(); renderProfile(); focusMain($('#prof-h'));
+        savedToast('กู้คืนข้อมูลแล้ว');
+      });
+    };
+    r.readAsText(f);
+  }
+
   function updateHomeProfileLabel(){
-    var p = profile;
-    $('#home-profile-label').textContent = p ? 'โปรไฟล์: ' + (p.name || SPECIES[p.species].nick) + (p.weight ? ' · ' + p.weight + ' กก.' : '') : 'ตั้งโปรไฟล์น้อง (ไม่บังคับ)';
+    var p = activePet(), w = latestWeight(p), n = book.pets.length;
+    $('#home-profile-label').textContent = p
+      ? 'สมุดสุขภาพ: ' + p.name + (w ? ' · ' + kgFmt(w.kg) + ' กก.' : '') + (n > 1 ? ' และอีก ' + (n - 1) + ' ตัว' : '')
+      : 'สมุดสุขภาพน้อง (ไม่บังคับ)';
   }
 
   /* ---------- about ---------- */
@@ -1028,7 +1656,12 @@
       show('emergency'); renderEmergency(); focusMain($('#emg-h')); return;
     }
     maybeShowNotice();
-    if (token === 'profile'){ fillProfileForm(); show('profile'); focusMain($('#prof-h')); return; }
+    if (token === 'profile'){ renderProfile(); show('profile'); focusMain($('#prof-h')); return; }
+    if (token === 'pet-new' || token === 'pet-edit'){
+      var ep = token === 'pet-edit' ? activePet() : null;
+      pfEditId = ep ? ep.id : null;
+      renderPetForm(); show('profile'); focusMain($('#prof-h')); return;
+    }
     if (token === 'about'){ renderAbout(); show('about'); focusMain($('#about-h')); return; }
     if (token === 'feedback'){ renderFeedback(); show('feedback'); focusMain($('#fb-h')); return; }
     if (token === 'nearby'){ renderNearby(); show('nearby'); focusMain($('#near-h')); return; }
@@ -1036,7 +1669,7 @@
     if (!dataReady){ show(dataFailed ? 'error' : 'loading'); return; }
     if (!species || token === '' || token === 'pet' || !needsSpecies(token)){
       if (needsSpecies(token)) pendingToken = token;
-      updateHomeProfileLabel();
+      updateHomeProfileLabel(); renderHomeDue();
       show('pet'); focusMain($('#pet-h')); return;
     }
     renderSearchChrome();
@@ -1186,18 +1819,53 @@
       case 'ios-hint-close': lsSet(LS.iosHint, 'closed'); $('#ios-hint').hidden = true; break;
       case 'update-app': applyUpdate(); break;
       case 'notice-show': openNotice(); break;
-      case 'clear-local': {
-        if (!window.confirm('ลบโปรไฟล์ รายการที่บันทึก ประวัติการค้นหา และการตั้งค่าทั้งหมดในเครื่องนี้?')) break;
-        Object.keys(LS).forEach(function(k){ if (k !== 'notice') lsDel(LS[k]); });
-        profile = null; species = null; helpedThisVisit = {};
-        renderPrivacyBox(); toast('ลบข้อมูลในเครื่องนี้แล้ว');
+      case 'clear-local':
+        askInline($('#clear-host'), 'ลบสมุดสุขภาพน้องทุกตัว รายการที่บันทึก ประวัติการค้นหา และการตั้งค่าทั้งหมดในเครื่องนี้? ถ้ายังไม่ได้สำรองข้อมูล จะกู้คืนไม่ได้', 'ลบทั้งหมด', function(){
+          Object.keys(LS).forEach(function(k){ if (k !== 'notice') lsDel(LS[k]); });
+          book = emptyBook(); species = null; helpedThisVisit = {}; hbForm = null;
+          renderPrivacyBox(); toast('ลบข้อมูลในเครื่องนี้แล้ว');
+          var b = $('[data-action="clear-local"]'); if (b) b.focus();
+        });
+        break;
+      case 'confirm-yes': {
+        var pc = pendingConfirm; pendingConfirm = null; closeConfirm();
+        if (pc && pc.fn) pc.fn();
         break;
       }
-      case 'clear-recent': lsDel(LS.recent); renderSaved(); toast('ล้างประวัติแล้ว'); break;
-      case 'delete-profile':
-        profile = null; lsDel(LS.profile); fillProfileForm(); updateHomeProfileLabel();
-        $('#pf-msg').hidden = false; $('#pf-msg').textContent = 'ลบโปรไฟล์แล้ว';
+      case 'confirm-no': {
+        var pb = pendingConfirm; pendingConfirm = null; closeConfirm();
+        if (pb && pb.back && document.contains(pb.back)) pb.back.focus();
         break;
+      }
+      case 'pet-new': go('pet-new'); break;
+      case 'pet-edit': go('pet-edit'); break;
+      case 'pet-cancel': go('profile', {replace:true}); break;
+      case 'pet-delete': deletePet(); break;
+      case 'pet-pick': {
+        var pid2 = t.getAttribute('data-id'), pp = petById(pid2);
+        if (!pp) break;
+        setActive(pid2); hbForm = null;
+        rerenderKeep('.pet-chip[data-id="' + pid2 + '"]');
+        toast('กำลังดูสมุดของ ' + pp.name);
+        break;
+      }
+      case 'hb-tab': hbTab = t.getAttribute('data-k'); hbForm = null; rerenderKeep('#tab-' + hbTab); break;
+      case 'hb-add': openEntryForm(t.getAttribute('data-kind'), null); break;
+      case 'hb-add-weight': openEntryForm('weight', null); break;
+      case 'hb-edit': openEntryForm(t.getAttribute('data-kind'), t.getAttribute('data-id')); break;
+      case 'hb-cancel': hbForm = null; rerenderKeep('.hb-add'); break;
+      case 'hb-del': deleteEntry(t); break;
+      case 'ics': downloadIcs(t.getAttribute('data-pet'), t.getAttribute('data-kind'), t.getAttribute('data-id')); break;
+      case 'due-open': {
+        setActive(t.getAttribute('data-pet'));
+        hbTab = t.getAttribute('data-kind'); hbForm = null;
+        if (current !== 'profile') go('profile'); else renderProfile();
+        var tb = $('#tab-' + hbTab);
+        if (tb){ tb.focus({preventScroll:true}); tb.scrollIntoView({block:'start'}); }
+        break;
+      }
+      case 'backup': doBackup(); break;
+      case 'clear-recent': lsDel(LS.recent); renderSaved(); toast('ล้างประวัติแล้ว'); break;
     }
   });
   $('#q').addEventListener('input', runSearch);
@@ -1229,9 +1897,30 @@
     lsSet(LS.optout, this.checked);
     toast(this.checked ? 'ปิดการส่งข้อมูลการใช้งานแล้ว' : 'เปิดการส่งข้อมูลการใช้งานแล้ว');
   });
-  $('#profile-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    if (saveProfileFromForm()) go('search');
+  // health book forms are re-rendered, so their events are delegated
+  document.addEventListener('submit', function(e){
+    var f = e.target;
+    if (f.id === 'pet-form'){ e.preventDefault(); if (savePet()) go('profile', {replace:true}); }
+    else if (f.classList && f.classList.contains('hb-form')){ e.preventDefault(); saveEntry(f); }
+  });
+  document.addEventListener('change', function(e){
+    var el = e.target;
+    if (el.id === 'restore-file') onRestoreFile(el);
+    else if (el.closest && el.closest('#pet-form')) petFormAge();
+  });
+  document.addEventListener('input', function(e){
+    if (e.target.closest && e.target.closest('#pet-form') && /^pf-(birth|ay|am)$/.test(e.target.id)) petFormAge();
+  });
+  // tablist keyboard: arrows / Home / End move between tabs
+  document.addEventListener('keydown', function(e){
+    var tb = e.target.closest && e.target.closest('.hb-tabs [role="tab"]'); if (!tb) return;
+    var ks = HB_TABS.map(function(x){ return x.k; }), i = ks.indexOf(tb.getAttribute('data-k')), n = -1;
+    if (e.key === 'ArrowRight') n = (i + 1) % ks.length;
+    else if (e.key === 'ArrowLeft') n = (i + ks.length - 1) % ks.length;
+    else if (e.key === 'Home') n = 0;
+    else if (e.key === 'End') n = ks.length - 1;
+    if (n < 0) return;
+    e.preventDefault(); hbTab = ks[n]; hbForm = null; rerenderKeep('#tab-' + hbTab);
   });
   window.addEventListener('popstate', function(e){
     var st = e.state;
@@ -1257,8 +1946,9 @@
     try { if (d.showModal) d.showModal(); else d.setAttribute('open', ''); } catch(e){ d.setAttribute('open', ''); }
   }
   function neededNotice(){ return remoteConfigured() ? 'remote' : 'local'; }
+  var noticeClosedThisVisit = null;   // in-memory fallback when storage is blocked
   function noticeOK(){
-    var seen = noticeSeen();
+    var seen = noticeSeen() || noticeClosedThisVisit;
     return seen === 'remote' || (seen === 'local' && neededNotice() === 'local');
   }
   function openNotice(){
@@ -1269,7 +1959,8 @@
   }
   function maybeShowNotice(){ if (!noticeOK()) openNotice(); }
   $('#notice-dlg').addEventListener('close', function(){
-    lsSet(LS.notice, neededNotice());
+    noticeClosedThisVisit = neededNotice();
+    lsSet(LS.notice, noticeClosedThisVisit);
     if (lastFocus && document.contains(lastFocus) && lastFocus.focus){ try { lastFocus.focus({preventScroll:true}); } catch(e){} }
   });
   // Escape also counts as "seen": the sheet only informs, it asks for nothing.
@@ -1337,9 +2028,12 @@
      DATA LOADING — data/foods.json, relative URL so it works in any folder
      ===================================================================== */
   var dataFailed = false;
+  // screens that do not need data/foods.json (health book screens included)
+  var STATIC_SCREENS = ['profile', 'pet-new', 'pet-edit', 'about', 'feedback', 'nearby', 'adopt'];
+  function isStatic(t){ return STATIC_SCREENS.indexOf(t) !== -1; }
   function loadFoods(){
     dataFailed = false;
-    if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby' && current !== 'adopt') show('loading');
+    if (current !== 'emergency' && !isStatic(current)) show('loading');
     return fetch(DATA_URL, {cache:'no-cache'}).then(function(r){
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
@@ -1349,12 +2043,12 @@
       dataReady = true;
       renderCategories();
       if (current === 'emergency') renderEmergency();          // keep focus where the user is
-      else if (current === 'profile' || current === 'about' || current === 'feedback' || current === 'nearby' || current === 'adopt') { /* static screens */ }
+      else if (isStatic(current)) { /* static screens */ }
       else render(current === '' && species ? 'search' : current);
     }).catch(function(err){
       console.error('โหลด data/foods.json ไม่สำเร็จ', err);
       dataFailed = true;
-      if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby' && current !== 'adopt') show('error');
+      if (current !== 'emergency' && !isStatic(current)) show('error');
     });
   }
 
@@ -1369,7 +2063,7 @@
   var start = tokenFromLocation();
   try { history.replaceState({t:start, q:nfQuery}, '', location.hash || location.pathname + location.search); } catch(e){}
   current = start;
-  if (start === 'emergency' || start === 'profile' || start === 'about' || start === 'feedback' || start === 'nearby' || start === 'adopt') render(start);
+  if (start === 'emergency' || isStatic(start)) render(start);
   else show('loading');
   loadFoods();
   registerSW();
