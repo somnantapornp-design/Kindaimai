@@ -220,7 +220,22 @@
     <!-- ===== Screen: find a home / adopt (links only; the app lists no animals itself) ===== -->
     <section class="view" id="view-adopt" aria-labelledby="adopt-h" hidden>
       <h1 id="adopt-h" tabindex="-1">หาบ้านหมาแมว</h1>
-      <p class="muted">อยากรับน้องไปเลี้ยง หรืออยากหาบ้านใหม่ให้น้อง เริ่มจากตรงนี้</p>
+      <p class="muted">น้องหมาน้องแมวที่กำลังรอบ้านใหม่ อยากรับไปดูแล กด "สนใจรับเลี้ยง" เพื่อติดต่อผู้โพสต์</p>
+
+      <div class="rh-post" id="rh-post"></div>
+
+      <h2 id="rh-h">น้องที่กำลังหาบ้าน</h2>
+      <div class="seg rh-filter" role="group" aria-labelledby="rh-h">
+        <button type="button" data-rh-sp="all" aria-pressed="true">ทั้งหมด</button>
+        <button type="button" data-rh-sp="dog" aria-pressed="false">น้องหมา</button>
+        <button type="button" data-rh-sp="cat" aria-pressed="false">น้องแมว</button>
+      </div>
+      <div class="field rh-where">
+        <label for="rh-q">จังหวัดหรืออำเภอ (ไม่บังคับ)</label>
+        <div class="search-wrap"><svg aria-hidden="true"><use href="#i-pin"/></svg><input id="rh-q" type="search" placeholder="เช่น สงขลา หาดใหญ่" autocomplete="off"></div>
+      </div>
+      <p class="small muted" id="rh-status" aria-live="polite"></p>
+      <ul class="rh-list" id="rh-list"></ul>
 
       <h2>อยากรับน้องไปเลี้ยง</h2>
       <div class="home-links" id="adopt-search"></div>
@@ -242,8 +257,9 @@
         <li>ประกาศพร้อมรูปที่ชัด นิสัย อายุ ประวัติวัคซีนและการทำหมัน ตามความจริง</li>
         <li>คุยและพบผู้รับเลี้ยงก่อนส่งมอบ ดูว่าพร้อมดูแลจริง</li>
         <li>ห้ามนำสัตว์ไปปล่อยหรือทิ้ง เป็นอันตรายต่อน้อง และมีความผิดตามกฎหมายคุ้มครองสวัสดิภาพสัตว์</li>
+        <li>โพสต์หาบ้านในแอปนี้ต้องให้ฟรี ไม่รับโพสต์ขายสัตว์</li>
       </ul>
-      <div class="intro-note" style="margin-top:16px"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="small" style="margin:0">แอปนี้ไม่ได้เป็นตัวกลางรับเลี้ยงหรือรับรององค์กรใด ข้อมูลน้องและเงื่อนไขการรับเลี้ยงเป็นของแต่ละองค์กร โปรดติดต่อสอบถามโดยตรง</p></div>
+      <div class="intro-note" style="margin-top:16px"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="small" style="margin:0">ผู้ดูแลแอปตรวจโพสต์ก่อนเผยแพร่ แต่ไม่ได้รับรองข้อมูลของผู้โพสต์หรือองค์กรใด การรับเลี้ยงเป็นการตกลงกันเองระหว่างผู้โพสต์กับผู้รับเลี้ยง โปรดพบน้องและตรวจสอบก่อนรับ</p></div>
     </section>
 
     <!-- ===== Screen: nearby services (links to Google Maps; the app never reads location) ===== -->

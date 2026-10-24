@@ -795,7 +795,124 @@
       '<span>'+esc(title)+(sub ? '<span class="sub">'+esc(sub)+'</span>' : '')+'</span>'+
       '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">(เปิดในหน้าต่างใหม่)</span></a>';
   }
+  /* ---------- rehoming board: posts come from a published Google Sheet (CSV),
+       only rows the owner approved are in that sheet; the app never writes there ---------- */
+  var REHOME = (CFG.REHOME && typeof CFG.REHOME === 'object') ? CFG.REHOME : {};
+  var LS_RH = 'kdm-rehome-cache';
+  var rhPosts = null, rhLoading = false, rhSp = 'all', rhError = false, rhFromCache = null, rhOpen = {};
+  function parseCSV(text){
+    var rows = [], row = [], cell = '', q = false;
+    for (var i = 0; i < text.length; i++){
+      var c = text[i];
+      if (q){
+        if (c === '"'){ if (text[i+1] === '"'){ cell += '"'; i++; } else q = false; }
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === ','){ row.push(cell); cell = ''; }
+      else if (c === '\n' || c === '\r'){
+        if (c === '\r' && text[i+1] === '\n') i++;
+        row.push(cell); rows.push(row); row = []; cell = '';
+      } else cell += c;
+    }
+    if (cell !== '' || row.length){ row.push(cell); rows.push(row); }
+    return rows.filter(function(r){ return r.some(function(x){ return String(x).trim() !== ''; }); });
+  }
+  function rhSpecies(v){
+    v = String(v || '');
+    if (/แมว|cat/i.test(v)) return 'cat';
+    if (/หมา|สุนัข|dog/i.test(v)) return 'dog';
+    return '';
+  }
+  function driveImg(u){
+    u = String(u || '').split(/[\s,]+/)[0];
+    var m = u.match(/[?&]id=([\w-]{10,})/) || u.match(/\/d\/([\w-]{10,})/);
+    if (m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w800';
+    return /^https:\/\//.test(u) ? u : '';
+  }
+  function lineUrl(id){
+    id = String(id || '').trim().replace(/\s+/g, '');
+    if (!id) return '';
+    return id.charAt(0) === '@' ? 'https://line.me/R/ti/p/@' + encodeURIComponent(id.slice(1)) : 'https://line.me/R/ti/p/~' + encodeURIComponent(id);
+  }
+  function rowsToPosts(rows){
+    if (!rows.length) return [];
+    var head = rows[0].map(function(h){ return String(h).trim().toLowerCase(); });
+    return rows.slice(1).map(function(r, i){
+      var o = {}; head.forEach(function(h, j){ o[h] = String(r[j] == null ? '' : r[j]).trim(); });
+      o.sp = rhSpecies(o.species);
+      o.id = 'p' + (o.posted_at || i).replace(/\W+/g, '');
+      o.adopted = /ได้บ้าน|adopted/i.test(o.status || '');
+      return o;
+    }).filter(function(o){ return o.name || o.details; });
+  }
+  function loadRehome(force){
+    var url = safeUrl(REHOME.listingsCsvUrl);
+    if (!url){ rhPosts = []; renderRehome(); return; }
+    if (rhLoading || (rhPosts && !force)) { renderRehome(); return; }
+    rhLoading = true; rhError = false; renderRehome();
+    fetch(url, {cache:'no-cache'}).then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    }).then(function(t){
+      rhPosts = rowsToPosts(parseCSV(t)).reverse();   // newest first
+      rhFromCache = null;
+      lsSet(LS_RH, {at: new Date().toISOString(), posts: rhPosts});
+    }).catch(function(e){
+      console.error('โหลดโพสต์หาบ้านไม่สำเร็จ', e);
+      var c = lsGet(LS_RH, null);
+      if (c && Array.isArray(c.posts)){ rhPosts = c.posts; rhFromCache = c.at; } else { rhPosts = []; rhError = true; }
+    }).then(function(){ rhLoading = false; renderRehome(); });
+  }
+  function rhCard(p){
+    var img = driveImg(p.photo), open = !!rhOpen[p.id];
+    var facts = [p.sex, p.age, [p.district, p.province].filter(Boolean).join(' ')].filter(Boolean).map(esc).join(' · ');
+    var care = [p.sterilized ? 'ทำหมัน: ' + esc(p.sterilized) : '', p.vaccinated ? 'วัคซีน: ' + esc(p.vaccinated) : ''].filter(Boolean).join(' · ');
+    var line = String(p.line_id || '').trim();
+    var panel = '';
+    if (open){
+      panel = '<div class="rh-contact" id="rh-c-'+esc(p.id)+'">'+
+        '<p class="rh-warn">'+icon('i-shield')+'<span><strong>ก่อนติดต่อ:</strong> ไม่โอนเงินมัดจำหรือค่าใช้จ่ายใด ๆ ก่อนพบน้อง นัดเจอในที่สาธารณะ ขอดูประวัติวัคซีน ถ้าถูกเรียกเงิน ให้กดแจ้งโพสต์</span></p>'+
+        (line ? '<p class="rh-line">LINE ID ผู้โพสต์: <span class="phone">'+esc(line)+'</span></p>'+
+          '<div class="phone-row"><button type="button" class="mini-btn" data-action="copy-phone" data-phone="'+esc(line)+'">'+icon('i-copy')+'คัดลอก LINE ID</button>'+
+          '<a class="mini-btn" href="'+esc(lineUrl(line))+'" target="_blank" rel="noopener">'+icon('i-chat')+'เปิด LINE</a></div>'
+          : '<p class="muted small">โพสต์นี้ไม่มี LINE ID</p>')+
+        '<button type="button" class="link-btn rh-report" data-action="rh-report" data-id="'+esc(p.id)+'" data-name="'+esc(p.name)+'">แจ้งโพสต์ไม่เหมาะสม</button>'+
+      '</div>';
+    }
+    return '<li class="rh-card'+(p.adopted ? ' is-adopted' : '')+'">'+
+      '<div class="rh-ph">'+(img ? '<img src="'+esc(img)+'" alt="รูป'+esc(p.name || 'น้อง')+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.className=\'rh-fallback\';this.alt=\'\';this.src=\'icons/pet-'+(p.sp || 'dog')+'.jpg\'">' : '<img src="icons/pet-'+(p.sp || 'dog')+'.jpg" alt="" class="rh-fallback">')+
+        (p.adopted ? '<span class="rh-badge">ได้บ้านแล้ว</span>' : '')+'</div>'+
+      '<div class="rh-body">'+
+        '<h3>'+esc(p.name || 'น้องรอบ้าน')+' <span class="rh-sp rh-'+(p.sp || 'x')+'">'+esc(SP_TXT[p.sp] || p.species || '')+'</span></h3>'+
+        (facts ? '<p class="small muted">'+facts+'</p>' : '')+
+        (care ? '<p class="small">'+care+'</p>' : '')+
+        (p.details ? '<p class="rh-details">'+esc(p.details)+'</p>' : '')+
+        (p.adopted ? '' : '<button type="button" class="btn-primary rh-want" data-action="rh-interest" data-id="'+esc(p.id)+'" aria-expanded="'+open+'" aria-controls="rh-c-'+esc(p.id)+'">'+icon('i-heart')+(open ? 'ซ่อนช่องทางติดต่อ' : 'สนใจรับเลี้ยง')+'</button>')+
+        panel+
+      '</div></li>';
+  }
+  function renderRehome(){
+    var box = $('#rh-post'), formU = safeUrl(REHOME.postFormUrl), csvU = safeUrl(REHOME.listingsCsvUrl);
+    box.innerHTML = formU
+      ? '<a class="btn-primary rh-post-btn" href="'+esc(formU)+'" target="_blank" rel="noopener">'+icon('i-plus')+'โพสต์หาบ้านให้น้อง</a>'+
+        '<p class="small muted" style="margin:6px 0 0">กรอกแบบฟอร์มพร้อมรูป ผู้ดูแลแอปตรวจก่อนขึ้นหน้านี้ ให้รับเลี้ยงฟรีเท่านั้น</p>'
+      : '<p class="placeholder small">ยังไม่เปิดรับโพสต์หาบ้าน ผู้ดูแลแอปกำลังตั้งค่าแบบฟอร์ม</p>';
+    $$('[data-rh-sp]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-rh-sp') === rhSp)); });
+    var list = $('#rh-list'), st = $('#rh-status');
+    if (!csvU){ list.innerHTML = ''; st.textContent = 'ยังไม่มีโพสต์หาบ้าน'; return; }
+    if (rhLoading && !rhPosts){ list.innerHTML = ''; st.textContent = 'กำลังโหลดโพสต์…'; return; }
+    var where = key($('#rh-q').value || '');
+    var items = (rhPosts || []).filter(function(p){
+      if (rhSp !== 'all' && p.sp !== rhSp) return false;
+      return !where || key((p.province || '') + (p.district || '')).indexOf(where) !== -1;
+    }).sort(function(a, b){ return (a.adopted ? 1 : 0) - (b.adopted ? 1 : 0); });
+    st.textContent = rhError ? 'โหลดโพสต์ไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่' :
+      (items.length ? 'พบ ' + items.length + ' โพสต์' : 'ยังไม่มีโพสต์ที่ตรงกับตัวเลือกนี้') +
+      (rhFromCache ? ' (ข้อมูลที่บันทึกไว้ล่าสุด)' : '');
+    list.innerHTML = items.map(rhCard).join('');
+  }
   function renderAdopt(){
+    loadRehome(false);
     var s = (Array.isArray(CFG.ADOPT_SEARCH) ? CFG.ADOPT_SEARCH : []).filter(function(n){ return n && n.title && n.query; });
     $('#adopt-search').innerHTML = s.map(function(n){ return linkRow(mapsUrl(n.query), 'i-pin', n.title, n.sub); }).join('');
     var o = (Array.isArray(CFG.ADOPT_ORGS) ? CFG.ADOPT_ORGS : []).filter(function(n){ return n && n.name && /^https?:\/\//.test(n.url || ''); });
@@ -1005,6 +1122,23 @@
       case 'about': go('about'); break;
       case 'nearby': go('nearby'); break;
       case 'adopt': go('adopt'); break;
+      case 'rh-interest': {
+        var pid = t.getAttribute('data-id');
+        rhOpen[pid] = !rhOpen[pid];
+        if (rhOpen[pid]) sendAuto('adopt-interest', {food: 'หาบ้าน:' + pid});
+        renderRehome();
+        var c = $('#rh-c-' + pid); if (c) c.scrollIntoView({block:'nearest'});
+        break;
+      }
+      case 'rh-report': {
+        var rid = t.getAttribute('data-id'), rname = t.getAttribute('data-name') || '';
+        if (remoteConfigured()){
+          postForm({type:'report', food:'หาบ้าน:' + rid, comment:'แจ้งโพสต์: ' + rname}).then(function(ok){
+            toast(ok ? 'ส่งเรื่องให้ผู้ดูแลแอปแล้ว ขอบคุณค่ะ' : 'ยังส่งไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง');
+          });
+        } else toast('ยังแจ้งผ่านแอปไม่ได้ กรุณาติดต่อผู้ดูแลแอป');
+        break;
+      }
       case 'tab-home': go('pet'); break;
       case 'tab-eat': if (species) goSearch(false); else go('pet'); break;
       case 'other-species':
@@ -1223,6 +1357,12 @@
       if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby' && current !== 'adopt') show('error');
     });
   }
+
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('[data-rh-sp]');
+    if (b){ rhSp = b.getAttribute('data-rh-sp'); renderRehome(); }
+  });
+  (function(){ var rq = $('#rh-q'), tm; if (rq) rq.addEventListener('input', function(){ clearTimeout(tm); tm = setTimeout(renderRehome, 200); }); })();
 
   /* ---------- init ---------- */
   $('#legend').innerHTML = legendHTML();
