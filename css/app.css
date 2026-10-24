@@ -351,3 +351,9 @@ footer.disc .foot-links .link-btn{display:inline-flex;align-items:center}
 
 /* ไม่แสดงกรอบโฟกัสบนหัวข้อที่ย้ายโฟกัสให้อัตโนมัติเมื่อเปลี่ยนหน้า */
 [tabindex="-1"]:focus{outline:none}
+
+/* ปุ่มบริการใกล้ฉัน: ลิงก์ที่หน้าตาเหมือน row-btn พร้อมไอคอนเปิดหน้าต่างใหม่ */
+a.row-btn{text-decoration:none;color:inherit}
+.row-btn .ext{width:18px;height:18px;margin-left:auto;flex:none;color:var(--ink-2)}
+#emg-near{margin-top:14px}
+#emg-near .btn-danger{text-decoration:none}

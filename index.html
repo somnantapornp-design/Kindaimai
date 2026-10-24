@@ -65,6 +65,9 @@
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-2.4-5.7M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s-6.5-6.2-6.5-11.3a6.5 6.5 0 0113 0c0 5.1-6.5 11.3-6.5 11.3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10.2" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="17" r="2.8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 8.6L20 18M8.3 15.4L20 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12h6M9 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   </defs>
 </svg>
@@ -107,6 +110,7 @@
         <button type="button" class="sp-card" data-sp="cat"><svg aria-hidden="true"><use href="#i-cat"/></svg>แมว</button>
       </div>
       <div class="home-links">
+        <button type="button" class="row-btn" data-action="nearby"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>บริการใกล้ฉัน<span class="sub">คลินิกสัตว์ ร้านอาหารสัตว์ อาบน้ำตัดขน ฝากเลี้ยง</span></span></button>
         <button type="button" class="row-btn" data-action="profile"><svg aria-hidden="true"><use href="#i-user"/></svg><span><span id="home-profile-label">ตั้งโปรไฟล์น้อง (ไม่บังคับ)</span><span class="sub">น้ำหนัก ช่วงวัย ช่วยคำนวณปริมาณขนมโดยประมาณ</span></span></button>
         <button type="button" class="row-btn" data-action="about"><svg aria-hidden="true"><use href="#i-shield"/></svg><span>เกี่ยวกับข้อมูล<span class="sub">ข้อมูลมาจากไหน และอ่านผลอย่างไร</span></span></button>
         <button type="button" class="row-btn" data-action="feedback"><svg aria-hidden="true"><use href="#i-chat"/></svg><span>ส่งความคิดเห็น<span class="sub">ไม่ระบุตัวตน ใช้เวลาประมาณ 1 นาที</span></span></button>
@@ -210,6 +214,16 @@
 
       <h2 id="vet-h"><span style="display:inline-flex;gap:8px;align-items:center"><svg aria-hidden="true" style="width:22px;height:22px;color:var(--tox)"><use href="#i-cross"/></svg>โรงพยาบาลสัตว์ 24 ชม.</span></h2>
       <div id="vet-area"></div>
+      <div id="emg-near"></div>
+    </section>
+
+    <!-- ===== Screen: nearby services (links to Google Maps; the app never reads location) ===== -->
+    <section class="view" id="view-nearby" aria-labelledby="near-h" hidden>
+      <div class="back-row"><button type="button" class="btn-ghost" data-action="home-or-search"><svg aria-hidden="true"><use href="#i-back"/></svg>กลับ</button></div>
+      <h1 id="near-h" tabindex="-1">บริการใกล้ฉัน</h1>
+      <p class="muted">แตะเพื่อเปิด Google Maps แล้วดูร้านและคลินิกที่อยู่ใกล้คุณ พร้อมเวลาเปิด รีวิว และเส้นทาง</p>
+      <div class="home-links" id="nearby-list"></div>
+      <div class="intro-note" style="margin-top:16px"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="small" style="margin:0">รายชื่อมาจาก Google Maps แอปนี้ไม่ได้แนะนำหรือรับรองร้านใด ควรโทรสอบถามเวลาเปิดและบริการก่อนเดินทาง แอปไม่ได้เก็บตำแหน่งของคุณ ส่วน Google Maps อาจใช้ตำแหน่งตามการตั้งค่าในเครื่องของคุณ</p></div>
     </section>
 
     <!-- ===== Screen: pet profile ===== -->
@@ -286,6 +300,7 @@
       <h2>นโยบายและข้อตกลง</h2>
       <ul class="doc-links">
         <li><a href="privacy.html"><svg aria-hidden="true"><use href="#i-lock"/></svg>นโยบายความเป็นส่วนตัว</a></li>
+        <li><a href="#nearby" data-action="nearby"><svg aria-hidden="true"><use href="#i-pin"/></svg>บริการใกล้ฉัน</a></li>
         <li><a href="terms.html"><svg aria-hidden="true"><use href="#i-doc"/></svg>ข้อตกลงการใช้งานและข้อจำกัดความรับผิด</a></li>
       </ul>
     </section>

@@ -303,7 +303,7 @@
   }
 
   /* ---------- views ---------- */
-  var VIEWS = ['loading','error','pet','search','result','notfound','emergency','profile','about','feedback'];
+  var VIEWS = ['loading','error','pet','search','result','notfound','emergency','profile','about','feedback','nearby'];
   function show(name){
     VIEWS.forEach(function(v){ $('#view-'+v).hidden = (v !== name); });
     var hint = $('#ios-hint'); if (hint) hint.hidden = !(name === 'pet' || name === 'search') || !iosHintWanted();
@@ -752,6 +752,7 @@
       '<button type="button" class="link-btn" data-action="emg-full" data-id="'+esc(food.id)+'">ดูข้อมูลเต็มและแหล่งอ้างอิง</button>';
   }
   function renderVets(){
+    renderEmgNearby();
     var area = $('#vet-area');
     var list = (Array.isArray(VET_CONTACTS) ? VET_CONTACTS : []).filter(function(v){ return v && v.name && v.phone; });
     if (!list.length){
@@ -768,6 +769,28 @@
         (tel ? '<a class="mini-btn" href="tel:'+esc(tel)+'" aria-label="โทรหา '+esc(v.name)+'">'+icon('i-phone')+'โทร</a>' : '')+
         '</div></li>';
     }).join('')+'</ul>';
+  }
+
+  /* ---------- nearby services: plain links to Google Maps search (no location access) ---------- */
+  var NEARBY_ICONS = {pin:'i-pin', cross:'i-cross', bowl:'i-bowl', heart:'i-heart', scissors:'i-scissors', clock:'i-clock'};
+  function mapsUrl(q){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q); }
+  function nearbyItems(){
+    return (Array.isArray(CFG.NEARBY) ? CFG.NEARBY : []).filter(function(n){ return n && n.title && n.query; });
+  }
+  function renderNearby(){
+    var items = nearbyItems();
+    $('#nearby-list').innerHTML = items.length ? items.map(function(n){
+      return '<a class="row-btn" href="'+esc(mapsUrl(n.query))+'" target="_blank" rel="noopener">'+
+        icon(NEARBY_ICONS[n.icon] || 'i-pin')+
+        '<span>'+esc(n.title)+(n.sub ? '<span class="sub">'+esc(n.sub)+'</span>' : '')+'</span>'+
+        '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">(เปิด Google Maps ในหน้าต่างใหม่)</span></a>';
+    }).join('') : '<p class="muted">ยังไม่ได้ตั้งค่ารายการบริการ</p>';
+  }
+  function renderEmgNearby(){
+    var box = $('#emg-near'); if (!box) return;
+    var n = nearbyItems().filter(function(x){ return x.icon === 'clock'; })[0] || {query:'โรงพยาบาลสัตว์ 24 ชั่วโมง ใกล้ฉัน'};
+    box.innerHTML = '<a class="btn-danger" href="'+esc(mapsUrl(n.query))+'" target="_blank" rel="noopener">'+icon('i-pin')+'หาโรงพยาบาลสัตว์ 24 ชม. ใกล้ฉัน</a>'+
+      '<p class="small muted" style="margin:8px 0 0">เปิด Google Maps ควรโทรยืนยันว่าเปิดอยู่ก่อนเดินทาง</p>';
   }
 
   /* ---------- profile ---------- */
@@ -875,6 +898,7 @@
     if (token === 'profile'){ fillProfileForm(); show('profile'); focusMain($('#prof-h')); return; }
     if (token === 'about'){ renderAbout(); show('about'); focusMain($('#about-h')); return; }
     if (token === 'feedback'){ renderFeedback(); show('feedback'); focusMain($('#fb-h')); return; }
+    if (token === 'nearby'){ renderNearby(); show('nearby'); focusMain($('#near-h')); return; }
     if (!dataReady){ show(dataFailed ? 'error' : 'loading'); return; }
     if (!species || token === '' || token === 'pet' || !needsSpecies(token)){
       if (needsSpecies(token)) pendingToken = token;
@@ -962,6 +986,7 @@
         go('food-' + t.getAttribute('data-id')); break;
       case 'profile': go('profile'); break;
       case 'about': go('about'); break;
+      case 'nearby': go('nearby'); break;
       case 'other-species':
         setSpecies(species === 'dog' ? 'cat' : 'dog');
         if (currentFoodId) go('food-' + currentFoodId, {replace:true});
@@ -1160,7 +1185,7 @@
   var dataFailed = false;
   function loadFoods(){
     dataFailed = false;
-    if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback') show('loading');
+    if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby') show('loading');
     return fetch(DATA_URL, {cache:'no-cache'}).then(function(r){
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
@@ -1170,12 +1195,12 @@
       dataReady = true;
       renderCategories();
       if (current === 'emergency') renderEmergency();          // keep focus where the user is
-      else if (current === 'profile' || current === 'about' || current === 'feedback') { /* static screens */ }
+      else if (current === 'profile' || current === 'about' || current === 'feedback' || current === 'nearby') { /* static screens */ }
       else render(current === '' && species ? 'search' : current);
     }).catch(function(err){
       console.error('โหลด data/foods.json ไม่สำเร็จ', err);
       dataFailed = true;
-      if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback') show('error');
+      if (current !== 'emergency' && current !== 'profile' && current !== 'about' && current !== 'feedback' && current !== 'nearby') show('error');
     });
   }
 
@@ -1184,7 +1209,7 @@
   var start = tokenFromLocation();
   try { history.replaceState({t:start, q:nfQuery}, '', location.hash || location.pathname + location.search); } catch(e){}
   current = start;
-  if (start === 'emergency' || start === 'profile' || start === 'about' || start === 'feedback') render(start);
+  if (start === 'emergency' || start === 'profile' || start === 'about' || start === 'feedback' || start === 'nearby') render(start);
   else show('loading');
   loadFoods();
   registerSW();
