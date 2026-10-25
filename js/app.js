@@ -115,8 +115,13 @@
     try { var v = localStorage.getItem(k); return v == null ? fallback : JSON.parse(v); }
     catch(e){ return fallback; }
   }
+  var lsLastErr = null;
   function lsSet(k, v){
-    try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; }
+    lsLastErr = null;
+    try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ lsLastErr = e; return false; }
+  }
+  function isQuotaErr(e){
+    return !!e && (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED' || e.code === 22 || e.code === 1014);
   }
   function lsDel(k){ try { localStorage.removeItem(k); } catch(e){} }
 
@@ -307,12 +312,16 @@
        deworm[],meds[],appts[],createdAt}]}
        meds:  [{id,name,instructions,times:['08:00'],start,end,refillDate,note,doses:[{date,time,at}]}]
        appts: [{id,date,time,clinic,reason,note,done}]
+       photo: '' or 'data:image/jpeg;base64,…' (≤ 200 KB, resized on the device; see PET PHOTOS)
      Works in memory when storage is blocked (storageOK = false → note shown).
      ===================================================================== */
   var TH_MON = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
   var MAX_LIST = 500, MAX_PETS = 50, MAX_MEDS = 100, MAX_APPTS = 300, MAX_TIMES = 6, MAX_DOSES = 600, DOSE_DAYS = 90;
   var ISO_RE = /^\d{4}-\d{2}-\d{2}$/, ID_RE = /^[A-Za-z0-9_-]{1,40}$/, TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
   var STAMP_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
+  var PHOTO_RE = /^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/, PHOTO_MAX_STORE = 200 * 1024;
+  // a bad photo is dropped (''), never a reason to reject the whole book / backup
+  function cleanPhoto(v){ return (typeof v === 'string' && v.length <= PHOTO_MAX_STORE && PHOTO_RE.test(v)) ? v : ''; }
   function pad2(n){ return (n < 10 ? '0' : '') + n; }
   function isoOf(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }   // local date, no UTC shift
   function todayISO(){ return isoOf(new Date()); }
@@ -421,6 +430,7 @@
           return {id:eid(a.id), date:reqDate(a.date, t('vbw.appt')), time:optTime(a.time, t('vbw.appt')), clinic:cleanStr(a.clinic, 80),
             reason:cleanStr(a.reason, 60), note:cleanStr(a.note, 200), done:a.done === true};
         }),
+        photo: cleanPhoto(p.photo),
         createdAt: cleanStr(p.createdAt, 40)
       };
     });
@@ -442,7 +452,7 @@
       lifeStage: p.stage === 'baby' ? 'young' : (p.stage === 'senior' ? 'senior' : 'adult'),
       flags:{overweight:!!p.overweight, kidney:!!p.kidney},
       weights: (kg >= 0.1 && kg <= 150) ? [{id:newId('w'), date:today, kg:Math.round(kg * 10) / 10}] : [],
-      vaccines:[], deworm:[], meds:[], appts:[], createdAt:new Date().toISOString()
+      vaccines:[], deworm:[], meds:[], appts:[], photo:'', createdAt:new Date().toISOString()
     };
     return {activeId:pet.id, pets:[pet]};
   }
@@ -466,6 +476,71 @@
   }
   function petById(id){ return book.pets.filter(function(p){ return p.id === id; })[0] || null; }
   function activePet(){ return petById(book.activeId) || book.pets[0] || null; }
+  function petPhotoSrc(p){ return (p && p.photo) || SPECIES[p.species].icon; }
+  // round pet image; alt = pet name unless the surrounding control already says the name (decorative)
+  function petImgHTML(p, size, cls, decorative){
+    return '<img class="pet-ph'+(cls ? ' ' + cls : '')+'" src="'+esc(petPhotoSrc(p))+'" alt="'+(decorative ? '' : esc(p.name))+'" width="'+size+'" height="'+size+'">';
+  }
+  /* Save the book after a photo change. If storage is full, put back the previous photo
+     (the pet itself is kept) and report it; returns 'ok' | 'quota' | 'nostore'. */
+  function saveBookPhoto(p, prevPhoto){
+    if (lsSet(LS.pets, book)) return 'ok';
+    if (isQuotaErr(lsLastErr) && p.photo && p.photo !== prevPhoto){
+      p.photo = prevPhoto || '';
+      if (lsSet(LS.pets, book)) return 'quota';
+      if (isQuotaErr(lsLastErr) && p.photo){ p.photo = ''; if (lsSet(LS.pets, book)) return 'quota'; }
+    }
+    storageOK = false;
+    return 'nostore';
+  }
+
+  /* ---------- PET PHOTOS: processed on this device only, never uploaded ----------
+     decode (EXIF orientation applied) → centre square crop → 320×320 JPEG q≈0.82,
+     stepping down quality / size until the data URL is ≤ 120 KB. */
+  var PHOTO_MAX_IN = 15 * 1024 * 1024, PHOTO_MAX_OUT = 120 * 1024;
+  function photoErr(key){ var e = new Error(t(key)); e.photoKey = key; return e; }
+  function decodeViaImg(file){
+    return new Promise(function(res, rej){
+      var url = URL.createObjectURL(file), im = new Image();
+      im.onload = function(){ URL.revokeObjectURL(url); res(im); };
+      im.onerror = function(){ URL.revokeObjectURL(url); rej(photoErr('ph.notImg')); };
+      im.src = url;   // <img> applies EXIF orientation by default (image-orientation: from-image)
+    });
+  }
+  function decodePhoto(file){
+    if (typeof createImageBitmap === 'function'){
+      return createImageBitmap(file, {imageOrientation:'from-image'}).catch(function(){ return decodeViaImg(file); });
+    }
+    return decodeViaImg(file);
+  }
+  function encodePhoto(src){
+    var w = src.naturalWidth || src.width, h = src.naturalHeight || src.height;
+    if (!(w > 0 && h > 0)) throw photoErr('ph.notImg');
+    var side = Math.min(w, h), sx = (w - side) / 2, sy = (h - side) / 2;
+    var tries = [[320, .82], [320, .7], [320, .6], [256, .6], [256, .5]];
+    var cv = document.createElement('canvas'), ctx = cv.getContext('2d');
+    if (!ctx) throw photoErr('ph.fail');
+    for (var i = 0; i < tries.length; i++){
+      var n = tries[i][0];
+      cv.width = n; cv.height = n;
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, n, n);   // transparent PNG → white, not black
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(src, sx, sy, side, side, 0, 0, n, n);
+      var url = cv.toDataURL('image/jpeg', tries[i][1]);
+      if (PHOTO_RE.test(url) && url.length <= PHOTO_MAX_OUT) return url;
+    }
+    throw photoErr('ph.fail');
+  }
+  function preparePhoto(file){
+    if (!file) return Promise.reject(photoErr('ph.notImg'));
+    if (file.type && !/^image\//i.test(file.type)) return Promise.reject(photoErr('ph.notImg'));
+    if (file.size > PHOTO_MAX_IN) return Promise.reject(photoErr('ph.tooBig'));
+    if (!file.size) return Promise.reject(photoErr('ph.notImg'));
+    return decodePhoto(file).then(function(src){
+      try { return encodePhoto(src); }
+      finally { if (src && typeof src.close === 'function') src.close(); }
+    }).catch(function(e){ throw (e && e.photoKey) ? e : photoErr('ph.notImg'); });
+  }
   function sortedDesc(arr){ return arr.slice().sort(function(a, b){ return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }); }
   function latestWeight(p){ return p && p.weights.length ? sortedDesc(p.weights)[0] : null; }
   // Age in whole months: from birthDate, or the approximate age advanced by time since ageSetAt
@@ -1210,6 +1285,9 @@
   var hbTab = 'weight';          // weight | vaccine | deworm | med | appt
   var hbForm = null;             // {kind, id|null} — inline entry form that is open
   var pfEditId = null;           // pet being edited on the pet form (null = new pet)
+  var pfPhoto = '';              // photo shown in the pet form (data URL or '' = species picture)
+  var pfPhotoBusy = 0;           // non-zero while a photo is being prepared
+  var photoWarn = '';            // one-shot "storage full" note shown on the book screen
   var pendingConfirm = null;     // {fn, back} for the in-page confirmation
   var HB_TABS = [{k:'weight'}, {k:'vaccine'}, {k:'deworm'}, {k:'med'}, {k:'appt'}];
   var HB_LIST = {weight:'weights', vaccine:'vaccines', deworm:'deworm', med:'meds', appt:'appts'};
@@ -1352,7 +1430,7 @@
     return '<div class="hb-switch" role="group" aria-label="'+esc(t('sw.aria'))+'">'+book.pets.map(function(p){
       var on = p.id === active.id;
       return '<button type="button" class="pet-chip sp-'+p.species+'" data-action="pet-pick" data-id="'+esc(p.id)+'" aria-pressed="'+on+'">'+
-        '<img class="pet-ph" src="'+SPECIES[p.species].icon+'" alt="" width="56" height="56">'+
+        petImgHTML(p, 56, '', true)+
         '<span class="pc-name">'+esc(p.name)+'</span><span class="sr-only"> ('+esc(spName(p.species))+')</span></button>';
     }).join('')+
     '<button type="button" class="pet-chip add" data-action="pet-new"><span class="pc-plus">'+icon('i-plus')+'</span><span class="pc-name">'+esc(t('sw.add'))+'</span></button></div>';
@@ -1369,14 +1447,14 @@
   function dueRowHTML(x, withCal){
     var s = dueState(x), what = dueTitle(x) + ' — ' + x.pet.name;
     return '<li class="due '+s.cls+'">'+
-      '<button type="button" class="due-main" data-action="due-open" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'">'+icon(s.ic)+
+      '<button type="button" class="due-main" data-action="due-open" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'">'+icon(s.ic)+petImgHTML(x.pet, 30, 'pet-av', true)+
         '<span><span class="due-when">'+esc(s.when)+'</span><span class="due-what">'+esc(what)+'</span><span class="due-date">'+dueDateText(x)+'</span></span></button>'+
       (withCal && x.d >= 0 ? '<button type="button" class="mini-btn" data-action="ics" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'" data-id="'+esc(x.item.id)+'" aria-label="'+esc(t('cal.aria', {what:what}))+'">'+icon('i-cal')+esc(t('cal.add'))+'</button>' : '')+
     '</li>';
   }
   function todayRowHTML(x){
     var what = x.med.name + ' — ' + x.pet.name;
-    return '<li class="dose-row'+(x.late ? ' late' : '')+'">'+icon(x.late ? 'i-limited' : 'i-clock', 'dr-ic')+
+    return '<li class="dose-row'+(x.late ? ' late' : '')+'">'+icon(x.late ? 'i-limited' : 'i-clock', 'dr-ic')+petImgHTML(x.pet, 30, 'pet-av')+
       '<span class="dr-main"><span class="dr-time">'+esc(hm(x.time))+(x.late ? ' <span class="due-tag over">'+esc(t('dose.late'))+'</span>' : '')+'</span>'+
         '<span class="dr-what">'+esc(what)+'</span>'+(x.med.instructions ? '<span class="dr-how">'+esc(x.med.instructions)+'</span>' : '')+'</span>'+
       '<button type="button" class="mini-btn dr-give" data-action="dose-give" data-pet="'+esc(x.pet.id)+'" data-med="'+esc(x.med.id)+'" data-time="'+x.time+'" data-what="'+esc(t('dose.what', {what:what, t:x.time}))+'" aria-label="'+esc(t('dose.given.aria', {what:what, t:x.time}))+'">'+icon('i-check-c')+esc(t('dose.given'))+'</button></li>';
@@ -1420,9 +1498,12 @@
     var fl = [p.flags.overweight ? t('flag.over') : '', p.flags.kidney ? t('flag.kidney') : ''].filter(Boolean);
     if (fl.length) facts.push([t('sum.flags'), esc(fl.join(', '))]);
     return '<section class="card hb-sum sp-'+p.species+'" aria-labelledby="sum-h">'+
-      '<div class="hb-sum-top"><img class="pet-ph" src="'+SPECIES[p.species].icon+'" alt="" width="64" height="64">'+
+      '<div class="hb-sum-top"><label class="sum-photo" title="'+esc(t('ph.change.aria', {name:p.name}))+'">'+petImgHTML(p, 64)+
+        '<span class="sum-photo-ic">'+icon('i-edit')+'</span>'+
+        '<input type="file" id="sum-photo-in" class="file-in" accept="image/*" data-pet="'+esc(p.id)+'" aria-label="'+esc(t('ph.change.aria', {name:p.name}))+'" aria-describedby="sum-photo-st"></label>'+
         '<div class="hb-sum-name"><h2 id="sum-h">'+esc(p.name)+'</h2><span class="sp-badge sp-'+p.species+'">'+esc(spName(p.species))+'</span></div>'+
         '<button type="button" class="mini-btn" data-action="pet-edit" aria-label="'+esc(t('sum.edit.aria', {name:p.name}))+'">'+icon('i-edit')+esc(t('edit'))+'</button></div>'+
+      '<p class="small muted sum-photo-st" id="sum-photo-st" role="status" aria-live="polite"></p>'+
       '<dl class="hb-facts">'+facts.map(function(f){ return '<div><dt>'+esc(f[0])+'</dt><dd>'+f[1]+'</dd></div>'; }).join('')+'</dl>'+
       '<button type="button" class="btn-sec hb-quickw" data-action="hb-add-weight">'+icon('i-plus')+esc(t('sum.quickW'))+'</button></section>'+
       treatCardHTML(p, true);
@@ -1684,6 +1765,7 @@
     closeConfirm();
     $('#prof-h').textContent = t('prof.h');
     var p = activePet(), html = storeNoteHTML();
+    if (photoWarn){ html += '<p class="store-warn" role="alert">'+icon('i-limited')+'<span>'+esc(photoWarn)+'</span></p>'; photoWarn = ''; }
     if (p) book.activeId = p.id;
     if (!p){
       html += '<div class="card hb-empty"><div class="hb-empty-ph"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="72" height="72"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="72" height="72"></div>'+
@@ -1810,6 +1892,13 @@
           return '<label class="opt sp-opt sp-'+sp+'"><input type="radio" name="pf-sp" value="'+sp+'"'+(p && p.species === sp ? ' checked' : '')+'>'+
             '<span><img class="pet-ph" src="'+SPECIES[sp].icon+'" alt="" width="64" height="64">'+esc(spName(sp))+'</span></label>';
         }).join('')+'</div></fieldset>'+
+      '<fieldset class="form-row"><legend>'+esc(t('ph.legend'))+'</legend><div class="pf-photo">'+
+        '<img class="pet-ph" id="pf-photo-img" src="'+esc(p ? petPhotoSrc(p) : SPECIES.dog.icon)+'" alt="" width="96" height="96">'+
+        '<div class="pf-photo-btns"><label class="btn-sec file-btn">'+icon('i-upload')+esc(t('ph.choose'))+
+          '<input type="file" id="pf-photo-in" class="file-in" accept="image/*" aria-describedby="pf-photo-st"></label>'+
+          '<button type="button" class="btn-sec" id="pf-photo-del" data-action="pf-photo-del">'+icon('i-trash')+esc(t('ph.remove'))+'</button></div></div>'+
+        '<p class="hint" id="pf-photo-st" aria-live="polite">'+esc(t('ph.hint'))+'</p>'+
+        '<p class="field-err" id="pf-photo-err" role="alert" hidden></p></fieldset>'+
       '<fieldset class="form-row"><legend>'+esc(t('pf.age'))+'</legend>'+
         '<div class="opt-grid two">'+optRadios('pf-agemode', opts([['birth', 'pf.knowBirth'], ['approx', 'pf.approx']]), approx ? 'approx' : 'birth')+'</div>'+
         '<div class="age-box" id="pf-birth-box"><label for="pf-birth">'+esc(t('pf.birth'))+'</label>'+
@@ -1835,7 +1924,48 @@
       (p ? '<div class="del-host" id="pf-del-host"><button type="button" class="btn-del-outline" data-action="pet-delete">'+icon('i-trash')+esc(t('pf.delete', {name:p.name}))+'</button></div>' : '')+
       '</form>';
     $('#hb-root').innerHTML = html;
-    petFormAge();
+    pfPhoto = p ? p.photo || '' : ''; pfPhotoBusy = 0;
+    petFormAge(); pfPhotoSync();
+  }
+  // preview in the pet form: the chosen photo, or the selected species' picture
+  function pfPhotoSync(){
+    var img = $('#pf-photo-img'); if (!img) return;
+    var sp = radioVal('pf-sp'), name = cleanStr($('#pf-name').value, 30);
+    img.src = pfPhoto || SPECIES[SPECIES[sp] ? sp : 'dog'].icon;
+    img.alt = name || t('ph.alt.new');
+    img.classList.toggle('sp-dog', !pfPhoto && sp === 'dog'); img.classList.toggle('sp-cat', !pfPhoto && sp === 'cat');
+    $('#pf-photo-del').hidden = !pfPhoto;
+  }
+  function onPfPhoto(input){
+    var f = input.files && input.files[0], st = $('#pf-photo-st'), er = $('#pf-photo-err'), ticket = ++pfPhotoBusy;
+    input.value = '';
+    if (!f) { pfPhotoBusy = 0; return; }
+    er.hidden = true; st.textContent = t('ph.busy');
+    preparePhoto(f).then(function(url){
+      if (ticket !== pfPhotoBusy || !$('#pf-photo-img')) return;
+      pfPhoto = url; pfPhotoBusy = 0; pfPhotoSync(); st.textContent = t('ph.ready');
+    }, function(e){
+      if (ticket !== pfPhotoBusy || !$('#pf-photo-img')) return;
+      pfPhotoBusy = 0; st.textContent = t('ph.hint'); er.hidden = false; er.textContent = e.message;
+    });
+  }
+  // tap the photo on the summary card → same picker, saved straight away
+  function onSumPhoto(input){
+    var f = input.files && input.files[0], p = petById(input.getAttribute('data-pet')), st = $('#sum-photo-st');
+    input.value = '';
+    if (!f || !p) return;
+    st.textContent = t('ph.busy');
+    preparePhoto(f).then(function(url){
+      var prev = p.photo || '';
+      p.photo = url;
+      var r = saveBookPhoto(p, prev);
+      if (r === 'quota') photoWarn = t('ph.quota');
+      if (current === 'profile') rerenderKeep('#sum-photo-in');
+      if (r === 'quota') toast(t('ph.quota')); else savedToast(t('ph.saved', {name:p.name}));
+    }, function(e){
+      var s2 = $('#sum-photo-st'); if (s2) s2.textContent = e.message;
+      toast(e.message);
+    });
   }
   function formAgeMonths(){
     if (radioVal('pf-agemode') === 'birth'){
@@ -1887,13 +2017,16 @@
       if (!/^\d+(\.\d+)?$/.test(raw) || !(kg >= 0.1 && kg <= 150)) return fail('#pf-kg', t('v.kg'));
     }
     if (!p && book.pets.length >= MAX_PETS) return fail('#pf-name', t('pf.v.max', {n:MAX_PETS}));
+    if (pfPhotoBusy) return fail('#pf-photo-in', t('ph.wait'));
     var m = formAgeMonths();
     var data = {
       name:name, species:sp, birthDate:birth, ageYears:ay, ageMonths:am, ageSetAt:setAt,
       sex:radioVal('pf-sex') || '', sterilized:radioVal('pf-ster') || '',
       lifeStage:(m != null && m < 12) ? 'young' : (radioVal('pf-stage') || 'adult'),
-      flags:{overweight:$('#pf-over').checked, kidney:$('#pf-kidney').checked}
+      flags:{overweight:$('#pf-over').checked, kidney:$('#pf-kidney').checked},
+      photo:cleanPhoto(pfPhoto)
     };
+    var prevPhoto = p ? p.photo || '' : '';
     if (p) Object.keys(data).forEach(function(k){ p[k] = data[k]; });
     else {
       p = data; p.id = newId('p'); p.createdAt = new Date().toISOString();
@@ -1901,9 +2034,11 @@
       p.vaccines = []; p.deworm = []; p.meds = []; p.appts = [];
       book.pets.push(p);
     }
-    setActive(p.id);
+    book.activeId = p.id; setSpecies(p.species);
+    var r = saveBookPhoto(p, prevPhoto);
     hbForm = null; hbTab = 'weight';
-    savedToast(t('pf.saved', {name:p.name}));
+    if (r === 'quota'){ photoWarn = t('ph.quota'); toast(t('ph.quota')); }
+    else savedToast(t('pf.saved', {name:p.name}));
     return true;
   }
   function deletePet(){
@@ -1929,7 +2064,7 @@
     function fail(m){ err.hidden = false; err.textContent = m; input.value = ''; }
     err.hidden = true; closeConfirm();
     if (!f) return;
-    if (f.size > 2 * 1024 * 1024) return fail(t('bk.tooBig'));
+    if (f.size > 12 * 1024 * 1024) return fail(t('bk.tooBig'));   // photos make backups larger
     var r = new FileReader();
     r.onerror = function(){ fail(t('bk.readErr')); };
     r.onload = function(){
@@ -1951,6 +2086,11 @@
 
   function updateHomeProfileLabel(){
     var p = activePet(), w = latestWeight(p), n = book.pets.length;
+    var hp = $('#home-profile-ph');
+    if (hp){
+      hp.hidden = !p; if (p) hp.src = petPhotoSrc(p); else hp.removeAttribute('src');
+      if (hp.previousElementSibling) hp.previousElementSibling.toggleAttribute('hidden', !!p);   // avatar replaces the generic icon
+    }
     $('#home-profile-label').textContent = p
       ? t('home.book.pet', {name:p.name}) + (w ? ' · ' + kgTxt(w.kg) : '') + (n > 1 ? t('home.book.more', {n:n - 1}) : '')
       : t('home.book');
@@ -2205,6 +2345,12 @@
       case 'pet-edit': go('pet-edit'); break;
       case 'pet-cancel': go('profile', {replace:true}); break;
       case 'pet-delete': deletePet(); break;
+      case 'pf-photo-del': {
+        pfPhoto = ''; pfPhotoBusy = 0; pfPhotoSync();
+        $('#pf-photo-err').hidden = true; $('#pf-photo-st').textContent = t('ph.removed');
+        $('#pf-photo-in').focus();
+        break;
+      }
       case 'pet-pick': {
         var pid2 = tg.getAttribute('data-id'), pp = petById(pid2);
         if (!pp) break;
@@ -2304,6 +2450,8 @@
   document.addEventListener('change', function(e){
     var el = e.target;
     if (el.id === 'restore-file') onRestoreFile(el);
+    else if (el.id === 'pf-photo-in') onPfPhoto(el);
+    else if (el.id === 'sum-photo-in') onSumPhoto(el);
     else if (el.hasAttribute && el.hasAttribute('data-dose')){
       var ok = setDose(el.getAttribute('data-pet'), el.getAttribute('data-med'), el.getAttribute('data-time'), el.checked);
       rerenderKeep('#' + el.id);
@@ -2318,7 +2466,7 @@
       if (det && !det.open) det.querySelector('summary').focus();
       if (a) savedToast(el.checked ? t('appt.markDone') : t('appt.unmark'));
     }
-    else if (el.closest && el.closest('#pet-form')) petFormAge();
+    else if (el.closest && el.closest('#pet-form')){ petFormAge(); pfPhotoSync(); }
   });
   document.addEventListener('input', function(e){
     if (e.target.closest && e.target.closest('#pet-form') && /^pf-(birth|ay|am)$/.test(e.target.id)) petFormAge();

@@ -442,6 +442,25 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px))}
 .hb-switch{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;padding:10px 4px 6px;margin:4px -4px 0;scrollbar-width:thin}
 .pet-chip{appearance:none;flex:none;width:82px;min-height:44px;border:0;background:none;padding:4px 2px;border-radius:14px;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:6px;font-weight:500;font-size:.88rem;line-height:1.25}
 .pet-chip .pet-ph{width:56px;height:56px;box-shadow:0 0 0 2px var(--line)}
+/* pet photos (own photo or species picture) */
+.pet-av{width:30px;height:30px;flex:none}
+.row-btn .pet-av{width:32px;height:32px}
+.pet-ph[hidden],.row-btn svg[hidden]{display:none}
+.due-main .pet-av{margin-top:-2px}
+.dose-row .pet-av{align-self:flex-start}
+.sum-photo{position:relative;flex:none;display:block;border-radius:50%;cursor:pointer}
+.sum-photo:focus-within{outline:3px solid var(--focus);outline-offset:6px}
+.sum-photo-ic{position:absolute;right:-4px;bottom:-4px;width:26px;height:26px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--primary)}
+.sum-photo-ic svg{width:15px;height:15px}
+.sum-photo-st:empty{display:none}
+.sum-photo-st{margin:8px 0 0}
+.pf-photo{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pf-photo .pet-ph{width:96px;height:96px;box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--line)}
+.pf-photo .pet-ph.sp-dog{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--dog)}
+.pf-photo .pet-ph.sp-cat{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--cat)}
+.pf-photo-btns{display:flex;flex-direction:column;gap:8px;min-width:0;flex:1 1 160px}
+.pf-photo-btns .btn-sec{min-height:44px}
+.pf-photo-btns [hidden]{display:none}
 .pet-chip .pc-name{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pet-chip[aria-pressed="true"]{font-weight:700}
 .pet-chip.sp-dog[aria-pressed="true"] .pet-ph{box-shadow:0 0 0 3px var(--bg),0 0 0 6px var(--dog)}
