@@ -15,11 +15,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "toxic",
-   "note_th": "อาจทำให้ไตวายเฉียบพลันได้ แม้กินเพียงไม่กี่ลูก และยังไม่มีปริมาณที่ถือว่าปลอดภัย ระวังขนมปังหรือขนมที่ใส่ลูกเกดด้วย"
+   "note_th": "อาจทำให้ไตวายเฉียบพลันได้ แม้กินเพียงไม่กี่ลูก และยังไม่มีปริมาณที่ถือว่าปลอดภัย ระวังขนมปังหรือขนมที่ใส่ลูกเกดด้วย",
+   "note_en": "May cause sudden (acute) kidney failure, even after eating just a few, and there is no amount known to be safe. Watch out for bread and snacks containing raisins too."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "มีรายงานไตวายในแมวและหน่วยงานด้านสวัสดิภาพสัตว์จัดเป็นอาหารต้องห้ามสำหรับแมว แม้กินปริมาณน้อย"
+   "note_th": "มีรายงานไตวายในแมวและหน่วยงานด้านสวัสดิภาพสัตว์จัดเป็นอาหารต้องห้ามสำหรับแมว แม้กินปริมาณน้อย",
+   "note_en": "Kidney failure has been reported in cats, and animal welfare organizations list grapes as a forbidden food for cats, even in small amounts."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -51,7 +53,19 @@
     "title": "คอลัมน์ \"ขนมดีๆ สำหรับสัตว์เลี้ยงแสนรัก (ตอน 2)\" โดย น.สพ.นนทษิต ชุติญาณวัฒน์ โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์ บางเขน (แนวหน้า, 7 มิ.ย. 2569)",
     "url": "https://www.naewna.com/lady/columnist/66609"
    }
-  ]
+  ],
+  "name_en": "Grapes and raisins",
+  "aliases_en": [
+   "grape",
+   "grapes",
+   "raisin",
+   "raisins",
+   "sultana",
+   "sultanas",
+   "dried grapes",
+   "currants"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "chocolate",
@@ -68,11 +82,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "toxic",
-   "note_th": "มีสารธีโอโบรมีนและคาเฟอีน ทำให้อาเจียน ท้องเสีย หัวใจเต้นผิดจังหวะ ชัก จนถึงเสียชีวิตได้ ดาร์กช็อกโกแลต ช็อกโกแลตสำหรับทำขนม และผงโกโก้อันตรายที่สุด"
+   "note_th": "มีสารธีโอโบรมีนและคาเฟอีน ทำให้อาเจียน ท้องเสีย หัวใจเต้นผิดจังหวะ ชัก จนถึงเสียชีวิตได้ ดาร์กช็อกโกแลต ช็อกโกแลตสำหรับทำขนม และผงโกโก้อันตรายที่สุด",
+   "note_en": "Contains theobromine and caffeine, which cause vomiting, diarrhea, abnormal heart rhythm, seizures and even death. Dark chocolate, baking chocolate and cocoa powder are the most dangerous."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวเช่นกัน ความรุนแรงขึ้นกับชนิดและปริมาณ ช็อกโกแลตเข้มยิ่งอันตราย"
+   "note_th": "เป็นพิษต่อแมวเช่นกัน ความรุนแรงขึ้นกับชนิดและปริมาณ ช็อกโกแลตเข้มยิ่งอันตราย",
+   "note_en": "Toxic to cats as well. Severity depends on the type and amount; the darker the chocolate, the more dangerous."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -104,7 +120,19 @@
     "title": "คอลัมน์ \"ขนมดีๆ สำหรับสัตว์เลี้ยงแสนรัก (ตอน 2)\" โดย น.สพ.นนทษิต ชุติญาณวัฒน์ โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์ บางเขน (แนวหน้า, 7 มิ.ย. 2569)",
     "url": "https://www.naewna.com/lady/columnist/66609"
    }
-  ]
+  ],
+  "name_en": "Chocolate and cocoa",
+  "aliases_en": [
+   "chocolate",
+   "cocoa",
+   "cocoa powder",
+   "dark chocolate",
+   "milk chocolate",
+   "brownie",
+   "brownies",
+   "hot chocolate"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "onion",
@@ -126,11 +154,13 @@
   "category": "ผัก",
   "dog": {
    "status": "toxic",
-   "note_th": "ทำลายเม็ดเลือดแดงจนเกิดภาวะโลหิตจาง ทั้งแบบดิบ สุก ผง หรือที่ผสมในอาหาร ผงหัวหอมพบได้ในซุปสำเร็จรูป ผงปรุงรส และอาหารเด็กบางชนิด ควรอ่านฉลาก สุนัขพันธุ์ญี่ปุ่น เช่น อาคิตะ ชิบะ ไวต่อพิษมากกว่า อาการโลหิตจางอาจปรากฏช้าหลายวันหลังกิน"
+   "note_th": "ทำลายเม็ดเลือดแดงจนเกิดภาวะโลหิตจาง ทั้งแบบดิบ สุก ผง หรือที่ผสมในอาหาร ผงหัวหอมพบได้ในซุปสำเร็จรูป ผงปรุงรส และอาหารเด็กบางชนิด ควรอ่านฉลาก สุนัขพันธุ์ญี่ปุ่น เช่น อาคิตะ ชิบะ ไวต่อพิษมากกว่า อาการโลหิตจางอาจปรากฏช้าหลายวันหลังกิน",
+   "note_en": "Destroys red blood cells, causing anemia, whether raw, cooked, powdered or mixed into food. Onion powder is found in instant soups, seasoning powders and some baby foods, so read labels. Japanese breeds such as Akita and Shiba are more sensitive to the poison. Signs of anemia may appear several days after eating."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "แมวไวต่อพิษจากพืชตระกูลหอมมากที่สุด แม้หัวหอมสุกปริมาณน้อยก็ทำลายเม็ดเลือดแดงได้ ห้ามให้อาหารคนที่ปรุงด้วยหอม รวมถึงซุปหรืออาหารเด็กที่มีผงหัวหอม อาการอาจปรากฏช้าหลายวัน"
+   "note_th": "แมวไวต่อพิษจากพืชตระกูลหอมมากที่สุด แม้หัวหอมสุกปริมาณน้อยก็ทำลายเม็ดเลือดแดงได้ ห้ามให้อาหารคนที่ปรุงด้วยหอม รวมถึงซุปหรืออาหารเด็กที่มีผงหัวหอม อาการอาจปรากฏช้าหลายวัน",
+   "note_en": "Cats are the most sensitive to plants in the onion family. Even a small amount of cooked onion can damage red blood cells. Never give human food cooked with onion, including soups or baby food containing onion powder. Symptoms may appear several days later."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -162,7 +192,19 @@
     "title": "คอลัมน์ \"ขนมดีๆ สำหรับสัตว์เลี้ยงแสนรัก (ตอน 2)\" โดย น.สพ.นนทษิต ชุติญาณวัฒน์ โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์ บางเขน (แนวหน้า, 7 มิ.ย. 2569)",
     "url": "https://www.naewna.com/lady/columnist/66609"
    }
-  ]
+  ],
+  "name_en": "Onions (onion, shallot, spring onion)",
+  "aliases_en": [
+   "onion",
+   "onions",
+   "shallot",
+   "shallots",
+   "spring onion",
+   "green onion",
+   "chives",
+   "onion powder"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "garlic",
@@ -178,11 +220,13 @@
   "category": "ผัก",
   "dog": {
    "status": "toxic",
-   "note_th": "อยู่ตระกูลเดียวกับหัวหอมและมีฤทธิ์แรงกว่า ทำลายเม็ดเลือดแดงและระคายเคืองทางเดินอาหาร อาหารไทยหลายอย่างใส่กระเทียม จึงไม่ควรแบ่งอาหารคนให้"
+   "note_th": "อยู่ตระกูลเดียวกับหัวหอมและมีฤทธิ์แรงกว่า ทำลายเม็ดเลือดแดงและระคายเคืองทางเดินอาหาร อาหารไทยหลายอย่างใส่กระเทียม จึงไม่ควรแบ่งอาหารคนให้",
+   "note_en": "In the same family as onion and even more potent. Damages red blood cells and irritates the digestive tract. Many Thai dishes contain garlic, so don't share human food."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "แมวไวต่อพิษกระเทียมมาก กระเทียมแรงกว่าหัวหอมราว 5 เท่า ทำให้เลือดจาง เหงือกซีด หายใจเร็ว"
+   "note_th": "แมวไวต่อพิษกระเทียมมาก กระเทียมแรงกว่าหัวหอมราว 5 เท่า ทำให้เลือดจาง เหงือกซีด หายใจเร็ว",
+   "note_en": "Cats are very sensitive to garlic. Garlic is about 5 times stronger than onion, causing anemia, pale gums and rapid breathing."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -210,7 +254,17 @@
     "title": "คอลัมน์ \"ขนมดีๆ สำหรับสัตว์เลี้ยงแสนรัก (ตอน 2)\" โดย น.สพ.นนทษิต ชุติญาณวัฒน์ โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์ บางเขน (แนวหน้า, 7 มิ.ย. 2569)",
     "url": "https://www.naewna.com/lady/columnist/66609"
    }
-  ]
+  ],
+  "name_en": "Garlic",
+  "aliases_en": [
+   "garlic",
+   "fried garlic",
+   "pickled garlic",
+   "garlic powder",
+   "garlic bread",
+   "garlic clove"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "xylitol",
@@ -229,11 +283,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "toxic",
-   "note_th": "อันตรายร้ายแรงมาก ทำให้น้ำตาลในเลือดต่ำได้ภายในไม่กี่นาที และตับวายได้ พบในหมากฝรั่ง ลูกอม ขนม เนยถั่วบางยี่ห้อ ยาสีฟัน วิตามินเม็ดเคี้ยว ควรอ่านฉลากเสมอ"
+   "note_th": "อันตรายร้ายแรงมาก ทำให้น้ำตาลในเลือดต่ำได้ภายในไม่กี่นาที และตับวายได้ พบในหมากฝรั่ง ลูกอม ขนม เนยถั่วบางยี่ห้อ ยาสีฟัน วิตามินเม็ดเคี้ยว ควรอ่านฉลากเสมอ",
+   "note_en": "Extremely dangerous. Can cause low blood sugar within minutes and liver failure. Found in chewing gum, candy, snacks, some brands of peanut butter, toothpaste and chewable vitamins. Always read the label."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "ข้อมูลในแมวยังมีน้อยกว่าสุนัข แต่สัตวแพทย์และ ASPCA แนะนำให้หลีกเลี่ยงเด็ดขาด และถือว่าเป็นเหตุฉุกเฉินหากแมวกินเข้าไป"
+   "note_th": "ข้อมูลในแมวยังมีน้อยกว่าสุนัข แต่สัตวแพทย์และ ASPCA แนะนำให้หลีกเลี่ยงเด็ดขาด และถือว่าเป็นเหตุฉุกเฉินหากแมวกินเข้าไป",
+   "note_en": "There is less data in cats than in dogs, but veterinarians and the ASPCA advise avoiding it completely, and treat it as an emergency if a cat eats it."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -265,7 +321,19 @@
     "title": "คอลัมน์ \"ขนมดีๆ สำหรับสัตว์เลี้ยงแสนรัก (ตอน 2)\" โดย น.สพ.นนทษิต ชุติญาณวัฒน์ โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์ บางเขน (แนวหน้า, 7 มิ.ย. 2569)",
     "url": "https://www.naewna.com/lady/columnist/66609"
    }
-  ]
+  ],
+  "name_en": "Xylitol (sugar-free gum/sweets)",
+  "aliases_en": [
+   "xylitol",
+   "birch sugar",
+   "sugar-free gum",
+   "chewing gum",
+   "gum",
+   "sugar-free candy",
+   "sugar-free snacks",
+   "toothpaste"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "macadamia",
@@ -280,11 +348,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "toxic",
-   "note_th": "ทำให้อ่อนแรง ขาหลังไม่มีแรง เดินเซ สั่น อาเจียน และมีไข้ มักเกิดภายใน 12 ชั่วโมง ระวังคุกกี้หรือช็อกโกแลตที่ใส่แมคาเดเมีย"
+   "note_th": "ทำให้อ่อนแรง ขาหลังไม่มีแรง เดินเซ สั่น อาเจียน และมีไข้ มักเกิดภายใน 12 ชั่วโมง ระวังคุกกี้หรือช็อกโกแลตที่ใส่แมคาเดเมีย",
+   "note_en": "Causes weakness, weak hind legs, wobbly walking, tremors, vomiting and fever, usually within 12 hours. Watch out for cookies or chocolate containing macadamia nuts."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ยังไม่พบรายงานพิษเฉพาะในแมว (รายงานพบในสุนัข) แต่สัตวแพทย์แนะนำให้แมวงดถั่ว โดยเฉพาะแมคาเดเมียและวอลนัต เพราะไขมันสูง อาจทำให้อาเจียน ท้องเสีย หรือตับอ่อนอักเสบ"
+   "note_th": "ยังไม่พบรายงานพิษเฉพาะในแมว (รายงานพบในสุนัข) แต่สัตวแพทย์แนะนำให้แมวงดถั่ว โดยเฉพาะแมคาเดเมียและวอลนัต เพราะไขมันสูง อาจทำให้อาเจียน ท้องเสีย หรือตับอ่อนอักเสบ",
+   "note_en": "No poisoning specific to cats has been reported yet (reports are in dogs), but veterinarians advise cats to avoid nuts, especially macadamias and walnuts, because they are high in fat and may cause vomiting, diarrhea or pancreatitis."
   },
   "if_eaten_th": "สุนัข: ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน | แมว: ถ้ากินเล็กน้อย ให้สังเกตอาการอาเจียน ท้องเสีย ซึม ถ้ากินมาก หรือมีอาการผิดปกติ หรือเป็นขนมที่มีช็อกโกแลต/ลูกเกดผสม ให้ติดต่อสัตวแพทย์ทันที",
   "sources": [
@@ -308,7 +378,15 @@
     "title": "คอลัมน์ \"อาหารกับสัตว์เลี้ยง (ตอนที่ 1)\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร ฝ่ายประชาสัมพันธ์ คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (หนังสือพิมพ์แนวหน้า)",
     "url": "https://www.naewna.com/lady/columnist/45197"
    }
-  ]
+  ],
+  "name_en": "Macadamia nuts",
+  "aliases_en": [
+   "macadamia",
+   "macadamias",
+   "macadamia nut",
+   "macadamia nuts"
+  ],
+  "if_eaten_en": "Dog: Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. | Cat: If only a little was eaten, watch for vomiting, diarrhea or lethargy. If a lot was eaten, there are any unusual signs, or it was a snack mixed with chocolate/raisins, contact a veterinarian right away."
  },
  {
   "id": "avocado",
@@ -322,11 +400,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "avoid",
-   "note_th": "AKC แนะนำว่าไม่ควรให้สุนัขกิน เมล็ด เปลือก และใบมีสารเพอร์ซินที่ทำให้อาเจียน ท้องเสีย เนื้อมีสารนี้น้อยกว่าแต่มีไขมันสูง อาจทำให้ท้องไส้ปั่นป่วนหรือตับอ่อนอักเสบ และเมล็ดอาจติดคอหรืออุดตันลำไส้"
+   "note_th": "AKC แนะนำว่าไม่ควรให้สุนัขกิน เมล็ด เปลือก และใบมีสารเพอร์ซินที่ทำให้อาเจียน ท้องเสีย เนื้อมีสารนี้น้อยกว่าแต่มีไขมันสูง อาจทำให้ท้องไส้ปั่นป่วนหรือตับอ่อนอักเสบ และเมล็ดอาจติดคอหรืออุดตันลำไส้",
+   "note_en": "The AKC advises not to feed avocado to dogs. The pit, skin and leaves contain persin, which causes vomiting and diarrhea. The flesh has less of it but is high in fat, which may cause stomach upset or pancreatitis, and the pit can cause choking or intestinal blockage."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่จัดเป็นพิษร้ายแรงต่อแมว (สัตว์ที่ไวต่อพิษคือนก กระต่าย ม้า แพะ แกะ) แต่ไม่มีประโยชน์ ไขมันสูงอาจทำให้ท้องเสีย และเมล็ดอาจอุดตันลำไส้ จึงไม่ควรให้"
+   "note_th": "ไม่จัดเป็นพิษร้ายแรงต่อแมว (สัตว์ที่ไวต่อพิษคือนก กระต่าย ม้า แพะ แกะ) แต่ไม่มีประโยชน์ ไขมันสูงอาจทำให้ท้องเสีย และเมล็ดอาจอุดตันลำไส้ จึงไม่ควรให้",
+   "note_en": "Not considered seriously toxic to cats (the sensitive animals are birds, rabbits, horses, goats and sheep), but it has no benefit, its high fat may cause diarrhea, and the pit may block the intestines, so it should not be given."
   },
   "if_eaten_th": "ถ้าเผลอกินเนื้อเล็กน้อย ให้สังเกตอาการอาเจียนหรือท้องเสีย ถ้ากลืนเมล็ด กินเปลือก/ใบ หรือมีอาการอาเจียนซ้ำ ท้องอืด ปวดท้อง ไม่กินอาหาร ให้พาไปพบสัตวแพทย์ทันที",
   "sources": [
@@ -346,7 +426,16 @@
     "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
     "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
    }
-  ]
+  ],
+  "name_en": "Avocado",
+  "aliases_en": [
+   "avocado",
+   "avocados",
+   "avocado pit",
+   "avocado seed",
+   "guacamole"
+  ],
+  "if_eaten_en": "If a little flesh was eaten by accident, watch for vomiting or diarrhea. If the pit was swallowed, the skin/leaves were eaten, or there is repeated vomiting, bloating, abdominal pain or refusal to eat, take your pet to a veterinarian right away."
  },
  {
   "id": "alcohol",
@@ -365,11 +454,13 @@
   "category": "เครื่องดื่ม",
   "dog": {
    "status": "toxic",
-   "note_th": "ดูดซึมเร็ว ทำให้อาเจียน เดินเซ ซึม หายใจลำบาก ชัก หมดสติ จนถึงเสียชีวิตได้ รวมถึงขนมหรือลูกอมที่ผสมเหล้า"
+   "note_th": "ดูดซึมเร็ว ทำให้อาเจียน เดินเซ ซึม หายใจลำบาก ชัก หมดสติ จนถึงเสียชีวิตได้ รวมถึงขนมหรือลูกอมที่ผสมเหล้า",
+   "note_en": "Absorbed quickly, causing vomiting, staggering, lethargy, breathing difficulty, seizures, unconsciousness and even death. This includes desserts or candy containing liquor."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข แม้ปริมาณน้อยก็ทำให้เดินเซ อาเจียน และกดระบบประสาทได้"
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข แม้ปริมาณน้อยก็ทำให้เดินเซ อาเจียน และกดระบบประสาทได้",
+   "note_en": "Toxic to cats just as to dogs. Even small amounts can cause staggering, vomiting and depression of the nervous system."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -385,7 +476,19 @@
     "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
     "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
    }
-  ]
+  ],
+  "name_en": "Alcohol (liquor, beer, wine)",
+  "aliases_en": [
+   "alcohol",
+   "beer",
+   "wine",
+   "liquor",
+   "spirits",
+   "whisky",
+   "rice wine",
+   "sato"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "caffeine",
@@ -410,11 +513,13 @@
   "category": "เครื่องดื่ม",
   "dog": {
    "status": "toxic",
-   "note_th": "คาเฟอีนทำให้กระสับกระส่าย อาเจียน หัวใจเต้นเร็วผิดจังหวะ สั่น ชัก เมล็ดกาแฟ กากกาแฟ ถุงชา และเครื่องดื่มชูกำลังอันตรายกว่าการเลียกาแฟเพียงเล็กน้อย"
+   "note_th": "คาเฟอีนทำให้กระสับกระส่าย อาเจียน หัวใจเต้นเร็วผิดจังหวะ สั่น ชัก เมล็ดกาแฟ กากกาแฟ ถุงชา และเครื่องดื่มชูกำลังอันตรายกว่าการเลียกาแฟเพียงเล็กน้อย",
+   "note_en": "Caffeine causes restlessness, vomiting, a fast and irregular heartbeat, tremors and seizures. Coffee beans, coffee grounds, tea bags and energy drinks are more dangerous than a few licks of coffee."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "แมวไวต่อคาเฟอีนมากกว่าคน ปริมาณสูงอาจถึงชีวิตและไม่มียาต้านพิษเฉพาะ ชาก็มีคาเฟอีนเช่นกัน"
+   "note_th": "แมวไวต่อคาเฟอีนมากกว่าคน ปริมาณสูงอาจถึงชีวิตและไม่มียาต้านพิษเฉพาะ ชาก็มีคาเฟอีนเช่นกัน",
+   "note_en": "Cats are more sensitive to caffeine than people. Large amounts can be fatal, and there is no specific antidote. Tea contains caffeine too."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -434,7 +539,19 @@
     "title": "คอลัมน์ \"อาหารกับสัตว์เลี้ยง (ตอนที่ 1)\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร ฝ่ายประชาสัมพันธ์ คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (หนังสือพิมพ์แนวหน้า)",
     "url": "https://www.naewna.com/lady/columnist/45197"
    }
-  ]
+  ],
+  "name_en": "Coffee, tea and caffeinated drinks",
+  "aliases_en": [
+   "coffee",
+   "tea",
+   "caffeine",
+   "thai iced tea",
+   "cha yen",
+   "coffee beans",
+   "energy drink",
+   "cola"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "cow-milk",
@@ -451,11 +568,13 @@
   "category": "เครื่องดื่ม",
   "dog": {
    "status": "limited",
-   "note_th": "สุนัขหลายตัวย่อยแลคโตสได้ไม่ดี อาจท้องเสีย ท้องอืด ให้ได้เพียงไม่กี่ช้อนโต๊ะเป็นครั้งคราว ไม่ควรให้ทั้งชาม และไม่จำเป็นต่อสุขภาพ"
+   "note_th": "สุนัขหลายตัวย่อยแลคโตสได้ไม่ดี อาจท้องเสีย ท้องอืด ให้ได้เพียงไม่กี่ช้อนโต๊ะเป็นครั้งคราว ไม่ควรให้ทั้งชาม และไม่จำเป็นต่อสุขภาพ",
+   "note_en": "Many dogs don't digest lactose well and may get diarrhea or bloating. Give only a few tablespoons now and then, never a whole bowl, and it isn't needed for health."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษ แต่แมวโตส่วนใหญ่มีเอนไซม์ย่อยน้ำตาลในนม (แลคโตส) น้อย จึงท้องเสียได้ สัตวแพทย์แนะนำให้งดนมและผลิตภัณฑ์นม ให้น้ำสะอาดแทน (ลูกแมวกำพร้าควรได้นมสูตรสำหรับลูกแมว ไม่ใช่นมวัว)"
+   "note_th": "ไม่ใช่สารพิษ แต่แมวโตส่วนใหญ่มีเอนไซม์ย่อยน้ำตาลในนม (แลคโตส) น้อย จึงท้องเสียได้ สัตวแพทย์แนะนำให้งดนมและผลิตภัณฑ์นม ให้น้ำสะอาดแทน (ลูกแมวกำพร้าควรได้นมสูตรสำหรับลูกแมว ไม่ใช่นมวัว)",
+   "note_en": "Not a toxin, but most adult cats have little of the enzyme that digests milk sugar (lactose), so they can get diarrhea. Veterinarians advise no milk or dairy products; give clean water instead. (Orphaned kittens should get kitten milk formula, not cow's milk.)"
   },
   "if_eaten_th": "นมไม่ใช่สารพิษ หากกินไปแล้วให้สังเกตอาการท้องเสียหรืออาเจียน ให้น้ำสะอาด หากท้องเสียหลายครั้ง ซึม หรือเป็นลูกสัตว์ ให้พาไปพบสัตวแพทย์",
   "sources": [
@@ -480,7 +599,18 @@
     "url": "https://www.naewna.com/lady/columnist/45197"
    }
   ],
-  "serving_th": "สุนัข: ถ้าจะให้ ให้นมจืดเพียงเล็กน้อยนาน ๆ ครั้ง ไม่ใช่นมหวาน/นมปรุงแต่ง หยุดถ้าถ่ายเหลว"
+  "serving_th": "สุนัข: ถ้าจะให้ ให้นมจืดเพียงเล็กน้อยนาน ๆ ครั้ง ไม่ใช่นมหวาน/นมปรุงแต่ง หยุดถ้าถ่ายเหลว",
+  "name_en": "Cow's milk",
+  "aliases_en": [
+   "milk",
+   "cow milk",
+   "cow's milk",
+   "fresh milk",
+   "plain milk",
+   "dairy milk"
+  ],
+  "if_eaten_en": "Milk is not toxic. If it has already been drunk, watch for diarrhea or vomiting and give clean water. If there is repeated diarrhea or lethargy, or it is a young animal, take your pet to a veterinarian.",
+  "serving_en": "Dog: If you do give it, only a little plain (unsweetened) milk once in a while, not sweetened/flavored milk. Stop if stools become loose."
  },
  {
   "id": "boiled-egg",
@@ -498,11 +628,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "safe",
-   "note_th": "ให้ได้เมื่อปรุงสุกทั่ว ต้มหรือคนแบบไม่ใส่น้ำมัน เกลือ หรือเครื่องปรุง ให้เป็นของว่างเป็นครั้งคราว เพราะพลังงานค่อนข้างสูง (ไข่เจียว ไข่ดาวที่ทอดน้ำมันและใส่น้ำปลา ไม่ควรให้)"
+   "note_th": "ให้ได้เมื่อปรุงสุกทั่ว ต้มหรือคนแบบไม่ใส่น้ำมัน เกลือ หรือเครื่องปรุง ให้เป็นของว่างเป็นครั้งคราว เพราะพลังงานค่อนข้างสูง (ไข่เจียว ไข่ดาวที่ทอดน้ำมันและใส่น้ำปลา ไม่ควรให้)",
+   "note_en": "Fine when fully cooked: boiled or scrambled without oil, salt or seasoning. Give as an occasional snack because it's fairly high in calories. (Omelets and fried eggs cooked in oil with fish sauce should not be given.)"
   },
   "cat": {
    "status": "limited",
-   "note_th": "ให้ได้ในปริมาณน้อยเมื่อสุกทั่วและไม่ปรุงรส ไข่ขาวสุกเหมาะกว่าไข่แดงซึ่งมีไขมันสูง ประมาณ 1 ช้อนโต๊ะโรยบนอาหารปกติ ไม่ใช้แทนอาหารหลัก"
+   "note_th": "ให้ได้ในปริมาณน้อยเมื่อสุกทั่วและไม่ปรุงรส ไข่ขาวสุกเหมาะกว่าไข่แดงซึ่งมีไขมันสูง ประมาณ 1 ช้อนโต๊ะโรยบนอาหารปกติ ไม่ใช้แทนอาหารหลัก",
+   "note_en": "Can be given in small amounts when fully cooked and unseasoned. Cooked egg white is better than the yolk, which is high in fat. About 1 tablespoon sprinkled on regular food; not a replacement for the main diet."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -515,7 +647,19 @@
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-eggs"
    }
   ],
-  "serving_th": "ต้มสุกทั่วจนไข่แดงแข็ง ไม่ใส่เกลือ/น้ำปลา/น้ำมัน หั่นชิ้นเล็ก ให้เป็นของว่าง"
+  "serving_th": "ต้มสุกทั่วจนไข่แดงแข็ง ไม่ใส่เกลือ/น้ำปลา/น้ำมัน หั่นชิ้นเล็ก ให้เป็นของว่าง",
+  "name_en": "Boiled egg (fully cooked)",
+  "aliases_en": [
+   "boiled egg",
+   "boiled eggs",
+   "cooked egg",
+   "hard-boiled egg",
+   "scrambled egg",
+   "egg",
+   "eggs"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Boil until fully cooked with a firm yolk; no salt/fish sauce/oil. Cut into small pieces and give as a snack."
  },
  {
   "id": "raw-egg",
@@ -533,11 +677,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษ แต่ไม่ควรให้ ไข่ที่ไม่สุกทั่วอาจมีเชื้อซัลโมเนลลาที่ทำให้ทั้งสุนัขและคนในบ้านป่วย และไข่ขาวดิบมีสารที่ขัดขวางการดูดซึมวิตามิน (ไบโอติน) ถ้าให้บ่อยอาจมีปัญหาผิวหนังและขน ควรต้มให้สุกทั่วก่อน"
+   "note_th": "ไม่ใช่สารพิษ แต่ไม่ควรให้ ไข่ที่ไม่สุกทั่วอาจมีเชื้อซัลโมเนลลาที่ทำให้ทั้งสุนัขและคนในบ้านป่วย และไข่ขาวดิบมีสารที่ขัดขวางการดูดซึมวิตามิน (ไบโอติน) ถ้าให้บ่อยอาจมีปัญหาผิวหนังและขน ควรต้มให้สุกทั่วก่อน",
+   "note_en": "Not a toxin, but should not be given. Undercooked eggs may carry Salmonella, which can make both the dog and people in the home sick, and raw egg white contains a substance that blocks absorption of a vitamin (biotin); if given often, it may cause skin and coat problems. Cook eggs thoroughly first."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษ แต่ไม่ควรให้ เสี่ยงเชื้อซัลโมเนลลา ทำให้อาเจียน ท้องเสีย และติดต่อสู่คนในบ้านได้ ควรปรุงให้สุกทั่วก่อน"
+   "note_th": "ไม่ใช่สารพิษ แต่ไม่ควรให้ เสี่ยงเชื้อซัลโมเนลลา ทำให้อาเจียน ท้องเสีย และติดต่อสู่คนในบ้านได้ ควรปรุงให้สุกทั่วก่อน",
+   "note_en": "Not a toxin, but should not be given. There is a risk of Salmonella, which causes vomiting and diarrhea and can spread to people in the home. Cook thoroughly first."
   },
   "if_eaten_th": "ไม่ต้องตกใจและไม่ต้องทำให้อาเจียน การกินครั้งเดียวมักไม่เป็นพิษ ให้สังเกตอาการในช่วงไม่กี่วันต่อมา ถ้ามีไข้ อาเจียน ท้องเสีย ซึม หรือไม่กินอาหาร ให้พาไปพบสัตวแพทย์ (สัตว์อายุน้อย ชรา หรือป่วยอยู่ ควรโทรปรึกษาสัตวแพทย์เลย) ล้างมือและชามอาหารให้สะอาด",
   "sources": [
@@ -553,7 +699,18 @@
     "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
     "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
    }
-  ]
+  ],
+  "name_en": "Raw / undercooked egg (soft-boiled, runny yolk)",
+  "aliases_en": [
+   "raw egg",
+   "raw eggs",
+   "undercooked egg",
+   "soft-boiled egg",
+   "runny egg",
+   "runny yolk",
+   "half-boiled egg"
+  ],
+  "if_eaten_en": "No need to panic and no need to make your pet vomit. Eating it once is usually not toxic. Watch for symptoms over the next few days. If there is fever, vomiting, diarrhea, lethargy or loss of appetite, take your pet to a veterinarian (for young, elderly or already-sick pets, call a veterinarian right away). Wash your hands and food bowls thoroughly."
  },
  {
   "id": "boiled-chicken",
@@ -569,11 +726,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "safe",
-   "note_th": "เป็นโปรตีนที่ดี ต้ม นึ่ง หรืออบให้สุก ไม่ใส่เครื่องปรุง ลอกหนังและแกะกระดูกออกทั้งหมด สุนัขบางตัวแพ้ไก่ ควรสังเกตเมื่อให้ครั้งแรก"
+   "note_th": "เป็นโปรตีนที่ดี ต้ม นึ่ง หรืออบให้สุก ไม่ใส่เครื่องปรุง ลอกหนังและแกะกระดูกออกทั้งหมด สุนัขบางตัวแพ้ไก่ ควรสังเกตเมื่อให้ครั้งแรก",
+   "note_en": "A good source of protein. Boil, steam or bake until cooked, with no seasoning. Remove the skin and all bones. Some dogs are allergic to chicken, so watch them the first time you give it."
   },
   "cat": {
    "status": "safe",
-   "note_th": "ให้เป็นของว่างได้ ปรุงสุกทั่ว ลอกหนัง แกะกระดูก ไม่ใส่เนย น้ำมัน หรือเครื่องปรุง ประมาณชิ้นขนาด 1 นิ้ววันละครั้ง ไม่ใช้แทนอาหารแมวที่ครบถ้วน"
+   "note_th": "ให้เป็นของว่างได้ ปรุงสุกทั่ว ลอกหนัง แกะกระดูก ไม่ใส่เนย น้ำมัน หรือเครื่องปรุง ประมาณชิ้นขนาด 1 นิ้ววันละครั้ง ไม่ใช้แทนอาหารแมวที่ครบถ้วน",
+   "note_en": "Fine as a snack. Cook thoroughly, remove the skin and bones, and add no butter, oil or seasoning. About a 1-inch piece once a day; not a replacement for complete cat food."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -590,7 +749,18 @@
     "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
    }
   ],
-  "serving_th": "ต้ม/นึ่งสุกทั่ว ไม่ใส่เกลือ น้ำปลา กระเทียม ลอกหนัง แกะกระดูกออกหมด หั่นชิ้นเล็ก"
+  "serving_th": "ต้ม/นึ่งสุกทั่ว ไม่ใส่เกลือ น้ำปลา กระเทียม ลอกหนัง แกะกระดูกออกหมด หั่นชิ้นเล็ก",
+  "name_en": "Boiled chicken (plain, boneless)",
+  "aliases_en": [
+   "chicken",
+   "boiled chicken",
+   "chicken breast",
+   "cooked chicken",
+   "poached chicken",
+   "steamed chicken"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Boil/steam until fully cooked, with no salt, fish sauce or garlic. Remove the skin and all bones, and cut into small pieces."
  },
  {
   "id": "cooked-chicken-bone",
@@ -617,11 +787,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษ แต่อันตรายมาก กระดูกที่ปรุงสุกเปราะและแตกเป็นเสี้ยนแหลม อาจติดคอ บาดหรือทะลุหลอดอาหาร/ลำไส้ หรืออุดตันจนต้องผ่าตัด ห้ามให้ กระดูกเป็ดและก้างปลาชิ้นใหญ่ก็อันตรายเช่นกัน"
+   "note_th": "ไม่ใช่สารพิษ แต่อันตรายมาก กระดูกที่ปรุงสุกเปราะและแตกเป็นเสี้ยนแหลม อาจติดคอ บาดหรือทะลุหลอดอาหาร/ลำไส้ หรืออุดตันจนต้องผ่าตัด ห้ามให้ กระดูกเป็ดและก้างปลาชิ้นใหญ่ก็อันตรายเช่นกัน",
+   "note_en": "Not a toxin, but very dangerous. Cooked bones are brittle and splinter into sharp shards that may get stuck in the throat, cut or pierce the esophagus/intestines, or cause a blockage needing surgery. Do not give. Duck bones and large fish bones are dangerous too."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษ แต่กระดูกสุกแตกเป็นเสี้ยน อาจทำให้ลำไส้อุดตันหรือฉีกขาด สัตวแพทย์แนะนำไม่ให้เนื้อที่ติดกระดูกแก่แมว ก้างปลาชิ้นใหญ่ (เช่น ก้างกลางของปลาตัวโต) ก็อันตรายเช่นกัน ความเชื่อว่า \"แมวกินก้างปลาได้\" ไม่ถูกต้อง"
+   "note_th": "ไม่ใช่สารพิษ แต่กระดูกสุกแตกเป็นเสี้ยน อาจทำให้ลำไส้อุดตันหรือฉีกขาด สัตวแพทย์แนะนำไม่ให้เนื้อที่ติดกระดูกแก่แมว ก้างปลาชิ้นใหญ่ (เช่น ก้างกลางของปลาตัวโต) ก็อันตรายเช่นกัน ความเชื่อว่า \"แมวกินก้างปลาได้\" ไม่ถูกต้อง",
+   "note_en": "Not a toxin, but cooked bones splinter and may block or tear the intestines. Veterinarians advise not giving cats meat on the bone. Large fish bones (such as the backbone of a big fish) are dangerous too. The belief that \"cats can eat fish bones\" is not true."
   },
   "if_eaten_th": "อย่าไล่จับหรือดึงกระดูกออกจากปาก (สัตว์อาจรีบกลืนหรือกัด) และอย่าทำให้อาเจียนเอง ติดต่อสัตวแพทย์ทันทีเพื่อขอคำแนะนำ หากสำลัก ยืดคอ น้ำลายไหล อาเจียน กลืนลำบาก ท้องอืด หรือไม่กินอาหาร ต้องพาไปโรงพยาบาลสัตว์ทันที",
   "sources": [
@@ -653,7 +825,19 @@
     "title": "คอลัมน์ \"การป้องกันอันตรายให้สัตว์เลี้ยงที่อาจเกิดได้ในช่วงตรุษจีน\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (แนวหน้า, 14 ก.พ. 2564) (บทความมีคำแนะนำปฐมพยาบาลที่แอปไม่แนะนำ)",
     "url": "https://www.naewna.com/lady/columnist/46819"
    }
-  ]
+  ],
+  "name_en": "Chicken bones and cooked animal bones",
+  "aliases_en": [
+   "chicken bone",
+   "chicken bones",
+   "cooked bone",
+   "cooked bones",
+   "pork bone",
+   "rib bone",
+   "fish bone",
+   "duck bone"
+  ],
+  "if_eaten_en": "Don't chase your pet or pull the bone out of its mouth (it may swallow quickly or bite), and don't make it vomit yourself. Contact a veterinarian right away for advice. If your pet chokes, stretches its neck, drools, vomits, has trouble swallowing, is bloated or won't eat, take it to an animal hospital immediately."
  },
  {
   "id": "cooked-fish",
@@ -671,11 +855,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "safe",
-   "note_th": "ให้ได้เมื่อนึ่งหรือต้มสุก ไม่ใส่น้ำมันหรือเครื่องปรุง และต้องแกะก้างออกหมด เพราะก้างอาจติดคอหรือแทงทะลุทางเดินอาหาร ให้เป็นครั้งคราว"
+   "note_th": "ให้ได้เมื่อนึ่งหรือต้มสุก ไม่ใส่น้ำมันหรือเครื่องปรุง และต้องแกะก้างออกหมด เพราะก้างอาจติดคอหรือแทงทะลุทางเดินอาหาร ให้เป็นครั้งคราว",
+   "note_en": "Fine when steamed or boiled until cooked, with no oil or seasoning. All bones must be removed, because bones may get stuck in the throat or pierce the digestive tract. Give occasionally."
   },
   "cat": {
    "status": "safe",
-   "note_th": "ให้ได้เมื่อปรุงสุก ไม่ปรุงรส แกะหนังและก้างออก ประมาณชิ้นขนาด 1 นิ้วต่อวันเป็นของว่าง ไม่ควรให้ปลาเป็นอาหารหลักเพียงอย่างเดียว"
+   "note_th": "ให้ได้เมื่อปรุงสุก ไม่ปรุงรส แกะหนังและก้างออก ประมาณชิ้นขนาด 1 นิ้วต่อวันเป็นของว่าง ไม่ควรให้ปลาเป็นอาหารหลักเพียงอย่างเดียว",
+   "note_en": "Fine when cooked and unseasoned, with the skin and bones removed. About a 1-inch piece per day as a snack. Fish should not be the only main food."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์ ถ้าสงสัยว่ากลืนก้างแล้วมีอาการไอ ขย้อน น้ำลายไหล หรือกลืนลำบาก ให้พาไปพบสัตวแพทย์",
   "sources": [
@@ -688,7 +874,19 @@
     "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
    }
   ],
-  "serving_th": "นึ่ง/ต้มปลาสดให้สุก ไม่ใส่เกลือหรือน้ำปลา แกะก้างและหนังออกหมด ไม่ใช้ปลาทูนึ่งที่ขายในตลาด (มีเกลือ)"
+  "serving_th": "นึ่ง/ต้มปลาสดให้สุก ไม่ใส่เกลือหรือน้ำปลา แกะก้างและหนังออกหมด ไม่ใช้ปลาทูนึ่งที่ขายในตลาด (มีเกลือ)",
+  "name_en": "Cooked fish (boneless)",
+  "aliases_en": [
+   "fish",
+   "cooked fish",
+   "steamed fish",
+   "boiled fish",
+   "salmon",
+   "mackerel",
+   "pla thu"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian. If you suspect a bone was swallowed and your pet coughs, gags, drools or has trouble swallowing, take it to a veterinarian.",
+  "serving_en": "Steam/boil fresh fish until cooked, with no salt or fish sauce. Remove all bones and skin. Don't use the steamed mackerel (pla thu) sold at markets (it contains salt)."
  },
  {
   "id": "raw-fish",
@@ -705,11 +903,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษเฉียบพลัน แต่ไม่ควรให้ อาจมีเชื้อซัลโมเนลลาและลิสทีเรีย และปลาดิบบางชนิด (โดยเฉพาะปลาน้ำจืด) มีเอนไซม์ทำลายวิตามินบี 1 การทำให้สุกช่วยทำลายเชื้อและเอนไซม์นี้"
+   "note_th": "ไม่ใช่สารพิษเฉียบพลัน แต่ไม่ควรให้ อาจมีเชื้อซัลโมเนลลาและลิสทีเรีย และปลาดิบบางชนิด (โดยเฉพาะปลาน้ำจืด) มีเอนไซม์ทำลายวิตามินบี 1 การทำให้สุกช่วยทำลายเชื้อและเอนไซม์นี้",
+   "note_en": "Not acutely toxic, but should not be given. It may carry Salmonella and Listeria, and some raw fish (especially freshwater fish) contain an enzyme that destroys vitamin B1. Cooking destroys both the germs and this enzyme."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษเฉียบพลัน แต่ไม่ควรให้ ปลาดิบบางชนิดมีเอนไซม์ทำลายวิตามินบี 1 (ไทอามีน) ถ้ากินบ่อยแมวอาจขาดวิตามินบี 1 เบื่ออาหาร ชัก และมีอาการทางระบบประสาท และเสี่ยงเชื้อโรค ควรทำให้สุกก่อนเสมอ"
+   "note_th": "ไม่ใช่สารพิษเฉียบพลัน แต่ไม่ควรให้ ปลาดิบบางชนิดมีเอนไซม์ทำลายวิตามินบี 1 (ไทอามีน) ถ้ากินบ่อยแมวอาจขาดวิตามินบี 1 เบื่ออาหาร ชัก และมีอาการทางระบบประสาท และเสี่ยงเชื้อโรค ควรทำให้สุกก่อนเสมอ",
+   "note_en": "Not acutely toxic, but should not be given. Some raw fish contain an enzyme that destroys vitamin B1 (thiamine). If eaten often, cats may become vitamin B1 deficient, with loss of appetite, seizures and neurological signs, and there is also a risk of germs. Always cook it first."
   },
   "if_eaten_th": "ไม่ต้องทำให้อาเจียน การกินครั้งเดียวมักไม่เป็นพิษ ให้สังเกตอาการในช่วงไม่กี่วันต่อมา ถ้าอาเจียน ท้องเสีย ซึม เดินเซ หรือไม่กินอาหาร ให้พาไปพบสัตวแพทย์ ถ้าแมวเคยกินปลาดิบเป็นประจำแล้วมีอาการเบื่ออาหาร เดินเซ หรือชัก ให้พาไปพบสัตวแพทย์ทันที",
   "sources": [
@@ -725,7 +925,16 @@
     "title": "PetMD (DVM-authored) – What Human Foods Can Cats Eat?",
     "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
    }
-  ]
+  ],
+  "name_en": "Raw fish",
+  "aliases_en": [
+   "raw fish",
+   "sashimi",
+   "sushi",
+   "uncooked fish",
+   "raw freshwater fish"
+  ],
+  "if_eaten_en": "No need to make your pet vomit. Eating it once is usually not toxic. Watch for symptoms over the next few days. If there is vomiting, diarrhea, lethargy, staggering or loss of appetite, take your pet to a veterinarian. If a cat that regularly ate raw fish shows loss of appetite, staggering or seizures, take it to a veterinarian right away."
  },
  {
   "id": "canned-tuna",
@@ -740,11 +949,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษเมื่อกินเล็กน้อย แต่ทูน่ามีปรอทสูง AKC แนะนำให้เลือกปลาชนิดอื่นที่ปรอทต่ำกว่า ถ้าให้ ควรเป็นชนิดในน้ำแร่/น้ำเปล่า ไม่ปรุงรส และนาน ๆ ครั้ง"
+   "note_th": "ไม่เป็นพิษเมื่อกินเล็กน้อย แต่ทูน่ามีปรอทสูง AKC แนะนำให้เลือกปลาชนิดอื่นที่ปรอทต่ำกว่า ถ้าให้ ควรเป็นชนิดในน้ำแร่/น้ำเปล่า ไม่ปรุงรส และนาน ๆ ครั้ง",
+   "note_en": "Not toxic in small amounts, but tuna is high in mercury; the AKC recommends choosing other fish that are lower in mercury. If you give it, choose tuna in spring water/plain water, unseasoned, and only once in a while."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ให้เป็นขนมได้ไม่เกินประมาณ 1 ช้อนโต๊ะต่อสัปดาห์ เลือกแบบในน้ำ ไม่ใช่ในน้ำมันหรือปรุงรส การกินทูน่ามากเป็นประจำเสี่ยงสารปรอทและขาดวิตามินอี (ไขมันอักเสบ) ลูกแมวอายุต่ำกว่า 1 ปีไม่ควรกิน"
+   "note_th": "ให้เป็นขนมได้ไม่เกินประมาณ 1 ช้อนโต๊ะต่อสัปดาห์ เลือกแบบในน้ำ ไม่ใช่ในน้ำมันหรือปรุงรส การกินทูน่ามากเป็นประจำเสี่ยงสารปรอทและขาดวิตามินอี (ไขมันอักเสบ) ลูกแมวอายุต่ำกว่า 1 ปีไม่ควรกิน",
+   "note_en": "Can be a treat of no more than about 1 tablespoon per week. Choose tuna in water, not in oil or seasoned. Eating a lot of tuna regularly risks mercury exposure and vitamin E deficiency (inflamed body fat, steatitis). Kittens under 1 year old should not eat it."
   },
   "if_eaten_th": "การกินครั้งเดียวมักไม่อันตราย ไม่ควรให้ต่อเนื่อง หากอาเจียนหรือท้องเสียต่อเนื่อง ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -761,7 +972,16 @@
     "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-and-related-diseases-of-small-animals"
    }
   ],
-  "serving_th": "เลือกชนิดในน้ำแร่/น้ำเปล่า ไม่ใช่ในน้ำมันหรือปรุงรส ให้เป็นขนมนาน ๆ ครั้ง ไม่ใช่อาหารหลัก"
+  "serving_th": "เลือกชนิดในน้ำแร่/น้ำเปล่า ไม่ใช่ในน้ำมันหรือปรุงรส ให้เป็นขนมนาน ๆ ครั้ง ไม่ใช่อาหารหลัก",
+  "name_en": "Canned tuna",
+  "aliases_en": [
+   "tuna",
+   "canned tuna",
+   "tinned tuna",
+   "tuna fish"
+  ],
+  "if_eaten_en": "Eating it once is usually not harmful. Don't keep giving it. If vomiting or diarrhea continues, consult a veterinarian.",
+  "serving_en": "Choose tuna in spring water/plain water, not in oil or seasoned. Give as an occasional treat, not a main food."
  },
  {
   "id": "liver",
@@ -777,11 +997,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้เล็กน้อยเมื่อปรุงสุกและไม่ปรุงรส แต่ตับมีวิตามินเอสูงมาก ถ้าให้กินบ่อยหรือเป็นอาหารหลักอาจเกิดพิษจากวิตามินเอ"
+   "note_th": "ให้ได้เล็กน้อยเมื่อปรุงสุกและไม่ปรุงรส แต่ตับมีวิตามินเอสูงมาก ถ้าให้กินบ่อยหรือเป็นอาหารหลักอาจเกิดพิษจากวิตามินเอ",
+   "note_en": "A little is fine when cooked and unseasoned, but liver is very high in vitamin A; if fed often or as a main food, vitamin A poisoning can occur."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ให้ได้เล็กน้อยนาน ๆ ครั้งเมื่อปรุงสุก แมวเสี่ยงพิษวิตามินเอเมื่อกินตับมากเป็นประจำ ทำให้กระดูกคองอกผิดปกติ ปวด เคลื่อนไหวคอลำบาก โดยเฉพาะลูกแมว"
+   "note_th": "ให้ได้เล็กน้อยนาน ๆ ครั้งเมื่อปรุงสุก แมวเสี่ยงพิษวิตามินเอเมื่อกินตับมากเป็นประจำ ทำให้กระดูกคองอกผิดปกติ ปวด เคลื่อนไหวคอลำบาก โดยเฉพาะลูกแมว",
+   "note_en": "A little now and then is fine when cooked. Cats risk vitamin A poisoning from eating a lot of liver regularly, which causes abnormal bone growth in the neck, pain and difficulty moving the neck, especially in kittens."
   },
   "if_eaten_th": "การกินครั้งเดียวมักไม่อันตราย ปัญหาเกิดจากการกินมากเป็นประจำ หากสัตว์เคยกินตับเป็นประจำแล้วมีอาการเจ็บคอ/หลัง เดินลำบาก ให้พาไปพบสัตวแพทย์",
   "sources": [
@@ -790,7 +1012,16 @@
     "url": "https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/nutritional-requirements-and-related-diseases-of-small-animals"
    }
   ],
-  "serving_th": "ต้มสุก ไม่ปรุงรส หั่นชิ้นเล็ก ให้นาน ๆ ครั้ง ไม่ใช้เป็นอาหารหลักหรือให้ทุกวัน"
+  "serving_th": "ต้มสุก ไม่ปรุงรส หั่นชิ้นเล็ก ให้นาน ๆ ครั้ง ไม่ใช้เป็นอาหารหลักหรือให้ทุกวัน",
+  "name_en": "Liver (chicken liver, pork liver)",
+  "aliases_en": [
+   "liver",
+   "chicken liver",
+   "pork liver",
+   "beef liver"
+  ],
+  "if_eaten_en": "Eating it once is usually not harmful; problems come from eating a lot regularly. If a pet that has regularly eaten liver shows neck/back pain or difficulty walking, take it to a veterinarian.",
+  "serving_en": "Boil until cooked, unseasoned, cut into small pieces, and give once in a while. Don't use as a main food or give every day."
  },
  {
   "id": "cooked-rice",
@@ -807,11 +1038,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "safe",
-   "note_th": "ข้าวขาวหุงสุกไม่ปรุงรสย่อยง่าย ให้เป็นส่วนเล็ก ๆ ของมื้อได้ ข้าวกล้องย่อยยากกว่า ไม่เหมาะเมื่อท้องเสีย สุนัขที่เป็นเบาหวานควรปรึกษาสัตวแพทย์"
+   "note_th": "ข้าวขาวหุงสุกไม่ปรุงรสย่อยง่าย ให้เป็นส่วนเล็ก ๆ ของมื้อได้ ข้าวกล้องย่อยยากกว่า ไม่เหมาะเมื่อท้องเสีย สุนัขที่เป็นเบาหวานควรปรึกษาสัตวแพทย์",
+   "note_en": "Plain cooked white rice is easy to digest and can be a small part of a meal. Brown rice is harder to digest and not suitable during diarrhea. Dogs with diabetes: consult a veterinarian."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ แต่แมวเป็นสัตว์กินเนื้อและได้ประโยชน์จากข้าวน้อย ถ้าให้ ควรเป็นข้าวสุกไม่ปรุงรส น้อยกว่า 1 ช้อนโต๊ะต่อสัปดาห์ ไม่ควรให้ลูกแมว"
+   "note_th": "ไม่เป็นพิษ แต่แมวเป็นสัตว์กินเนื้อและได้ประโยชน์จากข้าวน้อย ถ้าให้ ควรเป็นข้าวสุกไม่ปรุงรส น้อยกว่า 1 ช้อนโต๊ะต่อสัปดาห์ ไม่ควรให้ลูกแมว",
+   "note_en": "Not toxic, but cats are carnivores and get little benefit from rice. If you give it, it should be plain cooked rice, less than 1 tablespoon per week. Don't give to kittens."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -824,7 +1057,19 @@
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-rice"
    }
   ],
-  "serving_th": "ข้าวสวย/ข้าวต้มเปล่าที่ไม่ใส่เกลือ น้ำซุป กระเทียมเจียว หรือเครื่องปรุงใด ๆ"
+  "serving_th": "ข้าวสวย/ข้าวต้มเปล่าที่ไม่ใส่เกลือ น้ำซุป กระเทียมเจียว หรือเครื่องปรุงใด ๆ",
+  "name_en": "Cooked rice (steamed rice)",
+  "aliases_en": [
+   "rice",
+   "cooked rice",
+   "steamed rice",
+   "white rice",
+   "brown rice",
+   "plain rice porridge",
+   "khao tom"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Plain steamed rice / plain rice porridge with no salt, broth, fried garlic or any seasoning."
  },
  {
   "id": "pumpkin",
@@ -838,11 +1083,13 @@
   "category": "ผัก",
   "dog": {
    "status": "safe",
-   "note_th": "ให้ได้เมื่อนึ่งหรือบดสุก ปอกเปลือก ไม่ใส่น้ำตาล เครื่องเทศ หรือเนย ช่วยเรื่องท้องเสียหรือท้องผูกได้"
+   "note_th": "ให้ได้เมื่อนึ่งหรือบดสุก ปอกเปลือก ไม่ใส่น้ำตาล เครื่องเทศ หรือเนย ช่วยเรื่องท้องเสียหรือท้องผูกได้",
+   "note_en": "Fine when steamed or mashed and cooked, peeled, with no sugar, spices or butter. Can help with diarrhea or constipation."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ให้ฟักทองบดสุกไม่ปรุงรสได้ประมาณ 1 ช้อนโต๊ะ 2–3 ครั้งต่อสัปดาห์ ไม่ควรให้ฟักทองดิบ หากใช้แก้ปัญหาขับถ่ายควรปรึกษาสัตวแพทย์"
+   "note_th": "ให้ฟักทองบดสุกไม่ปรุงรสได้ประมาณ 1 ช้อนโต๊ะ 2–3 ครั้งต่อสัปดาห์ ไม่ควรให้ฟักทองดิบ หากใช้แก้ปัญหาขับถ่ายควรปรึกษาสัตวแพทย์",
+   "note_en": "Plain cooked mashed pumpkin can be given at about 1 tablespoon 2–3 times per week. Don't give raw pumpkin. If using it for bowel problems, consult a veterinarian."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -859,7 +1106,18 @@
     "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
    }
   ],
-  "serving_th": "นึ่ง/ต้มให้สุกนิ่ม ปอกเปลือก เอาเมล็ดออก บด ไม่ใส่น้ำตาล นม หรือเนย"
+  "serving_th": "นึ่ง/ต้มให้สุกนิ่ม ปอกเปลือก เอาเมล็ดออก บด ไม่ใส่น้ำตาล นม หรือเนย",
+  "name_en": "Pumpkin (cooked)",
+  "aliases_en": [
+   "pumpkin",
+   "cooked pumpkin",
+   "steamed pumpkin",
+   "mashed pumpkin",
+   "pumpkin puree",
+   "squash"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Steam/boil until soft, peel, remove the seeds and mash, with no sugar, milk or butter."
  },
  {
   "id": "carrot",
@@ -872,11 +1130,13 @@
   "category": "ผัก",
   "dog": {
    "status": "safe",
-   "note_th": "เป็นขนมแคลอรีต่ำ ให้ได้ทั้งดิบและสุก ควรหั่นชิ้นพอดีคำเพื่อป้องกันการติดคอ ไม่ปรุงรส"
+   "note_th": "เป็นขนมแคลอรีต่ำ ให้ได้ทั้งดิบและสุก ควรหั่นชิ้นพอดีคำเพื่อป้องกันการติดคอ ไม่ปรุงรส",
+   "note_en": "A low-calorie treat; can be given raw or cooked. Cut into bite-sized pieces to prevent choking; no seasoning."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ ให้เป็นขนมได้เล็กน้อย ควรต้ม/นึ่งให้นิ่มและหั่นชิ้นเล็ก ไม่ปรุงรส แมวเป็นสัตว์กินเนื้อจึงได้ประโยชน์จากผักไม่มาก"
+   "note_th": "ไม่เป็นพิษ ให้เป็นขนมได้เล็กน้อย ควรต้ม/นึ่งให้นิ่มและหั่นชิ้นเล็ก ไม่ปรุงรส แมวเป็นสัตว์กินเนื้อจึงได้ประโยชน์จากผักไม่มาก",
+   "note_en": "Not toxic; can be a small treat. Boil/steam until soft and cut into small pieces, unseasoned. Cats are carnivores, so they get little benefit from vegetables."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -893,7 +1153,17 @@
     "url": "https://sites.tufts.edu/petfoodology/?p=9234"
    }
   ],
-  "serving_th": "หั่นชิ้นพอดีคำหรือขูดฝอย สำหรับแมวควรนึ่งให้นิ่มก่อน ไม่ปรุงรส"
+  "serving_th": "หั่นชิ้นพอดีคำหรือขูดฝอย สำหรับแมวควรนึ่งให้นิ่มก่อน ไม่ปรุงรส",
+  "name_en": "Carrot",
+  "aliases_en": [
+   "carrot",
+   "carrots",
+   "raw carrot",
+   "cooked carrot",
+   "baby carrots"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Cut into bite-sized pieces or grate. For cats, steam until soft first. No seasoning."
  },
  {
   "id": "watermelon",
@@ -905,11 +1175,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "safe",
-   "note_th": "ให้ได้เฉพาะเนื้อ ต้องเอาเมล็ดและเปลือกออก เพราะอาจทำให้ลำไส้อุดตัน"
+   "note_th": "ให้ได้เฉพาะเนื้อ ต้องเอาเมล็ดและเปลือกออก เพราะอาจทำให้ลำไส้อุดตัน",
+   "note_en": "Only the flesh can be given; remove the seeds and rind, because they may cause intestinal blockage."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ให้ได้เฉพาะเนื้อชิ้นเล็ก (ประมาณ 1 ซม.) สัปดาห์ละ 1–2 ครั้ง เอาเมล็ดและเปลือกออก มีน้ำตาลค่อนข้างสูง แมวเบาหวานไม่ควรกิน"
+   "note_th": "ให้ได้เฉพาะเนื้อชิ้นเล็ก (ประมาณ 1 ซม.) สัปดาห์ละ 1–2 ครั้ง เอาเมล็ดและเปลือกออก มีน้ำตาลค่อนข้างสูง แมวเบาหวานไม่ควรกิน",
+   "note_en": "Only small pieces of flesh (about 1 cm), 1–2 times per week. Remove the seeds and rind. Fairly high in sugar; diabetic cats should not eat it."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -930,7 +1202,16 @@
     "url": "https://sites.tufts.edu/petfoodology/?p=9234"
    }
   ],
-  "serving_th": "เฉพาะเนื้อแดง เอาเมล็ดและเปลือกออก หั่นชิ้นเล็ก"
+  "serving_th": "เฉพาะเนื้อแดง เอาเมล็ดและเปลือกออก หั่นชิ้นเล็ก",
+  "name_en": "Watermelon",
+  "aliases_en": [
+   "watermelon",
+   "watermelons",
+   "watermelon rind",
+   "watermelon seeds"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Red flesh only; remove the seeds and rind; cut into small pieces."
  },
  {
   "id": "banana",
@@ -945,11 +1226,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้เป็นขนมในปริมาณน้อย เพราะมีน้ำตาลสูง ไม่ควรเป็นอาหารหลัก และไม่ควรให้กินเปลือก"
+   "note_th": "ให้ได้เป็นขนมในปริมาณน้อย เพราะมีน้ำตาลสูง ไม่ควรเป็นอาหารหลัก และไม่ควรให้กินเปลือก",
+   "note_en": "Can be a treat in small amounts, because it is high in sugar. It should not be a main food, and don't give the peel."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษแต่มีประโยชน์น้อย ให้ได้ไม่เกินชิ้นเล็กประมาณ 1 นิ้ว ทุกสองสามสัปดาห์ ห้ามให้เปลือก แมวอ้วนหรือเป็นเบาหวานควรงด"
+   "note_th": "ไม่เป็นพิษแต่มีประโยชน์น้อย ให้ได้ไม่เกินชิ้นเล็กประมาณ 1 นิ้ว ทุกสองสามสัปดาห์ ห้ามให้เปลือก แมวอ้วนหรือเป็นเบาหวานควรงด",
+   "note_en": "Not toxic but of little benefit. No more than a small piece of about 1 inch every few weeks. Never give the peel. Overweight or diabetic cats should avoid it."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -966,7 +1249,18 @@
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-bananas"
    }
   ],
-  "serving_th": "ปอกเปลือก หั่นชิ้นเล็ก ให้เป็นขนมนาน ๆ ครั้ง ไม่ใช่กล้วยทอด/กล้วยเชื่อม"
+  "serving_th": "ปอกเปลือก หั่นชิ้นเล็ก ให้เป็นขนมนาน ๆ ครั้ง ไม่ใช่กล้วยทอด/กล้วยเชื่อม",
+  "name_en": "Banana",
+  "aliases_en": [
+   "banana",
+   "bananas",
+   "kluai",
+   "kluai hom",
+   "kluai nam wa",
+   "banana peel"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Peel, cut into small pieces, and give as an occasional treat; not fried banana or banana in syrup."
  },
  {
   "id": "apple",
@@ -979,11 +1273,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "limited",
-   "note_th": "เนื้อแอปเปิลให้ได้เป็นขนม แต่ต้องเอาแกน เมล็ด และก้านออก เพราะเมล็ด ก้าน และใบมีสารที่ปล่อยไซยาไนด์ และแกนอาจติดคอ"
+   "note_th": "เนื้อแอปเปิลให้ได้เป็นขนม แต่ต้องเอาแกน เมล็ด และก้านออก เพราะเมล็ด ก้าน และใบมีสารที่ปล่อยไซยาไนด์ และแกนอาจติดคอ",
+   "note_en": "Apple flesh can be given as a treat, but remove the core, seeds and stem, because the seeds, stem and leaves contain substances that release cyanide, and the core may cause choking."
   },
   "cat": {
    "status": "limited",
-   "note_th": "เนื้อแอปเปิลไม่เป็นพิษแต่มีประโยชน์น้อย ปอกเปลือก เอาเมล็ด แกน ก้านออก หั่นชิ้นเล็กให้เพียงเล็กน้อยนาน ๆ ครั้ง"
+   "note_th": "เนื้อแอปเปิลไม่เป็นพิษแต่มีประโยชน์น้อย ปอกเปลือก เอาเมล็ด แกน ก้านออก หั่นชิ้นเล็กให้เพียงเล็กน้อยนาน ๆ ครั้ง",
+   "note_en": "Apple flesh is not toxic but has little benefit. Peel it and remove the seeds, core and stem; give only a few small pieces once in a while."
   },
   "if_eaten_th": "ถ้ากินเฉพาะเนื้อ ไม่ต้องกังวล ถ้ากลืนแกน/เมล็ด/ก้านหรือใบปริมาณมาก หรือมีอาการหายใจลำบาก อาเจียน ซึม ให้ติดต่อสัตวแพทย์ทันที",
   "sources": [
@@ -1004,7 +1300,17 @@
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-apples"
    }
   ],
-  "serving_th": "ล้าง ปอกเปลือก (สำหรับแมว) ตัดแกนและเมล็ดออกหมด หั่นชิ้นเล็ก"
+  "serving_th": "ล้าง ปอกเปลือก (สำหรับแมว) ตัดแกนและเมล็ดออกหมด หั่นชิ้นเล็ก",
+  "name_en": "Apple (flesh) — no seeds or core",
+  "aliases_en": [
+   "apple",
+   "apples",
+   "apple slices",
+   "green apple",
+   "red apple"
+  ],
+  "if_eaten_en": "If only the flesh was eaten, no need to worry. If the core/seeds/stem or leaves were swallowed in a large amount, or there is breathing difficulty, vomiting or lethargy, contact a veterinarian right away.",
+  "serving_en": "Wash, peel (for cats), remove the core and all seeds, and cut into small pieces."
  },
  {
   "id": "mango",
@@ -1018,11 +1324,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "limited",
-   "note_th": "ให้เนื้อมะม่วงได้เป็นครั้งคราวเพราะน้ำตาลสูง ต้องปอกเปลือกและเอาเมล็ดออก เมล็ดอาจติดคอ/อุดตันลำไส้ และมีสารไซยาไนด์เล็กน้อย"
+   "note_th": "ให้เนื้อมะม่วงได้เป็นครั้งคราวเพราะน้ำตาลสูง ต้องปอกเปลือกและเอาเมล็ดออก เมล็ดอาจติดคอ/อุดตันลำไส้ และมีสารไซยาไนด์เล็กน้อย",
+   "note_en": "Mango flesh can be given occasionally, because it is high in sugar. Peel it and remove the pit; the pit may cause choking/intestinal blockage and contains a small amount of cyanide."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ ให้เนื้อสุกชิ้นเล็กในปริมาณน้อย เอาเปลือก ก้าน และเมล็ดออก แมวเบาหวานไม่ควรกินผลไม้"
+   "note_th": "ไม่เป็นพิษ ให้เนื้อสุกชิ้นเล็กในปริมาณน้อย เอาเปลือก ก้าน และเมล็ดออก แมวเบาหวานไม่ควรกินผลไม้",
+   "note_en": "Not toxic. Give small pieces of ripe flesh in small amounts. Remove the skin, stem and pit. Diabetic cats should not eat fruit."
   },
   "if_eaten_th": "ถ้ากินเฉพาะเนื้อเล็กน้อยไม่ต้องกังวล ถ้ากลืนเมล็ดหรือมีอาการอาเจียน ท้องอืด ไม่ถ่าย ให้พาไปพบสัตวแพทย์ทันที",
   "sources": [
@@ -1035,7 +1343,17 @@
     "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
    }
   ],
-  "serving_th": "เฉพาะเนื้อสุก ปอกเปลือก ตัดเนื้อออกจากเมล็ด หั่นชิ้นเล็ก ไม่ใช่มะม่วงดอง/มะม่วงน้ำปลาหวาน"
+  "serving_th": "เฉพาะเนื้อสุก ปอกเปลือก ตัดเนื้อออกจากเมล็ด หั่นชิ้นเล็ก ไม่ใช่มะม่วงดอง/มะม่วงน้ำปลาหวาน",
+  "name_en": "Mango (ripe flesh)",
+  "aliases_en": [
+   "mango",
+   "mangoes",
+   "ripe mango",
+   "nam dok mai mango",
+   "mango flesh"
+  ],
+  "if_eaten_en": "If only a little flesh was eaten, no need to worry. If the pit was swallowed or there is vomiting, bloating or no bowel movements, take your pet to a veterinarian right away.",
+  "serving_en": "Ripe flesh only; peel, cut the flesh away from the pit, and cut into small pieces. Not pickled mango or mango with sweet fish sauce."
  },
  {
   "id": "pineapple",
@@ -1048,11 +1366,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "safe",
-   "note_th": "ให้ได้เฉพาะเนื้อสด ปอกเปลือกและตัดจุก/แกนแข็งออก หั่นชิ้นพอดีคำ หลีกเลี่ยงสับปะรดกระป๋องในน้ำเชื่อม"
+   "note_th": "ให้ได้เฉพาะเนื้อสด ปอกเปลือกและตัดจุก/แกนแข็งออก หั่นชิ้นพอดีคำ หลีกเลี่ยงสับปะรดกระป๋องในน้ำเชื่อม",
+   "note_en": "Only fresh flesh can be given; peel it and remove the crown/tough core, and cut into bite-sized pieces. Avoid canned pineapple in syrup."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ ให้ได้เฉพาะเนื้อสดชิ้นเล็กในปริมาณน้อย แมวเบาหวานไม่ควรกิน"
+   "note_th": "ไม่เป็นพิษ ให้ได้เฉพาะเนื้อสดชิ้นเล็กในปริมาณน้อย แมวเบาหวานไม่ควรกิน",
+   "note_en": "Not toxic. Only small pieces of fresh flesh in small amounts. Diabetic cats should not eat it."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -1069,7 +1389,16 @@
     "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
    }
   ],
-  "serving_th": "เนื้อสดเท่านั้น ปอกเปลือก ตัดแกนแข็งออก หั่นชิ้นเล็ก ไม่ใช่สับปะรดกระป๋องในน้ำเชื่อมหรือจิ้มเกลือ/พริกเกลือ"
+  "serving_th": "เนื้อสดเท่านั้น ปอกเปลือก ตัดแกนแข็งออก หั่นชิ้นเล็ก ไม่ใช่สับปะรดกระป๋องในน้ำเชื่อมหรือจิ้มเกลือ/พริกเกลือ",
+  "name_en": "Pineapple",
+  "aliases_en": [
+   "pineapple",
+   "pineapples",
+   "fresh pineapple",
+   "canned pineapple"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Fresh flesh only; peel, remove the tough core, and cut into small pieces. Not canned pineapple in syrup or pineapple dipped in salt/chili salt."
  },
  {
   "id": "cucumber",
@@ -1081,11 +1410,13 @@
   "category": "ผัก",
   "dog": {
    "status": "safe",
-   "note_th": "ขนมแคลอรีต่ำ เหมาะกับสุนัขน้ำหนักเกิน หั่นชิ้นพอดีคำ ไม่ปรุงรส"
+   "note_th": "ขนมแคลอรีต่ำ เหมาะกับสุนัขน้ำหนักเกิน หั่นชิ้นพอดีคำ ไม่ปรุงรส",
+   "note_en": "A low-calorie treat, good for overweight dogs. Cut into bite-sized pieces, unseasoned."
   },
   "cat": {
    "status": "safe",
-   "note_th": "เป็นของว่างแคลอรีต่ำ ให้ชิ้นเล็ก ไม่ปรุงรส ในปริมาณน้อย"
+   "note_th": "เป็นของว่างแคลอรีต่ำ ให้ชิ้นเล็ก ไม่ปรุงรส ในปริมาณน้อย",
+   "note_en": "A low-calorie snack. Give small pieces, unseasoned, in small amounts."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -1102,7 +1433,15 @@
     "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
    }
   ],
-  "serving_th": "ล้างสะอาด หั่นชิ้นพอดีคำ ไม่จิ้มเกลือ/น้ำพริก ไม่ใช่แตงกวาดอง"
+  "serving_th": "ล้างสะอาด หั่นชิ้นพอดีคำ ไม่จิ้มเกลือ/น้ำพริก ไม่ใช่แตงกวาดอง",
+  "name_en": "Cucumber",
+  "aliases_en": [
+   "cucumber",
+   "cucumbers",
+   "thai cucumber"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Wash well and cut into bite-sized pieces. No dipping in salt/chili paste; not pickled cucumber."
  },
  {
   "id": "citrus",
@@ -1120,11 +1459,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "limited",
-   "note_th": "เนื้อส้มให้ได้เล็กน้อยโดยไม่เอาเปลือกและเมล็ด เปลือก เมล็ด และน้ำมันหอมระเหยอาจระคายเคืองทางเดินอาหาร สุนัขหลายตัวไม่ชอบรสเปรี้ยว"
+   "note_th": "เนื้อส้มให้ได้เล็กน้อยโดยไม่เอาเปลือกและเมล็ด เปลือก เมล็ด และน้ำมันหอมระเหยอาจระคายเคืองทางเดินอาหาร สุนัขหลายตัวไม่ชอบรสเปรี้ยว",
+   "note_en": "A little orange flesh can be given, without the peel and seeds. The peel, seeds and essential oils may irritate the digestive tract. Many dogs don't like the sour taste."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "สัตวแพทย์แนะนำให้แมวหลีกเลี่ยงผลไม้ตระกูลส้ม เนื้อผลเล็กน้อยมักไม่เป็นพิษ แต่เปลือก เมล็ด และน้ำมันหอมระเหยทำให้อาเจียน ท้องเสีย และแมวไม่ได้ประโยชน์"
+   "note_th": "สัตวแพทย์แนะนำให้แมวหลีกเลี่ยงผลไม้ตระกูลส้ม เนื้อผลเล็กน้อยมักไม่เป็นพิษ แต่เปลือก เมล็ด และน้ำมันหอมระเหยทำให้อาเจียน ท้องเสีย และแมวไม่ได้ประโยชน์",
+   "note_en": "Veterinarians advise cats to avoid citrus fruits. A little flesh is usually not toxic, but the peel, seeds and essential oils cause vomiting and diarrhea, and cats get no benefit."
   },
   "if_eaten_th": "กินเนื้อเล็กน้อยมักแค่ท้องไส้ปั่นป่วน ถ้ากินเปลือก/เมล็ดมาก หรือมีอาการซึม สั่น อาเจียนต่อเนื่อง ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -1145,7 +1486,20 @@
     "url": "https://www.naewna.com/lady/columnist/45197"
    }
   ],
-  "serving_th": "สุนัข: ถ้าจะให้ ให้เนื้อส้มหวานเพียงเล็กน้อย แกะเปลือกและเมล็ดออก"
+  "serving_th": "สุนัข: ถ้าจะให้ ให้เนื้อส้มหวานเพียงเล็กน้อย แกะเปลือกและเมล็ดออก",
+  "name_en": "Oranges and limes (citrus fruits)",
+  "aliases_en": [
+   "orange",
+   "oranges",
+   "tangerine",
+   "mandarin",
+   "lime",
+   "lemon",
+   "pomelo",
+   "citrus"
+  ],
+  "if_eaten_en": "Eating a little flesh usually just causes a stomach upset. If a lot of peel/seeds was eaten, or there is lethargy, trembling or continued vomiting, contact a veterinarian.",
+  "serving_en": "Dog: If you do give it, only a little sweet orange flesh, with the peel and seeds removed."
  },
  {
   "id": "tomato",
@@ -1159,11 +1513,13 @@
   "category": "ผัก",
   "dog": {
    "status": "limited",
-   "note_th": "เนื้อมะเขือเทศสุกโดยทั่วไปปลอดภัยเล็กน้อย แต่ผลดิบสีเขียว ใบ และลำต้นมีสารโซลานีน ควรให้สุนัขอยู่ห่างจากต้นมะเขือเทศ"
+   "note_th": "เนื้อมะเขือเทศสุกโดยทั่วไปปลอดภัยเล็กน้อย แต่ผลดิบสีเขียว ใบ และลำต้นมีสารโซลานีน ควรให้สุนัขอยู่ห่างจากต้นมะเขือเทศ",
+   "note_en": "Ripe tomato flesh is generally safe in small amounts, but the unripe green fruit, leaves and stems contain solanine. Keep dogs away from tomato plants."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ผลสุกให้ได้เล็กน้อย ห้ามผลดิบสีเขียว ใบ และลำต้น ซึ่งอาจทำให้น้ำลายไหล อาเจียน ท้องเสีย ซึม"
+   "note_th": "ผลสุกให้ได้เล็กน้อย ห้ามผลดิบสีเขียว ใบ และลำต้น ซึ่งอาจทำให้น้ำลายไหล อาเจียน ท้องเสีย ซึม",
+   "note_en": "Ripe fruit can be given in small amounts. Never give unripe green fruit, leaves or stems, which may cause drooling, vomiting, diarrhea and lethargy."
   },
   "if_eaten_th": "ถ้ากินผลสุกเล็กน้อยไม่ต้องกังวล ถ้ากินผลดิบสีเขียว ใบ หรือลำต้น และมีอาการผิดปกติ ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -1180,7 +1536,18 @@
     "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
    }
   ],
-  "serving_th": "เฉพาะผลสุกสีแดง ล้างและหั่นชิ้นเล็ก ไม่ให้ผลดิบสีเขียว ใบ หรือก้าน และไม่ใช่ซอสมะเขือเทศ"
+  "serving_th": "เฉพาะผลสุกสีแดง ล้างและหั่นชิ้นเล็ก ไม่ให้ผลดิบสีเขียว ใบ หรือก้าน และไม่ใช่ซอสมะเขือเทศ",
+  "name_en": "Tomato (ripe)",
+  "aliases_en": [
+   "tomato",
+   "tomatoes",
+   "cherry tomato",
+   "green tomato",
+   "ripe tomato",
+   "tomato plant"
+  ],
+  "if_eaten_en": "If a little ripe fruit was eaten, no need to worry. If unripe green fruit, leaves or stems were eaten and there are any unusual signs, contact a veterinarian.",
+  "serving_en": "Ripe red fruit only; wash and cut into small pieces. Don't give unripe green fruit, leaves or stems, and not ketchup/tomato sauce."
  },
  {
   "id": "coconut",
@@ -1197,11 +1564,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "limited",
-   "note_th": "ปริมาณน้อยไม่น่าก่ออันตรายร้ายแรง แต่เนื้อและกะทิมีไขมัน อาจทำให้ท้องไส้ปั่นป่วนหรือถ่ายเหลว แกงกะทิของคนมักมีกระเทียม หอม และพริก ห้ามให้"
+   "note_th": "ปริมาณน้อยไม่น่าก่ออันตรายร้ายแรง แต่เนื้อและกะทิมีไขมัน อาจทำให้ท้องไส้ปั่นป่วนหรือถ่ายเหลว แกงกะทิของคนมักมีกระเทียม หอม และพริก ห้ามให้",
+   "note_en": "Small amounts are unlikely to cause serious harm, but the flesh and coconut milk contain fat that may cause stomach upset or loose stools. Human coconut-milk curries usually contain garlic, onion and chili; never give them."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่จัดเป็นพิษร้ายแรง แต่สัตวแพทย์จัดกะทิไว้ในรายการที่แมวควรหลีกเลี่ยง ไขมันในเนื้อมะพร้าวและกะทิอาจทำให้ท้องเสีย และอาหารคนที่ใส่กะทิมักมีหอม กระเทียม ซึ่งเป็นพิษต่อแมว"
+   "note_th": "ไม่จัดเป็นพิษร้ายแรง แต่สัตวแพทย์จัดกะทิไว้ในรายการที่แมวควรหลีกเลี่ยง ไขมันในเนื้อมะพร้าวและกะทิอาจทำให้ท้องเสีย และอาหารคนที่ใส่กะทิมักมีหอม กระเทียม ซึ่งเป็นพิษต่อแมว",
+   "note_en": "Not considered seriously toxic, but veterinarians list coconut milk among things cats should avoid. The fat in coconut flesh and coconut milk may cause diarrhea, and human food made with coconut milk usually contains onion and garlic, which are toxic to cats."
   },
   "if_eaten_th": "ถ้ากินเล็กน้อย สังเกตอาการท้องเสีย ถ้าเป็นแกงที่มีหอม/กระเทียม หรือท้องเสียรุนแรง ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -1218,7 +1587,19 @@
     "url": "https://www.naewna.com/lady/columnist/45197"
    }
   ],
-  "serving_th": "สุนัข: ถ้าจะให้ ให้เนื้อมะพร้าวขูดไม่ปรุงเพียงเล็กน้อย ห้ามแกงกะทิหรือขนมกะทิที่ใส่น้ำตาล"
+  "serving_th": "สุนัข: ถ้าจะให้ ให้เนื้อมะพร้าวขูดไม่ปรุงเพียงเล็กน้อย ห้ามแกงกะทิหรือขนมกะทิที่ใส่น้ำตาล",
+  "name_en": "Coconut and coconut milk",
+  "aliases_en": [
+   "coconut",
+   "coconut meat",
+   "coconut milk",
+   "coconut cream",
+   "coconut oil",
+   "grated coconut",
+   "kati"
+  ],
+  "if_eaten_en": "If a little was eaten, watch for diarrhea. If it was a curry containing onion/garlic, or the diarrhea is severe, contact a veterinarian.",
+  "serving_en": "Dog: If you do give it, only a little plain grated coconut flesh. Never coconut-milk curry or sweetened coconut-milk desserts."
  },
  {
   "id": "peanut-butter",
@@ -1230,11 +1611,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้เล็กน้อยเฉพาะชนิดที่ไม่มีไซลิทอล ไม่เค็ม ไม่หวาน ต้องอ่านฉลากทุกครั้ง เพราะไซลิทอลเป็นพิษร้ายแรง ไขมันสูงอาจทำให้อ้วนหรือตับอ่อนอักเสบ"
+   "note_th": "ให้ได้เล็กน้อยเฉพาะชนิดที่ไม่มีไซลิทอล ไม่เค็ม ไม่หวาน ต้องอ่านฉลากทุกครั้ง เพราะไซลิทอลเป็นพิษร้ายแรง ไขมันสูงอาจทำให้อ้วนหรือตับอ่อนอักเสบ",
+   "note_en": "A little is fine, but only types with no xylitol, unsalted and unsweetened. Read the label every time, because xylitol is severely toxic. The high fat may cause weight gain or pancreatitis."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่แนะนำ ไม่มีประโยชน์ต่อแมวและไขมันสูง ถ้าเผลอเลียชนิดที่ไม่มีไซลิทอลเล็กน้อย มักแค่ท้องไส้ปั่นป่วน แต่ชนิดที่มีไซลิทอลเป็นเหตุฉุกเฉิน"
+   "note_th": "ไม่แนะนำ ไม่มีประโยชน์ต่อแมวและไขมันสูง ถ้าเผลอเลียชนิดที่ไม่มีไซลิทอลเล็กน้อย มักแค่ท้องไส้ปั่นป่วน แต่ชนิดที่มีไซลิทอลเป็นเหตุฉุกเฉิน",
+   "note_en": "Not recommended. No benefit for cats and high in fat. If a cat accidentally licks a little xylitol-free peanut butter, it usually just gets a stomach upset, but a type containing xylitol is an emergency."
   },
   "if_eaten_th": "ตรวจฉลากทันที ถ้ามีไซลิทอล (xylitol / birch sugar) ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที ถ้าไม่มี ให้สังเกตอาการอาเจียนหรือท้องเสีย",
   "sources": [
@@ -1251,7 +1634,15 @@
     "url": "https://www.aspca.org/news/sharing-caring-foods-you-can-safely-share-your-pet"
    }
   ],
-  "serving_th": "สุนัข: เลือกชนิดที่ส่วนผสมมีแค่ถั่ว ไม่มีไซลิทอล ไม่เค็ม ไม่หวาน ทาบาง ๆ หรือใส่ของเล่นเพียงเล็กน้อย"
+  "serving_th": "สุนัข: เลือกชนิดที่ส่วนผสมมีแค่ถั่ว ไม่มีไซลิทอล ไม่เค็ม ไม่หวาน ทาบาง ๆ หรือใส่ของเล่นเพียงเล็กน้อย",
+  "name_en": "Peanut butter",
+  "aliases_en": [
+   "peanut butter",
+   "peanut spread",
+   "pb"
+  ],
+  "if_eaten_en": "Check the label right away. If it contains xylitol (xylitol / birch sugar), contact a veterinarian or animal hospital right away. If not, watch for vomiting or diarrhea.",
+  "serving_en": "Dog: Choose one whose only ingredient is peanuts: no xylitol, unsalted, unsweetened. Spread thinly or put a little inside a toy."
  },
  {
   "id": "bread",
@@ -1266,11 +1657,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "limited",
-   "note_th": "ขนมปังขาวหรือโฮลวีตธรรมดาให้ได้ชิ้นเล็กนาน ๆ ครั้ง ไม่มีประโยชน์เพิ่มและแคลอรีสูง ห้ามขนมปังลูกเกด ขนมปังกระเทียม หรือที่มีไซลิทอล/แมคาเดเมีย"
+   "note_th": "ขนมปังขาวหรือโฮลวีตธรรมดาให้ได้ชิ้นเล็กนาน ๆ ครั้ง ไม่มีประโยชน์เพิ่มและแคลอรีสูง ห้ามขนมปังลูกเกด ขนมปังกระเทียม หรือที่มีไซลิทอล/แมคาเดเมีย",
+   "note_en": "Plain white or whole-wheat bread can be given in small pieces once in a while. It adds no benefit and is high in calories. Never give raisin bread, garlic bread, or bread containing xylitol/macadamia."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ขนมปังอบสุกธรรมดาไม่เป็นพิษ แต่แคลอรีสูงและไม่มีประโยชน์ต่อแมว ให้เพียงคำเล็กนาน ๆ ครั้ง และระวังไส้ที่มีลูกเกด กระเทียม หรือหอม"
+   "note_th": "ขนมปังอบสุกธรรมดาไม่เป็นพิษ แต่แคลอรีสูงและไม่มีประโยชน์ต่อแมว ให้เพียงคำเล็กนาน ๆ ครั้ง และระวังไส้ที่มีลูกเกด กระเทียม หรือหอม",
+   "note_en": "Plain baked bread is not toxic, but it is high in calories and has no benefit for cats. Give only a small bite once in a while, and watch out for fillings containing raisins, garlic or onion."
   },
   "if_eaten_th": "ขนมปังธรรมดาไม่น่ากังวล ถ้าเป็นขนมปังที่มีลูกเกด กระเทียม หัวหอม ไซลิทอล หรือแมคาเดเมีย ให้ติดต่อสัตวแพทย์ทันที",
   "sources": [
@@ -1283,7 +1676,18 @@
     "url": "https://sites.tufts.edu/petfoodology/?p=9234"
    }
   ],
-  "serving_th": "ขนมปังจืดธรรมดาชิ้นเล็กนาน ๆ ครั้ง ไม่มีไส้ ไม่ทาเนย/แยม ไม่ใช่ขนมปังกระเทียมหรือลูกเกด"
+  "serving_th": "ขนมปังจืดธรรมดาชิ้นเล็กนาน ๆ ครั้ง ไม่มีไส้ ไม่ทาเนย/แยม ไม่ใช่ขนมปังกระเทียมหรือลูกเกด",
+  "name_en": "Bread (baked, no filling)",
+  "aliases_en": [
+   "bread",
+   "toast",
+   "white bread",
+   "plain bread",
+   "sliced bread",
+   "whole wheat bread"
+  ],
+  "if_eaten_en": "Plain bread is not a concern. If it was bread containing raisins, garlic, onion, xylitol or macadamia, contact a veterinarian right away.",
+  "serving_en": "A small piece of plain bread once in a while: no filling, no butter/jam, and not garlic or raisin bread."
  },
  {
   "id": "raw-dough",
@@ -1301,11 +1705,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "toxic",
-   "note_th": "แป้งดิบที่มียีสต์จะขยายตัวในกระเพาะ ทำให้ท้องอืดรุนแรง กระเพาะอาจบิด และยีสต์สร้างแอลกอฮอล์ทำให้เกิดพิษแอลกอฮอล์"
+   "note_th": "แป้งดิบที่มียีสต์จะขยายตัวในกระเพาะ ทำให้ท้องอืดรุนแรง กระเพาะอาจบิด และยีสต์สร้างแอลกอฮอล์ทำให้เกิดพิษแอลกอฮอล์",
+   "note_en": "Raw yeast dough expands in the stomach, causing severe bloating; the stomach may twist, and the yeast produces alcohol, causing alcohol poisoning."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "แป้งดิบที่มียีสต์จะขยายตัวและสร้างแก๊สในทางเดินอาหาร อาจทำให้กระเพาะหรือลำไส้แตก และเกิดพิษจากแอลกอฮอล์"
+   "note_th": "แป้งดิบที่มียีสต์จะขยายตัวและสร้างแก๊สในทางเดินอาหาร อาจทำให้กระเพาะหรือลำไส้แตก และเกิดพิษจากแอลกอฮอล์",
+   "note_en": "Raw yeast dough expands and produces gas in the digestive tract, which may cause the stomach or intestines to rupture, and it causes alcohol poisoning."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -1329,7 +1735,17 @@
     "title": "คอลัมน์ \"อาหารกับสัตว์เลี้ยง (ตอนที่ 1)\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร ฝ่ายประชาสัมพันธ์ คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (หนังสือพิมพ์แนวหน้า)",
     "url": "https://www.naewna.com/lady/columnist/45197"
    }
-  ]
+  ],
+  "name_en": "Raw bread dough (yeast dough)",
+  "aliases_en": [
+   "raw dough",
+   "bread dough",
+   "yeast dough",
+   "uncooked dough",
+   "pizza dough",
+   "raw bun dough"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "spicy-food",
@@ -1349,11 +1765,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "avoid",
-   "note_th": "พริกไม่ใช่สารพิษร้ายแรง แต่ระคายเคืองปาก ตา และทางเดินอาหาร ทำให้อาเจียน ท้องเสียได้ ที่น่ากังวลกว่าคืออาหารไทยรสจัดมักมีกระเทียม หอม และเกลือ ซึ่งเป็นอันตรายต่อสุนัข (ดูหัวข้อ \"อาหารคนปรุงรส\")"
+   "note_th": "พริกไม่ใช่สารพิษร้ายแรง แต่ระคายเคืองปาก ตา และทางเดินอาหาร ทำให้อาเจียน ท้องเสียได้ ที่น่ากังวลกว่าคืออาหารไทยรสจัดมักมีกระเทียม หอม และเกลือ ซึ่งเป็นอันตรายต่อสุนัข (ดูหัวข้อ \"อาหารคนปรุงรส\")",
+   "note_en": "Chili is not seriously toxic, but it irritates the mouth, eyes and digestive tract and can cause vomiting and diarrhea. The bigger concern is that spicy Thai food usually contains garlic, onion and salt, which are harmful to dogs (see \"Seasoned human food\")."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "พริกระคายเคืองปากและทางเดินอาหาร ทำให้อาเจียน ท้องเสีย ที่น่ากังวลกว่าคืออาหารรสจัดมักมีหอม กระเทียม และเกลือ ซึ่งเป็นพิษต่อแมวมาก จึงไม่ควรแบ่งให้"
+   "note_th": "พริกระคายเคืองปากและทางเดินอาหาร ทำให้อาเจียน ท้องเสีย ที่น่ากังวลกว่าคืออาหารรสจัดมักมีหอม กระเทียม และเกลือ ซึ่งเป็นพิษต่อแมวมาก จึงไม่ควรแบ่งให้",
+   "note_en": "Chili irritates the mouth and digestive tract, causing vomiting and diarrhea. The bigger concern is that spicy food usually contains onion, garlic and salt, which are very toxic to cats, so don't share it."
   },
   "if_eaten_th": "ถ้าเลียพริกหรือน้ำพริกเล็กน้อย ให้น้ำสะอาดและสังเกตอาการ อย่าพยายามทำให้อาเจียนเอง ถ้าอาหารนั้นมีหอมหรือกระเทียม (เช่น น้ำพริก แกง) หรือสัตว์อาเจียน ท้องเสีย ซึม ให้ติดต่อสัตวแพทย์ทันที โดยเฉพาะแมว",
   "sources": [
@@ -1369,7 +1787,19 @@
     "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats (สนับสนุนเฉพาะเรื่องหอม กระเทียม เกลือ ไม่ได้กล่าวถึงพริก)",
     "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
    }
-  ]
+  ],
+  "name_en": "Spicy food and chili",
+  "aliases_en": [
+   "chili",
+   "chilli",
+   "chili pepper",
+   "spicy food",
+   "chili paste",
+   "nam prik",
+   "chili sauce",
+   "chili flakes"
+  ],
+  "if_eaten_en": "If your pet licked a little chili or chili paste, give clean water and watch for symptoms. Don't try to make it vomit yourself. If the food contained onion or garlic (e.g. chili paste, curry), or your pet has vomiting, diarrhea or lethargy, contact a veterinarian right away, especially for cats."
  },
  {
   "id": "lean-cooked-meat",
@@ -1385,11 +1815,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "safe",
-   "note_th": "เนื้อไม่ติดมันที่ปรุงสุก ไม่มีกระดูกและเครื่องปรุง ให้ได้ในปริมาณน้อย หลีกเลี่ยงเนื้อแปรรูป เช่น ไส้กรอก แฮม เบคอน หมูยอ ที่เค็มและมันมาก"
+   "note_th": "เนื้อไม่ติดมันที่ปรุงสุก ไม่มีกระดูกและเครื่องปรุง ให้ได้ในปริมาณน้อย หลีกเลี่ยงเนื้อแปรรูป เช่น ไส้กรอก แฮม เบคอน หมูยอ ที่เค็มและมันมาก",
+   "note_en": "Cooked lean meat with no bones or seasoning can be given in small amounts. Avoid processed meats such as sausage, ham, bacon and moo yor (Thai pork sausage), which are very salty and fatty."
   },
   "cat": {
    "status": "safe",
-   "note_th": "เนื้อไม่ติดมันที่ปรุงสุก ไม่มีกระดูกและเครื่องปรุง ให้เป็นของว่างในปริมาณน้อย ไม่ใช้แทนอาหารแมวที่ครบถ้วน หลีกเลี่ยงเนื้อแปรรูปและเนื้อดิบ"
+   "note_th": "เนื้อไม่ติดมันที่ปรุงสุก ไม่มีกระดูกและเครื่องปรุง ให้เป็นของว่างในปริมาณน้อย ไม่ใช้แทนอาหารแมวที่ครบถ้วน หลีกเลี่ยงเนื้อแปรรูปและเนื้อดิบ",
+   "note_en": "Cooked lean meat with no bones or seasoning can be a snack in small amounts; not a replacement for complete cat food. Avoid processed meats and raw meat."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -1406,7 +1838,19 @@
     "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
    }
   ],
-  "serving_th": "ต้มสุกทั่ว ตัดมันและหนังออก ไม่มีกระดูก ไม่ใส่เกลือ น้ำปลา ซีอิ๊ว กระเทียม หั่นชิ้นเล็ก"
+  "serving_th": "ต้มสุกทั่ว ตัดมันและหนังออก ไม่มีกระดูก ไม่ใส่เกลือ น้ำปลา ซีอิ๊ว กระเทียม หั่นชิ้นเล็ก",
+  "name_en": "Cooked pork/beef (lean, unseasoned)",
+  "aliases_en": [
+   "pork",
+   "beef",
+   "cooked pork",
+   "cooked beef",
+   "boiled pork",
+   "lean meat",
+   "cooked meat"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Boil until fully cooked, trim off the fat and skin, no bones, and no salt, fish sauce, soy sauce or garlic. Cut into small pieces."
  },
  {
   "id": "lily",
@@ -1424,11 +1868,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "avoid",
-   "note_th": "ลิลลี่แท้และเดย์ลิลลี่มักทำให้สุนัขเพียงท้องไส้ปั่นป่วน (อาการรุนแรงในแมวมากกว่ามาก) แต่ไม่ควรให้กิน ส่วนพืชที่ชื่อคล้ายกัน เช่น ลิลลี่ออฟเดอะแวลลีย์ มีสารที่มีผลต่อหัวใจ และดองดึงเป็นพิษร้ายแรง (ดูหัวข้อดองดึง)"
+   "note_th": "ลิลลี่แท้และเดย์ลิลลี่มักทำให้สุนัขเพียงท้องไส้ปั่นป่วน (อาการรุนแรงในแมวมากกว่ามาก) แต่ไม่ควรให้กิน ส่วนพืชที่ชื่อคล้ายกัน เช่น ลิลลี่ออฟเดอะแวลลีย์ มีสารที่มีผลต่อหัวใจ และดองดึงเป็นพิษร้ายแรง (ดูหัวข้อดองดึง)",
+   "note_en": "True lilies and daylilies usually cause only stomach upset in dogs (symptoms are far more severe in cats), but they should not be eaten. Plants with similar names, such as lily of the valley, contain substances that affect the heart, and gloriosa lily (dong dueng) is severely toxic (see Gloriosa lily)."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "อันตรายถึงชีวิต ทุกส่วนของลิลลี่แท้และเดย์ลิลลี่ รวมทั้งเกสรที่ติดขนแล้วแมวเลีย และน้ำในแจกัน ทำให้ไตวายเฉียบพลันได้ภายใน 3 วัน ไม่ควรมีลิลลี่ในบ้านที่เลี้ยงแมว"
+   "note_th": "อันตรายถึงชีวิต ทุกส่วนของลิลลี่แท้และเดย์ลิลลี่ รวมทั้งเกสรที่ติดขนแล้วแมวเลีย และน้ำในแจกัน ทำให้ไตวายเฉียบพลันได้ภายใน 3 วัน ไม่ควรมีลิลลี่ในบ้านที่เลี้ยงแมว",
+   "note_en": "Life-threatening. All parts of true lilies and daylilies, including pollen that sticks to the fur and is licked off and the water in the vase, can cause acute kidney failure within 3 days. Lilies should not be kept in homes with cats."
   },
   "if_eaten_th": "แมว: ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้แมวยังไม่มีอาการ ยิ่งรักษาเร็วยิ่งดี (ถ้าช้าเกิน 18 ชั่วโมง ไตอาจเสียหายถาวร) ถ่ายรูปหรือนำต้นไม้ไปด้วยเพื่อระบุชนิด อย่าพยายามทำให้อาเจียนเองที่บ้าน | สุนัข: ลิลลี่แท้มักทำให้แค่อาเจียนหรือท้องเสีย ให้โทรปรึกษาสัตวแพทย์และสังเกตอาการ ถ้าเป็นลิลลี่ออฟเดอะแวลลีย์หรือดองดึง หรือมีอาการซึม หัวใจเต้นผิดปกติ ให้ติดต่อสัตวแพทย์ทันที",
   "sources": [
@@ -1452,7 +1898,18 @@
     "title": "คอลัมน์ \"ความเป็นพิษของพืชบางชนิดต่อสุนัขและแมว\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร อ้างอิงข้อมูลจาก รศ.สพ.ญ.ดร.ปิยะรัตน์ จันทร์ศิริพรชัย ภาควิชาเภสัชวิทยา คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (แนวหน้า, 27 มี.ค. 2565)",
     "url": "https://www.naewna.com/lady/columnist/51014"
    }
-  ]
+  ],
+  "name_en": "Lilies",
+  "aliases_en": [
+   "lily",
+   "lilies",
+   "daylily",
+   "daylilies",
+   "easter lily",
+   "lily pollen",
+   "lily flower"
+  ],
+  "if_eaten_en": "Cat: Contact a veterinarian or animal hospital right away, even if your cat has no signs yet. The sooner the treatment, the better (if delayed more than 18 hours, the kidneys may be permanently damaged). Take a photo of the plant or bring it with you to identify the type. Do not try to make your cat vomit at home. | Dog: True lilies usually cause only vomiting or diarrhea. Call a veterinarian for advice and watch for symptoms. If it was lily of the valley or gloriosa lily, or there is lethargy or an abnormal heartbeat, contact a veterinarian right away."
  },
  {
   "id": "tamarind",
@@ -1469,11 +1926,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "toxic",
-   "note_th": "มะขามมีกรดทาร์ทาริกเช่นเดียวกับองุ่น ซึ่งเชื่อว่าเป็นสาเหตุที่ทำให้สุนัขไตวายเฉียบพลัน จึงไม่ควรให้กินทุกรูปแบบ"
+   "note_th": "มะขามมีกรดทาร์ทาริกเช่นเดียวกับองุ่น ซึ่งเชื่อว่าเป็นสาเหตุที่ทำให้สุนัขไตวายเฉียบพลัน จึงไม่ควรให้กินทุกรูปแบบ",
+   "note_en": "Tamarind contains tartaric acid, just like grapes, which is believed to be what causes acute kidney failure in dogs, so it should not be given in any form."
   },
   "cat": {
    "status": "unknown",
-   "note_th": "ยังไม่มีข้อมูลยืนยันในแมวจากแหล่งอ้างอิงทางสัตวแพทย์ (ข้อมูลพิษมีเฉพาะในสุนัข) ไม่มีประโยชน์ต่อแมว จึงควรงดให้กินไว้ก่อน"
+   "note_th": "ยังไม่มีข้อมูลยืนยันในแมวจากแหล่งอ้างอิงทางสัตวแพทย์ (ข้อมูลพิษมีเฉพาะในสุนัข) ไม่มีประโยชน์ต่อแมว จึงควรงดให้กินไว้ก่อน",
+   "note_en": "There is no confirmed data in cats from veterinary references yet (toxicity data exists only for dogs). It has no benefit for cats, so it's best to avoid it for now."
   },
   "if_eaten_th": "สุนัข: ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน | แมว: โทรปรึกษาสัตวแพทย์ และสังเกตอาการอาเจียน ซึม ไม่กินอาหาร หรือปัสสาวะผิดปกติ ถ้ามีอาการให้พาไปพบสัตวแพทย์ทันที",
   "sources": [
@@ -1485,7 +1944,17 @@
     "title": "Merck Veterinary Manual – Food Hazards",
     "url": "https://www.merckvetmanual.com/special-pet-topics/poisoning/food-hazards"
    }
-  ]
+  ],
+  "name_en": "Tamarind (sweet tamarind, tamarind paste, candied tamarind)",
+  "aliases_en": [
+   "tamarind",
+   "sweet tamarind",
+   "sour tamarind",
+   "tamarind paste",
+   "candied tamarind",
+   "makham"
+  ],
+  "if_eaten_en": "Dog: Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. | Cat: Call a veterinarian for advice and watch for vomiting, lethargy, loss of appetite or abnormal urination. If symptoms appear, take your cat to a veterinarian right away."
  },
  {
   "id": "table-leftovers",
@@ -1531,11 +2000,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ อาหารไทยเกือบทุกจานมีกระเทียม หอม (รวมถึงกระเทียมเจียว หอมเจียว ผงปรุงรส) ซึ่งทำลายเม็ดเลือดแดง และมีเกลือ น้ำปลา ซีอิ๊วสูง ของทอด หนัง และมันสัตว์ทำให้ท้องเสียและเสี่ยงตับอ่อนอักเสบ ปลาทูนึ่งตามตลาดผ่านการต้มเกลือมาแล้ว ถ้าอยากแบ่ง ให้แยกเนื้อสัตว์ต้มเปล่าออกมาก่อนปรุง"
+   "note_th": "ไม่ควรให้ อาหารไทยเกือบทุกจานมีกระเทียม หอม (รวมถึงกระเทียมเจียว หอมเจียว ผงปรุงรส) ซึ่งทำลายเม็ดเลือดแดง และมีเกลือ น้ำปลา ซีอิ๊วสูง ของทอด หนัง และมันสัตว์ทำให้ท้องเสียและเสี่ยงตับอ่อนอักเสบ ปลาทูนึ่งตามตลาดผ่านการต้มเกลือมาแล้ว ถ้าอยากแบ่ง ให้แยกเนื้อสัตว์ต้มเปล่าออกมาก่อนปรุง",
+   "note_en": "Should not be given. Almost every Thai dish contains garlic and onion (including fried garlic, fried shallots and seasoning powder), which destroy red blood cells, and is high in salt, fish sauce and soy sauce. Fried foods, skin and animal fat cause diarrhea and a risk of pancreatitis. Steamed mackerel (pla thu) sold at markets has already been boiled in salt. If you want to share, set aside some plain boiled meat before seasoning."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ แมวไวต่อพิษจากหอมและกระเทียมมากที่สุด แม้ปริมาณน้อยในน้ำแกงหรือข้าวต้มก็ทำลายเม็ดเลือดแดงได้ และอาหารคนมีเกลือ ไขมัน และเครื่องเทศสูง ถ้าอยากแบ่ง ให้แยกเนื้อสัตว์ต้มเปล่าออกมาก่อนปรุง"
+   "note_th": "ไม่ควรให้ แมวไวต่อพิษจากหอมและกระเทียมมากที่สุด แม้ปริมาณน้อยในน้ำแกงหรือข้าวต้มก็ทำลายเม็ดเลือดแดงได้ และอาหารคนมีเกลือ ไขมัน และเครื่องเทศสูง ถ้าอยากแบ่ง ให้แยกเนื้อสัตว์ต้มเปล่าออกมาก่อนปรุง",
+   "note_en": "Should not be given. Cats are the most sensitive to onion and garlic; even small amounts in curry broth or rice soup can damage red blood cells, and human food is high in salt, fat and spices. If you want to share, set aside some plain boiled meat before seasoning."
   },
   "if_eaten_th": "ถ้ากินเพียงเล็กน้อยและไม่มีหอม/กระเทียม ให้น้ำสะอาดและสังเกตอาการ ถ้าอาหารนั้นมีหอม กระเทียม หรือกินไปมาก หรือมีอาการอาเจียน ท้องเสีย ซึม เหงือกซีด หายใจเร็ว กระหายน้ำมากผิดปกติ ให้ติดต่อสัตวแพทย์ทันที (อาการเลือดจางจากหอม/กระเทียมอาจเกิดช้าหลายวัน) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -1567,7 +2038,19 @@
     "title": "คอลัมน์ \"ขนมดีๆ สำหรับสัตว์เลี้ยงแสนรัก (ตอน 2)\" โดย น.สพ.นนทษิต ชุติญาณวัฒน์ โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์ บางเขน (แนวหน้า, 7 มิ.ย. 2569)",
     "url": "https://www.naewna.com/lady/columnist/66609"
    }
-  ]
+  ],
+  "name_en": "Seasoned human food / table leftovers",
+  "aliases_en": [
+   "leftovers",
+   "table scraps",
+   "human food",
+   "khao tom",
+   "pad kra pao",
+   "moo ping",
+   "som tam",
+   "tom yum"
+  ],
+  "if_eaten_en": "If only a little was eaten and it had no onion/garlic, give clean water and watch for symptoms. If the food contained onion or garlic, a lot was eaten, or there is vomiting, diarrhea, lethargy, pale gums, rapid breathing or unusual thirst, contact a veterinarian right away (anemia from onion/garlic may appear several days later). Do not try to make your pet vomit at home."
  },
  {
   "id": "salt-seasoning",
@@ -1599,11 +2082,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ควรเติมเกลือหรือเครื่องปรุงในอาหารสุนัข เกลือมากทำให้กระหายน้ำ ปัสสาวะมาก อาเจียน ท้องเสีย และถ้าได้รับปริมาณมาก (เช่น กินเกลือ แป้งโดว์เกลือ หรือดื่มน้ำทะเล) อาจเกิดพิษจากโซเดียมจนสั่น ชัก และเสียชีวิตได้ ผงปรุงรสและซุปก้อนมักมีผงหัวหอม/กระเทียม ส่วนผงชูรสยังไม่พบข้อมูลจากแหล่งทางสัตวแพทย์ว่าเป็นพิษโดยตรง แต่ไม่มีประโยชน์และมักใช้คู่กับเครื่องปรุงเค็ม อาหารหมักดองเค็มอย่างปลาเค็มและไข่เค็มก็มีเกลือสูง ไม่ควรให้"
+   "note_th": "ไม่ควรเติมเกลือหรือเครื่องปรุงในอาหารสุนัข เกลือมากทำให้กระหายน้ำ ปัสสาวะมาก อาเจียน ท้องเสีย และถ้าได้รับปริมาณมาก (เช่น กินเกลือ แป้งโดว์เกลือ หรือดื่มน้ำทะเล) อาจเกิดพิษจากโซเดียมจนสั่น ชัก และเสียชีวิตได้ ผงปรุงรสและซุปก้อนมักมีผงหัวหอม/กระเทียม ส่วนผงชูรสยังไม่พบข้อมูลจากแหล่งทางสัตวแพทย์ว่าเป็นพิษโดยตรง แต่ไม่มีประโยชน์และมักใช้คู่กับเครื่องปรุงเค็ม อาหารหมักดองเค็มอย่างปลาเค็มและไข่เค็มก็มีเกลือสูง ไม่ควรให้",
+   "note_en": "Don't add salt or seasoning to dog food. Too much salt causes thirst, frequent urination, vomiting and diarrhea, and a large amount (e.g. eating salt or salt dough, or drinking seawater) may cause sodium poisoning with tremors, seizures and death. Seasoning powder and stock cubes often contain onion/garlic powder. As for MSG, no veterinary source has been found showing it is directly toxic, but it has no benefit and is usually used together with salty seasonings. Salty preserved foods such as salted fish and salted eggs are also high in salt and should not be given."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ควรเติมเกลือหรือเครื่องปรุงในอาหารแมว เกลือมากทำให้กระหายน้ำ ปัสสาวะมาก และอาจเกิดพิษจากโซเดียม ซึม สั่น มีไข้ ชักได้ แมวป่วยโรคไตหรือหัวใจยิ่งต้องจำกัดเกลือ ผงปรุงรสมักมีผงหัวหอม/กระเทียมซึ่งเป็นพิษต่อแมว อาหารหมักดองเค็มอย่างปลาเค็มและไข่เค็มก็มีเกลือสูง ไม่ควรให้"
+   "note_th": "ไม่ควรเติมเกลือหรือเครื่องปรุงในอาหารแมว เกลือมากทำให้กระหายน้ำ ปัสสาวะมาก และอาจเกิดพิษจากโซเดียม ซึม สั่น มีไข้ ชักได้ แมวป่วยโรคไตหรือหัวใจยิ่งต้องจำกัดเกลือ ผงปรุงรสมักมีผงหัวหอม/กระเทียมซึ่งเป็นพิษต่อแมว อาหารหมักดองเค็มอย่างปลาเค็มและไข่เค็มก็มีเกลือสูง ไม่ควรให้",
+   "note_en": "Don't add salt or seasoning to cat food. Too much salt causes thirst and frequent urination and may cause sodium poisoning with lethargy, tremors, fever and seizures. Cats with kidney or heart disease need salt limited even more. Seasoning powder often contains onion/garlic powder, which is toxic to cats. Salty preserved foods such as salted fish and salted eggs are also high in salt and should not be given."
   },
   "if_eaten_th": "ถ้าเลียน้ำแกงหรือขนมเค็มเล็กน้อย ให้มีน้ำสะอาดให้ดื่มตลอดและสังเกตอาการ ถ้ากินเกลือ น้ำปลา ซีอิ๊ว แป้งโดว์เกลือ หรือดื่มน้ำทะเลปริมาณมาก หรือมีอาการอาเจียน ท้องเสีย เดินเซ สั่น ชัก ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที ห้ามใช้น้ำเกลือกรอกเพื่อให้อาเจียนเด็ดขาด",
   "sources": [
@@ -1635,7 +2120,19 @@
     "title": "คอลัมน์ \"ขนมดีๆ สำหรับสัตว์เลี้ยงแสนรัก (ตอน 2)\" โดย น.สพ.นนทษิต ชุติญาณวัฒน์ โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์ บางเขน (แนวหน้า, 7 มิ.ย. 2569)",
     "url": "https://www.naewna.com/lady/columnist/66609"
    }
-  ]
+  ],
+  "name_en": "Salt, fish sauce, soy sauce and seasoning powder",
+  "aliases_en": [
+   "salt",
+   "fish sauce",
+   "soy sauce",
+   "seasoning powder",
+   "msg",
+   "stock cube",
+   "shrimp paste",
+   "salty snacks"
+  ],
+  "if_eaten_en": "If your pet licked a little curry broth or a salty snack, make sure clean drinking water is always available and watch for symptoms. If it ate a large amount of salt, fish sauce, soy sauce or salt dough, or drank a lot of seawater, or there is vomiting, diarrhea, staggering, tremors or seizures, contact a veterinarian or animal hospital right away. Never force salt water into your pet to make it vomit."
  },
  {
   "id": "star-fruit",
@@ -1649,11 +2146,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "toxic",
-   "note_th": "มะเฟืองโดยเฉพาะพันธุ์เปรี้ยวมีสารออกซาเลตที่ละลายน้ำได้สูง ทำให้แคลเซียมในเลือดต่ำและไตบาดเจ็บเฉียบพลัน อาการคือ อาเจียน น้ำลายไหลมาก อ่อนแรง กล้ามเนื้อสั่น ปัสสาวะบ่อย มะเฟืองหวานมีสารนี้น้อยกว่า แต่เจ้าของแยกพันธุ์ได้ยาก จึงไม่ควรให้เลย"
+   "note_th": "มะเฟืองโดยเฉพาะพันธุ์เปรี้ยวมีสารออกซาเลตที่ละลายน้ำได้สูง ทำให้แคลเซียมในเลือดต่ำและไตบาดเจ็บเฉียบพลัน อาการคือ อาเจียน น้ำลายไหลมาก อ่อนแรง กล้ามเนื้อสั่น ปัสสาวะบ่อย มะเฟืองหวานมีสารนี้น้อยกว่า แต่เจ้าของแยกพันธุ์ได้ยาก จึงไม่ควรให้เลย",
+   "note_en": "Star fruit, especially the sour variety, is high in soluble oxalates, which cause low blood calcium and acute kidney injury. Signs include vomiting, heavy drooling, weakness, muscle tremors and frequent urination. The sweet variety has less, but owners find it hard to tell the varieties apart, so don't give it at all."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นอันตรายต่อแมวเช่นเดียวกับสุนัข สารออกซาเลตในมะเฟืองเปรี้ยวทำให้แคลเซียมในเลือดต่ำและไตเสียหาย แมวที่มีปัญหาไตอยู่แล้วยิ่งเสี่ยง จึงไม่ควรให้เลย"
+   "note_th": "เป็นอันตรายต่อแมวเช่นเดียวกับสุนัข สารออกซาเลตในมะเฟืองเปรี้ยวทำให้แคลเซียมในเลือดต่ำและไตเสียหาย แมวที่มีปัญหาไตอยู่แล้วยิ่งเสี่ยง จึงไม่ควรให้เลย",
+   "note_en": "Dangerous to cats just as to dogs. Oxalates in sour star fruit cause low blood calcium and kidney damage. Cats with existing kidney problems are at even greater risk, so don't give it at all."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -1665,7 +2164,16 @@
     "title": "คอลัมน์ \"ความเป็นพิษของพืชบางชนิดต่อสุนัขและแมว\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร อ้างอิงข้อมูลจาก รศ.สพ.ญ.ดร.ปิยะรัตน์ จันทร์ศิริพรชัย ภาควิชาเภสัชวิทยา คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (แนวหน้า, 27 มี.ค. 2565)",
     "url": "https://www.naewna.com/lady/columnist/51014"
    }
-  ]
+  ],
+  "name_en": "Star fruit (carambola)",
+  "aliases_en": [
+   "star fruit",
+   "starfruit",
+   "carambola",
+   "sour star fruit",
+   "ma fueang"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home."
  },
  {
   "id": "raw-meat",
@@ -1691,11 +2199,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ เนื้อดิบอาจมีเชื้อซัลโมเนลลาและอีโคไลที่ทำให้ทั้งสัตว์และคนในบ้านป่วย หมูดิบและเครื่องในหมูดิบอาจมีไวรัสโรคพิษสุนัขบ้าเทียม (Aujeszky's disease) ซึ่งเมื่อสุนัขหรือแมวติดแล้วมักเสียชีวิต อาหารทะเลดิบ (เช่น กุ้งแช่น้ำปลา) ก็มีเชื้อโรค และลาบ/ก้อยมีพริก หอม เกลือ ปรุงให้สุกทั่วทุกครั้ง"
+   "note_th": "ไม่ควรให้ เนื้อดิบอาจมีเชื้อซัลโมเนลลาและอีโคไลที่ทำให้ทั้งสัตว์และคนในบ้านป่วย หมูดิบและเครื่องในหมูดิบอาจมีไวรัสโรคพิษสุนัขบ้าเทียม (Aujeszky's disease) ซึ่งเมื่อสุนัขหรือแมวติดแล้วมักเสียชีวิต อาหารทะเลดิบ (เช่น กุ้งแช่น้ำปลา) ก็มีเชื้อโรค และลาบ/ก้อยมีพริก หอม เกลือ ปรุงให้สุกทั่วทุกครั้ง",
+   "note_en": "Should not be given. Raw meat may carry Salmonella and E. coli, which can make both pets and people in the home sick. Raw pork and raw pork offal may carry the pseudorabies virus (Aujeszky's disease), which is usually fatal once a dog or cat is infected. Raw seafood (e.g. raw shrimp in fish sauce, kung chae nam pla) also carries germs, and larb/koi contain chili, onion and salt. Always cook thoroughly."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ เนื้อดิบอาจมีเชื้อโรคที่ทำให้แมวป่วยและติดต่อสู่คนได้ แมวที่กินหมูดิบหรือเครื่องในหมูดิบเสี่ยงติดโรคพิษสุนัขบ้าเทียม (Aujeszky's disease) ซึ่งรุนแรงและมักเสียชีวิตภายในไม่กี่วัน การทำให้เนื้อและเครื่องในสุกทั่วช่วยป้องกันได้"
+   "note_th": "ไม่ควรให้ เนื้อดิบอาจมีเชื้อโรคที่ทำให้แมวป่วยและติดต่อสู่คนได้ แมวที่กินหมูดิบหรือเครื่องในหมูดิบเสี่ยงติดโรคพิษสุนัขบ้าเทียม (Aujeszky's disease) ซึ่งรุนแรงและมักเสียชีวิตภายในไม่กี่วัน การทำให้เนื้อและเครื่องในสุกทั่วช่วยป้องกันได้",
+   "note_en": "Should not be given. Raw meat may carry germs that make cats sick and can spread to people. Cats that eat raw pork or raw pork offal risk pseudorabies (Aujeszky's disease), which is severe and usually fatal within a few days. Cooking meat and offal thoroughly helps prevent it."
   },
   "if_eaten_th": "ไม่ต้องทำให้อาเจียน ให้สังเกตอาการในช่วงไม่กี่วันต่อมา ถ้ามีไข้ อาเจียน ท้องเสีย ซึม ไม่กินอาหาร ให้พาไปพบสัตวแพทย์ ถ้ากินหมูดิบหรือเครื่องในหมูดิบ ให้แจ้งสัตวแพทย์ และถ้ามีอาการคันรุนแรง เกาหรือกัดตัวเอง น้ำลายไหลมาก พฤติกรรมเปลี่ยน หรือหายใจลำบาก ต้องพาไปโรงพยาบาลสัตว์ทันที ล้างมือและภาชนะให้สะอาด",
   "sources": [
@@ -1723,7 +2233,19 @@
     "title": "วารสารสัตวแพทย์ (The Thai Journal of Veterinary Medicine) คณะสัตวแพทยศาสตร์ จุฬาฯ 2527;14(3):237–238 – การติดโรคออเจสกี้โดยธรรมชาติในสุนัขที่กินซากลูกสุกรป่วย (ส. เลื่องยศลือชากุล และคณะ)",
     "url": "https://digital.car.chula.ac.th/tjvm/vol14/iss3/8"
    }
-  ]
+  ],
+  "name_en": "Raw meat (raw pork, raw beef, raw larb, raw seafood)",
+  "aliases_en": [
+   "raw meat",
+   "raw pork",
+   "raw beef",
+   "raw chicken",
+   "raw larb",
+   "koi",
+   "raw shrimp",
+   "raw offal"
+  ],
+  "if_eaten_en": "No need to make your pet vomit. Watch for symptoms over the next few days. If there is fever, vomiting, diarrhea, lethargy or loss of appetite, take your pet to a veterinarian. If it ate raw pork or raw pork offal, tell the veterinarian, and if there is intense itching, scratching or biting itself, heavy drooling, a change in behavior or breathing difficulty, take it to an animal hospital immediately. Wash your hands and containers thoroughly."
  },
  {
   "id": "processed-meat",
@@ -1750,11 +2272,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ เนื้อแปรรูปมีเกลือและสารกันเสียที่มีโซเดียมสูง และมีไขมันมาก ทำให้ท้องเสีย อาเจียน และเสี่ยงตับอ่อนอักเสบ หลายชนิดปรุงด้วยกระเทียม/หอม (เช่น ไส้กรอก ไส้อั่ว แหนม) ถ้าเผลอกินชิ้นเล็กครั้งเดียวมักไม่อันตราย แต่ไม่ควรใช้เป็นขนม"
+   "note_th": "ไม่ควรให้ เนื้อแปรรูปมีเกลือและสารกันเสียที่มีโซเดียมสูง และมีไขมันมาก ทำให้ท้องเสีย อาเจียน และเสี่ยงตับอ่อนอักเสบ หลายชนิดปรุงด้วยกระเทียม/หอม (เช่น ไส้กรอก ไส้อั่ว แหนม) ถ้าเผลอกินชิ้นเล็กครั้งเดียวมักไม่อันตราย แต่ไม่ควรใช้เป็นขนม",
+   "note_en": "Should not be given. Processed meats contain salt and high-sodium preservatives and a lot of fat, causing diarrhea, vomiting and a risk of pancreatitis. Many are seasoned with garlic/onion (e.g. sausage, sai ua, naem). A single small piece eaten by accident is usually not dangerous, but don't use them as treats."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ เนื้อแปรรูปมีโซเดียมสูงและมักปรุงด้วยกระเทียมหรือหอมซึ่งเป็นพิษต่อแมว แมวโรคไตหรือหัวใจยิ่งไม่ควรได้รับ ถ้าอยากให้เนื้อหมู ให้ใช้เนื้อสดต้มสุกเองโดยไม่ปรุง"
+   "note_th": "ไม่ควรให้ เนื้อแปรรูปมีโซเดียมสูงและมักปรุงด้วยกระเทียมหรือหอมซึ่งเป็นพิษต่อแมว แมวโรคไตหรือหัวใจยิ่งไม่ควรได้รับ ถ้าอยากให้เนื้อหมู ให้ใช้เนื้อสดต้มสุกเองโดยไม่ปรุง",
+   "note_en": "Should not be given. Processed meats are high in sodium and often seasoned with garlic or onion, which are toxic to cats. Cats with kidney or heart disease especially should not have them. If you want to give pork, cook plain fresh meat yourself without seasoning."
   },
   "if_eaten_th": "ชิ้นเล็กครั้งเดียวมักไม่เป็นอันตราย ให้น้ำสะอาดและสังเกตอาการ ถ้ากินไปมาก หรือเป็นชนิดที่มีกระเทียม/หอม (เช่น ไส้อั่ว แหนม ไส้กรอกปรุงรส) หรือมีอาการอาเจียน ท้องเสีย ปวดท้อง ซึม ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -1774,7 +2298,19 @@
     "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
     "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
    }
-  ]
+  ],
+  "name_en": "Sausage, moo yor, ham, bacon and processed meats",
+  "aliases_en": [
+   "sausage",
+   "sausages",
+   "ham",
+   "bacon",
+   "hot dog",
+   "deli meat",
+   "moo yor",
+   "sai ua"
+  ],
+  "if_eaten_en": "A single small piece is usually not harmful; give clean water and watch for symptoms. If a lot was eaten, or it was a type containing garlic/onion (e.g. sai ua, naem, seasoned sausage), or there is vomiting, diarrhea, abdominal pain or lethargy, contact a veterinarian."
  },
  {
   "id": "shrimp",
@@ -1791,11 +2327,13 @@
   "category": "เนื้อสัตว์/ไข่",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้เล็กน้อยนาน ๆ ครั้ง เฉพาะกุ้งต้มหรือนึ่งสุก แกะเปลือก หัว และหางออก เพราะเปลือกอาจติดคอหรืออุดตันลำไส้ กุ้งมีคอเลสเตอรอลสูง ห้ามกุ้งดิบ (กุ้งแช่น้ำปลา) กุ้งทอดชุบแป้ง หรือกุ้งที่ผัดกระเทียม"
+   "note_th": "ให้ได้เล็กน้อยนาน ๆ ครั้ง เฉพาะกุ้งต้มหรือนึ่งสุก แกะเปลือก หัว และหางออก เพราะเปลือกอาจติดคอหรืออุดตันลำไส้ กุ้งมีคอเลสเตอรอลสูง ห้ามกุ้งดิบ (กุ้งแช่น้ำปลา) กุ้งทอดชุบแป้ง หรือกุ้งที่ผัดกระเทียม",
+   "note_en": "A little now and then, only boiled or steamed shrimp with the shell, head and tail removed, because the shell may cause choking or intestinal blockage. Shrimp is high in cholesterol. Never give raw shrimp (shrimp in fish sauce), battered fried shrimp, or shrimp stir-fried with garlic."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ ให้ได้เป็นขนมเล็กน้อยสัปดาห์ละ 1–2 ครั้ง ต้องปรุงสุก ไม่ใส่เครื่องปรุง (กระเทียมเป็นพิษ) แกะเปลือกและหางออก ห้ามกุ้งดิบ ไม่ใช้แทนอาหารหลัก"
+   "note_th": "ไม่เป็นพิษ ให้ได้เป็นขนมเล็กน้อยสัปดาห์ละ 1–2 ครั้ง ต้องปรุงสุก ไม่ใส่เครื่องปรุง (กระเทียมเป็นพิษ) แกะเปลือกและหางออก ห้ามกุ้งดิบ ไม่ใช้แทนอาหารหลัก",
+   "note_en": "Not toxic. Can be a small treat 1–2 times per week. It must be cooked, with no seasoning (garlic is toxic), and the shell and tail removed. Never give raw shrimp; not a replacement for the main diet."
   },
   "if_eaten_th": "กุ้งสุกเล็กน้อยไม่ต้องกังวล ให้สังเกตอาการอาเจียนหรือท้องเสีย ถ้ากินเปลือก/หางมากแล้วมีอาการขย้อน อาเจียนซ้ำ ท้องอืด ไม่ถ่าย หรือเป็นกุ้งที่ผัดกระเทียม ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -1808,7 +2346,19 @@
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-shrimp"
    }
   ],
-  "serving_th": "ต้ม/นึ่งสุก ไม่ปรุงรส แกะเปลือก หัว หาง และเส้นดำออก หั่นชิ้นเล็ก เริ่มจากปริมาณน้อยเพื่อดูการแพ้"
+  "serving_th": "ต้ม/นึ่งสุก ไม่ปรุงรส แกะเปลือก หัว หาง และเส้นดำออก หั่นชิ้นเล็ก เริ่มจากปริมาณน้อยเพื่อดูการแพ้",
+  "name_en": "Shrimp (cooked, peeled)",
+  "aliases_en": [
+   "shrimp",
+   "prawn",
+   "prawns",
+   "boiled shrimp",
+   "steamed shrimp",
+   "cooked shrimp",
+   "shrimp shell"
+  ],
+  "if_eaten_en": "A little cooked shrimp is nothing to worry about; watch for vomiting or diarrhea. If a lot of shell/tail was eaten and there is gagging, repeated vomiting, bloating or no bowel movements, or it was shrimp stir-fried with garlic, contact a veterinarian.",
+  "serving_en": "Boil/steam until cooked, unseasoned; remove the shell, head, tail and black vein; cut into small pieces. Start with a small amount to watch for allergy."
  },
  {
   "id": "corn",
@@ -1824,11 +2374,13 @@
   "category": "ผัก",
   "dog": {
    "status": "limited",
-   "note_th": "เมล็ดข้าวโพดสุกที่แกะออกจากซังแล้ว ไม่ใส่เนย เกลือ หรือเครื่องปรุง ให้ได้เล็กน้อยเป็นครั้งคราว ห้ามให้ซังข้าวโพด (ดูหัวข้อซังข้าวโพด)"
+   "note_th": "เมล็ดข้าวโพดสุกที่แกะออกจากซังแล้ว ไม่ใส่เนย เกลือ หรือเครื่องปรุง ให้ได้เล็กน้อยเป็นครั้งคราว ห้ามให้ซังข้าวโพด (ดูหัวข้อซังข้าวโพด)",
+   "note_en": "Cooked corn kernels removed from the cob, with no butter, salt or seasoning, can be given in small amounts occasionally. Never give the corn cob (see Corn cob)."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ ให้เมล็ดข้าวโพดสุกไม่ปรุงรสได้เล็กน้อยนาน ๆ ครั้ง (น้อยกว่า 1 ช้อนโต๊ะต่อสัปดาห์) ไม่ให้ข้าวโพดดิบ ป๊อปคอร์น ข้าวโพดครีม หรือซัง"
+   "note_th": "ไม่เป็นพิษ ให้เมล็ดข้าวโพดสุกไม่ปรุงรสได้เล็กน้อยนาน ๆ ครั้ง (น้อยกว่า 1 ช้อนโต๊ะต่อสัปดาห์) ไม่ให้ข้าวโพดดิบ ป๊อปคอร์น ข้าวโพดครีม หรือซัง",
+   "note_en": "Not toxic. Plain cooked corn kernels can be given in small amounts once in a while (less than 1 tablespoon per week). Don't give raw corn, popcorn, creamed corn or the cob."
   },
   "if_eaten_th": "ไม่ใช่สารพิษ ถ้ากินมากเกินไปอาจท้องเสียหรืออาเจียนได้ ให้น้ำสะอาดและสังเกตอาการ หากอาเจียนหรือท้องเสียต่อเนื่อง ซึม หรือไม่กินอาหาร ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -1841,7 +2393,17 @@
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-corn"
    }
   ],
-  "serving_th": "ต้ม/นึ่งสุก แกะเมล็ดออกจากซัง ไม่ใส่เนย เกลือ นมข้น หรือน้ำตาล"
+  "serving_th": "ต้ม/นึ่งสุก แกะเมล็ดออกจากซัง ไม่ใส่เนย เกลือ นมข้น หรือน้ำตาล",
+  "name_en": "Corn (cooked kernels only)",
+  "aliases_en": [
+   "corn",
+   "sweet corn",
+   "corn kernels",
+   "boiled corn",
+   "maize"
+  ],
+  "if_eaten_en": "Not toxic. Eating too much may cause diarrhea or vomiting. Give clean water and watch for symptoms. If vomiting or diarrhea continues, or your pet becomes lethargic or stops eating, consult a veterinarian.",
+  "serving_en": "Boil/steam until cooked and cut the kernels off the cob, with no butter, salt, condensed milk or sugar."
  },
  {
   "id": "corn-cob",
@@ -1855,11 +2417,13 @@
   "category": "ผัก",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษ แต่อันตรายมาก สุนัขมักกลืนซังเป็นชิ้นใหญ่หรือทั้งท่อน ทำให้ติดคอหรืออุดตันลำไส้จนต้องผ่าตัด ทิ้งซังในถังขยะที่มีฝาปิดสนิท"
+   "note_th": "ไม่ใช่สารพิษ แต่อันตรายมาก สุนัขมักกลืนซังเป็นชิ้นใหญ่หรือทั้งท่อน ทำให้ติดคอหรืออุดตันลำไส้จนต้องผ่าตัด ทิ้งซังในถังขยะที่มีฝาปิดสนิท",
+   "note_en": "Not a toxin, but very dangerous. Dogs often swallow large chunks or whole pieces of cob, which can cause choking or intestinal blockage requiring surgery. Throw cobs away in a bin with a tightly closed lid."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ใช่สารพิษ แต่ซังข้าวโพดอาจทำให้ติดคอหรืออุดตันลำไส้ ห้ามให้แทะเล่น"
+   "note_th": "ไม่ใช่สารพิษ แต่ซังข้าวโพดอาจทำให้ติดคอหรืออุดตันลำไส้ ห้ามให้แทะเล่น",
+   "note_en": "Not a toxin, but a corn cob may cause choking or intestinal blockage. Don't let your cat chew on one."
   },
   "if_eaten_th": "อย่าพยายามทำให้อาเจียนเอง ติดต่อสัตวแพทย์เพื่อขอคำแนะนำ แม้ยังไม่มีอาการ ถ้ามีอาการอาเจียนซ้ำ ขย้อน ไม่กินอาหาร ท้องอืด ปวดท้อง ซึม หรือไม่ถ่าย ให้พาไปโรงพยาบาลสัตว์ทันที",
   "sources": [
@@ -1871,7 +2435,15 @@
     "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Corn?",
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-corn"
    }
-  ]
+  ],
+  "name_en": "Corn cob",
+  "aliases_en": [
+   "corn cob",
+   "corn cobs",
+   "corn on the cob",
+   "whole corn"
+  ],
+  "if_eaten_en": "Don't try to make your pet vomit yourself. Contact a veterinarian for advice, even if there are no signs yet. If there is repeated vomiting, gagging, loss of appetite, bloating, abdominal pain, lethargy or no bowel movements, take your pet to an animal hospital right away."
  },
  {
   "id": "potato",
@@ -1890,11 +2462,13 @@
   "category": "ผัก",
   "dog": {
    "status": "limited",
-   "note_th": "มันฝรั่งต้มหรือนึ่งสุกเปล่า ๆ ให้ได้เล็กน้อย แต่มันฝรั่งดิบ ส่วนที่เป็นสีเขียว และต้นอ่อนที่งอก มีสารโซลานีนที่เป็นพิษ ห้ามให้ เฟรนช์ฟรายส์และมันบดใส่เนย/เกลือก็ไม่ควรให้"
+   "note_th": "มันฝรั่งต้มหรือนึ่งสุกเปล่า ๆ ให้ได้เล็กน้อย แต่มันฝรั่งดิบ ส่วนที่เป็นสีเขียว และต้นอ่อนที่งอก มีสารโซลานีนที่เป็นพิษ ห้ามให้ เฟรนช์ฟรายส์และมันบดใส่เนย/เกลือก็ไม่ควรให้",
+   "note_en": "Plain boiled or steamed potato can be given in small amounts, but raw potato, green parts and sprouts contain toxic solanine; never give these. French fries and mashed potato with butter/salt should not be given either."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "หน่วยงานด้านสวัสดิภาพสัตว์จัดมันฝรั่งไว้ในรายการอาหารที่แมวควรหลีกเลี่ยง มันฝรั่งดิบและส่วนสีเขียวมีสารโซลานีน แมวเป็นสัตว์กินเนื้อจึงไม่ได้ประโยชน์จากมันฝรั่ง"
+   "note_th": "หน่วยงานด้านสวัสดิภาพสัตว์จัดมันฝรั่งไว้ในรายการอาหารที่แมวควรหลีกเลี่ยง มันฝรั่งดิบและส่วนสีเขียวมีสารโซลานีน แมวเป็นสัตว์กินเนื้อจึงไม่ได้ประโยชน์จากมันฝรั่ง",
+   "note_en": "Animal welfare organizations list potatoes among foods cats should avoid. Raw potato and green parts contain solanine, and cats are carnivores, so they get no benefit from potato."
   },
   "if_eaten_th": "ถ้ากินมันฝรั่งสุกเปล่าเล็กน้อยไม่ต้องกังวล ถ้ากินมันฝรั่งดิบ ส่วนสีเขียว หรือต้นอ่อนที่งอก หรือมีอาการอาเจียน ท้องเสีย ซึม อ่อนแรง ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -1907,7 +2481,20 @@
     "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
    }
   ],
-  "serving_th": "สุนัข: ปอกเปลือก ตัดส่วนสีเขียวและตาที่งอกออก ต้ม/นึ่งสุกนิ่ม ไม่ใส่เนย เกลือ นม หรือเครื่องเทศ"
+  "serving_th": "สุนัข: ปอกเปลือก ตัดส่วนสีเขียวและตาที่งอกออก ต้ม/นึ่งสุกนิ่ม ไม่ใส่เนย เกลือ นม หรือเครื่องเทศ",
+  "name_en": "Potato (raw / green / cooked)",
+  "aliases_en": [
+   "potato",
+   "potatoes",
+   "raw potato",
+   "green potato",
+   "sprouted potato",
+   "mashed potato",
+   "french fries",
+   "fries"
+  ],
+  "if_eaten_en": "If a little plain cooked potato was eaten, no need to worry. If raw potato, green parts or sprouts were eaten, or there is vomiting, diarrhea, lethargy or weakness, contact a veterinarian.",
+  "serving_en": "Dog: Peel, cut away green parts and sprouting eyes, and boil/steam until soft, with no butter, salt, milk or spices."
  },
  {
   "id": "wild-mushroom",
@@ -1925,11 +2512,13 @@
   "category": "ผัก",
   "dog": {
    "status": "toxic",
-   "note_th": "เห็ดป่าบางชนิดมีพิษร้ายแรงต่อตับ ไต และระบบประสาท อาจถึงชีวิต บางชนิดแสดงอาการช้า 6–12 ชั่วโมงหรือนานกว่านั้น แม้ผู้เชี่ยวชาญก็แยกชนิดด้วยตาได้ยาก ให้ถือว่าเห็ดที่ขึ้นเองในสนามหรือป่าเป็นพิษเสมอ เห็ดจากตลาดที่ล้างสะอาดโดยทั่วไปไม่เป็นอันตราย แต่ไม่จำเป็นต้องให้"
+   "note_th": "เห็ดป่าบางชนิดมีพิษร้ายแรงต่อตับ ไต และระบบประสาท อาจถึงชีวิต บางชนิดแสดงอาการช้า 6–12 ชั่วโมงหรือนานกว่านั้น แม้ผู้เชี่ยวชาญก็แยกชนิดด้วยตาได้ยาก ให้ถือว่าเห็ดที่ขึ้นเองในสนามหรือป่าเป็นพิษเสมอ เห็ดจากตลาดที่ล้างสะอาดโดยทั่วไปไม่เป็นอันตราย แต่ไม่จำเป็นต้องให้",
+   "note_en": "Some wild mushrooms are severely toxic to the liver, kidneys and nervous system and can be fatal. Some cause delayed signs 6–12 hours later or longer. Even experts find them hard to identify by sight, so always treat mushrooms that grow on their own in the yard or forest as poisonous. Washed mushrooms from the market are generally not harmful, but there is no need to give them."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เห็ดพิษเป็นอันตรายต่อสัตว์เลี้ยงทุกชนิด รวมทั้งแมว และแยกชนิดด้วยตาได้ยาก ให้ถือว่าเห็ดป่าหรือเห็ดที่ขึ้นเองเป็นพิษเสมอ ไม่ควรให้เห็ดทุกชนิดแก่แมว"
+   "note_th": "เห็ดพิษเป็นอันตรายต่อสัตว์เลี้ยงทุกชนิด รวมทั้งแมว และแยกชนิดด้วยตาได้ยาก ให้ถือว่าเห็ดป่าหรือเห็ดที่ขึ้นเองเป็นพิษเสมอ ไม่ควรให้เห็ดทุกชนิดแก่แมว",
+   "note_en": "Poisonous mushrooms are dangerous to all pets, including cats, and are hard to identify by sight. Always treat wild or self-sprouting mushrooms as poisonous. Don't give cats mushrooms of any kind."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปเห็ดให้ชัด (ทั้งด้านบน ด้านใต้หมวก และบริเวณที่ขึ้น) หรือเก็บใส่ถุงกระดาษนำไปด้วยเพื่อช่วยระบุชนิด อย่ารอให้มีอาการ",
   "sources": [
@@ -1949,7 +2538,18 @@
     "title": "AKC – Fruits and Vegetables Dogs Can and Can't Eat",
     "url": "https://www.akc.org/expert-advice/nutrition/fruits-vegetables-dogs-can-and-cant-eat/"
    }
-  ]
+  ],
+  "name_en": "Wild mushrooms / unknown mushrooms",
+  "aliases_en": [
+   "mushroom",
+   "mushrooms",
+   "wild mushroom",
+   "wild mushrooms",
+   "toadstool",
+   "poisonous mushroom",
+   "yard mushroom"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Take clear photos of the mushroom (the top, the underside of the cap, and where it was growing) or collect it in a paper bag to bring along to help identify it. Don't wait for symptoms."
  },
  {
   "id": "fruit-pits",
@@ -1980,11 +2580,13 @@
   "category": "ผลไม้",
   "dog": {
    "status": "avoid",
-   "note_th": "เมล็ด ก้าน และใบของเชอร์รี่ พีช พลัม และแอปเปิลมีสารที่ปล่อยไซยาไนด์ เมล็ดแข็งขนาดใหญ่ (เช่น เม็ดพีช เม็ดมะม่วง) ยังอาจติดคอหรืออุดตันลำไส้ ให้ได้เฉพาะเนื้อผลไม้ที่ตัดออกจากเมล็ดแล้ว และทิ้งเมล็ดในถังขยะที่มีฝาปิด เชอร์รี่ทั้งลูกไม่ควรให้"
+   "note_th": "เมล็ด ก้าน และใบของเชอร์รี่ พีช พลัม และแอปเปิลมีสารที่ปล่อยไซยาไนด์ เมล็ดแข็งขนาดใหญ่ (เช่น เม็ดพีช เม็ดมะม่วง) ยังอาจติดคอหรืออุดตันลำไส้ ให้ได้เฉพาะเนื้อผลไม้ที่ตัดออกจากเมล็ดแล้ว และทิ้งเมล็ดในถังขยะที่มีฝาปิด เชอร์รี่ทั้งลูกไม่ควรให้",
+   "note_en": "The seeds, stems and leaves of cherries, peaches, plums and apples contain substances that release cyanide. Large hard pits (e.g. peach pits, mango pits) may also cause choking or intestinal blockage. Give only fruit flesh cut away from the pit, and throw pits away in a lidded bin. Whole cherries should not be given."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "เมล็ด ก้าน และใบของพืชกลุ่มนี้มีสารที่ปล่อยไซยาไนด์ และเป็นพิษต่อแมวด้วย ให้เอาเมล็ด ก้าน และแกนออกทุกครั้งก่อนให้เนื้อผลไม้เล็กน้อย"
+   "note_th": "เมล็ด ก้าน และใบของพืชกลุ่มนี้มีสารที่ปล่อยไซยาไนด์ และเป็นพิษต่อแมวด้วย ให้เอาเมล็ด ก้าน และแกนออกทุกครั้งก่อนให้เนื้อผลไม้เล็กน้อย",
+   "note_en": "The seeds, stems and leaves of these plants contain substances that release cyanide and are toxic to cats too. Always remove the seeds, stems and core before giving a little fruit flesh."
   },
   "if_eaten_th": "อย่าพยายามทำให้อาเจียนเอง ถ้ากลืนเมล็ดแข็งทั้งเม็ด (เช่น เม็ดพีช เม็ดมะม่วง) หรือเคี้ยวเมล็ด/แกนจำนวนมาก ให้ติดต่อสัตวแพทย์เพื่อขอคำแนะนำ ถ้ามีอาการหายใจลำบาก หอบ เหงือกแดงจัด รูม่านตาขยาย อาเจียนซ้ำ ท้องอืด หรือไม่ถ่าย ให้พาไปโรงพยาบาลสัตว์ทันที",
   "sources": [
@@ -2004,7 +2606,19 @@
     "title": "PetMD (Teresa Manucy, DVM) – What Fruits Can Cats Eat?",
     "url": "https://www.petmd.com/cat/nutrition/which-fruits-can-cats-eat"
    }
-  ]
+  ],
+  "name_en": "Fruit seeds, pits and cores (cherry, peach, plum, apple seeds, mango pits)",
+  "aliases_en": [
+   "apple seeds",
+   "apple core",
+   "cherry pit",
+   "cherries",
+   "peach pit",
+   "plum pit",
+   "mango pit",
+   "fruit pit"
+  ],
+  "if_eaten_en": "Don't try to make your pet vomit yourself. If a whole hard pit was swallowed (e.g. a peach pit or mango pit), or a lot of seeds/cores were chewed, contact a veterinarian for advice. If there is breathing difficulty, panting, bright red gums, dilated pupils, repeated vomiting, bloating or no bowel movements, take your pet to an animal hospital right away."
  },
  {
   "id": "peanuts",
@@ -2020,11 +2634,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "limited",
-   "note_th": "ถั่วลิสงคั่วหรือดิบแบบไม่ใส่เกลือ แกะเปลือก ให้ได้ไม่กี่เม็ดนาน ๆ ครั้ง ถั่วมีไขมันสูง อาจทำให้ท้องเสียหรือตับอ่อนอักเสบถ้ากินมาก ห้ามถั่วอบเกลือ ถั่วเคลือบน้ำผึ้ง/ปรุงรส และเปลือกที่อาจติดคอ"
+   "note_th": "ถั่วลิสงคั่วหรือดิบแบบไม่ใส่เกลือ แกะเปลือก ให้ได้ไม่กี่เม็ดนาน ๆ ครั้ง ถั่วมีไขมันสูง อาจทำให้ท้องเสียหรือตับอ่อนอักเสบถ้ากินมาก ห้ามถั่วอบเกลือ ถั่วเคลือบน้ำผึ้ง/ปรุงรส และเปลือกที่อาจติดคอ",
+   "note_en": "Unsalted roasted or raw peanuts, shelled, can be given, just a few once in a while. Nuts are high in fat and may cause diarrhea or pancreatitis if a lot is eaten. Never give salted peanuts, honey-coated/seasoned peanuts, or shells, which may cause choking."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "สัตวแพทย์แนะนำให้แมวงดถั่ว ไขมันสูงทำให้อาเจียน ท้องเสีย และอาจตับอ่อนอักเสบ และไม่มีประโยชน์ต่อแมว"
+   "note_th": "สัตวแพทย์แนะนำให้แมวงดถั่ว ไขมันสูงทำให้อาเจียน ท้องเสีย และอาจตับอ่อนอักเสบ และไม่มีประโยชน์ต่อแมว",
+   "note_en": "Veterinarians advise cats to avoid nuts. The high fat causes vomiting and diarrhea and may cause pancreatitis, and nuts have no benefit for cats."
   },
   "if_eaten_th": "ถ้ากินถั่วลิสงเปล่าไม่กี่เม็ด ให้สังเกตอาการอาเจียนหรือท้องเสีย ถ้ากินมาก กินทั้งเปลือก เป็นถั่วเค็ม/ปรุงรส หรือมีอาการอาเจียนซ้ำ ปวดท้อง ซึม ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -2041,7 +2657,17 @@
     "url": "https://www.petmd.com/cat/nutrition/what-human-foods-can-cats-eat"
    }
   ],
-  "serving_th": "สุนัข: แกะเปลือก ไม่ใส่เกลือ ไม่ปรุงรส ให้ไม่กี่เม็ด สุนัขพันธุ์เล็กควรบดหรือหักก่อน"
+  "serving_th": "สุนัข: แกะเปลือก ไม่ใส่เกลือ ไม่ปรุงรส ให้ไม่กี่เม็ด สุนัขพันธุ์เล็กควรบดหรือหักก่อน",
+  "name_en": "Peanuts",
+  "aliases_en": [
+   "peanut",
+   "peanuts",
+   "roasted peanuts",
+   "salted peanuts",
+   "groundnuts"
+  ],
+  "if_eaten_en": "If a few plain peanuts were eaten, watch for vomiting or diarrhea. If a lot was eaten, shells were eaten, they were salted/seasoned, or there is repeated vomiting, abdominal pain or lethargy, contact a veterinarian.",
+  "serving_en": "Dog: Shelled, unsalted and unseasoned, just a few. For small breeds, crush or break them first."
  },
  {
   "id": "cheese",
@@ -2057,11 +2683,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้ชิ้นเล็กเป็นครั้งคราว เช่น ใช้เป็นรางวัลฝึก ชีสมีไขมันสูง ถ้าให้มากหรือบ่อยทำให้อ้วนและเสี่ยงตับอ่อนอักเสบ สุนัขที่ย่อยแลคโตสไม่ได้อาจท้องเสีย ห้ามชีสที่ผสมกระเทียม หอม หรือสมุนไพร"
+   "note_th": "ให้ได้ชิ้นเล็กเป็นครั้งคราว เช่น ใช้เป็นรางวัลฝึก ชีสมีไขมันสูง ถ้าให้มากหรือบ่อยทำให้อ้วนและเสี่ยงตับอ่อนอักเสบ สุนัขที่ย่อยแลคโตสไม่ได้อาจท้องเสีย ห้ามชีสที่ผสมกระเทียม หอม หรือสมุนไพร",
+   "note_en": "Small pieces can be given occasionally, e.g. as training rewards. Cheese is high in fat; giving a lot or often leads to weight gain and a risk of pancreatitis. Dogs that can't digest lactose may get diarrhea. Never give cheese mixed with garlic, onion or herbs."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ แต่แมวหลายตัวย่อยแลคโตสไม่ได้หรือแพ้ผลิตภัณฑ์นม ถ้าให้ ควรเป็นชีสแข็งธรรมดาชิ้นเล็กมากนาน ๆ ครั้ง หลีกเลี่ยงชีสนิ่ม (ครีมชีส มอสซาเรลลา) ชีสแปรรูป และชีสเค้ก ถ้าท้องเสียหรืออาเจียนให้งด"
+   "note_th": "ไม่เป็นพิษ แต่แมวหลายตัวย่อยแลคโตสไม่ได้หรือแพ้ผลิตภัณฑ์นม ถ้าให้ ควรเป็นชีสแข็งธรรมดาชิ้นเล็กมากนาน ๆ ครั้ง หลีกเลี่ยงชีสนิ่ม (ครีมชีส มอสซาเรลลา) ชีสแปรรูป และชีสเค้ก ถ้าท้องเสียหรืออาเจียนให้งด",
+   "note_en": "Not toxic, but many cats can't digest lactose or are allergic to dairy. If you give it, it should be a very small piece of plain hard cheese once in a while. Avoid soft cheeses (cream cheese, mozzarella), processed cheese and cheesecake. Stop if diarrhea or vomiting occurs."
   },
   "if_eaten_th": "ชีสธรรมดาเล็กน้อยไม่น่ากังวล ให้สังเกตอาการท้องเสียหรืออาเจียน ถ้ากินมาก เป็นชีสที่มีกระเทียม/หอม หรือมีอาการอาเจียนซ้ำ ปวดท้อง ซึม ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -2078,7 +2706,18 @@
     "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
    }
   ],
-  "serving_th": "ชีสแข็งธรรมดา ไม่ปรุงรส หั่นเป็นลูกเต๋าเล็ก ๆ ให้ครั้งละชิ้นเดียว"
+  "serving_th": "ชีสแข็งธรรมดา ไม่ปรุงรส หั่นเป็นลูกเต๋าเล็ก ๆ ให้ครั้งละชิ้นเดียว",
+  "name_en": "Cheese",
+  "aliases_en": [
+   "cheese",
+   "cheddar",
+   "mozzarella",
+   "cheese slice",
+   "cream cheese",
+   "processed cheese"
+  ],
+  "if_eaten_en": "A little plain cheese is not a concern; watch for diarrhea or vomiting. If a lot was eaten, it was cheese with garlic/onion, or there is repeated vomiting, abdominal pain or lethargy, contact a veterinarian.",
+  "serving_en": "Plain, unseasoned hard cheese cut into small cubes; give one piece at a time."
  },
  {
   "id": "yogurt",
@@ -2094,11 +2733,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้เล็กน้อยเฉพาะโยเกิร์ตรสธรรมชาติ ไม่หวาน ไม่ใส่สารให้ความหวาน (ไซลิทอลเป็นพิษร้ายแรง) สุนัขบางตัวย่อยแลคโตสไม่ได้ ควรเริ่มจากปริมาณน้อยแล้วดูอาการ ไม่ให้โยเกิร์ตรสผลไม้หรือนมเปรี้ยวที่มีน้ำตาลสูง"
+   "note_th": "ให้ได้เล็กน้อยเฉพาะโยเกิร์ตรสธรรมชาติ ไม่หวาน ไม่ใส่สารให้ความหวาน (ไซลิทอลเป็นพิษร้ายแรง) สุนัขบางตัวย่อยแลคโตสไม่ได้ ควรเริ่มจากปริมาณน้อยแล้วดูอาการ ไม่ให้โยเกิร์ตรสผลไม้หรือนมเปรี้ยวที่มีน้ำตาลสูง",
+   "note_en": "A little is fine, but only plain yogurt: unsweetened and with no sweeteners (xylitol is severely toxic). Some dogs can't digest lactose, so start with a small amount and watch for symptoms. Don't give fruit-flavored yogurt or high-sugar drinking yogurt."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "สัตวแพทย์จัดโยเกิร์ตและผลิตภัณฑ์นมไว้ในรายการที่แมวควรหลีกเลี่ยง เพราะแมวโตส่วนใหญ่ย่อยแลคโตสได้น้อย อาจท้องเสียหรืออาเจียน"
+   "note_th": "สัตวแพทย์จัดโยเกิร์ตและผลิตภัณฑ์นมไว้ในรายการที่แมวควรหลีกเลี่ยง เพราะแมวโตส่วนใหญ่ย่อยแลคโตสได้น้อย อาจท้องเสียหรืออาเจียน",
+   "note_en": "Veterinarians list yogurt and dairy products among things cats should avoid, because most adult cats digest lactose poorly and may get diarrhea or vomiting."
   },
   "if_eaten_th": "ตรวจฉลากทันที ถ้ามีไซลิทอล (xylitol) ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที ถ้าไม่มี ให้สังเกตอาการท้องเสียหรืออาเจียน ถ้ามีอาการต่อเนื่องหรือซึม ให้ปรึกษาสัตวแพทย์",
   "sources": [
@@ -2115,7 +2756,17 @@
     "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
    }
   ],
-  "serving_th": "สุนัข: โยเกิร์ตรสธรรมชาติไม่หวาน อ่านฉลากว่าไม่มีไซลิทอล ให้ทีละน้อย"
+  "serving_th": "สุนัข: โยเกิร์ตรสธรรมชาติไม่หวาน อ่านฉลากว่าไม่มีไซลิทอล ให้ทีละน้อย",
+  "name_en": "Yogurt",
+  "aliases_en": [
+   "yogurt",
+   "yoghurt",
+   "plain yogurt",
+   "greek yogurt",
+   "drinking yogurt"
+  ],
+  "if_eaten_en": "Check the label right away. If it contains xylitol, contact a veterinarian or animal hospital right away. If not, watch for diarrhea or vomiting. If symptoms continue or your pet is lethargic, consult a veterinarian.",
+  "serving_en": "Dog: Plain, unsweetened yogurt; check the label for no xylitol; give a little at a time."
  },
  {
   "id": "ice-cream",
@@ -2130,11 +2781,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ ไอศกรีมมีน้ำตาลและไขมันสูง สุนัขหลายตัวย่อยแลคโตสไม่ได้จึงท้องเสีย อาเจียน และไขมันสูงเสี่ยงตับอ่อนอักเสบ รสช็อกโกแลต กาแฟ ลูกเกด แมคาเดเมีย และแบบไม่มีน้ำตาล (อาจมีไซลิทอล) เป็นพิษ"
+   "note_th": "ไม่ควรให้ ไอศกรีมมีน้ำตาลและไขมันสูง สุนัขหลายตัวย่อยแลคโตสไม่ได้จึงท้องเสีย อาเจียน และไขมันสูงเสี่ยงตับอ่อนอักเสบ รสช็อกโกแลต กาแฟ ลูกเกด แมคาเดเมีย และแบบไม่มีน้ำตาล (อาจมีไซลิทอล) เป็นพิษ",
+   "note_en": "Should not be given. Ice cream is high in sugar and fat. Many dogs can't digest lactose and get diarrhea and vomiting, and the high fat risks pancreatitis. Chocolate, coffee, raisin, macadamia and sugar-free (may contain xylitol) flavors are toxic."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ แมวโตส่วนใหญ่ย่อยแลคโตสได้น้อย ผลิตภัณฑ์นมทำให้ท้องเสีย และไอศกรีมมีน้ำตาลและไขมันสูง รสช็อกโกแลตหรือกาแฟเป็นพิษ"
+   "note_th": "ไม่ควรให้ แมวโตส่วนใหญ่ย่อยแลคโตสได้น้อย ผลิตภัณฑ์นมทำให้ท้องเสีย และไอศกรีมมีน้ำตาลและไขมันสูง รสช็อกโกแลตหรือกาแฟเป็นพิษ",
+   "note_en": "Should not be given. Most adult cats digest lactose poorly, dairy products cause diarrhea, and ice cream is high in sugar and fat. Chocolate or coffee flavors are toxic."
   },
   "if_eaten_th": "ถ้าเลียไอศกรีมรสธรรมดาเล็กน้อย ให้สังเกตอาการท้องเสียหรืออาเจียน ถ้าเป็นรสช็อกโกแลต กาแฟ ลูกเกด แมคาเดเมีย หรือชนิดไม่มีน้ำตาล (อาจมีไซลิทอล) ให้ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที",
   "sources": [
@@ -2154,7 +2807,16 @@
     "title": "ASPCA – People Foods to Avoid Feeding Your Pets",
     "url": "https://www.aspca.org/pet-care/animal-poison-control/people-foods-avoid-feeding-your-pets"
    }
-  ]
+  ],
+  "name_en": "Ice cream",
+  "aliases_en": [
+   "ice cream",
+   "ice-cream",
+   "coconut ice cream",
+   "gelato",
+   "i-tim"
+  ],
+  "if_eaten_en": "If your pet licked a little plain-flavored ice cream, watch for diarrhea or vomiting. If it was chocolate, coffee, raisin, macadamia or sugar-free (may contain xylitol), contact a veterinarian or animal hospital right away."
  },
  {
   "id": "baby-food",
@@ -2169,11 +2831,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "avoid",
-   "note_th": "ไม่ควรใช้อาหารเด็กแทนอาหารสุนัขหรือเพื่อป้อนสัตว์ป่วย เพราะบางสูตร (โดยเฉพาะซุปหรือเนื้อบด) ใส่ผงหัวหอมหรือกระเทียม ซึ่งทำลายเม็ดเลือดแดง และสารอาหารไม่ครบสำหรับสุนัข ถ้าสัตว์ไม่กินอาหาร ควรปรึกษาสัตวแพทย์"
+   "note_th": "ไม่ควรใช้อาหารเด็กแทนอาหารสุนัขหรือเพื่อป้อนสัตว์ป่วย เพราะบางสูตร (โดยเฉพาะซุปหรือเนื้อบด) ใส่ผงหัวหอมหรือกระเทียม ซึ่งทำลายเม็ดเลือดแดง และสารอาหารไม่ครบสำหรับสุนัข ถ้าสัตว์ไม่กินอาหาร ควรปรึกษาสัตวแพทย์",
+   "note_en": "Don't use baby food instead of dog food or to feed a sick pet, because some recipes (especially soups or puréed meats) contain onion or garlic powder, which destroy red blood cells, and the nutrition is incomplete for dogs. If your pet won't eat, consult a veterinarian."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ แมวไวต่อผงหัวหอมและกระเทียมมาก แม้ปริมาณน้อย และอาหารเด็กสารอาหารไม่ครบสำหรับแมว ถ้าแมวไม่ยอมกินอาหาร ควรปรึกษาสัตวแพทย์แทนการป้อนอาหารเด็ก"
+   "note_th": "ไม่ควรให้ แมวไวต่อผงหัวหอมและกระเทียมมาก แม้ปริมาณน้อย และอาหารเด็กสารอาหารไม่ครบสำหรับแมว ถ้าแมวไม่ยอมกินอาหาร ควรปรึกษาสัตวแพทย์แทนการป้อนอาหารเด็ก",
+   "note_en": "Should not be given. Cats are very sensitive to onion and garlic powder, even in small amounts, and baby food is nutritionally incomplete for cats. If your cat refuses to eat, consult a veterinarian instead of feeding baby food."
   },
   "if_eaten_th": "อ่านฉลากทันที ถ้ามีหัวหอม กระเทียม หรือผงปรุงรส (onion/garlic powder) ให้ติดต่อสัตวแพทย์ทันที แม้ยังไม่มีอาการ เพราะอาการเลือดจางอาจเกิดช้าหลายวัน ถ้าไม่มีส่วนผสมเหล่านี้ ให้สังเกตอาการอาเจียนหรือท้องเสีย",
   "sources": [
@@ -2193,7 +2857,15 @@
     "title": "Agriculture Victoria (Animal Welfare Victoria) – Human foods to avoid for cats",
     "url": "https://agriculture.vic.gov.au/livestock-and-animals/animal-welfare-victoria/cats/health/human-foods-to-avoid-for-cats"
    }
-  ]
+  ],
+  "name_en": "Commercial baby food (may contain onion/garlic powder)",
+  "aliases_en": [
+   "baby food",
+   "jarred baby food",
+   "baby puree",
+   "baby soup"
+  ],
+  "if_eaten_en": "Read the label right away. If it contains onion, garlic or seasoning powder (onion/garlic powder), contact a veterinarian right away, even if there are no signs yet, because anemia may appear several days later. If it has none of these ingredients, watch for vomiting or diarrhea."
  },
  {
   "id": "paracetamol",
@@ -2210,11 +2882,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ห้ามให้ยาของคนเองเด็ดขาด พาราเซตามอลเป็นพิษต่อสุนัข ทำลายตับและเลือด ปริมาณที่ปลอดภัยสำหรับคนอาจเป็นอันตรายต่อสุนัข ถ้าสุนัขมีไข้หรือเจ็บปวด ให้พาไปพบสัตวแพทย์"
+   "note_th": "ห้ามให้ยาของคนเองเด็ดขาด พาราเซตามอลเป็นพิษต่อสุนัข ทำลายตับและเลือด ปริมาณที่ปลอดภัยสำหรับคนอาจเป็นอันตรายต่อสุนัข ถ้าสุนัขมีไข้หรือเจ็บปวด ให้พาไปพบสัตวแพทย์",
+   "note_en": "Never give your own human medicine. Paracetamol is toxic to dogs, damaging the liver and blood. A dose that is safe for people can be dangerous to dogs. If your dog has a fever or pain, take it to a veterinarian."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "อันตรายร้ายแรงมาก แมวกำจัดยานี้ได้น้อยมาก แม้ปริมาณเพียงเล็กน้อยก็ทำให้ป่วยหนักและเสียชีวิตได้ ห้ามให้แมวเด็ดขาด เก็บยาให้พ้นมือสัตว์"
+   "note_th": "อันตรายร้ายแรงมาก แมวกำจัดยานี้ได้น้อยมาก แม้ปริมาณเพียงเล็กน้อยก็ทำให้ป่วยหนักและเสียชีวิตได้ ห้ามให้แมวเด็ดขาด เก็บยาให้พ้นมือสัตว์",
+   "note_en": "Extremely dangerous. Cats can barely break down this drug; even a tiny amount can cause severe illness and death. Never give it to cats. Keep medicines out of pets' reach."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน นำแผงยาหรือกล่องยาไปด้วย",
   "sources": [
@@ -2230,7 +2904,18 @@
     "title": "Lorsirigool A, Sudjaroen Y, Kulnides N. Incidence of Clinical Signs in Poisoned Pets of Thailand: A Retrospective Study. World's Vet J 2022;12(1):28–33 (คลินิกเทิดไทเลิฟเพ็ท และ ม.ราชภัฏสวนสุนันทา; ข้อมูลย้อนหลังจาก 4 คลินิก)",
     "url": "https://doi.org/10.54203/scil.2022.wvj4"
    }
-  ]
+  ],
+  "name_en": "Paracetamol (human fever/pain medicine)",
+  "aliases_en": [
+   "paracetamol",
+   "acetaminophen",
+   "tylenol",
+   "panadol",
+   "fever medicine",
+   "painkiller",
+   "human medicine"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Bring the blister pack or medicine box with you."
  },
  {
   "id": "nsaids",
@@ -2251,11 +2936,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ห้ามให้ยาของคนเด็ดขาด สุนัขไวต่อยากลุ่มนี้มาก ทำให้กระเพาะเป็นแผล อาเจียนหรือถ่ายเป็นเลือด ไตวาย และอาจซึม ชัก จนถึงเสียชีวิตได้ ถ้าสุนัขเจ็บปวด สัตวแพทย์มียาที่เหมาะสมกับสัตว์"
+   "note_th": "ห้ามให้ยาของคนเด็ดขาด สุนัขไวต่อยากลุ่มนี้มาก ทำให้กระเพาะเป็นแผล อาเจียนหรือถ่ายเป็นเลือด ไตวาย และอาจซึม ชัก จนถึงเสียชีวิตได้ ถ้าสุนัขเจ็บปวด สัตวแพทย์มียาที่เหมาะสมกับสัตว์",
+   "note_en": "Never give human medicine. Dogs are very sensitive to these drugs, which cause stomach ulcers, vomiting blood or bloody stools, kidney failure, and possibly lethargy, seizures and death. If your dog is in pain, a veterinarian has medicines suitable for animals."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "ห้ามให้แมวเด็ดขาด แมวไวต่อยากลุ่มนี้มาก ทำให้กระเพาะเป็นแผล ไตวาย และเสียชีวิตได้ ห้ามให้ยาที่ใช้กับคนแก่แมว เว้นแต่สัตวแพทย์สั่ง"
+   "note_th": "ห้ามให้แมวเด็ดขาด แมวไวต่อยากลุ่มนี้มาก ทำให้กระเพาะเป็นแผล ไตวาย และเสียชีวิตได้ ห้ามให้ยาที่ใช้กับคนแก่แมว เว้นแต่สัตวแพทย์สั่ง",
+   "note_en": "Never give to cats. Cats are very sensitive to these drugs, which cause stomach ulcers, kidney failure and death. Never give human medicines to cats unless prescribed by a veterinarian."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน นำแผงยาหรือกล่องยาไปด้วย",
   "sources": [
@@ -2267,7 +2954,19 @@
     "title": "International Cat Care – Cats and poisons",
     "url": "https://icatcare.org/articles/cats-and-poisons"
    }
-  ]
+  ],
+  "name_en": "Human anti-inflammatory painkillers (ibuprofen, aspirin and other NSAIDs)",
+  "aliases_en": [
+   "ibuprofen",
+   "aspirin",
+   "nsaid",
+   "nsaids",
+   "naproxen",
+   "diclofenac",
+   "anti-inflammatory",
+   "painkiller"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Bring the blister pack or medicine box with you."
  },
  {
   "id": "sago-palm",
@@ -2285,11 +2984,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ทุกส่วนของต้นปรงเป็นพิษ โดยเฉพาะเมล็ด ทำให้อาเจียน ถ่ายดำ ตัวเหลือง เลือดออกง่าย ตับวาย และเสียชีวิตได้ ไม่ควรปลูกในบริเวณที่สุนัขเข้าถึง"
+   "note_th": "ทุกส่วนของต้นปรงเป็นพิษ โดยเฉพาะเมล็ด ทำให้อาเจียน ถ่ายดำ ตัวเหลือง เลือดออกง่าย ตับวาย และเสียชีวิตได้ ไม่ควรปลูกในบริเวณที่สุนัขเข้าถึง",
+   "note_en": "All parts of the sago palm are toxic, especially the seeds, causing vomiting, black stools, yellowing of the skin (jaundice), easy bleeding, liver failure and death. Don't plant it where dogs can reach."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ทำให้ตับเสียหายรุนแรงและเสียชีวิตได้"
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ทำให้ตับเสียหายรุนแรงและเสียชีวิตได้",
+   "note_en": "Toxic to cats just as to dogs, causing severe liver damage and death."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปต้นไม้หรือนำส่วนที่กินไปด้วย",
   "sources": [
@@ -2305,7 +3006,16 @@
     "title": "คอลัมน์ \"ความเป็นพิษของพืชบางชนิดต่อสุนัขและแมว\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร อ้างอิงข้อมูลจาก รศ.สพ.ญ.ดร.ปิยะรัตน์ จันทร์ศิริพรชัย ภาควิชาเภสัชวิทยา คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (แนวหน้า, 27 มี.ค. 2565)",
     "url": "https://www.naewna.com/lady/columnist/51014"
    }
-  ]
+  ],
+  "name_en": "Sago palm (cycad)",
+  "aliases_en": [
+   "sago palm",
+   "cycad",
+   "cycas",
+   "sago palm seeds",
+   "king sago"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Take a photo of the plant or bring the part that was eaten."
  },
  {
   "id": "oleander",
@@ -2320,11 +3030,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ยี่โถมีสารที่มีผลต่อหัวใจ (คาร์ดิแอกไกลโคไซด์) ทำให้น้ำลายไหล ปวดท้อง ท้องเสีย ซึม หัวใจเต้นผิดปกติ และเสียชีวิตได้"
+   "note_th": "ยี่โถมีสารที่มีผลต่อหัวใจ (คาร์ดิแอกไกลโคไซด์) ทำให้น้ำลายไหล ปวดท้อง ท้องเสีย ซึม หัวใจเต้นผิดปกติ และเสียชีวิตได้",
+   "note_en": "Oleander contains substances that affect the heart (cardiac glycosides), causing drooling, abdominal pain, diarrhea, lethargy, abnormal heartbeat and death."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ทำให้น้ำลายไหล ท้องเสีย ซึม และมีผลต่อหัวใจจนเสียชีวิตได้"
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ทำให้น้ำลายไหล ท้องเสีย ซึม และมีผลต่อหัวใจจนเสียชีวิตได้",
+   "note_en": "Toxic to cats just as to dogs, causing drooling, diarrhea, lethargy and effects on the heart that can be fatal."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปต้นไม้หรือนำส่วนที่กินไปด้วย",
   "sources": [
@@ -2336,7 +3048,15 @@
     "title": "คอลัมน์ \"ความเป็นพิษของพืชบางชนิดต่อสุนัขและแมว\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร อ้างอิงข้อมูลจาก รศ.สพ.ญ.ดร.ปิยะรัตน์ จันทร์ศิริพรชัย ภาควิชาเภสัชวิทยา คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (แนวหน้า, 27 มี.ค. 2565)",
     "url": "https://www.naewna.com/lady/columnist/51014"
    }
-  ]
+  ],
+  "name_en": "Oleander",
+  "aliases_en": [
+   "oleander",
+   "nerium",
+   "oleander flower",
+   "oleander leaves"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Take a photo of the plant or bring the part that was eaten."
  },
  {
   "id": "gloriosa",
@@ -2353,11 +3073,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ดองดึงไม่ใช่ลิลลี่แท้ แต่มีสารคล้ายโคลชิซีนที่เป็นพิษร้ายแรง ทำให้น้ำลายไหล อาเจียนและท้องเสียเป็นเลือด ช็อก ไตวาย ตับเสียหาย และไขกระดูกถูกกด"
+   "note_th": "ดองดึงไม่ใช่ลิลลี่แท้ แต่มีสารคล้ายโคลชิซีนที่เป็นพิษร้ายแรง ทำให้น้ำลายไหล อาเจียนและท้องเสียเป็นเลือด ช็อก ไตวาย ตับเสียหาย และไขกระดูกถูกกด",
+   "note_en": "Gloriosa lily is not a true lily, but it contains colchicine-like substances that are severely toxic, causing drooling, bloody vomiting and diarrhea, shock, kidney failure, liver damage and bone marrow suppression."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษร้ายแรงต่อแมวเช่นเดียวกับสุนัข ทำให้อาเจียนและท้องเสียเป็นเลือด ไตวาย ตับเสียหาย และไขกระดูกถูกกด"
+   "note_th": "เป็นพิษร้ายแรงต่อแมวเช่นเดียวกับสุนัข ทำให้อาเจียนและท้องเสียเป็นเลือด ไตวาย ตับเสียหาย และไขกระดูกถูกกด",
+   "note_en": "Severely toxic to cats just as to dogs, causing bloody vomiting and diarrhea, kidney failure, liver damage and bone marrow suppression."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปต้นไม้หรือนำส่วนที่กินไปด้วย",
   "sources": [
@@ -2365,7 +3087,17 @@
     "title": "ASPCA Poison Control – Toxic and Non-Toxic Plants: Gloriosa Lily",
     "url": "https://www.aspca.org/node/4940"
    }
-  ]
+  ],
+  "name_en": "Gloriosa lily (dong dueng)",
+  "aliases_en": [
+   "gloriosa",
+   "gloriosa lily",
+   "glory lily",
+   "flame lily",
+   "climbing lily",
+   "dong dueng"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Take a photo of the plant or bring the part that was eaten."
  },
  {
   "id": "araceae-plants",
@@ -2396,11 +3128,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ทุกส่วนของต้นมีผลึกแคลเซียมออกซาเลตรูปเข็มที่ไม่ละลายน้ำ เมื่อเคี้ยวจะทิ่มเนื้อเยื่อ ทำให้ปาก ลิ้น และริมฝีปากระคายเคือง แสบร้อน บวม น้ำลายไหลมาก อาเจียน และกลืนลำบาก ส่วนใหญ่อาการเกิดเฉพาะที่ในช่องปากและทางเดินอาหาร แต่ไม่ควรวางต้นไม้กลุ่มนี้ในที่ที่สัตว์เข้าถึงได้"
+   "note_th": "ทุกส่วนของต้นมีผลึกแคลเซียมออกซาเลตรูปเข็มที่ไม่ละลายน้ำ เมื่อเคี้ยวจะทิ่มเนื้อเยื่อ ทำให้ปาก ลิ้น และริมฝีปากระคายเคือง แสบร้อน บวม น้ำลายไหลมาก อาเจียน และกลืนลำบาก ส่วนใหญ่อาการเกิดเฉพาะที่ในช่องปากและทางเดินอาหาร แต่ไม่ควรวางต้นไม้กลุ่มนี้ในที่ที่สัตว์เข้าถึงได้",
+   "note_en": "All parts of the plant contain insoluble, needle-shaped calcium oxalate crystals that pierce tissue when chewed, causing irritation, burning and swelling of the mouth, tongue and lips, heavy drooling, vomiting and difficulty swallowing. Symptoms are mostly limited to the mouth and digestive tract, but these plants should not be kept where pets can reach them."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวแบบเดียวกับสุนัข อาการคือปากบวม แสบร้อน น้ำลายไหลมาก อาเจียน และกลืนลำบาก ควรเลือกไม้ประดับที่ปลอดภัยต่อแมวแทน"
+   "note_th": "เป็นพิษต่อแมวแบบเดียวกับสุนัข อาการคือปากบวม แสบร้อน น้ำลายไหลมาก อาเจียน และกลืนลำบาก ควรเลือกไม้ประดับที่ปลอดภัยต่อแมวแทน",
+   "note_en": "Toxic to cats in the same way as to dogs. Signs include a swollen, burning mouth, heavy drooling, vomiting and difficulty swallowing. Choose cat-friendly houseplants instead."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปหรือนำส่วนของต้นไม้ไปด้วยเพื่อช่วยระบุชนิด ถ้าปากบวมมาก กลืนลำบาก หรือหายใจผิดปกติ ต้องพาไปโรงพยาบาลสัตว์ทันที",
   "sources": [
@@ -2424,7 +3158,19 @@
     "title": "ผู้จัดการออนไลน์ (ข่าว) \"เตือนคนรักสัตว์! บอนสี มีพิษ…\" (6 ก.พ. 2565) เรียบเรียงจากโพสต์ของ ผศ.ดร.เจษฎา เด่นดวงบริพันธ์ (คณะวิทยาศาสตร์ จุฬาฯ) และบทความของ น.สพ.พีรสุทธิ์ เพียรพิจิตร",
     "url": "https://mgronline.com/onlinesection/detail/9650000012169"
    }
-  ]
+  ],
+  "name_en": "Dumb cane, caladium, pothos and other oxalate plants",
+  "aliases_en": [
+   "dumb cane",
+   "dieffenbachia",
+   "caladium",
+   "pothos",
+   "devil's ivy",
+   "peace lily",
+   "anthurium",
+   "aglaonema"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Take a photo or bring part of the plant to help identify it. If the mouth is very swollen, or there is difficulty swallowing or abnormal breathing, take your pet to an animal hospital immediately."
  },
  {
   "id": "aloe",
@@ -2439,11 +3185,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "avoid",
-   "note_th": "แม้คนใช้ได้ แต่ต้นว่านหางจระเข้มีสารซาโปนินและแอนทราควิโนนที่ทำให้สุนัขอาเจียน ท้องเสีย และซึมได้ ไม่ควรให้กินหรือปล่อยให้กัดแทะต้น และไม่ควรใช้ผลิตภัณฑ์สมุนไพรกับสัตว์โดยไม่ปรึกษาสัตวแพทย์"
+   "note_th": "แม้คนใช้ได้ แต่ต้นว่านหางจระเข้มีสารซาโปนินและแอนทราควิโนนที่ทำให้สุนัขอาเจียน ท้องเสีย และซึมได้ ไม่ควรให้กินหรือปล่อยให้กัดแทะต้น และไม่ควรใช้ผลิตภัณฑ์สมุนไพรกับสัตว์โดยไม่ปรึกษาสัตวแพทย์",
+   "note_en": "Although people can use it, the aloe plant contains saponins and anthraquinones that can cause vomiting, diarrhea and lethargy in dogs. Don't let dogs eat it or chew the plant, and don't use herbal products on pets without consulting a veterinarian."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "เป็นอันตรายต่อแมวแบบเดียวกับสุนัข ทำให้อาเจียน ท้องเสีย และซึม ส่วนที่เป็นปัญหาคือใบและยางสีเหลืองใต้เปลือก ตัวเจลใสถือว่ากินได้ แต่ผลิตภัณฑ์เจลสำเร็จรูปอาจมีส่วนผสมอื่น ไม่ควรทาบนตัวแมวโดยไม่ปรึกษาสัตวแพทย์"
+   "note_th": "เป็นอันตรายต่อแมวแบบเดียวกับสุนัข ทำให้อาเจียน ท้องเสีย และซึม ส่วนที่เป็นปัญหาคือใบและยางสีเหลืองใต้เปลือก ตัวเจลใสถือว่ากินได้ แต่ผลิตภัณฑ์เจลสำเร็จรูปอาจมีส่วนผสมอื่น ไม่ควรทาบนตัวแมวโดยไม่ปรึกษาสัตวแพทย์",
+   "note_en": "Harmful to cats in the same way as to dogs, causing vomiting, diarrhea and lethargy. The problem parts are the leaf and the yellow sap under the skin; the clear gel itself is considered edible, but ready-made gel products may contain other ingredients. Don't apply it on your cat without consulting a veterinarian."
   },
   "if_eaten_th": "ถ้ากัดแทะเล็กน้อย ให้น้ำสะอาดและสังเกตอาการ ถ้าอาเจียนหรือท้องเสียไม่หยุด ซึม ไม่กินอาหาร หรือกินไปมาก ให้ติดต่อสัตวแพทย์ อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -2455,7 +3203,15 @@
     "title": "เดลินิวส์ \"คนรักสัตว์ควรรู้ให้เท่าทันก่อนใช้สมุนไพร\" (17 พ.ค. 2568) บทความข่าว อ้างความเห็นของ สพ.ญ.ดร.กรรณิการ์ ศิริไพศาล โรงพยาบาลสัตว์ มหาวิทยาลัยเกษตรศาสตร์",
     "url": "https://www.dailynews.co.th/articles/4713364/"
    }
-  ]
+  ],
+  "name_en": "Aloe vera",
+  "aliases_en": [
+   "aloe",
+   "aloe vera",
+   "aloe gel",
+   "aloe plant"
+  ],
+  "if_eaten_en": "If your pet chewed a little, give clean water and watch for symptoms. If vomiting or diarrhea doesn't stop, or there is lethargy or loss of appetite, or a lot was eaten, contact a veterinarian. Do not try to make your pet vomit at home."
  },
  {
   "id": "desert-rose",
@@ -2471,11 +3227,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ชวนชมมีสารคาร์ดิแอกไกลโคไซด์ (กลุ่มเดียวกับยี่โถ) ซึ่งมีผลต่อการทำงานของกล้ามเนื้อหัวใจ ทำให้อาเจียน ท้องเสีย เบื่ออาหาร ซึม หัวใจเต้นผิดจังหวะ และอาจเสียชีวิตได้"
+   "note_th": "ชวนชมมีสารคาร์ดิแอกไกลโคไซด์ (กลุ่มเดียวกับยี่โถ) ซึ่งมีผลต่อการทำงานของกล้ามเนื้อหัวใจ ทำให้อาเจียน ท้องเสีย เบื่ออาหาร ซึม หัวใจเต้นผิดจังหวะ และอาจเสียชีวิตได้",
+   "note_en": "Desert rose contains cardiac glycosides (the same group as oleander), which affect how the heart muscle works, causing vomiting, diarrhea, loss of appetite, lethargy, abnormal heart rhythm and possibly death."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข สารคาร์ดิแอกไกลโคไซด์ทำให้หัวใจเต้นผิดจังหวะและอาจเสียชีวิต ไม่ควรวางกระถางชวนชมในที่ที่แมวเข้าถึง"
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข สารคาร์ดิแอกไกลโคไซด์ทำให้หัวใจเต้นผิดจังหวะและอาจเสียชีวิต ไม่ควรวางกระถางชวนชมในที่ที่แมวเข้าถึง",
+   "note_en": "Toxic to cats just as to dogs. Cardiac glycosides cause abnormal heart rhythm and possibly death. Don't keep desert rose pots where cats can reach them."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน ถ่ายรูปหรือนำส่วนของต้นไม้ไปด้วยเพื่อช่วยระบุชนิด",
   "sources": [
@@ -2491,7 +3249,16 @@
     "title": "ผู้จัดการออนไลน์ (ข่าว) \"เตือนคนรักสัตว์! บอนสี มีพิษ…\" (6 ก.พ. 2565) เรียบเรียงจากโพสต์ของ ผศ.ดร.เจษฎา เด่นดวงบริพันธ์ (คณะวิทยาศาสตร์ จุฬาฯ) และบทความของ น.สพ.พีรสุทธิ์ เพียรพิจิตร",
     "url": "https://mgronline.com/onlinesection/detail/9650000012169"
    }
-  ]
+  ],
+  "name_en": "Desert rose (adenium)",
+  "aliases_en": [
+   "desert rose",
+   "adenium",
+   "adenium obesum",
+   "chuan chom",
+   "impala lily"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Take a photo or bring part of the plant to help identify it."
  },
  {
   "id": "crown-of-thorns",
@@ -2506,11 +3273,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "avoid",
-   "note_th": "ยางขาวของโป๊ยเซียนระคายเคืองปากและทางเดินอาหาร ทำให้น้ำลายไหล เบื่ออาหาร อาเจียน หรือท้องเสีย อาการมักไม่รุนแรง ยางโดนผิวหนังทำให้ระคายเคือง ถ้าเข้าตาอาจทำให้กระจกตาบาดเจ็บ ควรพาไปพบสัตวแพทย์ ลำต้นยังมีหนามแหลม"
+   "note_th": "ยางขาวของโป๊ยเซียนระคายเคืองปากและทางเดินอาหาร ทำให้น้ำลายไหล เบื่ออาหาร อาเจียน หรือท้องเสีย อาการมักไม่รุนแรง ยางโดนผิวหนังทำให้ระคายเคือง ถ้าเข้าตาอาจทำให้กระจกตาบาดเจ็บ ควรพาไปพบสัตวแพทย์ ลำต้นยังมีหนามแหลม",
+   "note_en": "The milky sap of crown of thorns irritates the mouth and digestive tract, causing drooling, loss of appetite, vomiting or diarrhea; symptoms are usually mild. Sap on the skin causes irritation, and if it gets in the eyes it may injure the cornea; take your pet to a veterinarian. The stems also have sharp thorns."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "แหล่งต่างประเทศจัดว่าเป็นปัญหาต่อแมวด้วย ความเป็นพิษต่ำ ยางทำให้ปากและทางเดินอาหารระคายเคือง น้ำลายไหล อาเจียน ท้องเสีย มักไม่รุนแรง แต่ไม่ควรให้แมวกัดแทะ"
+   "note_th": "แหล่งต่างประเทศจัดว่าเป็นปัญหาต่อแมวด้วย ความเป็นพิษต่ำ ยางทำให้ปากและทางเดินอาหารระคายเคือง น้ำลายไหล อาเจียน ท้องเสีย มักไม่รุนแรง แต่ไม่ควรให้แมวกัดแทะ",
+   "note_en": "Overseas sources list it as a problem for cats too. Toxicity is low: the sap irritates the mouth and digestive tract, causing drooling, vomiting and diarrhea, usually mild, but don't let cats chew it."
   },
   "if_eaten_th": "ให้น้ำสะอาดและสังเกตอาการ ถ้ายางเข้าตา อาเจียนหรือท้องเสียไม่หยุด หรือซึม ให้ติดต่อสัตวแพทย์ อย่าพยายามทำให้อาเจียนเองที่บ้าน",
   "sources": [
@@ -2522,7 +3291,16 @@
     "title": "NC State Extension Plant Toolbox – Euphorbia milii (ระบุเป็นปัญหาต่อสุนัข แมว ม้า ความเป็นพิษต่ำ)",
     "url": "https://plants.ces.ncsu.edu/plants/euphorbia-milii/common-name/crown-of-thorns/"
    }
-  ]
+  ],
+  "name_en": "Crown of thorns (poi sian)",
+  "aliases_en": [
+   "crown of thorns",
+   "euphorbia milii",
+   "christ plant",
+   "poi sian",
+   "euphorbia"
+  ],
+  "if_eaten_en": "Give clean water and watch for symptoms. If sap gets in the eyes, vomiting or diarrhea doesn't stop, or there is lethargy, contact a veterinarian. Do not try to make your pet vomit at home."
  },
  {
   "id": "coconut-water",
@@ -2536,11 +3314,13 @@
   "category": "เครื่องดื่ม",
   "dog": {
    "status": "avoid",
-   "note_th": "คณะสัตวแพทยศาสตร์ จุฬาฯ ระบุว่าน้ำมะพร้าวมีโพแทสเซียมสูงมากและไม่ควรให้สัตว์เลี้ยง ให้น้ำสะอาดเป็นเครื่องดื่มหลัก"
+   "note_th": "คณะสัตวแพทยศาสตร์ จุฬาฯ ระบุว่าน้ำมะพร้าวมีโพแทสเซียมสูงมากและไม่ควรให้สัตว์เลี้ยง ให้น้ำสะอาดเป็นเครื่องดื่มหลัก",
+   "note_en": "The Faculty of Veterinary Science, Chulalongkorn University, states that coconut water is very high in potassium and should not be given to pets. Give clean water as the main drink."
   },
   "cat": {
    "status": "avoid",
-   "note_th": "ไม่ควรให้ น้ำมะพร้าวมีโพแทสเซียมสูงมาก และแมวไม่ได้ประโยชน์จากเครื่องดื่มอื่นนอกจากน้ำสะอาด"
+   "note_th": "ไม่ควรให้ น้ำมะพร้าวมีโพแทสเซียมสูงมาก และแมวไม่ได้ประโยชน์จากเครื่องดื่มอื่นนอกจากน้ำสะอาด",
+   "note_en": "Should not be given. Coconut water is very high in potassium, and cats get no benefit from any drink other than clean water."
   },
   "if_eaten_th": "ถ้าเลียไปเล็กน้อยมักไม่เป็นอันตราย ให้น้ำสะอาดและสังเกตอาการ ถ้าดื่มไปมาก หรือมีอาการอาเจียน ท้องเสีย อ่อนแรง ซึม ให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -2552,7 +3332,15 @@
     "title": "CUVET NEWS ฉบับที่ 1/2563 – ฝ่ายประชาสัมพันธ์ คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (หัวข้ออาหารที่สุนัขและแมวไม่ควรกิน ข้อมูลจากโรงพยาบาลสัตว์เล็ก) (ไฟล์เผยแพร่บน pubhtml5)",
     "url": "https://pubhtml5.com/oiqp/vais/basic/"
    }
-  ]
+  ],
+  "name_en": "Coconut water",
+  "aliases_en": [
+   "coconut water",
+   "young coconut",
+   "fresh coconut juice",
+   "coconut juice"
+  ],
+  "if_eaten_en": "A small lick is usually not harmful; give clean water and watch for symptoms. If a lot was drunk, or there is vomiting, diarrhea, weakness or lethargy, contact a veterinarian."
  },
  {
   "id": "sticky-dessert",
@@ -2567,11 +3355,13 @@
   "category": "ขนม/ของหวาน",
   "dog": {
    "status": "avoid",
-   "note_th": "แป้งเหนียวก้อนใหญ่อาจติดคอได้ โดยเฉพาะบ้านที่เลี้ยงสุนัขหลายตัว ตัวที่ตะกละอาจรีบกลืนทั้งก้อนเพราะแย่งกับตัวอื่น ขนมเหล่านี้ยังมีน้ำตาลและไม่มีประโยชน์ต่อสุนัข ระวังเป็นพิเศษช่วงเทศกาลไหว้"
+   "note_th": "แป้งเหนียวก้อนใหญ่อาจติดคอได้ โดยเฉพาะบ้านที่เลี้ยงสุนัขหลายตัว ตัวที่ตะกละอาจรีบกลืนทั้งก้อนเพราะแย่งกับตัวอื่น ขนมเหล่านี้ยังมีน้ำตาลและไม่มีประโยชน์ต่อสุนัข ระวังเป็นพิเศษช่วงเทศกาลไหว้",
+   "note_en": "Large lumps of sticky dough can cause choking, especially in homes with several dogs, where a greedy dog may gulp a whole piece while competing with the others. These desserts also contain sugar and have no benefit for dogs. Take extra care during offering festivals."
   },
   "cat": {
    "status": "unknown",
-   "note_th": "ยังไม่พบแหล่งอ้างอิงทางสัตวแพทย์ที่กล่าวถึงแมวโดยตรง ขนมเหล่านี้เหนียว มีน้ำตาล และไม่มีประโยชน์ต่อแมว จึงควรงดให้ไว้ก่อน"
+   "note_th": "ยังไม่พบแหล่งอ้างอิงทางสัตวแพทย์ที่กล่าวถึงแมวโดยตรง ขนมเหล่านี้เหนียว มีน้ำตาล และไม่มีประโยชน์ต่อแมว จึงควรงดให้ไว้ก่อน",
+   "note_en": "No veterinary reference addressing cats directly has been found yet. These desserts are sticky, contain sugar and have no benefit for cats, so it's best to avoid them for now."
   },
   "if_eaten_th": "ถ้ามีอาการสำลัก ไอ ขย้อน น้ำลายไหล หายใจลำบาก หรือกลืนลำบาก ให้พาไปโรงพยาบาลสัตว์ทันที ถ้ากินชิ้นเล็กและไม่มีอาการ ให้สังเกตอาการอาเจียน ท้องอืด หรือไม่กินอาหาร หากมีให้ติดต่อสัตวแพทย์",
   "sources": [
@@ -2579,7 +3369,18 @@
     "title": "คอลัมน์ \"การป้องกันอันตรายให้สัตว์เลี้ยงที่อาจเกิดได้ในช่วงตรุษจีน\" โดย ผศ.น.สพ.ดร.ทิลดิสร์ รุ่งเรืองกิจไกร คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (แนวหน้า, 14 ก.พ. 2564) (บทความมีคำแนะนำปฐมพยาบาลที่แอปไม่แนะนำ)",
     "url": "https://www.naewna.com/lady/columnist/46819"
    }
-  ]
+  ],
+  "name_en": "Khanom kheng / khanom thian (large sticky rice-flour desserts)",
+  "aliases_en": [
+   "khanom kheng",
+   "khanom thian",
+   "nian gao",
+   "sticky rice cake",
+   "rice cake",
+   "chinese new year cake",
+   "sticky dessert"
+  ],
+  "if_eaten_en": "If there is choking, coughing, gagging, drooling, breathing difficulty or difficulty swallowing, take your pet to an animal hospital immediately. If a small piece was eaten and there are no signs, watch for vomiting, bloating or loss of appetite; if these occur, contact a veterinarian."
  },
  {
   "id": "rodenticide",
@@ -2597,11 +3398,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "ยาเบื่อหนูมีหลายกลุ่มที่ออกฤทธิ์ต่างกัน กลุ่มที่พบบ่อยทำให้เลือดไม่แข็งตัวและเลือดออกภายในซึ่งอาจแสดงอาการหลังกินหลายวัน กลุ่มอื่นมีผลต่อสมองและระบบประสาท ไต หรือตับ ดูจากสีหรือรูปร่างเหยื่อไม่สามารถบอกชนิดสารได้ ในไทยมีรายงานสุนัขตายจากพิษยาเบื่อหนูกลุ่มต้านการแข็งตัวของเลือด"
+   "note_th": "ยาเบื่อหนูมีหลายกลุ่มที่ออกฤทธิ์ต่างกัน กลุ่มที่พบบ่อยทำให้เลือดไม่แข็งตัวและเลือดออกภายในซึ่งอาจแสดงอาการหลังกินหลายวัน กลุ่มอื่นมีผลต่อสมองและระบบประสาท ไต หรือตับ ดูจากสีหรือรูปร่างเหยื่อไม่สามารถบอกชนิดสารได้ ในไทยมีรายงานสุนัขตายจากพิษยาเบื่อหนูกลุ่มต้านการแข็งตัวของเลือด",
+   "note_en": "There are several groups of rat poison that work differently. The common group stops blood from clotting and causes internal bleeding, which may show up several days after eating. Other groups affect the brain and nervous system, the kidneys or the liver. You cannot tell the substance from the color or shape of the bait. In Thailand, dogs have been reported dying from anticoagulant rat poison."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ยาเบื่อหนูบางกลุ่มทำให้เลือดออกภายใน บางกลุ่มทำให้ชัก ไตหรือตับวาย ควรวางเหยื่อในกล่องที่สัตว์เลี้ยงเข้าไม่ถึง"
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข ยาเบื่อหนูบางกลุ่มทำให้เลือดออกภายใน บางกลุ่มทำให้ชัก ไตหรือตับวาย ควรวางเหยื่อในกล่องที่สัตว์เลี้ยงเข้าไม่ถึง",
+   "note_en": "Toxic to cats just as to dogs. Some groups of rat poison cause internal bleeding; others cause seizures or kidney or liver failure. Place bait in boxes that pets cannot get into."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน เก็บซองหรือกล่องยาเบื่อหนูไปด้วยเพื่อให้สัตวแพทย์ทราบชื่อสารออกฤทธิ์ (ยาเบื่อหนูบางกลุ่มมียาต้านพิษ ยิ่งรักษาเร็วยิ่งดี)",
   "sources": [
@@ -2621,7 +3424,16 @@
     "title": "Lorsirigool A, Sudjaroen Y, Kulnides N. Incidence of Clinical Signs in Poisoned Pets of Thailand: A Retrospective Study. World's Vet J 2022;12(1):28–33 (คลินิกเทิดไทเลิฟเพ็ท และ ม.ราชภัฏสวนสุนันทา; ข้อมูลย้อนหลังจาก 4 คลินิก)",
     "url": "https://doi.org/10.54203/scil.2022.wvj4"
    }
-  ]
+  ],
+  "name_en": "Rat poison (rodenticide bait)",
+  "aliases_en": [
+   "rat poison",
+   "mouse poison",
+   "rodenticide",
+   "rat bait",
+   "poison bait"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Keep the rat poison packet or box and bring it along so the veterinarian knows the active ingredient (some groups of rat poison have an antidote; the sooner the treatment, the better)."
  },
  {
   "id": "insecticides",
@@ -2642,11 +3454,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "toxic",
-   "note_th": "การศึกษาย้อนหลังจากคลินิกบางแห่งในไทยพบสารกลุ่มนี้บ่อยที่สุดในสุนัข สารกลุ่มนี้ทำให้น้ำลายไหลมาก รูม่านตาเล็ก อาเจียน ท้องเสีย หายใจลำบาก กล้ามเนื้อกระตุก ชัก และเสียชีวิตได้ เก็บสารเคมีการเกษตรและยาฆ่าแมลงให้พ้นจากสัตว์ และกันสัตว์ออกจากพื้นที่ที่เพิ่งฉีดพ่น"
+   "note_th": "การศึกษาย้อนหลังจากคลินิกบางแห่งในไทยพบสารกลุ่มนี้บ่อยที่สุดในสุนัข สารกลุ่มนี้ทำให้น้ำลายไหลมาก รูม่านตาเล็ก อาเจียน ท้องเสีย หายใจลำบาก กล้ามเนื้อกระตุก ชัก และเสียชีวิตได้ เก็บสารเคมีการเกษตรและยาฆ่าแมลงให้พ้นจากสัตว์ และกันสัตว์ออกจากพื้นที่ที่เพิ่งฉีดพ่น",
+   "note_en": "Retrospective studies from some clinics in Thailand found this group of substances most often in dogs. They cause heavy drooling, small pupils, vomiting, diarrhea, breathing difficulty, muscle twitching, seizures and death. Keep farm chemicals and insecticides away from animals, and keep animals out of freshly sprayed areas."
   },
   "cat": {
    "status": "toxic",
-   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข อาการคือ น้ำลายไหลมาก อาเจียน ท้องเสีย หายใจลำบาก กล้ามเนื้อกระตุก และชัก เก็บสารเคมีให้พ้นจากแมว ยาหยดกำจัดเห็บหมัดสำหรับสุนัขบางชนิด (กลุ่มเพอร์เมทริน) เป็นพิษรุนแรงต่อแมว ห้ามใช้กับแมว"
+   "note_th": "เป็นพิษต่อแมวเช่นเดียวกับสุนัข อาการคือ น้ำลายไหลมาก อาเจียน ท้องเสีย หายใจลำบาก กล้ามเนื้อกระตุก และชัก เก็บสารเคมีให้พ้นจากแมว ยาหยดกำจัดเห็บหมัดสำหรับสุนัขบางชนิด (กลุ่มเพอร์เมทริน) เป็นพิษรุนแรงต่อแมว ห้ามใช้กับแมว",
+   "note_en": "Toxic to cats just as to dogs. Signs include heavy drooling, vomiting, diarrhea, breathing difficulty, muscle twitching and seizures. Keep chemicals away from cats. Some spot-on flea and tick products for dogs (permethrin group) are severely toxic to cats; never use them on cats."
   },
   "if_eaten_th": "ติดต่อสัตวแพทย์หรือโรงพยาบาลสัตว์ทันที แม้สัตว์ยังไม่แสดงอาการ แจ้งว่ากินอะไร ประมาณเท่าไร และเมื่อไร (นำบรรจุภัณฑ์ไปด้วยถ้ามี) อย่าพยายามทำให้อาเจียนเองที่บ้าน เก็บฉลากหรือขวดสารเคมีไปด้วย ถ้าสารเปื้อนขน ระวังไม่ให้สัตว์เลียและปรึกษาสัตวแพทย์เรื่องการล้างตัว",
   "sources": [
@@ -2662,7 +3476,19 @@
     "title": "American Association of Feline Practitioners (AAFP) – Permethrin Poisoning and Cats",
     "url": "https://catvets.com/?p=5214"
    }
-  ]
+  ],
+  "name_en": "Insecticides and pesticides (organophosphates, carbamates)",
+  "aliases_en": [
+   "insecticide",
+   "pesticide",
+   "bug spray",
+   "organophosphate",
+   "carbamate",
+   "carbofuran",
+   "furadan",
+   "weed killer"
+  ],
+  "if_eaten_en": "Contact a veterinarian or animal hospital right away, even if your pet shows no signs yet. Tell them what was eaten, roughly how much, and when (bring the packaging if you have it). Do not try to make your pet vomit at home. Bring the label or chemical bottle with you. If the chemical is on the fur, stop your pet from licking it and ask a veterinarian about washing it off."
  },
  {
   "id": "broccoli",
@@ -2677,11 +3503,13 @@
   "category": "ผัก",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้เป็นครั้งคราวในปริมาณน้อย ดิบหรือสุกก็ได้แต่ต้องไม่ปรุงและไม่มีน้ำมัน ช่อดอกมีสารไอโซไทโอไซยาเนตที่อาจระคายเคืองกระเพาะถ้ากินมาก ก้านแข็งอาจติดหลอดอาหาร โดยเฉพาะสุนัขพันธุ์เล็ก ควรหั่นชิ้นเล็ก"
+   "note_th": "ให้ได้เป็นครั้งคราวในปริมาณน้อย ดิบหรือสุกก็ได้แต่ต้องไม่ปรุงและไม่มีน้ำมัน ช่อดอกมีสารไอโซไทโอไซยาเนตที่อาจระคายเคืองกระเพาะถ้ากินมาก ก้านแข็งอาจติดหลอดอาหาร โดยเฉพาะสุนัขพันธุ์เล็ก ควรหั่นชิ้นเล็ก",
+   "note_en": "Can be given occasionally in small amounts, raw or cooked, but unseasoned and without oil. The florets contain isothiocyanates, which may irritate the stomach if a lot is eaten. Tough stalks may get stuck in the esophagus, especially in small breeds, so cut into small pieces."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษต่อแมว แต่แมวไม่ได้ประโยชน์มากนักเพราะต้องการโปรตีนจากเนื้อสัตว์เป็นหลัก ถ้าจะให้ ให้แบบสุก (นึ่งหรือต้ม) ไม่ปรุง สับชิ้นเล็ก ปริมาณน้อย กินมากอาจทำให้ท้องอืดหรือท้องไส้ปั่นป่วน"
+   "note_th": "ไม่เป็นพิษต่อแมว แต่แมวไม่ได้ประโยชน์มากนักเพราะต้องการโปรตีนจากเนื้อสัตว์เป็นหลัก ถ้าจะให้ ให้แบบสุก (นึ่งหรือต้ม) ไม่ปรุง สับชิ้นเล็ก ปริมาณน้อย กินมากอาจทำให้ท้องอืดหรือท้องไส้ปั่นป่วน",
+   "note_en": "Not toxic to cats, but cats get little benefit because they mainly need protein from meat. If you give it, give it cooked (steamed or boiled), unseasoned, chopped small, in small amounts. Eating a lot may cause bloating or stomach upset."
   },
   "if_eaten_th": "ถ้ากินไม่ปรุงเพียงเล็กน้อยมักไม่เป็นอันตราย สังเกตอาการท้องอืด อาเจียน ท้องเสีย ถ้าสำลักหรือกลืนลำบากหลังกินก้าน หรืออาการไม่ดีขึ้น ให้ติดต่อสัตวแพทย์",
   "serving_th": "หั่นช่อดอกชิ้นเล็ก นึ่งหรือต้มสุกโดยไม่ปรุง ให้ครั้งละน้อยเป็นขนมเสริม ไม่ใช่อาหารหลัก",
@@ -2694,7 +3522,16 @@
     "title": "PetMD (Sandra C. Mitchell, DVM, DABVP) – Can Cats Eat Broccoli?",
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-broccoli"
    }
-  ]
+  ],
+  "name_en": "Broccoli",
+  "aliases_en": [
+   "broccoli",
+   "broccoli florets",
+   "broccoli stem",
+   "steamed broccoli"
+  ],
+  "if_eaten_en": "Eating a little unseasoned broccoli is usually not harmful. Watch for bloating, vomiting or diarrhea. If your pet chokes or has trouble swallowing after eating a stalk, or symptoms don't improve, contact a veterinarian.",
+  "serving_en": "Cut the florets into small pieces and steam or boil until cooked, unseasoned. Give a little at a time as an extra treat, not a main food."
  },
  {
   "id": "green-beans",
@@ -2710,11 +3547,13 @@
   "category": "ผัก",
   "dog": {
    "status": "safe",
-   "note_th": "ถั่วแขกต้มหรือนึ่งแบบไม่ปรุงให้สุนัขกินได้ในปริมาณพอเหมาะ แคลอรีต่ำและมีใยอาหาร ห้ามใส่เนย เกลือ กระเทียม และหลีกเลี่ยงถั่วแขกกระป๋องที่มีเกลือสูง"
+   "note_th": "ถั่วแขกต้มหรือนึ่งแบบไม่ปรุงให้สุนัขกินได้ในปริมาณพอเหมาะ แคลอรีต่ำและมีใยอาหาร ห้ามใส่เนย เกลือ กระเทียม และหลีกเลี่ยงถั่วแขกกระป๋องที่มีเกลือสูง",
+   "note_en": "Plain boiled or steamed green beans can be given in moderate amounts; they are low in calories and high in fiber. No butter, salt or garlic, and avoid canned green beans, which are high in salt."
   },
   "cat": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษต่อแมว ให้เป็นขนมได้บ้าง แบบสด ต้ม หรือนึ่ง ไม่ปรุง หั่นชิ้นเล็ก ห้ามมีกระเทียมหรือหอม แต่แมวต้องการเนื้อสัตว์เป็นหลัก ไม่ควรให้มากจนกินอาหารหลักน้อยลง"
+   "note_th": "ไม่เป็นพิษต่อแมว ให้เป็นขนมได้บ้าง แบบสด ต้ม หรือนึ่ง ไม่ปรุง หั่นชิ้นเล็ก ห้ามมีกระเทียมหรือหอม แต่แมวต้องการเนื้อสัตว์เป็นหลัก ไม่ควรให้มากจนกินอาหารหลักน้อยลง",
+   "note_en": "Not toxic to cats; can be an occasional treat, fresh, boiled or steamed, unseasoned and cut small, with no garlic or onion. But cats mainly need meat, so don't give so much that they eat less of their main food."
   },
   "if_eaten_th": "ถั่วแขกไม่ปรุงไม่เป็นพิษ ถ้ากินแบบที่ผัดหรือปรุงด้วยกระเทียม หอม เนย หรือเกลือ ให้ดูรายการ \"อาหารคนปรุงรส\" และติดต่อสัตวแพทย์ถ้ามีอาการอาเจียน ท้องเสีย ซึม",
   "serving_th": "ต้มหรือนึ่งสุก ไม่ปรุง หั่นเป็นท่อนสั้น ให้เป็นขนมเสริม",
@@ -2727,7 +3566,17 @@
     "title": "PetMD (Jennifer Coates, DVM) – Can Cats Eat Green Beans?",
     "url": "https://www.petmd.com/cat/nutrition/can-cats-eat-green-beans"
    }
-  ]
+  ],
+  "name_en": "Green beans (string beans)",
+  "aliases_en": [
+   "green beans",
+   "green bean",
+   "string beans",
+   "french beans",
+   "boiled green beans"
+  ],
+  "if_eaten_en": "Plain green beans are not toxic. If they were stir-fried or seasoned with garlic, onion, butter or salt, see \"Seasoned human food\" and contact a veterinarian if there is vomiting, diarrhea or lethargy.",
+  "serving_en": "Boil or steam until cooked, unseasoned, cut into short pieces, and give as an extra treat."
  },
  {
   "id": "cabbage",
@@ -2744,11 +3593,13 @@
   "category": "ผัก",
   "dog": {
    "status": "limited",
-   "note_th": "ให้ได้ในปริมาณน้อย ต้มหรือนึ่งแบบไม่ปรุงจะย่อยง่ายกว่าแบบดิบ ล้างให้สะอาด เอาแกนแข็งออก และหั่นชิ้นเล็ก กะหล่ำปลีทำให้มีแก๊สมาก สุนัขพันธุ์ที่เสี่ยงกระเพาะบิดหรือท้องอืดควรปรึกษาสัตวแพทย์ก่อน ห้ามใส่เนย น้ำมัน หอม กระเทียม"
+   "note_th": "ให้ได้ในปริมาณน้อย ต้มหรือนึ่งแบบไม่ปรุงจะย่อยง่ายกว่าแบบดิบ ล้างให้สะอาด เอาแกนแข็งออก และหั่นชิ้นเล็ก กะหล่ำปลีทำให้มีแก๊สมาก สุนัขพันธุ์ที่เสี่ยงกระเพาะบิดหรือท้องอืดควรปรึกษาสัตวแพทย์ก่อน ห้ามใส่เนย น้ำมัน หอม กระเทียม",
+   "note_en": "Can be given in small amounts. Boiled or steamed without seasoning is easier to digest than raw. Wash well, remove the tough core, and cut into small pieces. Cabbage causes a lot of gas; breeds at risk of a twisted stomach or bloat should consult a veterinarian first. No butter, oil, onion or garlic."
   },
   "cat": {
    "status": "unknown",
-   "note_th": "ยังไม่พบแหล่งอ้างอิงทางสัตวแพทย์ที่ตรวจสอบได้สำหรับแมว ไม่มีความจำเป็นต่อแมว จึงควรงดให้ไว้ก่อนหรือปรึกษาสัตวแพทย์"
+   "note_th": "ยังไม่พบแหล่งอ้างอิงทางสัตวแพทย์ที่ตรวจสอบได้สำหรับแมว ไม่มีความจำเป็นต่อแมว จึงควรงดให้ไว้ก่อนหรือปรึกษาสัตวแพทย์",
+   "note_en": "No verifiable veterinary reference for cats has been found yet. It is not necessary for cats, so it's best to avoid it for now or consult a veterinarian."
   },
   "if_eaten_th": "ถ้ากินแบบไม่ปรุงเพียงเล็กน้อยมักไม่เป็นอันตราย สังเกตอาการท้องอืด อาเจียน ท้องเสีย ถ้าท้องโป่งตึง พยายามอาเจียนแต่ไม่มีอะไรออก หรือกระสับกระส่าย (อาการกระเพาะบิด) ต้องพาไปโรงพยาบาลสัตว์ทันที",
   "serving_th": "สุนัข: ต้มหรือนึ่งสุก ไม่ปรุง หั่นชิ้นเล็ก ให้ครั้งละน้อย",
@@ -2757,7 +3608,18 @@
     "title": "AKC – Can Dogs Eat Cabbage? (อ้าง Dr. Jerry Klein, AKC Chief Veterinary Officer)",
     "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-cabbage/"
    }
-  ]
+  ],
+  "name_en": "Cabbage",
+  "aliases_en": [
+   "cabbage",
+   "red cabbage",
+   "purple cabbage",
+   "napa cabbage",
+   "chinese cabbage",
+   "bok choy"
+  ],
+  "if_eaten_en": "Eating a little unseasoned cabbage is usually not harmful. Watch for bloating, vomiting or diarrhea. If the belly is swollen and tight, your pet tries to vomit but nothing comes up, or is restless (signs of a twisted stomach), take it to an animal hospital immediately.",
+  "serving_en": "Dog: Boil or steam until cooked, unseasoned, cut into small pieces, and give a little at a time."
  },
  {
   "id": "tofu",
@@ -2772,11 +3634,13 @@
   "category": "อื่นๆ",
   "dog": {
    "status": "limited",
-   "note_th": "ไม่เป็นพิษ ให้เป็นขนมได้ครั้งคราว แต่โปรตีนไม่พอใช้แทนอาหารสุนัข ใช้เฉพาะเต้าหู้ขาวไม่ปรุง ทำให้สุกและหั่นชิ้นเล็ก ห้ามเต้าหู้ทอด เต้าหู้ยี้ หรือเต้าหู้ปรุงรสที่มีเกลือ หอม กระเทียม สุนัขที่แพ้ถั่วเหลือง มีประวัติท้องอืดหรือกระเพาะบิด ไม่ควรให้ กินมากอาจทำให้มีแก๊สและท้องไส้ปั่นป่วน"
+   "note_th": "ไม่เป็นพิษ ให้เป็นขนมได้ครั้งคราว แต่โปรตีนไม่พอใช้แทนอาหารสุนัข ใช้เฉพาะเต้าหู้ขาวไม่ปรุง ทำให้สุกและหั่นชิ้นเล็ก ห้ามเต้าหู้ทอด เต้าหู้ยี้ หรือเต้าหู้ปรุงรสที่มีเกลือ หอม กระเทียม สุนัขที่แพ้ถั่วเหลือง มีประวัติท้องอืดหรือกระเพาะบิด ไม่ควรให้ กินมากอาจทำให้มีแก๊สและท้องไส้ปั่นป่วน",
+   "note_en": "Not toxic; can be an occasional treat, but its protein is not enough to replace dog food. Use only plain white tofu, cooked and cut into small pieces. Never give fried tofu, fermented tofu, or seasoned tofu containing salt, onion or garlic. Dogs allergic to soy, or with a history of bloat or a twisted stomach, should not have it. Eating a lot may cause gas and stomach upset."
   },
   "cat": {
    "status": "unknown",
-   "note_th": "ยังไม่พบแหล่งอ้างอิงทางสัตวแพทย์ที่ตรวจสอบได้สำหรับแมว แมวต้องการโปรตีนจากเนื้อสัตว์ เต้าหู้ไม่ใช่อาหารที่เหมาะ จึงควรงดให้ไว้ก่อนหรือปรึกษาสัตวแพทย์"
+   "note_th": "ยังไม่พบแหล่งอ้างอิงทางสัตวแพทย์ที่ตรวจสอบได้สำหรับแมว แมวต้องการโปรตีนจากเนื้อสัตว์ เต้าหู้ไม่ใช่อาหารที่เหมาะ จึงควรงดให้ไว้ก่อนหรือปรึกษาสัตวแพทย์",
+   "note_en": "No verifiable veterinary reference for cats has been found yet. Cats need protein from meat, and tofu is not a suitable food, so it's best to avoid it for now or consult a veterinarian."
   },
   "if_eaten_th": "เต้าหู้ขาวไม่ปรุงปริมาณน้อยมักไม่เป็นอันตราย ถ้าเป็นเต้าหู้ปรุงรส ทอด หรือมีหอม/กระเทียม หรือมีอาการอาเจียน ท้องเสีย ท้องอืด ให้ติดต่อสัตวแพทย์",
   "serving_th": "สุนัข: เต้าหู้ขาวไม่ปรุง ทำให้สุก หั่นชิ้นเล็ก ให้ครั้งละน้อยเป็นครั้งคราว",
@@ -2785,6 +3649,16 @@
     "title": "AKC – Can Dogs Eat Tofu? (อ้าง Dr. Jerry Klein, AKC Chief Veterinary Officer)",
     "url": "https://www.akc.org/expert-advice/nutrition/can-dogs-eat-tofu"
    }
-  ]
+  ],
+  "name_en": "Tofu (unseasoned)",
+  "aliases_en": [
+   "tofu",
+   "bean curd",
+   "soft tofu",
+   "firm tofu",
+   "silken tofu"
+  ],
+  "if_eaten_en": "A small amount of plain white tofu is usually not harmful. If it was seasoned or fried tofu, or contained onion/garlic, or there is vomiting, diarrhea or bloating, contact a veterinarian.",
+  "serving_en": "Dog: Plain white tofu, cooked, cut into small pieces, given a little at a time once in a while."
  }
 ]

@@ -18,27 +18,47 @@
 
   /* ===================================================================== */
 
+  /* ---------- language (js/i18n.js) ---------- */
+  var t = (typeof window.t === 'function') ? window.t : function(k){ return k; };
+  function lang(){ return (window.i18n && window.i18n.lang) ? window.i18n.lang() : 'th'; }
+  function isEn(){ return lang() === 'en'; }
+  var THAI_RE = /[฀-๿]/;
+  // Escaped data text; Thai text shown in English mode is marked lang="th" (screen readers, scans)
+  function dataHTML(s){
+    s = String(s == null ? '' : s);
+    return (isEn() && THAI_RE.test(s)) ? '<span lang="th">' + esc(s) + '</span>' : esc(s);
+  }
+  // Optional English field with Thai fallback
+  function pick(th, en){ return (isEn() && en) ? en : th; }
+
+  // Categories are stored in Thai in data/foods.json; the key maps them to the dictionary
   var CATEGORIES = ['ผลไม้','ผัก','เนื้อสัตว์/ไข่','ขนม/ของหวาน','เครื่องดื่ม','อื่นๆ'];
+  var CAT_KEY = {'ผลไม้':'fruit', 'ผัก':'veg', 'เนื้อสัตว์/ไข่':'meat', 'ขนม/ของหวาน':'snack', 'เครื่องดื่ม':'drink', 'อื่นๆ':'other'};
+  function catName(c){ return CAT_KEY[c] ? t('cat.' + CAT_KEY[c]) : String(c || ''); }
   var STATUS_ORDER = ['safe','limited','avoid','toxic','unknown'];
   var STATUS = {
-    safe:    {word:'กินได้',            icon:'i-safe',    desc:'ให้กินได้ ตามวิธีที่แนะนำ ไม่ปรุงรส'},
-    limited: {word:'กินได้บ้าง',         icon:'i-limited', desc:'ได้เล็กน้อย นาน ๆ ครั้ง หรือมีเงื่อนไข'},
-    avoid:   {word:'ควรหลีกเลี่ยง',      icon:'i-avoid',   desc:'ไม่ใช่พิษร้ายแรง แต่มีความเสี่ยง ไม่ควรให้'},
-    toxic:   {word:'ห้ามกิน',           icon:'i-toxic',   desc:'เป็นพิษหรืออันตราย ห้ามให้เด็ดขาด'},
-    unknown: {word:'ไม่มีข้อมูลยืนยัน',  icon:'i-unknown', desc:'ยังไม่ควรให้ จนกว่าจะปรึกษาสัตวแพทย์'}
+    safe:    {icon:'i-safe'},
+    limited: {icon:'i-limited'},
+    avoid:   {icon:'i-avoid'},
+    toxic:   {icon:'i-toxic'},
+    unknown: {icon:'i-unknown'}
   };
+  function stWord(st){ return t('st.' + st); }
+  function stDesc(st){ return t('st.' + st + '.desc'); }
   // Emergency urgency per status: go = go now, call = phone a vet / watch, watch = watch at home
   var URGENCY = {
-    toxic:   {lvl:'go',    icon:'i-toxic',   text:'ไปหาสัตวแพทย์ทันที'},
-    avoid:   {lvl:'call',  icon:'i-phone',   text:'โทรปรึกษาสัตวแพทย์ / สังเกตอาการ'},
-    limited: {lvl:'call',  icon:'i-phone',   text:'โทรปรึกษาสัตวแพทย์ / สังเกตอาการ'},
-    safe:    {lvl:'watch', icon:'i-safe',    text:'สังเกตอาการที่บ้าน'},
-    unknown: {lvl:'call',  icon:'i-phone',   text:'โทรปรึกษาสัตวแพทย์'}
+    toxic:   {lvl:'go',    icon:'i-toxic',   k:'urg.go'},
+    avoid:   {lvl:'call',  icon:'i-phone',   k:'urg.call'},
+    limited: {lvl:'call',  icon:'i-phone',   k:'urg.call'},
+    safe:    {lvl:'watch', icon:'i-safe',    k:'urg.watch'},
+    unknown: {lvl:'call',  icon:'i-phone',   k:'urg.unknown'}
   };
   var SPECIES = {
-    dog:{name:'น้องหมา', nick:'น้องหมา', icon:'icons/pet-dog.jpg'},
-    cat:{name:'น้องแมว', nick:'น้องแมว', icon:'icons/pet-cat.jpg'}
+    dog:{nick:'น้องหมา', icon:'icons/pet-dog.jpg'},
+    cat:{nick:'น้องแมว', icon:'icons/pet-cat.jpg'}
   };
+  function spName(s){ return t('sp.' + s); }        // "น้องหมา" / "Dog"
+  function spLc(s){ return t('sp.' + s + '.lc'); }  // in a sentence: "น้องหมา" / "dog"
   var LS = {species:'kdm-species', profile:'kdm-profile', pets:'kdm-pets-v1', petsDamaged:'kdm-pets-v1-damaged', favs:'kdm-favs', recent:'kdm-recent', requests:'kdm-requests',
             notice:'kdm-notice', optout:'kdm-optout', local:'kdm-feedback-local', iosHint:'kdm-ios-hint'};
   var MAX_RECENT = 8;
@@ -54,7 +74,9 @@
     BY_ID = {};
     FOODS.forEach(function(f){
       BY_ID[f.id] = f;
-      var names = [f.name_th].concat(f.aliases || []);
+      // Thai and English names/aliases are always searchable, whatever the UI language
+      var names = [f.name_th, f.name_en].concat(f.aliases || [], Array.isArray(f.aliases_en) ? f.aliases_en : [])
+        .filter(function(n){ return typeof n === 'string' && n; });
       f._keys = names.map(key).filter(Boolean);
       f._rkeys = names.map(rawKey).filter(Boolean);
     });
@@ -76,7 +98,16 @@
   }
   function badge(st){
     var m = STATUS[st];
-    return '<span class="badge s-'+st+'">'+icon(m.icon)+m.word+'</span>';
+    return '<span class="badge s-'+st+'">'+icon(m.icon)+esc(stWord(st))+'</span>';
+  }
+  /* ---------- food text in the current language (English fields optional, Thai fallback) ---------- */
+  function foodName(f){ return pick(f.name_th, f.name_en); }
+  function foodNameHTML(f){ return dataHTML(foodName(f)); }
+  function foodNote(f, sp){ var i = f[sp] || {}; return pick(i.note_th, i.note_en) || ''; }
+  // field = 'if_eaten' | 'serving'; English text may use "Dog: … | Cat: …" like the Thai "สุนัข: … | แมว: …"
+  function foodPart(f, field, sp){
+    var en = isEn() ? speciesPart(f[field + '_en'], sp) : '';
+    return en || speciesPart(f[field + '_th'], sp);
   }
 
   /* localStorage wrappers: every access guarded, app works without storage */
@@ -89,16 +120,17 @@
   }
   function lsDel(k){ try { localStorage.removeItem(k); } catch(e){} }
 
-  /* Pick the chosen species' part of a field like "สุนัข: … | แมว: …".
+  /* Pick the chosen species' part of a field like "สุนัข: … | แมว: …" (or "Dog: … | Cat: …").
      Untagged text applies to both. Returns '' if the species has no part. */
   function speciesPart(text, sp){
     if (!text) return '';
-    var label = sp === 'cat' ? 'แมว' : 'สุนัข';
     var parts = String(text).split('|').map(function(p){ return p.trim(); }).filter(Boolean);
-    var tagRe = /^(สุนัข|แมว)\s*:\s*/;
+    var tagRe = /^(สุนัข|แมว|dogs?|cats?)\s*:\s*/i;
     var out = parts.filter(function(p){
       var m = p.match(tagRe);
-      return !m || m[1] === label;
+      if (!m) return true;
+      var tag = /^(แมว|cat)/i.test(m[1]) ? 'cat' : 'dog';
+      return tag === sp;
     }).map(function(p){ return p.replace(tagRe, ''); });
     return out.join(' ').trim();
   }
@@ -158,6 +190,8 @@
         scored.push({f:f, s:best, i:idx});
       }
     });
+    // typo matches only help when nothing matched directly ("grape" should not also show "grated coconut")
+    if (scored.some(function(x){ return x.s < 2; })) scored = scored.filter(function(x){ return x.s < 2 || x.s >= 3; });
     scored.sort(function(a, b){ return a.s - b.s || a.i - b.i; });
     return scored.map(function(x){ return x.f; });
   }
@@ -182,8 +216,8 @@
        notice has been seen, and the user has not turned on the opt-out.
      - Google's response cannot be read (no-cors), so "resolved" = sent.
      ===================================================================== */
+  // Values sent to the owner's Google Form stay in Thai whatever the UI language (one consistent sheet)
   var SP_TXT = {dog:'น้องหมา', cat:'น้องแมว', both:'ทั้งสอง'};
-  var PETS_TXT = {dog:'น้องหมา', cat:'น้องแมว', both:'ทั้งน้องหมาและน้องแมว'};
   var RET_TXT = {yes:'ใช้แน่', maybe:'อาจจะ', no:'คงไม่'};
   function entryName(id){
     id = String(id || '').trim();
@@ -290,8 +324,20 @@
   function validISO(s){ return !!parseISO(s) && s >= '1980-01-01' && s <= '2200-12-31'; }
   function dayNum(s){ var p = s.split('-'); return Math.round(Date.UTC(+p[0], +p[1] - 1, +p[2]) / 864e5); }
   function daysUntil(s){ return dayNum(s) - dayNum(todayISO()); }
-  function thDate(s){ var d = parseISO(s); return d ? d.getDate() + ' ' + TH_MON[d.getMonth()] + ' ' + (d.getFullYear() + 543) : ''; }
-  function thDateShort(s, withYear){ var d = parseISO(s); return d ? d.getDate() + ' ' + TH_MON[d.getMonth()] + (withYear ? ' ' + String(d.getFullYear() + 543).slice(2) : '') : ''; }
+  var EN_MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  // Thai: "24 ต.ค. 2569" (Buddhist year) · English: "24 Oct 2026"
+  function fmtDate(s){
+    var d = parseISO(s); if (!d) return '';
+    return isEn() ? d.getDate() + ' ' + EN_MON[d.getMonth()] + ' ' + d.getFullYear()
+      : d.getDate() + ' ' + TH_MON[d.getMonth()] + ' ' + (d.getFullYear() + 543);
+  }
+  function fmtDateShort(s, withYear){
+    var d = parseISO(s); if (!d) return '';
+    return isEn() ? d.getDate() + ' ' + EN_MON[d.getMonth()] + (withYear ? ' ' + d.getFullYear() : '')
+      : d.getDate() + ' ' + TH_MON[d.getMonth()] + (withYear ? ' ' + String(d.getFullYear() + 543).slice(2) : '');
+  }
+  function kgTxt(kg){ return kgFmt(kg) + ' ' + t('unit.kg'); }   // "4.5 กก." / "4.5 kg"
+  function hm(time){ return t('time', {t:time}); }               // "08:00 น." / "08:00"
   function newId(p){ return (p || 'x') + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
   function cleanStr(v, max){ return String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max); }
   function kgFmt(kg){ return (Math.round(kg * 10) / 10).toFixed(1); }
@@ -301,78 +347,78 @@
   function doseCutoff(){ return addDaysISO(todayISO(), -(DOSE_DAYS - 1)); }   // keep the last 90 days (incl. today)
   function medActive(m, day){ day = day || todayISO(); return m.start <= day && (!m.end || m.end >= day); }
   function medStopped(m){ return !!m.end && m.end < todayISO(); }
-  function doseGiven(m, day, t){ return m.doses.some(function(d){ return d.date === day && d.time === t; }); }
+  function doseGiven(m, day, tm){ return m.doses.some(function(d){ return d.date === day && d.time === tm; }); }
 
-  // Strict validation + sanitising. Returns a clean book, or throws Error(Thai message).
+  // Strict validation + sanitising. Returns a clean book, or throws Error(message in the current language).
   function validateBook(raw){
     function bad(m){ throw new Error(m); }
-    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) bad('ไฟล์ไม่ใช่ข้อมูลสมุดสุขภาพ');
-    if (!Array.isArray(raw.pets)) bad('ไม่พบรายชื่อน้องในไฟล์');
-    if (raw.pets.length > MAX_PETS) bad('ไฟล์มีจำนวนน้องมากเกินไป');
-    function optDate(v, what){ if (v == null || v === '') return ''; if (!validISO(v)) bad('วันที่' + what + 'ไม่ถูกต้อง'); return v; }
-    function reqDate(v, what){ if (!validISO(v)) bad('วันที่' + what + 'ไม่ถูกต้อง'); return v; }
-    function idOf(v){ if (!ID_RE.test(String(v || ''))) bad('รหัสรายการในไฟล์ไม่ถูกต้อง'); return String(v); }
-    function list(v, what, max){ if (v == null) return []; if (!Array.isArray(v)) bad('ข้อมูล' + what + 'ไม่ถูกต้อง'); if (v.length > (max || MAX_LIST)) bad('ข้อมูล' + what + 'มากเกินไป'); return v; }
-    function optTime(v, what){ if (v == null || v === '') return ''; if (typeof v !== 'string' || !TIME_RE.test(v)) bad('เวลา' + what + 'ไม่ถูกต้อง'); return v; }
-    function reqTime(v, what){ if (typeof v !== 'string' || !TIME_RE.test(v)) bad('เวลา' + what + 'ไม่ถูกต้อง'); return v; }
-    function obj(v, what){ if (!v || typeof v !== 'object' || Array.isArray(v)) bad('ข้อมูล' + what + 'ไม่ถูกต้อง'); return v; }
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) bad(t('vb.notBook'));
+    if (!Array.isArray(raw.pets)) bad(t('vb.noPets'));
+    if (raw.pets.length > MAX_PETS) bad(t('vb.tooMany'));
+    function optDate(v, what){ if (v == null || v === '') return ''; if (!validISO(v)) bad(t('vb.date', {what:what})); return v; }
+    function reqDate(v, what){ if (!validISO(v)) bad(t('vb.date', {what:what})); return v; }
+    function idOf(v){ if (!ID_RE.test(String(v || ''))) bad(t('vb.id')); return String(v); }
+    function list(v, what, max){ if (v == null) return []; if (!Array.isArray(v)) bad(t('vb.data', {what:what})); if (v.length > (max || MAX_LIST)) bad(t('vb.much', {what:what})); return v; }
+    function optTime(v, what){ if (v == null || v === '') return ''; if (typeof v !== 'string' || !TIME_RE.test(v)) bad(t('vb.time', {what:what})); return v; }
+    function reqTime(v, what){ if (typeof v !== 'string' || !TIME_RE.test(v)) bad(t('vb.time', {what:what})); return v; }
+    function obj(v, what){ if (!v || typeof v !== 'object' || Array.isArray(v)) bad(t('vb.data', {what:what})); return v; }
     var seen = {};
     var pets = raw.pets.map(function(p){
-      obj(p, 'น้อง');
-      var id = idOf(p.id); if (seen[id]) bad('รหัสน้องซ้ำกันในไฟล์'); seen[id] = 1;
-      var name = cleanStr(p.name, 30); if (!name) bad('มีน้องที่ไม่มีชื่อ');
-      if (!SPECIES[p.species]) bad('ชนิดสัตว์ของ ' + name + ' ไม่ถูกต้อง');
-      function intOrNull(v, max){ if (v == null || v === '') return null; if (typeof v !== 'number' || v !== Math.floor(v) || v < 0 || v > max) bad('อายุของ ' + name + ' ไม่ถูกต้อง'); return v; }
-      var flags = p.flags == null ? {} : obj(p.flags, 'ภาวะพิเศษ');
-      if (['', 'male', 'female'].indexOf(p.sex == null ? '' : p.sex) === -1) bad('เพศของ ' + name + ' ไม่ถูกต้อง');
-      if (['', 'yes', 'no'].indexOf(p.sterilized == null ? '' : p.sterilized) === -1) bad('ข้อมูลทำหมันของ ' + name + ' ไม่ถูกต้อง');
-      if (['young', 'adult', 'senior'].indexOf(p.lifeStage) === -1) bad('ช่วงวัยของ ' + name + ' ไม่ถูกต้อง');
+      obj(p, t('vbw.pet'));
+      var id = idOf(p.id); if (seen[id]) bad(t('vb.dupPet')); seen[id] = 1;
+      var name = cleanStr(p.name, 30); if (!name) bad(t('vb.noName'));
+      if (!SPECIES[p.species]) bad(t('vb.sp', {name:name}));
+      function intOrNull(v, max){ if (v == null || v === '') return null; if (typeof v !== 'number' || v !== Math.floor(v) || v < 0 || v > max) bad(t('vb.age', {name:name})); return v; }
+      var flags = p.flags == null ? {} : obj(p.flags, t('vbw.flags'));
+      if (['', 'male', 'female'].indexOf(p.sex == null ? '' : p.sex) === -1) bad(t('vb.sex', {name:name}));
+      if (['', 'yes', 'no'].indexOf(p.sterilized == null ? '' : p.sterilized) === -1) bad(t('vb.ster', {name:name}));
+      if (['young', 'adult', 'senior'].indexOf(p.lifeStage) === -1) bad(t('vb.stage', {name:name}));
       var eids = {};
-      function eid(v){ var i = idOf(v); if (eids[i]) bad('รหัสบันทึกซ้ำกันในไฟล์'); eids[i] = 1; return i; }
+      function eid(v){ var i = idOf(v); if (eids[i]) bad(t('vb.dupEntry')); eids[i] = 1; return i; }
       return {
         id:id, name:name, species:p.species,
-        birthDate: optDate(p.birthDate, 'เกิด'),
+        birthDate: optDate(p.birthDate, t('vbw.birth')),
         ageYears: intOrNull(p.ageYears, 40), ageMonths: intOrNull(p.ageMonths, 11),
-        ageSetAt: optDate(p.ageSetAt, 'บันทึกอายุ'),
+        ageSetAt: optDate(p.ageSetAt, t('vbw.ageSet')),
         sex: p.sex || '', sterilized: p.sterilized || '', lifeStage: p.lifeStage,
         flags: {overweight: flags.overweight === true, kidney: flags.kidney === true},
-        weights: list(p.weights, 'น้ำหนัก').map(function(w){
-          obj(w, 'น้ำหนัก');
-          if (typeof w.kg !== 'number' || !(w.kg >= 0.1 && w.kg <= 150)) bad('น้ำหนักในไฟล์ไม่ถูกต้อง');
-          return {id:eid(w.id), date:reqDate(w.date, 'ชั่งน้ำหนัก'), kg:Math.round(w.kg * 10) / 10};
+        weights: list(p.weights, t('vbw.weight')).map(function(w){
+          obj(w, t('vbw.weight'));
+          if (typeof w.kg !== 'number' || !(w.kg >= 0.1 && w.kg <= 150)) bad(t('vb.kg'));
+          return {id:eid(w.id), date:reqDate(w.date, t('vbw.weigh')), kg:Math.round(w.kg * 10) / 10};
         }),
-        vaccines: list(p.vaccines, 'วัคซีน').map(function(v){
-          obj(v, 'วัคซีน');
-          var n = cleanStr(v.name, 60); if (!n) bad('มีบันทึกวัคซีนที่ไม่มีชื่อ');
-          return {id:eid(v.id), date:reqDate(v.date, 'ฉีดวัคซีน'), name:n, nextDue:optDate(v.nextDue, 'นัด'), note:cleanStr(v.note, 200)};
+        vaccines: list(p.vaccines, t('vbw.vaccine')).map(function(v){
+          obj(v, t('vbw.vaccine'));
+          var n = cleanStr(v.name, 60); if (!n) bad(t('vb.vaxName'));
+          return {id:eid(v.id), date:reqDate(v.date, t('vbw.vaxDate')), name:n, nextDue:optDate(v.nextDue, t('vbw.due')), note:cleanStr(v.note, 200)};
         }),
-        deworm: list(p.deworm, 'ถ่ายพยาธิ').map(function(v){
-          obj(v, 'ถ่ายพยาธิ');
-          var n = cleanStr(v.product, 60); if (!n) bad('มีบันทึกถ่ายพยาธิที่ไม่มีชื่อผลิตภัณฑ์');
-          return {id:eid(v.id), date:reqDate(v.date, 'ถ่ายพยาธิ'), product:n, nextDue:optDate(v.nextDue, 'นัด'), note:cleanStr(v.note, 200)};
+        deworm: list(p.deworm, t('vbw.deworm')).map(function(v){
+          obj(v, t('vbw.deworm'));
+          var n = cleanStr(v.product, 60); if (!n) bad(t('vb.dewName'));
+          return {id:eid(v.id), date:reqDate(v.date, t('vbw.deworm')), product:n, nextDue:optDate(v.nextDue, t('vbw.due')), note:cleanStr(v.note, 200)};
         }),
-        meds: list(p.meds, 'ยา', MAX_MEDS).map(function(m){
-          obj(m, 'ยา');
-          var n = cleanStr(m.name, 60); if (!n) bad('มีบันทึกยาที่ไม่มีชื่อยา');
-          var times = list(m.times, 'เวลาให้ยา', MAX_TIMES).map(function(t){ return reqTime(t, 'ให้ยา ' + n); });
-          if (!times.length) bad('ยา ' + n + ' ไม่มีเวลาให้ยา');
-          times = times.filter(function(t, i){ return times.indexOf(t) === i; }).sort();
-          var start = reqDate(m.start, 'เริ่มให้ยา'), end = optDate(m.end, 'หยุดยา');
-          if (end && end < start) bad('วันสิ้นสุดของยา ' + n + ' อยู่ก่อนวันเริ่ม');
+        meds: list(p.meds, t('vbw.med'), MAX_MEDS).map(function(m){
+          obj(m, t('vbw.med'));
+          var n = cleanStr(m.name, 60); if (!n) bad(t('vb.medName'));
+          var times = list(m.times, t('vbw.medTimes'), MAX_TIMES).map(function(x){ return reqTime(x, t('vbw.giveMedN', {name:n})); });
+          if (!times.length) bad(t('vb.medTimes', {name:n}));
+          times = times.filter(function(x, i){ return times.indexOf(x) === i; }).sort();
+          var start = reqDate(m.start, t('vbw.medStart')), end = optDate(m.end, t('vbw.medEnd'));
+          if (end && end < start) bad(t('vb.medEnd', {name:n}));
           var cut = doseCutoff(), dk = {};
-          var doses = list(m.doses, 'การให้ยา', 2000).map(function(d){
-            obj(d, 'การให้ยา');
+          var doses = list(m.doses, t('vbw.doses'), 2000).map(function(d){
+            obj(d, t('vbw.doses'));
             var at = String(d.at == null ? '' : d.at);
-            if (!STAMP_RE.test(at)) bad('เวลาบันทึกการให้ยาไม่ถูกต้อง');
-            return {date:reqDate(d.date, 'ให้ยา'), time:reqTime(d.time, 'ให้ยา'), at:at};
+            if (!STAMP_RE.test(at)) bad(t('vb.stamp'));
+            return {date:reqDate(d.date, t('vbw.giveMed')), time:reqTime(d.time, t('vbw.giveMed')), at:at};
           }).filter(function(d){ var k = d.date + ' ' + d.time; if (dk[k] || d.date < cut) return false; dk[k] = 1; return true; });
           return {id:eid(m.id), name:n, instructions:cleanStr(m.instructions, 200), times:times, start:start, end:end,
-            refillDate:optDate(m.refillDate, 'รับยา'), note:cleanStr(m.note, 200), doses:doses.slice(-MAX_DOSES)};
+            refillDate:optDate(m.refillDate, t('vbw.refill')), note:cleanStr(m.note, 200), doses:doses.slice(-MAX_DOSES)};
         }),
-        appts: list(p.appts, 'นัดหมอ', MAX_APPTS).map(function(a){
-          obj(a, 'นัดหมอ');
-          if (a.done != null && typeof a.done !== 'boolean') bad('สถานะนัดหมอไม่ถูกต้อง');
-          return {id:eid(a.id), date:reqDate(a.date, 'นัดหมอ'), time:optTime(a.time, 'นัดหมอ'), clinic:cleanStr(a.clinic, 80),
+        appts: list(p.appts, t('vbw.appt'), MAX_APPTS).map(function(a){
+          obj(a, t('vbw.appt'));
+          if (a.done != null && typeof a.done !== 'boolean') bad(t('vb.apptState'));
+          return {id:eid(a.id), date:reqDate(a.date, t('vbw.appt')), time:optTime(a.time, t('vbw.appt')), clinic:cleanStr(a.clinic, 80),
             reason:cleanStr(a.reason, 60), note:cleanStr(a.note, 200), done:a.done === true};
         }),
         createdAt: cleanStr(p.createdAt, 40)
@@ -437,8 +483,8 @@
   function ageText(m){
     if (m == null) return '';
     var y = Math.floor(m / 12), mo = m % 12;
-    if (!y && !mo) return 'ไม่ถึง 1 เดือน';
-    return (y ? y + ' ปี' : '') + (y && mo ? ' ' : '') + (mo ? mo + ' เดือน' : '');
+    if (!y && !mo) return t('age.lt1');
+    return (y ? t('age.y', {n:y}) : '') + (y && mo ? ' ' : '') + (mo ? t('age.m', {n:mo}) : '');
   }
   function stageOf(p){ var m = ageMonthsOf(p); return (m != null && m < 12) ? 'young' : p.lifeStage; }
   // Upcoming / overdue appointments across all pets (nextDue within `days`, or overdue)
@@ -455,10 +501,10 @@
     });
   }
   function dueTitle(x){
-    if (x.kind === 'vaccine') return (/^วัคซีน/.test(x.item.name) ? '' : 'วัคซีน') + x.item.name;
-    if (x.kind === 'med') return 'รับยา ' + x.item.name;
-    if (x.kind === 'appt') return 'นัดหมอ' + (x.item.reason ? ': ' + x.item.reason : '');
-    return 'ถ่ายพยาธิ/เห็บหมัด: ' + x.item.product;
+    if (x.kind === 'vaccine') return (/^วัคซีน|vaccin/i.test(x.item.name) ? '' : t('due.vaccine')) + x.item.name;
+    if (x.kind === 'med') return t('due.med', {name:x.item.name});
+    if (x.kind === 'appt') return t('due.appt') + (x.item.reason ? ': ' + x.item.reason : '');
+    return t('due.deworm', {name:x.item.product});
   }
 
   // Today's doses not yet given, across all pets (sorted by time)
@@ -467,7 +513,7 @@
     book.pets.forEach(function(p){
       p.meds.forEach(function(m){
         if (!medActive(m, day)) return;
-        m.times.forEach(function(t){ if (!doseGiven(m, day, t)) out.push({pet:p, med:m, time:t, late:t < now}); });
+        m.times.forEach(function(tm){ if (!doseGiven(m, day, tm)) out.push({pet:p, med:m, time:tm, late:tm < now}); });
       });
     });
     return out.sort(function(a, b){ return a.time < b.time ? -1 : a.time > b.time ? 1 : 0; });
@@ -509,10 +555,10 @@
   /* ---------- toast ---------- */
   var toastTimer = null;
   function toast(msg){
-    var t = $('#toast');
-    t.textContent = msg; t.hidden = false;
+    var box = $('#toast');
+    box.textContent = msg; box.hidden = false;
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function(){ t.hidden = true; }, 2600);
+    toastTimer = setTimeout(function(){ box.hidden = true; }, 2600);
   }
 
   /* ---------- views ---------- */
@@ -527,24 +573,26 @@
       if (b.getAttribute('data-tab') === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     });
   }
+  var relang = false;        // true while re-rendering after a language switch: keep focus + scroll
   function focusMain(el){
-    var t = el || $('#main');
-    if (!t.hasAttribute('tabindex')) t.setAttribute('tabindex', '-1');
-    try { t.focus({preventScroll:true}); } catch(e){ t.focus(); }
+    if (relang) return;
+    var tgt = el || $('#main');
+    if (!tgt.hasAttribute('tabindex')) tgt.setAttribute('tabindex', '-1');
+    try { tgt.focus({preventScroll:true}); } catch(e){ tgt.focus(); }
     window.scrollTo(0, 0);
   }
 
   function renderSearchChrome(){
     var sp = SPECIES[species];
-    $$('.sp-name').forEach(function(n){ n.textContent = sp.name; });
+    $$('.sp-name').forEach(function(n){ n.textContent = spName(species); });
     $$('.sp-icon').forEach(function(n){ n.setAttribute('src', sp.icon); });
-    $('#search-h').textContent = sp.nick + 'กินอันนี้ได้ไหม?';
+    $('#search-h').textContent = t('search.h', {pet:spLc(species)});
   }
 
-  function chip(id){ return '<button type="button" class="chip" data-food="'+esc(id)+'">'+esc(BY_ID[id].name_th)+'</button>'; }
+  function chip(id){ return '<button type="button" class="chip" data-food="'+esc(id)+'">'+foodNameHTML(BY_ID[id])+'</button>'; }
   function resRow(f, attr){
     return '<li><button type="button" class="res-btn" '+(attr||'data-food')+'="'+esc(f.id)+'">'+
-      '<span class="res-name">'+esc(f.name_th)+'<span class="res-cat">'+esc(f.category||'')+'</span></span>'+
+      '<span class="res-name">'+foodNameHTML(f)+'<span class="res-cat">'+esc(catName(f.category))+'</span></span>'+
       badge(statusOf(f, species))+'</button></li>';
   }
   function renderPopular(){
@@ -563,12 +611,12 @@
   function renderCategories(){
     var present = CATEGORIES.filter(function(c){ return FOODS.some(function(f){ return f.category === c; }); });
     $('#categories').innerHTML = present.map(function(c){
-      return '<button type="button" class="chip" data-cat="'+esc(c)+'" aria-pressed="false">'+esc(c)+'</button>';
+      return '<button type="button" class="chip" data-cat="'+esc(c)+'" aria-pressed="false">'+esc(catName(c))+'</button>';
     }).join('');
   }
   function legendHTML(){
     return STATUS_ORDER.map(function(s){
-      return '<li>'+badge(s)+'<span class="muted">'+STATUS[s].desc+'</span></li>';
+      return '<li>'+badge(s)+'<span class="muted">'+esc(stDesc(s))+'</span></li>';
     }).join('');
   }
 
@@ -581,17 +629,17 @@
   function dishHintHTML(raw, items){
     if (!LEFTOVERS || !looksLikeDish(raw)) return '';
     if (items && items.some(function(f){ return f.id === LEFTOVERS.id; })) return '';
-    return '<div class="suggest"><p>ดูเหมือนเป็นอาหารปรุงสำเร็จ ส่วนใหญ่มีเกลือ น้ำมัน หอม หรือกระเทียม ลองดูข้อมูลนี้:</p>'+
+    return '<div class="suggest"><p>'+esc(t('dish.hint'))+'</p>'+
       '<ul class="results">'+resRow(LEFTOVERS)+'</ul></div>';
   }
   function notFoundHTML(q, headingId){
     return icon('i-unknown')+
-      '<h2'+(headingId?' id="'+headingId+'" tabindex="-1"':'')+'>ยังไม่มีข้อมูลอาหารนี้</h2>'+
-      (q ? '<p class="muted">ไม่พบ “'+esc(q)+'” ในฐานข้อมูล</p>' : '')+
-      '<p><strong>ยังไม่ควรให้'+esc(SPECIES[species].nick)+'กิน</strong> จนกว่าจะได้ยืนยันกับสัตวแพทย์</p>'+
-      (q ? '<button type="button" class="btn-sec" data-action="request-food" data-q="'+esc(q)+'">'+icon('i-plus')+'ขอให้เพิ่มเมนูนี้</button>'+
+      '<h2'+(headingId?' id="'+headingId+'" tabindex="-1"':'')+'>'+esc(t('nf.h'))+'</h2>'+
+      (q ? '<p class="muted">'+t('nf.q', {q:dataHTML(q)})+'</p>' : '')+
+      '<p>'+t('nf.dont', {pet:esc(spLc(species))})+'</p>'+
+      (q ? '<button type="button" class="btn-sec" data-action="request-food" data-q="'+esc(q)+'">'+icon('i-plus')+esc(t('nf.req'))+'</button>'+
            '<p class="req-done" role="status" hidden></p>' : '')+
-      '<p class="small muted" style="margin:10px 0 0">ถ้าน้องกินไปแล้ว กดปุ่มสีแดง “กินไปแล้ว ทำไงดี?” ด้านบน</p>';
+      '<p class="small muted" style="margin:10px 0 0">'+esc(t('nf.emg'))+'</p>';
   }
   function setCatPressed(cat){
     $$('#categories .chip').forEach(function(b){
@@ -614,13 +662,13 @@
     setCatPressed(null);
     if (!key(q)){ clearResults(); renderSaved(); return; }
     var items = search(q);
-    renderList(items, items.length ? 'พบ '+items.length+' รายการ' : '');
+    renderList(items, items.length ? t('res.found', {n:items.length}) : '');
     $('#dish-hint').innerHTML = dishHintHTML(q, items);
     var nf = $('#notfound-inline');
     nf.hidden = items.length > 0;
     nf.innerHTML = items.length ? '' : notFoundHTML(q);
     $('#browse').hidden = true;
-    $('#res-status').textContent = items.length ? 'พบ '+items.length+' รายการ' : 'ยังไม่มีข้อมูลอาหารนี้';
+    $('#res-status').textContent = items.length ? t('res.found', {n:items.length}) : t('res.none');
     if (items.length) clearTimeout(missedTimer); else scheduleMissed();
   }
 
@@ -629,11 +677,11 @@
     var items = FOODS.filter(function(f){ return f.category === cat; }).sort(function(a, b){
       return STATUS_ORDER.indexOf(statusOf(a, species)) - STATUS_ORDER.indexOf(statusOf(b, species));
     });
-    renderList(items, 'หมวด '+cat+' ('+items.length+')');
+    renderList(items, t('res.catLabel', {cat:catName(cat), n:items.length}));
     $('#dish-hint').innerHTML = '';
     $('#notfound-inline').hidden = true;
     setCatPressed(cat);
-    $('#res-status').textContent = 'หมวด '+cat+' พบ '+items.length+' รายการ';
+    $('#res-status').textContent = t('res.catStatus', {cat:catName(cat), n:items.length});
     var area = $('#results-area');
     if (area.scrollIntoView) area.scrollIntoView({block:'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
   }
@@ -641,18 +689,18 @@
   /* ---------- trust layer ---------- */
   function reviewChipHTML(){
     if (REVIEW.reviewer){
-      return '<span class="review-chip done">'+icon('i-shield')+'ตรวจทานโดย สพ.'+esc(REVIEW.reviewer)+(REVIEW.date ? ' · วันที่ '+esc(REVIEW.date) : '')+'</span>';
+      return '<span class="review-chip done">'+icon('i-shield')+t('review.done', {name:dataHTML(REVIEW.reviewer)})+(REVIEW.date ? t('review.date', {date:dataHTML(REVIEW.date)}) : '')+'</span>';
     }
-    return '<span class="review-chip draft">'+icon('i-shield')+'สถานะ: ฉบับร่าง รอสัตวแพทย์ตรวจทาน</span>';
+    return '<span class="review-chip draft">'+icon('i-shield')+esc(t('review.draft'))+'</span>';
   }
   function sourceItems(srcs){
     return srcs.map(function(s){
-      return '<li><a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+esc(s.title || s.url)+'<span class="sr-only"> (เปิดในแท็บใหม่)</span></a></li>';
+      return '<li><a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+dataHTML(s.title || s.url)+'<span class="sr-only">'+esc(t('newtab'))+'</span></a></li>';
     }).join('');
   }
   function sourcesHTML(list){
     var srcs = (list || []).filter(function(s){ return s && safeUrl(s.url); });
-    return srcs.length ? '<ul class="sources">'+sourceItems(srcs)+'</ul>' : '<p class="muted small">ยังไม่มีแหล่งอ้างอิง</p>';
+    return srcs.length ? '<ul class="sources">'+sourceItems(srcs)+'</ul>' : '<p class="muted small">'+esc(t('src.none'))+'</p>';
   }
 
   /* ---------- treat guideline (WSAVA 10%) ---------- */
@@ -669,91 +717,94 @@
   function treatCardHTML(pet, inBook){
     var p = pet || null;
     if (!inBook){ p = activePet(); if (p && p.species !== species) p = null; }
-    var html = '<div class="card treat"><h2>'+icon('i-paw')+'ปริมาณขนมต่อวัน</h2>'+
-      '<p>ขนมและอาหารเสริมทุกชนิดรวมกันไม่ควรเกิน 10% ของพลังงานต่อวัน (แนวทาง WSAVA)</p>';
+    var html = '<div class="card treat"><h2>'+icon('i-paw')+esc(t('treat.h'))+'</h2>'+
+      '<p>'+esc(t('treat.p'))+'</p>';
     if (p){
       var kc = treatKcal(p), w = latestWeight(p);
       if (kc != null){
-        html += '<p class="kcal">'+esc(p.name)+' ('+kgFmt(w.kg)+' กก.): ไม่เกินประมาณ '+kc+' kcal ต่อวัน</p>'+
-          '<p class="est-note">ค่าประมาณคร่าว ๆ ปรึกษาสัตวแพทย์สำหรับตัวเลขที่เหมาะกับน้อง</p>';
+        html += '<p class="kcal">'+t('treat.kcal', {name:esc(p.name), kg:esc(kgTxt(w.kg)), kc:kc})+'</p>'+
+          '<p class="est-note">'+esc(t('treat.est'))+'</p>';
       } else if (!w){
-        html += '<p class="small muted">'+(inBook ? '<button type="button" class="link-btn" style="padding:0" data-action="hb-add-weight">เพิ่มบันทึกน้ำหนัก</button>'
-          : '<button type="button" class="link-btn" style="padding:0" data-action="profile">เพิ่มน้ำหนักในสมุดสุขภาพ</button>')+' เพื่อดูตัวเลขโดยประมาณ</p>';
+        html += '<p class="small muted">'+(inBook ? '<button type="button" class="link-btn" style="padding:0" data-action="hb-add-weight">'+esc(t('treat.addW'))+'</button>'
+          : '<button type="button" class="link-btn" style="padding:0" data-action="profile">'+esc(t('treat.addWBook'))+'</button>')+esc(t('treat.toSee'))+'</p>';
       }
       if (p.flags.kidney || stageOf(p) === 'young'){
-        html += '<div class="caveat">น้องมีภาวะพิเศษ ควรถามสัตวแพทย์ก่อนให้อาหารนอกมื้อ</div>';
+        html += '<div class="caveat">'+esc(t('treat.caveat'))+'</div>';
       }
     } else {
-      html += '<p class="small muted"><button type="button" class="link-btn" style="padding:0;min-height:44px" data-action="profile">ใส่ข้อมูลน้องในสมุดสุขภาพ</button> เพื่อดูตัวเลขโดยประมาณ</p>';
+      html += '<p class="small muted"><button type="button" class="link-btn" style="padding:0;min-height:44px" data-action="profile">'+esc(t('treat.addPet'))+'</button>'+esc(t('treat.toSee'))+'</p>';
     }
-    html += '<p class="small"><a href="'+esc(WSAVA_URL)+'" target="_blank" rel="noopener noreferrer">WSAVA – Feeding treats to your cat (PDF)<span class="sr-only"> (เปิดในแท็บใหม่)</span></a></p></div>';
+    html += '<p class="small"><a href="'+esc(WSAVA_URL)+'" target="_blank" rel="noopener noreferrer">WSAVA – Feeding treats to your cat (PDF)<span class="sr-only">'+esc(t('newtab'))+'</span></a></p></div>';
     return html;
   }
 
   /* ---------- "if eaten" block, shared by result + emergency ---------- */
   function ifEatenHTML(food, sp, withEmgLink){
     var st = statusOf(food, sp), u = URGENCY[st];
-    var txt = speciesPart(food.if_eaten_th, sp) || 'สังเกตอาการอย่างใกล้ชิด และโทรปรึกษาสัตวแพทย์ อย่าทำให้อาเจียนเองถ้าสัตวแพทย์ไม่ได้แนะนำ';
+    var txt = foodPart(food, 'if_eaten', sp);
+    var body = txt ? dataHTML(txt) : esc(t('ifeaten.default'));
     return '<div class="card lvl-'+u.lvl+'">'+
-      '<h2>ถ้า'+esc(SPECIES[sp].nick)+'กินไปแล้ว</h2>'+
-      '<p class="urg">'+icon(u.icon)+u.text+'</p>'+
-      '<p>'+esc(txt)+'</p>'+
-      (withEmgLink ? '<button type="button" class="btn-danger" data-action="emergency-food" data-id="'+esc(food.id)+'">'+icon('i-siren')+'เปิดโหมดฉุกเฉิน และรายชื่อโรงพยาบาลสัตว์</button>' : '')+
+      '<h2>'+esc(t('ifeaten.h', {pet:spLc(sp)}))+'</h2>'+
+      '<p class="urg">'+icon(u.icon)+esc(t(u.k))+'</p>'+
+      '<p>'+body+'</p>'+
+      (withEmgLink ? '<button type="button" class="btn-danger" data-action="emergency-food" data-id="'+esc(food.id)+'">'+icon('i-siren')+esc(t('ifeaten.emg'))+'</button>' : '')+
     '</div>';
   }
 
-  /* ---------- share ---------- */
+  /* ---------- share (follows the current language) ---------- */
   function shareText(food){
     var st = statusOf(food, species);
-    var note = (food[species] && food[species].note_th) || '';
+    var note = foodNote(food, species);
     if (note.length > 90) note = note.slice(0, 88) + '…';
-    return food.name_th + ' — ' + SPECIES[species].name + ': ' + STATUS[st].word +
-      (note ? '\n' + note : '') + '\nข้อมูลจากแอป กินได้ไหม?';
+    return foodName(food) + ' — ' + spName(species) + ': ' + stWord(st) +
+      (note ? '\n' + note : '') + '\n' + t('share.from');
   }
 
-  /* ---------- result ---------- */
+  /* ---------- result ----------
+     Two wrappers (.res-verdict / .res-details) become side-by-side columns on desktop;
+     on narrow screens they use display:contents and CSS order keeps the original reading order. */
   function renderResult(food){
-    var st = statusOf(food, species), m = STATUS[st], sp = SPECIES[species];
-    var info = food[species] || {};
+    var st = statusOf(food, species), m = STATUS[st];
+    var note = foodNote(food, species);
     var isFav = getFavs().indexOf(food.id) !== -1;
-    var html =
-      '<div class="status-card s-'+st+'">'+
+    var verdict =
+      '<div class="status-card s-'+st+' res-o1">'+
         icon(m.icon, 'big-ic')+
-        '<p class="word">'+m.word+'</p>'+
-        '<p class="for">สำหรับ'+esc(sp.name)+'</p>'+
+        '<p class="word">'+esc(stWord(st))+'</p>'+
+        '<p class="for">'+esc(t('res.for.' + species))+'</p>'+
       '</div>'+
-      '<div class="title-row"><h1 class="food-name" id="food-h" tabindex="-1">'+esc(food.name_th)+'</h1>'+
-        '<button type="button" class="fav-btn" data-action="fav" data-id="'+esc(food.id)+'" aria-pressed="'+isFav+'" aria-label="บันทึกรายการนี้">'+icon('i-heart')+'</button></div>'+
-      '<p class="food-cat">หมวด '+esc(food.category||'-')+'</p>'+
-      '<div class="note"><p style="margin:0">'+esc(info.note_th || 'ยังไม่มีคำอธิบายเพิ่มเติม')+'</p></div>';
+      '<div class="title-row res-o1"><h1 class="food-name" id="food-h" tabindex="-1">'+foodNameHTML(food)+'</h1>'+
+        '<button type="button" class="fav-btn" data-action="fav" data-id="'+esc(food.id)+'" aria-pressed="'+isFav+'" aria-label="'+esc(t('res.fav.aria'))+'">'+icon('i-heart')+'</button></div>'+
+      '<p class="food-cat res-o1">'+esc(t('res.cat', {cat:catName(food.category) || '-'}))+'</p>';
+    var details = '<div class="note res-o2"><p style="margin:0">'+(note ? dataHTML(note) : esc(t('res.noNote')))+'</p></div>';
 
     if (st === 'safe' || st === 'limited'){
-      var serving = speciesPart(food.serving_th, species);
+      var serving = foodPart(food, 'serving', species);
       if (serving){
-        html += '<div class="card tip"><h2>'+icon('i-bowl')+'วิธีให้อย่างปลอดภัย</h2><p>'+esc(serving)+'</p></div>';
+        details += '<div class="card tip res-o2"><h2>'+icon('i-bowl')+esc(t('res.serving'))+'</h2><p>'+dataHTML(serving)+'</p></div>';
       }
-      html += treatCardHTML();
+      details += treatCardHTML().replace('class="card treat"', 'class="card treat res-o2"');
     }
 
-    html += ifEatenHTML(food, species, st !== 'safe');
+    details += ifEatenHTML(food, species, st !== 'safe').replace('<div class="card lvl-', '<div class="res-o2 card lvl-');
 
     var text = shareText(food);
-    html +=
-      '<div class="share-row">'+
-        '<a class="btn-sec" href="https://social-plugins.line.me/lineit/share?text='+encodeURIComponent(text)+'" target="_blank" rel="noopener">'+icon('i-chat')+'แชร์ทาง LINE<span class="sr-only"> (เปิดในแท็บใหม่)</span></a>'+
-        '<button type="button" class="btn-sec" data-action="copy-share">'+icon('i-copy')+'คัดลอกข้อความ</button>'+
+    verdict +=
+      '<div class="share-row res-o3">'+
+        '<a class="btn-sec" href="https://social-plugins.line.me/lineit/share?text='+encodeURIComponent(text)+'" target="_blank" rel="noopener">'+icon('i-chat')+esc(t('share.line'))+'<span class="sr-only">'+esc(t('newtab'))+'</span></a>'+
+        '<button type="button" class="btn-sec" data-action="copy-share">'+icon('i-copy')+esc(t('share.copy'))+'</button>'+
       '</div>'+
-      '<div class="copy-fallback" hidden><label for="share-text" class="small muted">กดค้างที่ข้อความเพื่อคัดลอก</label><textarea id="share-text" readonly>'+esc(text)+'</textarea></div>';
+      '<div class="copy-fallback res-o3" hidden><label for="share-text" class="small muted">'+esc(t('share.hold'))+'</label><textarea id="share-text" readonly>'+esc(text)+'</textarea></div>';
 
-    html += helpfulHTML(food);
+    details += helpfulHTML(food).replace('<div class="helpful"', '<div class="helpful res-o4"');
 
-    html += '<div class="trust"><h2>ความน่าเชื่อถือของข้อมูล</h2>'+reviewChipHTML()+
-      '<h3 style="margin-top:8px">แหล่งอ้างอิง</h3>'+sourcesHTML(food.sources)+
-      '<p class="small muted" style="margin-top:8px">ความรู้ทั่วไป ไม่ใช่การวินิจฉัยหรือคำแนะนำเฉพาะตัว <button type="button" class="link-btn" style="min-height:44px;padding:0" data-action="about">เกี่ยวกับข้อมูล</button></p></div>';
+    details += '<div class="trust res-o4"><h2>'+esc(t('trust.h'))+'</h2>'+reviewChipHTML()+
+      '<h3 style="margin-top:8px">'+esc(t('trust.src'))+'</h3>'+sourcesHTML(food.sources)+
+      '<p class="small muted" style="margin-top:8px">'+esc(t('trust.p'))+' <button type="button" class="link-btn" style="min-height:44px;padding:0" data-action="about">'+esc(t('home.about'))+'</button></p></div>';
 
-    $('#result-body').innerHTML = html;
+    $('#result-body').innerHTML = '<div class="res-col res-verdict">'+verdict+'</div><div class="res-col res-details">'+details+'</div>';
     var other = species === 'dog' ? 'cat' : 'dog';
-    $('#other-sp-btn span').textContent = 'ดูผลสำหรับ' + SPECIES[other].name;
+    $('#other-sp-btn span').textContent = t('res.other.' + other);
   }
 
   /* ---------- "was this helpful" on results ---------- */
@@ -761,22 +812,22 @@
   function helpfulHTML(food){
     var hk = food.id + '|' + species, st = helpedThisVisit[hk];
     var done = st && st !== 'no';
-    return '<div class="helpful" data-food-id="' + esc(food.id) + '"><h2 id="help-h">คำตอบนี้มีประโยชน์ไหม?</h2>' +
+    return '<div class="helpful" data-food-id="' + esc(food.id) + '"><h2 id="help-h">' + esc(t('help.h')) + '</h2>' +
       '<div class="help-row" role="group" aria-labelledby="help-h">' +
-        '<button type="button" class="help-btn" data-action="help-yes" aria-pressed="' + (st === 'yes') + '"' + (st ? ' disabled' : '') + '>' + icon('i-thumb') + 'มีประโยชน์</button>' +
-        '<button type="button" class="help-btn" data-action="help-no" aria-pressed="' + (st === 'no' || st === 'no-sent') + '"' + (done ? ' disabled' : '') + '>' + icon('i-thumb-down') + 'ยังไม่ชัด</button>' +
+        '<button type="button" class="help-btn" data-action="help-yes" aria-pressed="' + (st === 'yes') + '"' + (st ? ' disabled' : '') + '>' + icon('i-thumb') + esc(t('help.yes')) + '</button>' +
+        '<button type="button" class="help-btn" data-action="help-no" aria-pressed="' + (st === 'no' || st === 'no-sent') + '"' + (done ? ' disabled' : '') + '>' + icon('i-thumb-down') + esc(t('help.no')) + '</button>' +
       '</div>' +
       '<div class="help-more"' + (st === 'no' ? '' : ' hidden') + '>' +
-        '<label for="help-note">อะไรที่ยังไม่ชัด? (ไม่บังคับ)</label>' +
-        '<textarea id="help-note" maxlength="300" placeholder="เช่น ไม่แน่ใจว่าให้ได้เท่าไร"></textarea>' +
-        '<p class="hint">ไม่ต้องใส่ชื่อ เบอร์โทร หรืออีเมล</p>' +
-        '<button type="button" class="mini-btn" data-action="help-send">' + icon('i-send') + 'ส่ง</button>' +
+        '<label for="help-note">' + esc(t('help.more')) + '</label>' +
+        '<textarea id="help-note" maxlength="300" placeholder="' + esc(t('help.ph')) + '"></textarea>' +
+        '<p class="hint">' + esc(t('help.hint')) + '</p>' +
+        '<button type="button" class="mini-btn" data-action="help-send">' + icon('i-send') + esc(t('help.send')) + '</button>' +
       '</div>' +
-      '<p class="help-msg" role="status"' + (done ? '' : ' hidden') + '>' + (done ? 'ขอบคุณสำหรับคำตอบค่ะ' : '') + '</p></div>';
+      '<p class="help-msg" role="status"' + (done ? '' : ' hidden') + '>' + (done ? esc(t('help.thanks')) : '') + '</p></div>';
   }
   function helpfulDone(box, data){
     var msg = box.querySelector('.help-msg');
-    msg.hidden = false; msg.textContent = 'ขอบคุณสำหรับคำตอบค่ะ';
+    msg.hidden = false; msg.textContent = t('help.thanks');
     sendAuto('helpful', data);
   }
   function onHelpful(btn, yes){
@@ -810,7 +861,7 @@
   function resetFeedback(){
     fbSubmitted = null;
     $('#fb-form').reset();
-    $('#fb-wish-count').textContent = '0/500 ตัวอักษร';
+    $('#fb-wish-count').textContent = t('fb.count', {n:0});
     $$('#fb-form .field-err').forEach(function(p){ p.hidden = true; });
     $$('#fb-form .invalid').forEach(function(r){ r.classList.remove('invalid'); });
   }
@@ -821,12 +872,10 @@
     }
     var mode = feedbackMode(), m = $('#fb-mode');
     m.hidden = mode === 'post' || !!fbSubmitted;
-    m.textContent = mode === 'form'
-      ? 'กดส่งแล้ว แอปจะเปิดแบบฟอร์มออนไลน์ที่กรอกคำตอบไว้ให้ กดส่งในแบบฟอร์มอีกครั้งเพื่อยืนยัน'
-      : 'ตอนนี้ยังไม่ได้เชื่อมแบบฟอร์มออนไลน์ กดส่งแล้วจะได้ข้อความสรุปไว้คัดลอกส่งให้ผู้จัดทำ';
-    $('#fb-consent-label').textContent = mode === 'copy'
-      ? 'ยินยอมให้ใช้คำตอบแบบไม่ระบุตัวตนเพื่อพัฒนาแอป'
-      : 'ยินยอมให้ส่งคำตอบแบบไม่ระบุตัวตนไปยังแบบฟอร์มของผู้จัดทำ (Google Forms) เพื่อพัฒนาแอป';
+    m.textContent = mode === 'form' ? t('fb.mode.form') : t('fb.mode.copy');
+    $('#fb-consent-label').textContent = mode === 'copy' ? t('fb.consent.copy') : t('fb.consent.form');
+    $('#fb-wish-count').textContent = t('fb.count', {n:$('#fb-wish').value.length});
+    if (!fbBusy) $('#fb-submit span').textContent = t('fb.submit');
     $('#fb-form').hidden = !!fbSubmitted;
     var done = $('#fb-done');
     done.hidden = !fbSubmitted;
@@ -834,20 +883,20 @@
     var html;
     if (fbSubmitted.mode === 'sent'){
       html = '<div class="card done-card">' + icon('i-check-c') +
-        '<h2>ส่งคำตอบแล้ว ขอบคุณค่ะ</h2><p>ความคิดเห็นของคุณช่วยให้แอปนี้ดีขึ้นสำหรับเจ้าของสัตว์เลี้ยงคนอื่น ๆ</p>';
+        '<h2>' + esc(t('fb.sent.h')) + '</h2><p>' + esc(t('fb.sent.p')) + '</p>';
     } else if (fbSubmitted.mode === 'form'){
       html = '<div class="card done-card">' + icon('i-send') +
-        '<h2>เปิดแบบฟอร์มให้แล้ว</h2><p>กดปุ่ม “ส่ง” ในแบบฟอร์มเพื่อยืนยัน ถ้าแบบฟอร์มไม่เปิด กดปุ่มด้านล่าง</p>' +
-        '<a class="btn-sec" href="' + esc(prefillUrl(fbSubmitted.answers)) + '" target="_blank" rel="noopener">' + icon('i-send') + 'เปิดแบบฟอร์มอีกครั้ง<span class="sr-only"> (เปิดในแท็บใหม่)</span></a>';
+        '<h2>' + esc(t('fb.form.h')) + '</h2><p>' + esc(t('fb.form.p')) + '</p>' +
+        '<a class="btn-sec" href="' + esc(prefillUrl(fbSubmitted.answers)) + '" target="_blank" rel="noopener">' + icon('i-send') + esc(t('fb.form.again')) + '<span class="sr-only">' + esc(t('newtab')) + '</span></a>';
     } else {
-      html = '<div class="card fallback-card"><h2>' + icon('i-info') + 'อีกขั้นเดียว</h2>' +
-        '<p>คัดลอกข้อความนี้ แล้วส่งให้ผู้จัดทำแอปทางช่องทางที่คุณได้รับลิงก์มา</p>' +
-        '<label for="fb-copy-text" class="small muted">ข้อความสรุปคำตอบของคุณ</label>' +
+      html = '<div class="card fallback-card"><h2>' + icon('i-info') + esc(t('fb.copy.h')) + '</h2>' +
+        '<p>' + esc(t('fb.copy.p')) + '</p>' +
+        '<label for="fb-copy-text" class="small muted">' + esc(t('fb.copy.label')) + '</label>' +
         '<textarea id="fb-copy-text" readonly>' + esc(summaryText(fbSubmitted.answers)) + '</textarea>' +
-        '<button type="button" class="btn-sec" data-action="fb-copy">' + icon('i-copy') + 'คัดลอกข้อความ</button>';
+        '<button type="button" class="btn-sec" data-action="fb-copy">' + icon('i-copy') + esc(t('share.copy')) + '</button>';
     }
-    html += '<button type="button" class="btn-primary" data-action="home-or-search">กลับไปใช้งานต่อ</button>' +
-      '<button type="button" class="link-btn" data-action="fb-again">' + (fbSubmitted.mode === 'sent' ? 'ส่งความคิดเห็นเพิ่ม' : 'แก้คำตอบ') + '</button></div>';
+    html += '<button type="button" class="btn-primary" data-action="home-or-search">' + esc(t('fb.back')) + '</button>' +
+      '<button type="button" class="link-btn" data-action="fb-again">' + esc(fbSubmitted.mode === 'sent' ? t('fb.more') : t('fb.edit')) + '</button></div>';
     done.innerHTML = html;
   }
   function surveyData(a){
@@ -860,25 +909,25 @@
     return base + (base.indexOf('?') === -1 ? '?' : '&') + 'usp=pp_url' + (qs ? '&' + qs : '');
   }
   function summaryText(a){
-    var lines = ['ความคิดเห็นแอป กินได้ไหม?',
-      'เลี้ยง: ' + (PETS_TXT[a.pets] || '-'),
-      'ใช้งานง่าย: ' + a.ease + '/5',
-      'เชื่อถือคำตอบ: ' + a.trust + '/5',
-      'จะกลับมาใช้อีก: ' + (RET_TXT[a.comeback] || '-')];
-    if (a.wish) lines.push('อยากให้เพิ่ม: ' + a.wish);
+    var lines = [t('sum.title'),
+      t('sum.pets', {v: a.pets ? t('pets.' + a.pets) : '-'}),
+      t('sum.ease', {v:a.ease}),
+      t('sum.trust', {v:a.trust}),
+      t('sum.again', {v: a.comeback ? t('ret.' + a.comeback) : '-'})];
+    if (a.wish) lines.push(t('sum.wish', {v:a.wish}));
     var loc = lsGet(LS.local, {}) || {};
     var res = Array.isArray(loc.helpful) ? loc.helpful : [];
     if (res.length){
       var yes = res.filter(function(r){ return r && r.helpful === 'มีประโยชน์'; }).length;
-      lines.push('ให้คะแนนผลลัพธ์: มีประโยชน์ ' + yes + ' · ยังไม่ชัด ' + (res.length - yes));
+      lines.push(t('sum.rated', {y:yes, n:res.length - yes}));
       res.filter(function(r){ return r && r.helpful !== 'มีประโยชน์'; }).slice(-5).forEach(function(r){
-        lines.push('- ' + r.food + ' ยังไม่ชัด' + (r.comment ? ': ' + r.comment : ''));
+        lines.push(t('sum.unclear', {food:r.food}) + (r.comment ? ': ' + r.comment : ''));
       });
     }
     var reqs = (lsGet(LS.requests, []) || []).concat(Array.isArray(loc.missed) ? loc.missed.map(function(m){ return {q:m.query}; }) : []);
     var seen = {}, names = [];
     reqs.forEach(function(r){ if (r && r.q){ var k = key(r.q); if (k && !seen[k]){ seen[k] = 1; names.push(r.q); } } });
-    if (names.length) lines.push('อาหารที่หาไม่เจอ/อยากให้เพิ่ม: ' + names.slice(-10).join(', '));
+    if (names.length) lines.push(t('sum.missed', {v:names.slice(-10).join(', ')}));
     return lines.join('\n');
   }
   function validateFeedback(){
@@ -889,11 +938,11 @@
       p.hidden = ok; p.textContent = ok ? '' : msg;
       if (!ok) errs.push(row);
     }
-    check('#fb-pets-row', '#fb-pets-err', !!radioVal('fb-pets'), 'กรุณาเลือกว่าเลี้ยงอะไร');
-    check('#fb-ease-row', '#fb-ease-err', !!radioVal('fb-ease'), 'กรุณาให้คะแนน 1–5');
-    check('#fb-trust-row', '#fb-trust-err', !!radioVal('fb-trust'), 'กรุณาให้คะแนน 1–5');
-    check('#fb-ret-row', '#fb-ret-err', !!radioVal('fb-ret'), 'กรุณาเลือกคำตอบ');
-    check('#fb-consent-row', '#fb-consent-err', $('#fb-consent').checked, 'กรุณากดยินยอมก่อนส่ง');
+    check('#fb-pets-row', '#fb-pets-err', !!radioVal('fb-pets'), t('fb.err.pets'));
+    check('#fb-ease-row', '#fb-ease-err', !!radioVal('fb-ease'), t('fb.err.rate'));
+    check('#fb-trust-row', '#fb-trust-err', !!radioVal('fb-trust'), t('fb.err.rate'));
+    check('#fb-ret-row', '#fb-ret-err', !!radioVal('fb-ret'), t('fb.err.ret'));
+    check('#fb-consent-row', '#fb-consent-err', $('#fb-consent').checked, t('fb.err.consent'));
     return errs;
   }
   var fbBusy = false;
@@ -901,7 +950,7 @@
     if (fbBusy) return;
     var errs = validateFeedback(), sum = $('#fb-err');
     if (errs.length){
-      sum.hidden = false; sum.textContent = 'ยังตอบไม่ครบ ' + errs.length + ' ข้อ';
+      sum.hidden = false; sum.textContent = t('fb.err.count', {n:errs.length});
       var first = errs[0].querySelector('input'); if (first) first.focus();
       return;
     }
@@ -917,11 +966,11 @@
     }
     if (mode === 'post'){
       var btn = $('#fb-submit'), lbl = btn.querySelector('span');
-      fbBusy = true; btn.disabled = true; lbl.textContent = 'กำลังส่ง…';
+      fbBusy = true; btn.disabled = true; lbl.textContent = t('fb.sending');
       postForm(surveyData(answers)).then(function(ok){
-        fbBusy = false; btn.disabled = false; lbl.textContent = 'ส่งความคิดเห็น';
+        fbBusy = false; btn.disabled = false; lbl.textContent = t('fb.submit');
         if (ok){ finish('sent'); }
-        else { sum.hidden = false; sum.textContent = 'ยังส่งไม่ได้ — ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง'; }
+        else { sum.hidden = false; sum.textContent = t('fb.err.net'); }
       });
       return;
     }
@@ -948,47 +997,48 @@
     var items = search(raw).slice(0, 6);
     var spForBadge = emgSpecies || species || 'dog';
     list.innerHTML = items.map(function(f){
-      return '<li><button type="button" class="res-btn" data-emg-food="'+esc(f.id)+'"><span class="res-name">'+esc(f.name_th)+
-        '<span class="res-cat">'+esc(f.category||'')+'</span></span>'+(emgSpecies ? badge(statusOf(f, spForBadge)) : '')+'</button></li>';
+      return '<li><button type="button" class="res-btn" data-emg-food="'+esc(f.id)+'"><span class="res-name">'+foodNameHTML(f)+
+        '<span class="res-cat">'+esc(catName(f.category))+'</span></span>'+(emgSpecies ? badge(statusOf(f, spForBadge)) : '')+'</button></li>';
     }).join('');
     if (!items.length){
       var hint = LEFTOVERS && looksLikeDish(raw)
-        ? '<li><button type="button" class="res-btn" data-emg-food="'+esc(LEFTOVERS.id)+'"><span class="res-name">'+esc(LEFTOVERS.name_th)+'<span class="res-cat">ใกล้เคียงที่สุด</span></span></button></li>' : '';
-      list.innerHTML = hint + '<li class="card lvl-call" style="margin-top:0"><p class="urg">'+icon('i-phone')+URGENCY.unknown.text+'</p>'+
-        '<p style="margin:0">ยังไม่มีข้อมูล “'+esc(raw)+'” แจ้งสัตวแพทย์ว่ากินอะไร ประมาณเท่าไร และเมื่อไร นำบรรจุภัณฑ์หรือรูปถ่ายไปด้วยถ้ามี</p></li>';
+        ? '<li><button type="button" class="res-btn" data-emg-food="'+esc(LEFTOVERS.id)+'"><span class="res-name">'+foodNameHTML(LEFTOVERS)+'<span class="res-cat">'+esc(t('emg.closest'))+'</span></span></button></li>' : '';
+      list.innerHTML = hint + '<li class="card lvl-call" style="margin-top:0"><p class="urg">'+icon('i-phone')+esc(t(URGENCY.unknown.k))+'</p>'+
+        '<p style="margin:0">'+t('emg.unknown', {q:dataHTML(raw)})+'</p></li>';
     }
-    $('#emg-status').textContent = items.length ? 'พบ '+items.length+' รายการ' : 'ไม่พบข้อมูล ให้โทรปรึกษาสัตวแพทย์';
+    $('#emg-status').textContent = items.length ? t('res.found', {n:items.length}) : t('emg.none');
   }
   function renderEmgAnswer(){
     var box = $('#emg-answer');
     var food = emgFoodId && BY_ID[emgFoodId];
     if (!food){ box.innerHTML = ''; return; }
-    var head = '<div class="sec-head"><p style="margin:0"><strong>'+esc(food.name_th)+'</strong></p>'+
-      '<button type="button" class="link-btn" data-action="emg-clear">เลือกใหม่</button></div>';
+    var head = '<div class="sec-head"><p style="margin:0"><strong>'+foodNameHTML(food)+'</strong></p>'+
+      '<button type="button" class="link-btn" data-action="emg-clear">'+esc(t('emg.repick'))+'</button></div>';
     if (!emgSpecies){
-      box.innerHTML = head + '<p class="card">เลือกด้านบนก่อนว่าเป็นน้องหมาหรือน้องแมว เพราะความอันตรายต่างกัน</p>';
+      box.innerHTML = head + '<p class="card">'+esc(t('emg.chooseSp'))+'</p>';
       return;
     }
-    box.innerHTML = head + '<p style="margin:6px 0 0">'+badge(statusOf(food, emgSpecies))+' สำหรับ'+SPECIES[emgSpecies].name+'</p>'+
+    box.innerHTML = head + '<p style="margin:6px 0 0">'+badge(statusOf(food, emgSpecies))+esc(t('emg.for.' + emgSpecies))+'</p>'+
       ifEatenHTML(food, emgSpecies, false) +
-      '<button type="button" class="link-btn" data-action="emg-full" data-id="'+esc(food.id)+'">ดูข้อมูลเต็มและแหล่งอ้างอิง</button>';
+      '<button type="button" class="link-btn" data-action="emg-full" data-id="'+esc(food.id)+'">'+esc(t('emg.full'))+'</button>';
   }
   function renderVets(){
     renderEmgNearby();
     var area = $('#vet-area');
     var list = (Array.isArray(VET_CONTACTS) ? VET_CONTACTS : []).filter(function(v){ return v && v.name && v.phone; });
     if (!list.length){
-      area.innerHTML = '<div class="placeholder"><p><strong>ยังไม่มีรายชื่อ — เพิ่มโรงพยาบาลสัตว์ใกล้คุณ</strong></p>'+
-        '<p style="margin:0">ระหว่างนี้ ให้โทรหาโรงพยาบาลสัตว์หรือคลินิกที่ใกล้ที่สุดที่เปิดอยู่ แนะนำให้บันทึกเบอร์โรงพยาบาลสัตว์ 24 ชม. ใกล้บ้านไว้ในโทรศัพท์ตั้งแต่วันนี้</p></div>';
+      area.innerHTML = '<div class="placeholder"><p><strong>'+esc(t('vet.none.h'))+'</strong></p>'+
+        '<p style="margin:0">'+esc(t('vet.none.p'))+'</p></div>';
       return;
     }
     area.innerHTML = '<ul class="vet-list">'+list.map(function(v, i){
       var tel = String(v.phone).replace(/[^\d+]/g, '');
-      return '<li class="vet"><h3>'+esc(v.name)+'</h3>'+
-        '<p class="meta">'+esc(v.province || '')+(v.hours ? ' · '+esc(v.hours) : '')+'</p>'+
+      var vname = pick(v.name, v.name_en), prov = pick(v.province, v.province_en), hrs = pick(v.hours, v.hours_en);
+      return '<li class="vet"><h3>'+dataHTML(vname)+'</h3>'+
+        '<p class="meta">'+dataHTML(prov || '')+(hrs ? ' · '+dataHTML(hrs) : '')+'</p>'+
         '<div class="phone-row"><span class="phone" id="vet-ph-'+i+'">'+esc(v.phone)+'</span>'+
-        '<button type="button" class="mini-btn" data-action="copy-phone" data-phone="'+esc(v.phone)+'" aria-label="คัดลอกเบอร์ '+esc(v.name)+'">'+icon('i-copy')+'คัดลอก</button>'+
-        (tel ? '<a class="mini-btn" href="tel:'+esc(tel)+'" aria-label="โทรหา '+esc(v.name)+'">'+icon('i-phone')+'โทร</a>' : '')+
+        '<button type="button" class="mini-btn" data-action="copy-phone" data-phone="'+esc(v.phone)+'" aria-label="'+esc(t('vet.copy.aria', {name:vname}))+'">'+icon('i-copy')+esc(t('vet.copy'))+'</button>'+
+        (tel ? '<a class="mini-btn" href="tel:'+esc(tel)+'" aria-label="'+esc(t('vet.call.aria', {name:vname}))+'">'+icon('i-phone')+esc(t('vet.call'))+'</a>' : '')+
         '</div></li>';
     }).join('')+'</ul>';
   }
@@ -999,19 +1049,23 @@
   function nearbyItems(){
     return (Array.isArray(CFG.NEARBY) ? CFG.NEARBY : []).filter(function(n){ return n && n.title && n.query; });
   }
+  // Config items may carry optional title_en / sub_en / query_en (used in English mode)
+  function cfgText(n, k){ return pick(n[k], n[k + '_en']);
+  }
   function renderNearby(){
     var items = nearbyItems();
     $('#nearby-list').innerHTML = items.length ? items.map(function(n){
-      return '<a class="row-btn" href="'+esc(mapsUrl(n.query))+'" target="_blank" rel="noopener">'+
+      var sub = cfgText(n, 'sub');
+      return '<a class="row-btn" href="'+esc(mapsUrl(cfgText(n, 'query')))+'" target="_blank" rel="noopener">'+
         icon(NEARBY_ICONS[n.icon] || 'i-pin')+
-        '<span>'+esc(n.title)+(n.sub ? '<span class="sub">'+esc(n.sub)+'</span>' : '')+'</span>'+
-        '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">(เปิด Google Maps ในหน้าต่างใหม่)</span></a>';
-    }).join('') : '<p class="muted">ยังไม่ได้ตั้งค่ารายการบริการ</p>';
+        '<span>'+dataHTML(cfgText(n, 'title'))+(sub ? '<span class="sub">'+dataHTML(sub)+'</span>' : '')+'</span>'+
+        '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">'+esc(t('near.ext'))+'</span></a>';
+    }).join('') : '<p class="muted">'+esc(t('near.empty'))+'</p>';
   }
   function linkRow(href, ic, title, sub){
     return '<a class="row-btn" href="'+esc(href)+'" target="_blank" rel="noopener">'+icon(ic)+
-      '<span>'+esc(title)+(sub ? '<span class="sub">'+esc(sub)+'</span>' : '')+'</span>'+
-      '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">(เปิดในหน้าต่างใหม่)</span></a>';
+      '<span>'+dataHTML(title)+(sub ? '<span class="sub">'+dataHTML(sub)+'</span>' : '')+'</span>'+
+      '<svg aria-hidden="true" class="ext"><use href="#i-ext"/></svg><span class="sr-only">'+esc(t('ext'))+'</span></a>';
   }
   /* ---------- rehoming board: posts come from a published Google Sheet (CSV),
        only rows the owner approved are in that sheet; the app never writes there ---------- */
@@ -1071,8 +1125,8 @@
     fetch(url, {cache:'no-cache'}).then(function(r){
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.text();
-    }).then(function(t){
-      rhPosts = rowsToPosts(parseCSV(t)).reverse();   // newest first
+    }).then(function(txt){
+      rhPosts = rowsToPosts(parseCSV(txt)).reverse();   // newest first
       rhFromCache = null;
       lsSet(LS_RH, {at: new Date().toISOString(), posts: rhPosts});
     }).catch(function(e){
@@ -1082,66 +1136,70 @@
     }).then(function(){ rhLoading = false; renderRehome(); });
   }
   function rhCard(p){
+    // Posts are user-entered (usually Thai): shown as written, marked lang="th" in English mode
     var img = driveImg(p.photo), open = !!rhOpen[p.id];
-    var facts = [p.sex, p.age, [p.district, p.province].filter(Boolean).join(' ')].filter(Boolean).map(esc).join(' · ');
-    var care = [p.sterilized ? 'ทำหมัน: ' + esc(p.sterilized) : '', p.vaccinated ? 'วัคซีน: ' + esc(p.vaccinated) : ''].filter(Boolean).join(' · ');
+    var facts = [p.sex, p.age, [p.district, p.province].filter(Boolean).join(' ')].filter(Boolean).map(dataHTML).join(' · ');
+    var care = [p.sterilized ? esc(t('rh.ster', {v:'\u0001'})).replace('\u0001', dataHTML(p.sterilized)) : '',
+      p.vaccinated ? esc(t('rh.vax', {v:'\u0001'})).replace('\u0001', dataHTML(p.vaccinated)) : ''].filter(Boolean).join(' · ');
     var line = String(p.line_id || '').trim();
     var panel = '';
     if (open){
       panel = '<div class="rh-contact" id="rh-c-'+esc(p.id)+'">'+
-        '<p class="rh-warn">'+icon('i-shield')+'<span><strong>ก่อนติดต่อ:</strong> ไม่โอนเงินมัดจำหรือค่าใช้จ่ายใด ๆ ก่อนพบน้อง นัดเจอในที่สาธารณะ ขอดูประวัติวัคซีน ถ้าถูกเรียกเงิน ให้กดแจ้งโพสต์</span></p>'+
-        (line ? '<p class="rh-line">LINE ID ผู้โพสต์: <span class="phone">'+esc(line)+'</span></p>'+
-          '<div class="phone-row"><button type="button" class="mini-btn" data-action="copy-phone" data-phone="'+esc(line)+'">'+icon('i-copy')+'คัดลอก LINE ID</button>'+
-          '<a class="mini-btn" href="'+esc(lineUrl(line))+'" target="_blank" rel="noopener">'+icon('i-chat')+'เปิด LINE</a></div>'
-          : '<p class="muted small">โพสต์นี้ไม่มี LINE ID</p>')+
-        '<button type="button" class="link-btn rh-report" data-action="rh-report" data-id="'+esc(p.id)+'" data-name="'+esc(p.name)+'">แจ้งโพสต์ไม่เหมาะสม</button>'+
+        '<p class="rh-warn">'+icon('i-shield')+'<span>'+t('rh.warn')+'</span></p>'+
+        (line ? '<p class="rh-line">'+esc(t('rh.lineId'))+'<span class="phone">'+esc(line)+'</span></p>'+
+          '<div class="phone-row"><button type="button" class="mini-btn" data-action="copy-phone" data-phone="'+esc(line)+'">'+icon('i-copy')+esc(t('rh.copyLine'))+'</button>'+
+          '<a class="mini-btn" href="'+esc(lineUrl(line))+'" target="_blank" rel="noopener">'+icon('i-chat')+esc(t('rh.openLine'))+'</a></div>'
+          : '<p class="muted small">'+esc(t('rh.noLine'))+'</p>')+
+        '<button type="button" class="link-btn rh-report" data-action="rh-report" data-id="'+esc(p.id)+'" data-name="'+esc(p.name)+'">'+esc(t('rh.report'))+'</button>'+
       '</div>';
     }
+    var spLabel = p.sp ? spName(p.sp) : (p.species || '');
     return '<li class="rh-card'+(p.adopted ? ' is-adopted' : '')+'">'+
-      '<div class="rh-ph">'+(img ? '<img src="'+esc(img)+'" alt="รูป'+esc(p.name || 'น้อง')+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.className=\'rh-fallback\';this.alt=\'\';this.src=\'icons/pet-'+(p.sp || 'dog')+'.jpg\'">' : '<img src="icons/pet-'+(p.sp || 'dog')+'.jpg" alt="" class="rh-fallback">')+
-        (p.adopted ? '<span class="rh-badge">ได้บ้านแล้ว</span>' : '')+'</div>'+
+      '<div class="rh-ph">'+(img ? '<img src="'+esc(img)+'" alt="'+esc(t('rh.photo', {name:p.name || t('rh.pet')}))+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.className=\'rh-fallback\';this.alt=\'\';this.src=\'icons/pet-'+(p.sp || 'dog')+'.jpg\'">' : '<img src="icons/pet-'+(p.sp || 'dog')+'.jpg" alt="" class="rh-fallback">')+
+        (p.adopted ? '<span class="rh-badge">'+esc(t('rh.adopted'))+'</span>' : '')+'</div>'+
       '<div class="rh-body">'+
-        '<h3>'+esc(p.name || 'น้องรอบ้าน')+' <span class="rh-sp rh-'+(p.sp || 'x')+'">'+esc(SP_TXT[p.sp] || p.species || '')+'</span></h3>'+
+        '<h3>'+(p.name ? dataHTML(p.name) : esc(t('rh.waiting')))+' <span class="rh-sp rh-'+(p.sp || 'x')+'">'+dataHTML(spLabel)+'</span></h3>'+
         (facts ? '<p class="small muted">'+facts+'</p>' : '')+
         (care ? '<p class="small">'+care+'</p>' : '')+
-        (p.details ? '<p class="rh-details">'+esc(p.details)+'</p>' : '')+
-        (p.adopted ? '' : '<button type="button" class="btn-primary rh-want" data-action="rh-interest" data-id="'+esc(p.id)+'" aria-expanded="'+open+'" aria-controls="rh-c-'+esc(p.id)+'">'+icon('i-heart')+(open ? 'ซ่อนช่องทางติดต่อ' : 'สนใจรับเลี้ยง')+'</button>')+
+        (p.details ? '<p class="rh-details">'+dataHTML(p.details)+'</p>' : '')+
+        (p.adopted ? '' : '<button type="button" class="btn-primary rh-want" data-action="rh-interest" data-id="'+esc(p.id)+'" aria-expanded="'+open+'" aria-controls="rh-c-'+esc(p.id)+'">'+icon('i-heart')+esc(open ? t('rh.hide') : t('rh.want'))+'</button>')+
         panel+
       '</div></li>';
   }
   function renderRehome(){
     var box = $('#rh-post'), formU = safeUrl(REHOME.postFormUrl), csvU = safeUrl(REHOME.listingsCsvUrl);
     box.innerHTML = formU
-      ? '<a class="btn-primary rh-post-btn" href="'+esc(formU)+'" target="_blank" rel="noopener">'+icon('i-plus')+'โพสต์หาบ้านให้น้อง</a>'+
-        '<p class="small muted" style="margin:6px 0 0">กรอกแบบฟอร์มพร้อมรูป ผู้ดูแลแอปตรวจก่อนขึ้นหน้านี้ ให้รับเลี้ยงฟรีเท่านั้น</p>'
-      : '<p class="placeholder small">ยังไม่เปิดรับโพสต์หาบ้าน ผู้ดูแลแอปกำลังตั้งค่าแบบฟอร์ม</p>';
+      ? '<a class="btn-primary rh-post-btn" href="'+esc(formU)+'" target="_blank" rel="noopener">'+icon('i-plus')+esc(t('rh.postBtn'))+'</a>'+
+        '<p class="small muted" style="margin:6px 0 0">'+esc(t('rh.postNote'))+'</p>'
+      : '<p class="placeholder small">'+esc(t('rh.closed'))+'</p>';
     $$('[data-rh-sp]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-rh-sp') === rhSp)); });
     var list = $('#rh-list'), st = $('#rh-status');
-    if (!csvU){ list.innerHTML = ''; st.textContent = 'ยังไม่มีโพสต์หาบ้าน'; return; }
-    if (rhLoading && !rhPosts){ list.innerHTML = ''; st.textContent = 'กำลังโหลดโพสต์…'; return; }
+    if (!csvU){ list.innerHTML = ''; st.textContent = t('rh.noneYet'); return; }
+    if (rhLoading && !rhPosts){ list.innerHTML = ''; st.textContent = t('rh.loading'); return; }
     var where = key($('#rh-q').value || '');
     var items = (rhPosts || []).filter(function(p){
       if (rhSp !== 'all' && p.sp !== rhSp) return false;
       return !where || key((p.province || '') + (p.district || '')).indexOf(where) !== -1;
     }).sort(function(a, b){ return (a.adopted ? 1 : 0) - (b.adopted ? 1 : 0); });
-    st.textContent = rhError ? 'โหลดโพสต์ไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่' :
-      (items.length ? 'พบ ' + items.length + ' โพสต์' : 'ยังไม่มีโพสต์ที่ตรงกับตัวเลือกนี้') +
-      (rhFromCache ? ' (ข้อมูลที่บันทึกไว้ล่าสุด)' : '');
+    st.textContent = rhError ? t('rh.err') :
+      (items.length ? t('rh.count', {n:items.length}) : t('rh.noMatch')) +
+      (rhFromCache ? t('rh.cached') : '');
     list.innerHTML = items.map(rhCard).join('');
   }
   function renderAdopt(){
     loadRehome(false);
     var s = (Array.isArray(CFG.ADOPT_SEARCH) ? CFG.ADOPT_SEARCH : []).filter(function(n){ return n && n.title && n.query; });
-    $('#adopt-search').innerHTML = s.map(function(n){ return linkRow(mapsUrl(n.query), 'i-pin', n.title, n.sub); }).join('');
+    $('#adopt-search').innerHTML = s.map(function(n){ return linkRow(mapsUrl(cfgText(n, 'query')), 'i-pin', cfgText(n, 'title'), cfgText(n, 'sub')); }).join('');
     var o = (Array.isArray(CFG.ADOPT_ORGS) ? CFG.ADOPT_ORGS : []).filter(function(n){ return n && n.name && /^https?:\/\//.test(n.url || ''); });
-    $('#adopt-orgs').innerHTML = o.length ? o.map(function(n){ return linkRow(n.url, 'i-adopt', n.name, n.sub); }).join('')
-      : '<p class="muted small">ยังไม่มีรายชื่อองค์กร</p>';
+    $('#adopt-orgs').innerHTML = o.length ? o.map(function(n){ return linkRow(n.url, 'i-adopt', cfgText(n, 'name'), cfgText(n, 'sub')); }).join('')
+      : '<p class="muted small">'+esc(t('adopt.noOrgs'))+'</p>';
   }
   function renderEmgNearby(){
     var box = $('#emg-near'); if (!box) return;
-    var n = nearbyItems().filter(function(x){ return x.icon === 'clock'; })[0] || {query:'โรงพยาบาลสัตว์ 24 ชั่วโมง ใกล้ฉัน'};
-    box.innerHTML = '<a class="btn-danger" href="'+esc(mapsUrl(n.query))+'" target="_blank" rel="noopener">'+icon('i-pin')+'หาโรงพยาบาลสัตว์ 24 ชม. ใกล้ฉัน</a>'+
-      '<p class="small muted" style="margin:8px 0 0">เปิด Google Maps ควรโทรยืนยันว่าเปิดอยู่ก่อนเดินทาง</p>';
+    var n = nearbyItems().filter(function(x){ return x.icon === 'clock'; })[0];
+    var q = n ? cfgText(n, 'query') : t('emgnear.q');
+    box.innerHTML = '<a class="btn-danger" href="'+esc(mapsUrl(q))+'" target="_blank" rel="noopener">'+icon('i-pin')+esc(t('emgnear.btn'))+'</a>'+
+      '<p class="small muted" style="margin:8px 0 0">'+esc(t('emgnear.p'))+'</p>';
   }
 
   /* =====================================================================
@@ -1153,24 +1211,20 @@
   var hbForm = null;             // {kind, id|null} — inline entry form that is open
   var pfEditId = null;           // pet being edited on the pet form (null = new pet)
   var pendingConfirm = null;     // {fn, back} for the in-page confirmation
-  var HB_TABS = [{k:'weight', t:'น้ำหนัก'}, {k:'vaccine', t:'วัคซีน'}, {k:'deworm', t:'ถ่ายพยาธิ'}, {k:'med', t:'ยา'}, {k:'appt', t:'นัดหมอ'}];
+  var HB_TABS = [{k:'weight'}, {k:'vaccine'}, {k:'deworm'}, {k:'med'}, {k:'appt'}];
   var HB_LIST = {weight:'weights', vaccine:'vaccines', deworm:'deworm', med:'meds', appt:'appts'};
-  var HB_NAME = {weight:'น้ำหนัก', vaccine:'วัคซีน', deworm:'ถ่ายพยาธิ / ป้องกันเห็บหมัด', med:'ยา', appt:'นัดหมอ'};
+  function hbName(k){ return t('hb.name.' + k); }
   var HB_CAP = {weight:MAX_LIST, vaccine:MAX_LIST, deworm:MAX_LIST, med:MAX_MEDS, appt:MAX_APPTS};
-  var SEX_TXT = {male:'ผู้', female:'เมีย', '':'ไม่ระบุเพศ'};
-  var STER_TXT = {yes:'ทำหมันแล้ว', no:'ยังไม่ทำหมัน', '':'ไม่ทราบเรื่องทำหมัน'};
-  var STAGE_TXT = {young:'ลูก', adult:'โต', senior:'สูงวัย'};
-  var VAX_SUGGEST = ['พิษสุนัขบ้า','วัคซีนรวมน้องหมา','วัคซีนรวมน้องแมว','ลิวคีเมียแมว','อื่นๆ'];
-  var SCHEDULE_NOTE = 'ตารางวัคซีนและการถ่ายพยาธิขึ้นกับอายุ สุขภาพ และการเลี้ยงดู ให้ใส่วันนัดตามที่สัตวแพทย์แนะนำ';
-  var APPT_SUGGEST = ['ตรวจติดตาม','ฉีดวัคซีน','ผ่าตัด','ทำหมัน','ตรวจเลือด','ทำฟัน','ตรวจสุขภาพประจำปี'];
-  var MED_NOTE = 'แอปไม่แนะนำยา ขนาดยา หรือความถี่ในการให้ยา ใส่ตามฉลากหรือที่สัตวแพทย์สั่งเท่านั้น ถ้าน้องมีอาการผิดปกติหลังให้ยา ให้ติดต่อสัตวแพทย์';
-  var REMIND_NOTE = 'แอปเตือนได้เมื่อเปิดแอป หากต้องการให้มือถือเตือนแม้ไม่ได้เปิดแอป กด เพิ่มลงปฏิทิน';
+  function sexTxt(v){ return t('sex.' + (v || 'none')); }
+  function sterTxt(v){ return t('ster.' + (v || 'none')); }
+  function stageTxt(v){ return t('stage.' + v); }
+  function suggest(prefix, n){ var a = []; for (var i = 1; i <= n; i++) a.push(t(prefix + i)); return a; }
 
   function setActive(id){
     var p = petById(id); if (!p) return;
     book.activeId = id; saveBook(); setSpecies(p.species);
   }
-  function savedToast(msg){ toast(storageOK ? msg : msg + ' (เฉพาะตอนนี้ เบราว์เซอร์บันทึกถาวรไม่ได้)'); }
+  function savedToast(msg){ toast(storageOK ? msg : msg + t('store.temp')); }
 
   /* ---------- in-page confirmation (no confirm()/alert()) ---------- */
   function askInline(host, msg, yesLabel, onYes){
@@ -1181,7 +1235,7 @@
     box.setAttribute('role', 'alertdialog'); box.setAttribute('aria-labelledby', 'cf-msg');
     box.innerHTML = '<p id="cf-msg">'+icon('i-limited')+'<span>'+esc(msg)+'</span></p>'+
       '<div class="confirm-row"><button type="button" class="btn-del" data-action="confirm-yes">'+esc(yesLabel)+'</button>'+
-      '<button type="button" class="mini-btn" data-action="confirm-no">ยกเลิก</button></div>';
+      '<button type="button" class="mini-btn" data-action="confirm-no">'+esc(t('cancel'))+'</button></div>';
     host.appendChild(box);
     box.querySelector('[data-action="confirm-no"]').focus();
     if (box.scrollIntoView) box.scrollIntoView({block:'nearest'});
@@ -1197,7 +1251,7 @@
       document.body.appendChild(a); a.click();
       setTimeout(function(){ URL.revokeObjectURL(url); if (a.parentNode) a.parentNode.removeChild(a); }, 2000);
       return true;
-    } catch(e){ toast('ดาวน์โหลดไฟล์ไม่ได้ในเบราว์เซอร์นี้'); return false; }
+    } catch(e){ toast(t('dl.fail')); return false; }
   }
   function fileSafe(s){ return String(s).replace(/[\\\/:*?"<>|#%&{}$!'@+`=\u0000-\u001f]+/g, '').replace(/\s+/g, '-').slice(0, 40) || 'pet'; }
   function icsEsc(s){ return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
@@ -1221,58 +1275,58 @@
     return ['BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + icsStamp(),
       'DTSTART;VALUE=DATE:' + icsDay(iso), 'DTEND;VALUE=DATE:' + icsDay(addDaysISO(iso, 1)),
       'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc), 'TRANSP:TRANSPARENT'].concat(extra || [],
-      icsAlarm('-P1D', 'พรุ่งนี้: ' + summary), ['END:VEVENT']);
+      icsAlarm('-P1D', t('ics.tomorrow', {s:summary})), ['END:VEVENT']);
   }
   function icsDoc(lines){
     return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//kindaimai//health-book//TH', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH']
       .concat(lines, ['END:VCALENDAR']).map(icsFold).join('\r\n') + '\r\n';
   }
-  var ICS_FROM = 'จากสมุดสุขภาพน้อง แอป กินได้ไหม?';
+  // calendar text (SUMMARY / DESCRIPTION / alarms) follows the current language
   // all-day reminder for a vaccine / deworming / refill date
   function icsFor(x){
     var summary = dueTitle(x) + ' — ' + x.pet.name;
-    var desc = 'นัด' + ICS_FROM + (x.item.note ? '\n' + x.item.note : '');
+    var desc = t('ics.apptDesc', {from:t('ics.from')}) + (x.item.note ? '\n' + x.item.note : '');
     return icsDoc(icsAllDay(x.item.id + '-' + icsDay(x.due) + '@kindaimai', x.due, summary, desc));
   }
   // medicine: one daily repeating event per time of day (floating local time) + refill day
   function medIcs(p, m){
     var today = todayISO(), out = [];
     var from = m.start > today ? m.start : today;
-    var summary = 'ให้ยา ' + m.name + ' — ' + p.name;
+    var summary = t('ics.give', {med:m.name, pet:p.name});
     if (!m.end || m.end >= from){
       var rule = m.end ? 'RRULE:FREQ=DAILY;UNTIL=' + icsDay(m.end) + 'T235959' : 'RRULE:FREQ=DAILY;COUNT=30';
-      var desc = (m.instructions ? 'วิธีให้ (ตามที่สัตวแพทย์สั่ง): ' + m.instructions : 'ให้ตามฉลากหรือที่สัตวแพทย์สั่ง') +
-        (m.note ? '\nหมายเหตุ: ' + m.note : '') +
-        (m.end ? '' : '\nเตือนไว้ 30 วัน ถ้ายังต้องให้ยาต่อ ให้เปิดแอปแล้วกด เพิ่มลงปฏิทิน อีกครั้งเพื่อต่ออายุการเตือน') +
-        '\n' + ICS_FROM;
-      m.times.forEach(function(t){
-        out = out.concat(['BEGIN:VEVENT', 'UID:' + m.id + '-' + t.replace(':', '') + '-' + icsDay(from) + '@kindaimai', 'DTSTAMP:' + icsStamp(),
-          'DTSTART:' + icsDay(from) + 'T' + t.replace(':', '') + '00', 'DURATION:PT10M', rule,
+      var desc = (m.instructions ? t('ics.how', {v:m.instructions}) : t('ics.howDefault')) +
+        (m.note ? '\n' + t('ics.note', {v:m.note}) : '') +
+        (m.end ? '' : '\n' + t('ics.30')) +
+        '\n' + t('ics.from');
+      m.times.forEach(function(tm){
+        out = out.concat(['BEGIN:VEVENT', 'UID:' + m.id + '-' + tm.replace(':', '') + '-' + icsDay(from) + '@kindaimai', 'DTSTAMP:' + icsStamp(),
+          'DTSTART:' + icsDay(from) + 'T' + tm.replace(':', '') + '00', 'DURATION:PT10M', rule,
           'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc)],
-          icsAlarm('PT0M', summary + ' เวลา ' + t), ['END:VEVENT']);
+          icsAlarm('PT0M', t('ics.at', {s:summary, t:tm})), ['END:VEVENT']);
       });
     }
     if (m.refillDate && m.refillDate >= today)
-      out = out.concat(icsAllDay(m.id + '-refill-' + icsDay(m.refillDate) + '@kindaimai', m.refillDate, 'รับยา ' + m.name + ' — ' + p.name,
-        'นัดรับยา/ยาจะหมด ' + ICS_FROM + (m.note ? '\n' + m.note : '')));
+      out = out.concat(icsAllDay(m.id + '-refill-' + icsDay(m.refillDate) + '@kindaimai', m.refillDate, t('ics.refill', {med:m.name, pet:p.name}),
+        t('ics.refillDesc', {from:t('ics.from')}) + (m.note ? '\n' + m.note : '')));
     return out.length ? icsDoc(out) : '';
   }
   // vet appointment: 1-hour timed event (alarms 1 day + 2 hours before) or all-day
   function apptIcs(p, a){
-    var summary = 'นัดหมอ' + (a.reason ? ': ' + a.reason : '') + ' — ' + p.name;
-    var desc = 'นัด' + ICS_FROM + (a.note ? '\n' + a.note : '');
+    var summary = t('due.appt') + (a.reason ? ': ' + a.reason : '') + ' — ' + p.name;
+    var desc = t('ics.apptDesc', {from:t('ics.from')}) + (a.note ? '\n' + a.note : '');
     var loc = a.clinic ? ['LOCATION:' + icsEsc(a.clinic)] : [];
     var uid = a.id + '-' + icsDay(a.date) + '@kindaimai';
     if (!a.time) return icsDoc(icsAllDay(uid, a.date, summary, desc, loc));
     return icsDoc(['BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + icsStamp(),
       'DTSTART:' + icsDay(a.date) + 'T' + a.time.replace(':', '') + '00', 'DURATION:PT1H',
       'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc)].concat(loc,
-      icsAlarm('-P1D', 'พรุ่งนี้ ' + a.time + ' น.: ' + summary), icsAlarm('-PT2H', 'อีก 2 ชั่วโมง: ' + summary), ['END:VEVENT']));
+      icsAlarm('-P1D', t('ics.apptTomorrow', {t:a.time, s:summary})), icsAlarm('-PT2H', t('ics.in2h', {s:summary})), ['END:VEVENT']));
   }
   function dueOf(kind, e){ return kind === 'med' ? e.refillDate : kind === 'appt' ? e.date : e.nextDue; }
   function icsDone(text, name){
     if (text && downloadFile(text, name, 'text/calendar;charset=utf-8'))
-      toast('ดาวน์โหลดไฟล์ปฏิทินแล้ว เปิดไฟล์เพื่อเพิ่มลงปฏิทิน');
+      toast(t('ics.done'));
   }
   function downloadIcs(petId, kind, id){
     var p = petById(petId); if (!p) return;
@@ -1286,60 +1340,60 @@
     var p = petById(petId); if (!p) return;
     var m = p.meds.filter(function(e){ return e.id === id; })[0]; if (!m) return;
     var text = medIcs(p, m);
-    if (!text) return toast('ยานี้หยุดแล้ว ไม่มีเวลาให้ยาที่จะเพิ่มลงปฏิทิน');
-    icsDone(text, 'kindaimai-' + fileSafe(p.name) + '-ยา-' + fileSafe(m.name) + '.ics');
+    if (!text) return toast(t('ics.stopped'));
+    icsDone(text, 'kindaimai-' + fileSafe(p.name) + '-' + t('ics.fileMed') + '-' + fileSafe(m.name) + '.ics');
   }
 
   /* ---------- pieces of the book screen ---------- */
   function storeNoteHTML(){
-    return storageOK ? '' : '<p class="store-warn" role="status">'+icon('i-limited')+'<span><strong>เบราว์เซอร์นี้บันทึกข้อมูลไม่ได้</strong> ใช้งานได้ตามปกติ แต่ข้อมูลจะหายเมื่อปิดแอป ลองปิดโหมดไม่ระบุตัวตน หรือกด “สำรองข้อมูล” เก็บไว้</span></p>';
+    return storageOK ? '' : '<p class="store-warn" role="status">'+icon('i-limited')+'<span>'+t('store.warn')+'</span></p>';
   }
   function switcherHTML(active){
-    return '<div class="hb-switch" role="group" aria-label="เลือกน้อง">'+book.pets.map(function(p){
+    return '<div class="hb-switch" role="group" aria-label="'+esc(t('sw.aria'))+'">'+book.pets.map(function(p){
       var on = p.id === active.id;
       return '<button type="button" class="pet-chip sp-'+p.species+'" data-action="pet-pick" data-id="'+esc(p.id)+'" aria-pressed="'+on+'">'+
         '<img class="pet-ph" src="'+SPECIES[p.species].icon+'" alt="" width="56" height="56">'+
-        '<span class="pc-name">'+esc(p.name)+'</span><span class="sr-only"> ('+SPECIES[p.species].name+')</span></button>';
+        '<span class="pc-name">'+esc(p.name)+'</span><span class="sr-only"> ('+esc(spName(p.species))+')</span></button>';
     }).join('')+
-    '<button type="button" class="pet-chip add" data-action="pet-new"><span class="pc-plus">'+icon('i-plus')+'</span><span class="pc-name">เพิ่มน้อง</span></button></div>';
+    '<button type="button" class="pet-chip add" data-action="pet-new"><span class="pc-plus">'+icon('i-plus')+'</span><span class="pc-name">'+esc(t('sw.add'))+'</span></button></div>';
   }
   function dueState(x){
-    if (x.d < 0) return {cls:'over', ic:'i-limited', when:(x.kind === 'appt' ? 'เลยวันนัด ' + (-x.d) + ' วัน ยังไม่ได้กด “ไปแล้ว”' : 'เลยกำหนด ' + (-x.d) + ' วัน')};
-    return {cls:'soon', ic:'i-clock', when: x.d === 0 ? 'ถึงกำหนดวันนี้' : 'อีก ' + x.d + ' วัน'};
+    if (x.d < 0) return {cls:'over', ic:'i-limited', when:(x.kind === 'appt' ? t('due.apptOver', {n:-x.d}) : t('due.over', {n:-x.d}))};
+    return {cls:'soon', ic:'i-clock', when: x.d === 0 ? t('due.today') : t('due.in', {n:x.d})};
   }
   function dueDateText(x){
-    if (x.kind === 'med') return 'นัดรับยา/ยาจะหมด ' + thDate(x.due);
-    if (x.kind === 'appt') return 'นัด ' + thDate(x.due) + (x.item.time ? ' เวลา ' + x.item.time + ' น.' : '') + (x.item.clinic ? ' · ' + esc(x.item.clinic) : '');
-    return 'นัด ' + thDate(x.due);
+    if (x.kind === 'med') return esc(t('due.medDate', {d:fmtDate(x.due)}));
+    if (x.kind === 'appt') return esc(t('due.date', {d:fmtDate(x.due)})) + (x.item.time ? esc(t('at.time', {t:x.item.time})) : '') + (x.item.clinic ? ' · ' + esc(x.item.clinic) : '');
+    return esc(t('due.date', {d:fmtDate(x.due)}));
   }
   function dueRowHTML(x, withCal){
     var s = dueState(x), what = dueTitle(x) + ' — ' + x.pet.name;
     return '<li class="due '+s.cls+'">'+
       '<button type="button" class="due-main" data-action="due-open" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'">'+icon(s.ic)+
-        '<span><span class="due-when">'+s.when+'</span><span class="due-what">'+esc(what)+'</span><span class="due-date">'+dueDateText(x)+'</span></span></button>'+
-      (withCal && x.d >= 0 ? '<button type="button" class="mini-btn" data-action="ics" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'" data-id="'+esc(x.item.id)+'" aria-label="เพิ่มลงปฏิทิน: '+esc(what)+'">'+icon('i-cal')+'เพิ่มลงปฏิทิน</button>' : '')+
+        '<span><span class="due-when">'+esc(s.when)+'</span><span class="due-what">'+esc(what)+'</span><span class="due-date">'+dueDateText(x)+'</span></span></button>'+
+      (withCal && x.d >= 0 ? '<button type="button" class="mini-btn" data-action="ics" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'" data-id="'+esc(x.item.id)+'" aria-label="'+esc(t('cal.aria', {what:what}))+'">'+icon('i-cal')+esc(t('cal.add'))+'</button>' : '')+
     '</li>';
   }
   function todayRowHTML(x){
     var what = x.med.name + ' — ' + x.pet.name;
     return '<li class="dose-row'+(x.late ? ' late' : '')+'">'+icon(x.late ? 'i-limited' : 'i-clock', 'dr-ic')+
-      '<span class="dr-main"><span class="dr-time">'+x.time+' น.'+(x.late ? ' <span class="due-tag over">เลยเวลา</span>' : '')+'</span>'+
+      '<span class="dr-main"><span class="dr-time">'+esc(hm(x.time))+(x.late ? ' <span class="due-tag over">'+esc(t('dose.late'))+'</span>' : '')+'</span>'+
         '<span class="dr-what">'+esc(what)+'</span>'+(x.med.instructions ? '<span class="dr-how">'+esc(x.med.instructions)+'</span>' : '')+'</span>'+
-      '<button type="button" class="mini-btn dr-give" data-action="dose-give" data-pet="'+esc(x.pet.id)+'" data-med="'+esc(x.med.id)+'" data-time="'+x.time+'" aria-label="ให้แล้ว: '+esc(what)+' เวลา '+x.time+'">'+icon('i-check-c')+'ให้แล้ว</button></li>';
+      '<button type="button" class="mini-btn dr-give" data-action="dose-give" data-pet="'+esc(x.pet.id)+'" data-med="'+esc(x.med.id)+'" data-time="'+x.time+'" data-what="'+esc(t('dose.what', {what:what, t:x.time}))+'" aria-label="'+esc(t('dose.given.aria', {what:what, t:x.time}))+'">'+icon('i-check-c')+esc(t('dose.given'))+'</button></li>';
   }
   function todayDosesHTML(idH){
     var items = todayDoses();
     if (!items.length) return '';
     var late = items.filter(function(x){ return x.late; }).length;
-    return '<h2 id="'+idH+'">'+icon('i-clock')+'วันนี้ต้องให้ยา</h2>'+
-      '<p class="small muted dr-sum">เหลือ '+items.length+' ครั้ง'+(late ? ' (เลยเวลา '+late+' ครั้ง)' : '')+' ของน้องทุกตัว</p>'+
+    return '<h2 id="'+idH+'">'+icon('i-clock')+esc(t('dose.h'))+'</h2>'+
+      '<p class="small muted dr-sum">'+esc(t('dose.left', {n:items.length})+(late ? t('dose.lateN', {n:late}) : '')+t('dose.allPets'))+'</p>'+
       '<ul class="dose-list">'+items.map(todayRowHTML).join('')+'</ul>';
   }
   function upcomingHTML(){
     var items = dueItems(30);
     if (!items.length) return '';
-    return '<section class="hb-due" aria-labelledby="due-h"><h2 id="due-h">'+icon('i-clock')+'นัดที่ใกล้ถึง</h2>'+
-      '<p class="small muted">นัดภายใน 30 วันและนัดที่เลยกำหนด ของน้องทุกตัว</p>'+
+    return '<section class="hb-due" aria-labelledby="due-h"><h2 id="due-h">'+icon('i-clock')+esc(t('up.h'))+'</h2>'+
+      '<p class="small muted">'+esc(t('up.p'))+'</p>'+
       '<ul class="due-list">'+items.map(function(x){ return dueRowHTML(x, true); }).join('')+'</ul></section>';
   }
   function renderHomeMeds(){
@@ -1352,25 +1406,25 @@
     var items = dueItems(7);
     box.hidden = !items.length;
     box.innerHTML = !items.length ? '' :
-      '<h2 id="hd-h">'+icon('i-clock')+'นัดที่ใกล้ถึง</h2><ul class="due-list">'+items.slice(0, 3).map(function(x){ return dueRowHTML(x, false); }).join('')+'</ul>'+
-      (items.length > 3 ? '<p class="small muted" style="margin:6px 0 0">และอีก '+(items.length - 3)+' รายการในสมุดสุขภาพ</p>' : '');
+      '<h2 id="hd-h">'+icon('i-clock')+esc(t('up.h'))+'</h2><ul class="due-list">'+items.slice(0, 3).map(function(x){ return dueRowHTML(x, false); }).join('')+'</ul>'+
+      (items.length > 3 ? '<p class="small muted" style="margin:6px 0 0">'+esc(t('up.more', {n:items.length - 3}))+'</p>' : '');
   }
   function summaryHTML(p){
     var m = ageMonthsOf(p), w = latestWeight(p);
     var facts = [
-      ['อายุ', m == null ? 'ยังไม่ระบุ' : ageText(m) + (p.birthDate ? '<span class="sub">เกิด '+thDate(p.birthDate)+'</span>' : '<span class="sub">โดยประมาณ</span>')],
-      ['น้ำหนักล่าสุด', w ? kgFmt(w.kg)+' กก.<span class="sub">'+thDate(w.date)+'</span>' : 'ยังไม่มีบันทึก'],
-      ['เพศ / ทำหมัน', SEX_TXT[p.sex] + '<span class="sub">' + STER_TXT[p.sterilized] + '</span>'],
-      ['ช่วงวัย', STAGE_TXT[stageOf(p)]]
+      [t('sum.age'), m == null ? esc(t('sum.notSet')) : esc(ageText(m)) + (p.birthDate ? '<span class="sub">'+esc(t('sum.born', {d:fmtDate(p.birthDate)}))+'</span>' : '<span class="sub">'+esc(t('sum.approx'))+'</span>')],
+      [t('sum.weight'), w ? esc(kgTxt(w.kg))+'<span class="sub">'+fmtDate(w.date)+'</span>' : esc(t('sum.noEntry'))],
+      [t('sum.sexSter'), esc(sexTxt(p.sex)) + '<span class="sub">' + esc(sterTxt(p.sterilized)) + '</span>'],
+      [t('sum.stage'), esc(stageTxt(stageOf(p)))]
     ];
-    var fl = [p.flags.overweight ? 'น้ำหนักเกิน' : '', p.flags.kidney ? 'โรคไต' : ''].filter(Boolean);
-    if (fl.length) facts.push(['ภาวะพิเศษ', fl.join(', ')]);
+    var fl = [p.flags.overweight ? t('flag.over') : '', p.flags.kidney ? t('flag.kidney') : ''].filter(Boolean);
+    if (fl.length) facts.push([t('sum.flags'), esc(fl.join(', '))]);
     return '<section class="card hb-sum sp-'+p.species+'" aria-labelledby="sum-h">'+
       '<div class="hb-sum-top"><img class="pet-ph" src="'+SPECIES[p.species].icon+'" alt="" width="64" height="64">'+
-        '<div class="hb-sum-name"><h2 id="sum-h">'+esc(p.name)+'</h2><span class="sp-badge sp-'+p.species+'">'+SPECIES[p.species].name+'</span></div>'+
-        '<button type="button" class="mini-btn" data-action="pet-edit" aria-label="แก้ไขข้อมูล '+esc(p.name)+'">'+icon('i-edit')+'แก้ไข</button></div>'+
-      '<dl class="hb-facts">'+facts.map(function(f){ return '<div><dt>'+f[0]+'</dt><dd>'+f[1]+'</dd></div>'; }).join('')+'</dl>'+
-      '<button type="button" class="btn-sec hb-quickw" data-action="hb-add-weight">'+icon('i-plus')+'บันทึกน้ำหนักวันนี้</button></section>'+
+        '<div class="hb-sum-name"><h2 id="sum-h">'+esc(p.name)+'</h2><span class="sp-badge sp-'+p.species+'">'+esc(spName(p.species))+'</span></div>'+
+        '<button type="button" class="mini-btn" data-action="pet-edit" aria-label="'+esc(t('sum.edit.aria', {name:p.name}))+'">'+icon('i-edit')+esc(t('edit'))+'</button></div>'+
+      '<dl class="hb-facts">'+facts.map(function(f){ return '<div><dt>'+esc(f[0])+'</dt><dd>'+f[1]+'</dd></div>'; }).join('')+'</dl>'+
+      '<button type="button" class="btn-sec hb-quickw" data-action="hb-add-weight">'+icon('i-plus')+esc(t('sum.quickW'))+'</button></section>'+
       treatCardHTML(p, true);
   }
 
@@ -1407,56 +1461,56 @@
     }
     var first = pts[0], last = pts[pts.length - 1];
     var withYear = first.date.slice(0, 4) !== last.date.slice(0, 4);
-    g += '<text class="ch-tick" x="'+L+'" y="'+(H - 8)+'" text-anchor="start">'+thDateShort(first.date, withYear)+'</text>'+
-      '<text class="ch-tick" x="'+(W - R)+'" y="'+(H - 8)+'" text-anchor="end">'+thDateShort(last.date, withYear)+'</text>';
+    g += '<text class="ch-tick" x="'+L+'" y="'+(H - 8)+'" text-anchor="start">'+fmtDateShort(first.date, withYear)+'</text>'+
+      '<text class="ch-tick" x="'+(W - R)+'" y="'+(H - 8)+'" text-anchor="end">'+fmtDateShort(last.date, withYear)+'</text>';
     var path = pts.map(function(w, i){ return (i ? 'L' : 'M') + r1(sx(dayNum(w.date))) + ' ' + r1(sy(w.kg)); }).join(' ');
     g += '<path class="ch-line" d="'+path+'"/>';
     pts.forEach(function(w, i){
       var isLast = i === pts.length - 1;
-      g += '<circle class="'+(isLast ? 'ch-last' : 'ch-pt')+'" cx="'+r1(sx(dayNum(w.date)))+'" cy="'+r1(sy(w.kg))+'" r="'+(isLast ? 6 : 4)+'"><title>'+thDate(w.date)+': '+kgFmt(w.kg)+' กก.</title></circle>';
+      g += '<circle class="'+(isLast ? 'ch-last' : 'ch-pt')+'" cx="'+r1(sx(dayNum(w.date)))+'" cy="'+r1(sy(w.kg))+'" r="'+(isLast ? 6 : 4)+'"><title>'+fmtDate(w.date)+': '+esc(kgTxt(w.kg))+'</title></circle>';
     });
     var lx = r1(sx(dayNum(last.date))), ly = r1(sy(last.kg));
-    g += '<text class="ch-lab" x="'+lx+'" y="'+(ly < T + 14 ? ly + 22 : ly - 12)+'" text-anchor="'+(lx > W - 60 ? 'end' : 'middle')+'">'+kgFmt(last.kg)+' กก.</text>';
-    var label = 'กราฟน้ำหนัก ' + p.name + ' ' + pts.length + ' บันทึก จาก ' + kgFmt(first.kg) + ' กก. (' + thDate(first.date) + ') เป็น ' + kgFmt(last.kg) + ' กก. (' + thDate(last.date) + ')';
+    g += '<text class="ch-lab" x="'+lx+'" y="'+(ly < T + 14 ? ly + 22 : ly - 12)+'" text-anchor="'+(lx > W - 60 ? 'end' : 'middle')+'">'+esc(kgTxt(last.kg))+'</text>';
+    var label = t('chart.label', {name:p.name, n:pts.length, a:kgTxt(first.kg), da:fmtDate(first.date), b:kgTxt(last.kg), db:fmtDate(last.date)});
     return '<figure class="hb-chart sp-'+p.species+'"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(label)+'">'+g+'</svg></figure>';
   }
 
   /* ---------- health book tabs, lists and inline entry forms ---------- */
   function chgText(diff){
-    if (Math.abs(diff) < 0.05) return 'เท่าเดิม';
-    return (diff > 0 ? '+' : '-') + kgFmt(Math.abs(diff)) + ' กก.';
+    if (Math.abs(diff) < 0.05) return t('chg.same');
+    return (diff > 0 ? '+' : '-') + kgTxt(Math.abs(diff));
   }
   function itemActs(kind, e, what){
     return '<div class="hb-acts">'+
-      '<button type="button" class="mini-btn" data-action="hb-edit" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="แก้ไข '+esc(what)+'">'+icon('i-edit')+'แก้ไข</button>'+
-      '<button type="button" class="mini-btn" data-action="hb-del" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="ลบ '+esc(what)+'">'+icon('i-trash')+'ลบ</button></div>';
+      '<button type="button" class="mini-btn" data-action="hb-edit" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="'+esc(t('act.edit', {what:what}))+'">'+icon('i-edit')+esc(t('edit'))+'</button>'+
+      '<button type="button" class="mini-btn" data-action="hb-del" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="'+esc(t('act.del', {what:what}))+'">'+icon('i-trash')+esc(t('del'))+'</button></div>';
   }
   function noteHTML(text, ic){ return '<p class="hb-sched">'+icon(ic || 'i-info')+'<span>'+text+'</span></p>'; }
   function calBtnHTML(action, p, kind, e, what){
-    return '<button type="button" class="mini-btn hb-cal" data-action="'+action+'" data-pet="'+esc(p.id)+'" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="เพิ่มลงปฏิทิน: '+esc(what)+'">'+icon('i-cal')+'เพิ่มลงปฏิทิน</button>';
+    return '<button type="button" class="mini-btn hb-cal" data-action="'+action+'" data-pet="'+esc(p.id)+'" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="'+esc(t('cal.aria', {what:what}))+'">'+icon('i-cal')+esc(t('cal.add'))+'</button>';
   }
-  function dueTagHTML(x){ var s = x.d <= 30 ? dueState(x) : null; return s ? ' <span class="due-tag '+s.cls+'">'+icon(s.ic)+s.when+'</span>' : ''; }
+  function dueTagHTML(x){ var s = x.d <= 30 ? dueState(x) : null; return s ? ' <span class="due-tag '+s.cls+'">'+icon(s.ic)+esc(s.when)+'</span>' : ''; }
   function medItemHTML(p, m){
     var today = todayISO(), now = nowHM(), active = medActive(m, today), stopped = medStopped(m);
-    var what = 'ยา ' + m.name;
-    var period = 'เริ่ม ' + thDate(m.start) + ' · ' + (m.end ? 'ถึง ' + thDate(m.end) : 'ต่อเนื่อง');
+    var what = t('med.what', {name:m.name});
+    var period = t('med.start', {d:fmtDate(m.start)}) + ' · ' + (m.end ? t('med.until', {d:fmtDate(m.end)}) : t('med.ongoing'));
     var h = '<li class="hb-item med-item"><div class="hb-main"><span class="hb-val">'+esc(m.name)+'</span>'+
-      (m.instructions ? '<p class="med-how"><span class="muted">วิธีให้: </span>'+esc(m.instructions)+'</p>' : '')+
-      '<span class="hb-date">เวลาให้ยา '+m.times.map(function(t){ return t + ' น.'; }).join(', ')+'</span>'+
-      '<span class="hb-date">'+period+(m.start > today ? ' <span class="due-tag soon">'+icon('i-clock')+'ยังไม่ถึงวันเริ่ม</span>' : '')+'</span>';
+      (m.instructions ? '<p class="med-how"><span class="muted">'+esc(t('med.how'))+'</span>'+esc(m.instructions)+'</p>' : '')+
+      '<span class="hb-date">'+esc(t('med.times', {v:m.times.map(hm).join(', ')}))+'</span>'+
+      '<span class="hb-date">'+esc(period)+(m.start > today ? ' <span class="due-tag soon">'+icon('i-clock')+esc(t('med.notYet'))+'</span>' : '')+'</span>';
     if (m.refillDate){
       var x = {pet:p, kind:'med', item:m, due:m.refillDate, d:daysUntil(m.refillDate)};
-      h += '<p class="hb-next">นัดรับยา/ยาจะหมด '+thDate(m.refillDate)+(stopped ? '' : dueTagHTML(x))+'</p>';
+      h += '<p class="hb-next">'+esc(t('due.medDate', {d:fmtDate(m.refillDate)}))+(stopped ? '' : dueTagHTML(x))+'</p>';
     }
     if (active){
-      h += '<fieldset class="dose-today"><legend>วันนี้ ('+thDate(today)+')</legend>'+m.times.map(function(t){
-        var given = doseGiven(m, today, t), late = !given && t < now, id = 'dose-' + m.id + '-' + t.replace(':', '');
-        return '<label class="check dose-chk" for="'+id+'"><input type="checkbox" id="'+id+'" data-dose data-pet="'+esc(p.id)+'" data-med="'+esc(m.id)+'" data-time="'+t+'"'+(given ? ' checked' : '')+'>'+
-          '<span>'+t+' น. ให้แล้ว</span>'+(late ? '<span class="due-tag over">'+icon('i-limited')+'เลยเวลา</span>' : '')+'</label>';
+      h += '<fieldset class="dose-today"><legend>'+esc(t('med.today', {d:fmtDate(today)}))+'</legend>'+m.times.map(function(tm){
+        var given = doseGiven(m, today, tm), late = !given && tm < now, id = 'dose-' + m.id + '-' + tm.replace(':', '');
+        return '<label class="check dose-chk" for="'+id+'"><input type="checkbox" id="'+id+'" data-dose data-pet="'+esc(p.id)+'" data-med="'+esc(m.id)+'" data-time="'+tm+'"'+(given ? ' checked' : '')+'>'+
+          '<span>'+esc(t('med.givenAt', {t:tm}))+'</span>'+(late ? '<span class="due-tag over">'+icon('i-limited')+esc(t('dose.late'))+'</span>' : '')+'</label>';
       }).join('')+'</fieldset>';
     }
     if (m.note) h += '<p class="hb-note">'+esc(m.note)+'</p>';
-    if (!stopped) h += calBtnHTML('ics-med', p, 'med', m, 'ให้ยา ' + m.name + ' — ' + p.name);
+    if (!stopped) h += calBtnHTML('ics-med', p, 'med', m, t('ics.give', {med:m.name, pet:p.name}));
     return h + '</div>' + itemActs('med', m, what) + '</li>';
   }
   function medListHTML(p){
@@ -1466,116 +1520,116 @@
       return aa - bb || (a.start < b.start ? -1 : a.start > b.start ? 1 : a.name.localeCompare(b.name));
     });
     var old = p.meds.filter(medStopped).sort(function(a, b){ return a.end < b.end ? 1 : a.end > b.end ? -1 : 0; });
-    var html = !p.meds.length ? '<p class="muted small hb-none">ยังไม่มีบันทึกยา</p>' :
-      (cur.length ? '<ul class="hb-list">'+cur.map(function(m){ return medItemHTML(p, m); }).join('')+'</ul>' : '<p class="muted small hb-none">ไม่มียาที่กำลังให้อยู่</p>');
-    if (old.length) html += '<details class="hb-old"><summary>ยาที่หยุดแล้ว ('+old.length+')</summary><ul class="hb-list">'+old.map(function(m){ return medItemHTML(p, m); }).join('')+'</ul></details>';
-    return html + noteHTML(MED_NOTE) + noteHTML(REMIND_NOTE, 'i-clock');
+    var html = !p.meds.length ? '<p class="muted small hb-none">'+esc(t('med.none'))+'</p>' :
+      (cur.length ? '<ul class="hb-list">'+cur.map(function(m){ return medItemHTML(p, m); }).join('')+'</ul>' : '<p class="muted small hb-none">'+esc(t('med.noneCur'))+'</p>');
+    if (old.length) html += '<details class="hb-old"><summary>'+esc(t('med.stopped', {n:old.length}))+'</summary><ul class="hb-list">'+old.map(function(m){ return medItemHTML(p, m); }).join('')+'</ul></details>';
+    return html + noteHTML(esc(t('note.med'))) + noteHTML(esc(t('note.remind')), 'i-clock');
   }
   function apptItemHTML(p, a){
     var x = {pet:p, kind:'appt', item:a, due:a.date, d:daysUntil(a.date)};
-    var title = a.reason || 'นัดหมอ', what = 'นัดหมอ ' + (a.reason ? a.reason + ' ' : '') + 'วันที่ ' + thDate(a.date), id = 'appt-done-' + a.id;
+    var title = a.reason || t('appt.title'), what = t('appt.what', {reason:a.reason ? a.reason + ' ' : '', d:fmtDate(a.date)}), id = 'appt-done-' + a.id;
     return '<li class="hb-item appt-item'+(a.done ? ' is-done' : '')+'"><div class="hb-main"><span class="hb-val">'+esc(title)+'</span>'+
-      '<span class="hb-date">วันนัด '+thDate(a.date)+(a.time ? ' เวลา '+a.time+' น.' : '')+(a.done ? '' : dueTagHTML(x))+'</span>'+
+      '<span class="hb-date">'+esc(t('appt.date', {d:fmtDate(a.date)}))+(a.time ? esc(t('at.time', {t:a.time})) : '')+(a.done ? '' : dueTagHTML(x))+'</span>'+
       (a.clinic ? '<span class="hb-date appt-clinic">'+icon('i-pin')+esc(a.clinic)+'</span>' : '')+
       (a.note ? '<p class="hb-note">'+esc(a.note)+'</p>' : '')+
-      '<label class="check appt-done" for="'+id+'"><input type="checkbox" id="'+id+'" data-appt-done data-id="'+esc(a.id)+'"'+(a.done ? ' checked' : '')+'><span>ไปแล้ว</span></label>'+
+      '<label class="check appt-done" for="'+id+'"><input type="checkbox" id="'+id+'" data-appt-done data-id="'+esc(a.id)+'"'+(a.done ? ' checked' : '')+'><span>'+esc(t('appt.done'))+'</span></label>'+
       (!a.done && x.d >= 0 ? calBtnHTML('ics', p, 'appt', a, dueTitle(x) + ' — ' + p.name) : '')+
       '</div>' + itemActs('appt', a, what) + '</li>';
   }
   function apptListHTML(p){
-    var today = todayISO();
     function asc(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : String(a.time).localeCompare(String(b.time)); }
     var open = p.appts.filter(function(a){ return !a.done; }).sort(asc);
     var past = p.appts.filter(function(a){ return a.done; }).sort(function(a, b){ return -asc(a, b); });
-    var html = !p.appts.length ? '<p class="muted small hb-none">ยังไม่มีนัดหมอ</p>' :
-      (open.length ? '<ul class="hb-list">'+open.map(function(a){ return apptItemHTML(p, a); }).join('')+'</ul>' : '<p class="muted small hb-none">ไม่มีนัดที่รออยู่</p>');
-    if (past.length) html += '<details class="hb-old"><summary>นัดที่ไปแล้ว ('+past.length+')</summary><ul class="hb-list">'+past.map(function(a){ return apptItemHTML(p, a); }).join('')+'</ul></details>';
-    return html + noteHTML(REMIND_NOTE, 'i-clock');
+    var html = !p.appts.length ? '<p class="muted small hb-none">'+esc(t('appt.none'))+'</p>' :
+      (open.length ? '<ul class="hb-list">'+open.map(function(a){ return apptItemHTML(p, a); }).join('')+'</ul>' : '<p class="muted small hb-none">'+esc(t('appt.noneOpen'))+'</p>');
+    if (past.length) html += '<details class="hb-old"><summary>'+esc(t('appt.past', {n:past.length}))+'</summary><ul class="hb-list">'+past.map(function(a){ return apptItemHTML(p, a); }).join('')+'</ul></details>';
+    return html + noteHTML(esc(t('note.remind')), 'i-clock');
   }
   function listHTML(p, kind){
     if (kind === 'med') return medListHTML(p);
     if (kind === 'appt') return apptListHTML(p);
     if (kind === 'weight'){
       var asc = weightsAsc(p);
-      if (!asc.length) return '<p class="muted small hb-none">ยังไม่มีบันทึกน้ำหนัก</p>';
+      if (!asc.length) return '<p class="muted small hb-none">'+esc(t('hb.none', {name:hbName('weight')}))+'</p>';
       var rows = asc.map(function(w, i){ return {w:w, diff: i ? w.kg - asc[i - 1].kg : null}; }).reverse();
       return weightChartHTML(p) + '<ul class="hb-list">'+rows.map(function(r){
-        var what = 'น้ำหนัก ' + kgFmt(r.w.kg) + ' กก. วันที่ ' + thDate(r.w.date);
-        return '<li class="hb-item"><div class="hb-main"><span class="hb-val">'+kgFmt(r.w.kg)+' กก.</span>'+
-          '<span class="hb-date">'+thDate(r.w.date)+'</span>'+
-          (r.diff != null ? '<span class="hb-chg">'+chgText(r.diff)+' <span class="muted">จากครั้งก่อน</span></span>' : '')+'</div>'+
+        var what = t('w.what', {kg:kgTxt(r.w.kg), d:fmtDate(r.w.date)});
+        return '<li class="hb-item"><div class="hb-main"><span class="hb-val">'+esc(kgTxt(r.w.kg))+'</span>'+
+          '<span class="hb-date">'+fmtDate(r.w.date)+'</span>'+
+          (r.diff != null ? '<span class="hb-chg">'+esc(chgText(r.diff))+' <span class="muted">'+esc(t('chg.since'))+'</span></span>' : '')+'</div>'+
           itemActs(kind, r.w, what)+'</li>';
       }).join('')+'</ul>';
     }
     var arr = sortedDesc(p[HB_LIST[kind]]);
-    var html = !arr.length ? '<p class="muted small hb-none">ยังไม่มีบันทึก'+HB_NAME[kind]+'</p>' :
+    var html = !arr.length ? '<p class="muted small hb-none">'+esc(t('hb.none', {name:hbName(kind)}))+'</p>' :
       '<ul class="hb-list">'+arr.map(function(e){
         var name = kind === 'vaccine' ? e.name : e.product;
-        var what = name + ' วันที่ ' + thDate(e.date), due = '';
+        var what = t('rec.what', {name:name, d:fmtDate(e.date)}), due = '';
         if (e.nextDue){
           var x = {pet:p, kind:kind, item:e, due:e.nextDue, d:daysUntil(e.nextDue)};
           var s = x.d <= 30 ? dueState(x) : null;
-          due = '<p class="hb-next">นัดครั้งถัดไป '+thDate(e.nextDue)+
-            (s ? ' <span class="due-tag '+s.cls+'">'+icon(s.ic)+s.when+'</span>' : '')+'</p>'+
-            (x.d >= 0 ? '<button type="button" class="mini-btn hb-cal" data-action="ics" data-pet="'+esc(p.id)+'" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="เพิ่มลงปฏิทิน: '+esc(dueTitle(x)+' — '+p.name)+'">'+icon('i-cal')+'เพิ่มลงปฏิทิน</button>' : '');
+          due = '<p class="hb-next">'+esc(t('rec.next', {d:fmtDate(e.nextDue)}))+
+            (s ? ' <span class="due-tag '+s.cls+'">'+icon(s.ic)+esc(s.when)+'</span>' : '')+'</p>'+
+            (x.d >= 0 ? calBtnHTML('ics', p, kind, e, dueTitle(x)+' — '+p.name) : '');
         }
         return '<li class="hb-item"><div class="hb-main"><span class="hb-val">'+esc(name)+'</span>'+
-          '<span class="hb-date">'+(kind === 'vaccine' ? 'ฉีดเมื่อ ' : 'ให้เมื่อ ')+thDate(e.date)+'</span>'+due+
+          '<span class="hb-date">'+esc(kind === 'vaccine' ? t('rec.vaxOn') : t('rec.givenOn'))+fmtDate(e.date)+'</span>'+due+
           (e.note ? '<p class="hb-note">'+esc(e.note)+'</p>' : '')+'</div>'+itemActs(kind, e, what)+'</li>';
       }).join('')+'</ul>';
-    return html + '<p class="hb-sched">'+icon('i-info')+'<span>'+SCHEDULE_NOTE+'</span></p>';
+    return html + '<p class="hb-sched">'+icon('i-info')+'<span>'+esc(t('note.schedule'))+'</span></p>';
   }
   function formRow(forId, label, input){ return '<div class="form-row"><label for="'+forId+'">'+label+'</label>'+input+'</div>'; }
   function formEnd(){
     return '<p class="field-err" id="hbf-err" role="alert" hidden></p>'+
-      '<div class="form-actions"><button type="submit" class="btn-primary">บันทึก</button>'+
-      '<button type="button" class="btn-sec" data-action="hb-cancel">ยกเลิก</button></div></form>';
+      '<div class="form-actions"><button type="submit" class="btn-primary">'+esc(t('save'))+'</button>'+
+      '<button type="button" class="btn-sec" data-action="hb-cancel">'+esc(t('cancel'))+'</button></div></form>';
   }
   function timeRowHTML(i, v){
-    return '<div class="time-row"><label for="hbf-t'+i+'">เวลาที่ '+(i + 1)+'</label>'+
+    return '<div class="time-row"><label for="hbf-t'+i+'">'+esc(t('tm.label', {n:i + 1}))+'</label>'+
       '<input class="text-in" type="time" id="hbf-t'+i+'" step="60" value="'+esc(v || '')+'" aria-describedby="hbf-times-hint hbf-err">'+
-      '<button type="button" class="mini-btn" data-action="time-del" aria-label="ลบเวลาที่ '+(i + 1)+'">'+icon('i-trash')+'ลบ</button></div>';
+      '<button type="button" class="mini-btn" data-action="time-del" aria-label="'+esc(t('tm.del', {n:i + 1}))+'">'+icon('i-trash')+esc(t('del'))+'</button></div>';
   }
   function syncTimeRows(){
     var rows = $$('#hbf-time-list .time-row');
     rows.forEach(function(r, i){
       var lab = r.querySelector('label'), inp = r.querySelector('input'), del = r.querySelector('button');
-      inp.id = 'hbf-t' + i; lab.setAttribute('for', inp.id); lab.textContent = 'เวลาที่ ' + (i + 1);
-      del.setAttribute('aria-label', 'ลบเวลาที่ ' + (i + 1)); del.hidden = rows.length < 2;
+      inp.id = 'hbf-t' + i; lab.setAttribute('for', inp.id); lab.textContent = t('tm.label', {n:i + 1});
+      del.setAttribute('aria-label', t('tm.del', {n:i + 1})); del.hidden = rows.length < 2;
     });
     var add = $('[data-action="time-add"]'); if (add) add.hidden = rows.length >= MAX_TIMES;
   }
+  function reqMark(){ return ' <span class="req">'+esc(t('req'))+'</span>'; }
   function medFormHTML(p, e){
     var today = todayISO(), times = e ? e.times : [''];
     return '<form class="hb-form" data-kind="med" novalidate aria-labelledby="hbf-h">'+
-      '<h3 id="hbf-h">'+(e ? 'แก้ไข' : 'เพิ่ม')+'บันทึกยา</h3>'+
-      formRow('hbf-name', 'ชื่อยา <span class="req">(จำเป็น)</span>', '<input class="text-in" type="text" id="hbf-name" maxlength="60" autocomplete="off" placeholder="ชื่อตามฉลากยา" value="'+esc(e ? e.name : '')+'" required aria-describedby="hbf-err">')+
-      formRow('hbf-instr', 'วิธีให้ / ขนาดตามที่สัตวแพทย์สั่ง', '<textarea class="fb-text" id="hbf-instr" maxlength="200" placeholder="เช่น ครึ่งเม็ด หลังอาหาร" aria-describedby="hbf-instr-hint">'+esc(e ? e.instructions : '')+'</textarea>'+
-        '<p class="hint" id="hbf-instr-hint">ใส่ตามฉลากหรือที่สัตวแพทย์สั่งเท่านั้น</p>')+
-      '<fieldset class="form-row hb-times"><legend>เวลาให้ยา <span class="req">(จำเป็น 1–'+MAX_TIMES+' เวลา)</span></legend>'+
-        '<div id="hbf-time-list">'+times.map(function(t, i){ return timeRowHTML(i, t); }).join('')+'</div>'+
-        '<button type="button" class="mini-btn" data-action="time-add">'+icon('i-plus')+'เพิ่มเวลา</button>'+
-        '<p class="hint" id="hbf-times-hint">ใส่เวลาตามที่สัตวแพทย์สั่ง</p></fieldset>'+
+      '<h3 id="hbf-h">'+esc(e ? t('mf.edit') : t('mf.add'))+'</h3>'+
+      formRow('hbf-name', esc(t('mf.name'))+reqMark(), '<input class="text-in" type="text" id="hbf-name" maxlength="60" autocomplete="off" placeholder="'+esc(t('mf.name.ph'))+'" value="'+esc(e ? e.name : '')+'" required aria-describedby="hbf-err">')+
+      formRow('hbf-instr', esc(t('mf.instr')), '<textarea class="fb-text" id="hbf-instr" maxlength="200" placeholder="'+esc(t('mf.instr.ph'))+'" aria-describedby="hbf-instr-hint">'+esc(e ? e.instructions : '')+'</textarea>'+
+        '<p class="hint" id="hbf-instr-hint">'+esc(t('mf.instr.hint'))+'</p>')+
+      '<fieldset class="form-row hb-times"><legend>'+esc(t('mf.times'))+' <span class="req">'+esc(t('mf.times.req', {n:MAX_TIMES}))+'</span></legend>'+
+        '<div id="hbf-time-list">'+times.map(function(tm, i){ return timeRowHTML(i, tm); }).join('')+'</div>'+
+        '<button type="button" class="mini-btn" data-action="time-add">'+icon('i-plus')+esc(t('mf.addTime'))+'</button>'+
+        '<p class="hint" id="hbf-times-hint">'+esc(t('mf.times.hint'))+'</p></fieldset>'+
       '<div class="hb-two">'+
-        formRow('hbf-start', 'วันเริ่ม', '<input class="text-in" type="date" id="hbf-start" value="'+esc(e ? e.start : today)+'" required aria-describedby="hbf-err">')+
-        formRow('hbf-end', 'วันสิ้นสุด (ไม่บังคับ)', '<input class="text-in" type="date" id="hbf-end" value="'+esc(e ? e.end : '')+'" aria-describedby="hbf-end-hint hbf-err"><p class="hint" id="hbf-end-hint">เว้นว่าง = ให้ต่อเนื่อง</p>')+
+        formRow('hbf-start', esc(t('mf.start')), '<input class="text-in" type="date" id="hbf-start" value="'+esc(e ? e.start : today)+'" required aria-describedby="hbf-err">')+
+        formRow('hbf-end', esc(t('mf.end')), '<input class="text-in" type="date" id="hbf-end" value="'+esc(e ? e.end : '')+'" aria-describedby="hbf-end-hint hbf-err"><p class="hint" id="hbf-end-hint">'+esc(t('mf.end.hint'))+'</p>')+
       '</div>'+
-      formRow('hbf-refill', 'วันรับยาครั้งถัดไป (ไม่บังคับ)', '<input class="text-in" type="date" id="hbf-refill" value="'+esc(e ? e.refillDate : '')+'" aria-describedby="hbf-refill-hint hbf-err"><p class="hint" id="hbf-refill-hint">นัดรับยา หรือวันที่ยาจะหมด</p>')+
-      formRow('hbf-note', 'หมายเหตุ (ไม่บังคับ)', '<textarea class="fb-text" id="hbf-note" maxlength="200">'+esc(e ? e.note : '')+'</textarea>')+
+      formRow('hbf-refill', esc(t('mf.refill')), '<input class="text-in" type="date" id="hbf-refill" value="'+esc(e ? e.refillDate : '')+'" aria-describedby="hbf-refill-hint hbf-err"><p class="hint" id="hbf-refill-hint">'+esc(t('mf.refill.hint'))+'</p>')+
+      formRow('hbf-note', esc(t('f.note')), '<textarea class="fb-text" id="hbf-note" maxlength="200">'+esc(e ? e.note : '')+'</textarea>')+
       formEnd();
   }
   function apptFormHTML(p, e){
     return '<form class="hb-form" data-kind="appt" novalidate aria-labelledby="hbf-h">'+
-      '<h3 id="hbf-h">'+(e ? 'แก้ไข' : 'เพิ่ม')+'นัดหมอ</h3>'+
+      '<h3 id="hbf-h">'+esc(e ? t('af.edit') : t('af.add'))+'</h3>'+
       '<div class="hb-two">'+
-        formRow('hbf-date', 'วันนัด <span class="req">(จำเป็น)</span>', '<input class="text-in" type="date" id="hbf-date" value="'+esc(e ? e.date : '')+'" required aria-describedby="hbf-err">')+
-        formRow('hbf-time', 'เวลา (ไม่บังคับ)', '<input class="text-in" type="time" id="hbf-time" step="60" value="'+esc(e ? e.time : '')+'" aria-describedby="hbf-err">')+
+        formRow('hbf-date', esc(t('af.date'))+reqMark(), '<input class="text-in" type="date" id="hbf-date" value="'+esc(e ? e.date : '')+'" required aria-describedby="hbf-err">')+
+        formRow('hbf-time', esc(t('af.time')), '<input class="text-in" type="time" id="hbf-time" step="60" value="'+esc(e ? e.time : '')+'" aria-describedby="hbf-err">')+
       '</div>'+
-      '<label class="check" for="hbf-done"><input type="checkbox" id="hbf-done"'+(e && e.done ? ' checked' : '')+'>ไปแล้ว</label>'+
-      formRow('hbf-clinic', 'คลินิก / โรงพยาบาล (ไม่บังคับ)', '<input class="text-in" type="text" id="hbf-clinic" maxlength="80" autocomplete="off" value="'+esc(e ? e.clinic : '')+'">')+
-      formRow('hbf-reason', 'เรื่องที่นัด (ไม่บังคับ)', '<input class="text-in" type="text" id="hbf-reason" maxlength="60" autocomplete="off" list="appt-list" placeholder="เลือกหรือพิมพ์ เช่น ตรวจติดตาม" value="'+esc(e ? e.reason : '')+'">'+
-        '<datalist id="appt-list">'+APPT_SUGGEST.map(function(v){ return '<option value="'+esc(v)+'">'; }).join('')+'</datalist>')+
-      formRow('hbf-note', 'หมายเหตุ (ไม่บังคับ)', '<textarea class="fb-text" id="hbf-note" maxlength="200" placeholder="เช่น งดอาหารก่อนมา">'+esc(e ? e.note : '')+'</textarea>')+
+      '<label class="check" for="hbf-done"><input type="checkbox" id="hbf-done"'+(e && e.done ? ' checked' : '')+'>'+esc(t('appt.done'))+'</label>'+
+      formRow('hbf-clinic', esc(t('af.clinic')), '<input class="text-in" type="text" id="hbf-clinic" maxlength="80" autocomplete="off" value="'+esc(e ? e.clinic : '')+'">')+
+      formRow('hbf-reason', esc(t('af.reason')), '<input class="text-in" type="text" id="hbf-reason" maxlength="60" autocomplete="off" list="appt-list" placeholder="'+esc(t('af.reason.ph'))+'" value="'+esc(e ? e.reason : '')+'">'+
+        '<datalist id="appt-list">'+suggest('appt.s', 7).map(function(v){ return '<option value="'+esc(v)+'">'; }).join('')+'</datalist>')+
+      formRow('hbf-note', esc(t('f.note')), '<textarea class="fb-text" id="hbf-note" maxlength="200" placeholder="'+esc(t('af.note.ph'))+'">'+esc(e ? e.note : '')+'</textarea>')+
       formEnd();
   }
   function entryFormHTML(p, kind, id){
@@ -1584,57 +1638,65 @@
     if (kind === 'appt') return apptFormHTML(p, e);
     var today = todayISO(), row = formRow;
     var html = '<form class="hb-form" data-kind="'+kind+'" novalidate aria-labelledby="hbf-h">'+
-      '<h3 id="hbf-h">'+(e ? 'แก้ไข' : 'เพิ่ม')+'บันทึก'+HB_NAME[kind]+'</h3>'+
-      row('hbf-date', kind === 'weight' ? 'วันที่ชั่ง' : kind === 'vaccine' ? 'วันที่ฉีด' : 'วันที่ให้',
+      '<h3 id="hbf-h">'+esc(t(e ? 'hb.form.edit' : 'hb.form.add', {name:hbName(kind)}))+'</h3>'+
+      row('hbf-date', esc(kind === 'weight' ? t('ef.dateW') : kind === 'vaccine' ? t('ef.dateV') : t('ef.dateD')),
         '<input class="text-in" type="date" id="hbf-date" max="'+today+'" value="'+esc(e ? e.date : today)+'" required aria-describedby="hbf-err">');
     if (kind === 'weight'){
-      html += row('hbf-kg', 'น้ำหนัก (กิโลกรัม)', '<input class="text-in" type="text" inputmode="decimal" id="hbf-kg" placeholder="เช่น 4.5" value="'+(e ? kgFmt(e.kg) : '')+'" required aria-describedby="hbf-err">');
+      html += row('hbf-kg', esc(t('ef.kg')), '<input class="text-in" type="text" inputmode="decimal" id="hbf-kg" placeholder="'+esc(t('ef.kg.ph'))+'" value="'+(e ? kgFmt(e.kg) : '')+'" required aria-describedby="hbf-err">');
     } else {
       var nm = e ? (kind === 'vaccine' ? e.name : e.product) : '';
-      html += row('hbf-name', kind === 'vaccine' ? 'ชื่อวัคซีน' : 'ชื่อยาหรือผลิตภัณฑ์',
+      html += row('hbf-name', esc(kind === 'vaccine' ? t('ef.vax') : t('ef.prod')),
         '<input class="text-in" type="text" id="hbf-name" maxlength="60" autocomplete="off" value="'+esc(nm)+'" required aria-describedby="hbf-err"'+
-        (kind === 'vaccine' ? ' list="vax-list" placeholder="เลือกหรือพิมพ์ชื่อวัคซีน">'+
-          '<datalist id="vax-list">'+VAX_SUGGEST.map(function(v){ return '<option value="'+esc(v)+'">'; }).join('')+'</datalist>' : ' placeholder="ชื่อตามฉลาก">'));
-      html += row('hbf-due', 'วันนัดครั้งถัดไป (ไม่บังคับ)',
+        (kind === 'vaccine' ? ' list="vax-list" placeholder="'+esc(t('ef.vax.ph'))+'">'+
+          '<datalist id="vax-list">'+suggest('vax.s', 5).map(function(v){ return '<option value="'+esc(v)+'">'; }).join('')+'</datalist>' : ' placeholder="'+esc(t('ef.prod.ph'))+'">'));
+      html += row('hbf-due', esc(t('ef.due')),
         '<input class="text-in" type="date" id="hbf-due" value="'+esc(e ? e.nextDue : '')+'" aria-describedby="hbf-due-hint hbf-err">'+
-        '<p class="hint" id="hbf-due-hint">ใส่ตามที่สัตวแพทย์นัด</p>');
-      html += row('hbf-note', 'หมายเหตุ (ไม่บังคับ)', '<textarea class="fb-text" id="hbf-note" maxlength="200">'+esc(e ? e.note : '')+'</textarea>');
+        '<p class="hint" id="hbf-due-hint">'+esc(t('ef.due.hint'))+'</p>');
+      html += row('hbf-note', esc(t('f.note')), '<textarea class="fb-text" id="hbf-note" maxlength="200">'+esc(e ? e.note : '')+'</textarea>');
     }
     return html + formEnd();
   }
   function bookHTML(p){
-    var tabs = '<div class="hb-tabs" role="tablist" aria-label="บันทึกสุขภาพของ '+esc(p.name)+'">'+HB_TABS.map(function(t){
-      var on = t.k === hbTab;
-      return '<button type="button" role="tab" id="tab-'+t.k+'" aria-controls="panel-'+t.k+'" aria-selected="'+on+'" tabindex="'+(on ? 0 : -1)+'" data-action="hb-tab" data-k="'+t.k+'">'+t.t+'</button>';
+    var tabs = '<div class="hb-tabs" role="tablist" aria-label="'+esc(t('book.tabs', {name:p.name}))+'">'+HB_TABS.map(function(tb){
+      var on = tb.k === hbTab;
+      return '<button type="button" role="tab" id="tab-'+tb.k+'" aria-controls="panel-'+tb.k+'" aria-selected="'+on+'" tabindex="'+(on ? 0 : -1)+'" data-action="hb-tab" data-k="'+tb.k+'">'+esc(t('hb.tab.' + tb.k))+'</button>';
     }).join('')+'</div>';
-    var panels = HB_TABS.map(function(t){
-      var on = t.k === hbTab, open = on && hbForm && hbForm.kind === t.k;
-      return '<div class="hb-panel" role="tabpanel" id="panel-'+t.k+'" aria-labelledby="tab-'+t.k+'"'+(on ? '' : ' hidden')+'>'+
-        (on ? (open ? entryFormHTML(p, t.k, hbForm.id) :
-          '<button type="button" class="btn-sec hb-add" data-action="hb-add" data-kind="'+t.k+'">'+icon('i-plus')+'เพิ่มบันทึก<span class="sr-only">'+HB_NAME[t.k]+'</span></button>') +
-          listHTML(p, t.k) : '')+'</div>';
+    var panels = HB_TABS.map(function(tb){
+      var on = tb.k === hbTab, open = on && hbForm && hbForm.kind === tb.k;
+      return '<div class="hb-panel" role="tabpanel" id="panel-'+tb.k+'" aria-labelledby="tab-'+tb.k+'"'+(on ? '' : ' hidden')+'>'+
+        (on ? (open ? entryFormHTML(p, tb.k, hbForm.id) :
+          '<button type="button" class="btn-sec hb-add" data-action="hb-add" data-kind="'+tb.k+'">'+icon('i-plus')+esc(t('book.add'))+'<span class="sr-only">'+esc(hbName(tb.k))+'</span></button>') +
+          listHTML(p, tb.k) : '')+'</div>';
     }).join('');
-    return '<h2 class="hb-book-h" id="book-h">บันทึกสุขภาพ</h2>' + tabs + panels;
+    return '<h2 class="hb-book-h" id="book-h">'+esc(t('book.h'))+'</h2>' + tabs + panels;
   }
   function backupHTML(){
-    return '<section class="hb-backup" aria-labelledby="bk-h"><h2 id="bk-h">'+icon('i-lock')+'สำรองและกู้คืนข้อมูล</h2>'+
-      '<p class="small">ข้อมูลอยู่ในเครื่องนี้เท่านั้น ถ้าลบแอปหรือล้างข้อมูลเบราว์เซอร์จะหาย ควรสำรองเป็นระยะ ไฟล์สำรองจะบันทึกไว้ในที่ที่คุณเลือก แอปไม่ส่งไปที่ไหน</p>'+
-      '<div class="bk-row"><button type="button" class="btn-sec" data-action="backup"'+(book.pets.length ? '' : ' disabled')+'>'+icon('i-download')+'สำรองข้อมูล</button>'+
-      '<label class="btn-sec file-btn">'+icon('i-upload')+'กู้คืนข้อมูล<input type="file" id="restore-file" class="file-in" accept=".json,application/json"></label></div>'+
+    return '<section class="hb-backup" aria-labelledby="bk-h"><h2 id="bk-h">'+icon('i-lock')+esc(t('bk.h'))+'</h2>'+
+      '<p class="small">'+esc(t('bk.p'))+'</p>'+
+      '<div class="bk-row"><button type="button" class="btn-sec" data-action="backup"'+(book.pets.length ? '' : ' disabled')+'>'+icon('i-download')+esc(t('bk.backup'))+'</button>'+
+      '<label class="btn-sec file-btn">'+icon('i-upload')+esc(t('bk.restore'))+'<input type="file" id="restore-file" class="file-in" accept=".json,application/json"></label></div>'+
       '<p class="field-err" id="restore-err" role="alert" hidden></p><div id="restore-host"></div></section>';
   }
+  /* Book layout: on desktop the summary + treat card sit in the left column and the
+     reminders + records on the right; on narrow screens .hb-col is display:contents and
+     CSS order keeps the original order (today, upcoming, summary, records). */
   function renderProfile(){
     closeConfirm();
-    $('#prof-h').textContent = 'สมุดสุขภาพน้อง';
+    $('#prof-h').textContent = t('prof.h');
     var p = activePet(), html = storeNoteHTML();
     if (p) book.activeId = p.id;
     if (!p){
       html += '<div class="card hb-empty"><div class="hb-empty-ph"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="72" height="72"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="72" height="72"></div>'+
-        '<h2>ยังไม่มีน้องในสมุดสุขภาพ</h2><p>จดน้ำหนัก วัคซีน การถ่ายพยาธิ ยา และนัดหมอของน้องไว้ในที่เดียว พร้อมเตือนในแอป</p>'+
-        '<button type="button" class="btn-primary" data-action="pet-new">'+icon('i-plus')+'เพิ่มน้องตัวแรก</button></div>';
+        '<h2>'+esc(t('empty.h'))+'</h2><p>'+esc(t('empty.p'))+'</p>'+
+        '<button type="button" class="btn-primary" data-action="pet-new">'+icon('i-plus')+esc(t('empty.add'))+'</button></div>';
     } else {
       var td = todayDosesHTML('td-h');
-      html += switcherHTML(p) + (td ? '<section class="hb-due hb-today" aria-labelledby="td-h">' + td + '</section>' : '') + upcomingHTML() + summaryHTML(p) + bookHTML(p);
+      html += switcherHTML(p) +
+        '<div class="hb-grid">'+
+          '<div class="hb-col hb-left"><div class="hb-o2">' + summaryHTML(p) + '</div></div>'+
+          '<div class="hb-col hb-right"><div class="hb-o1">' + (td ? '<section class="hb-due hb-today" aria-labelledby="td-h">' + td + '</section>' : '') + upcomingHTML() + '</div>'+
+            '<div class="hb-o3">' + bookHTML(p) + '</div></div>'+
+        '</div>';
     }
     $('#hb-root').innerHTML = html + backupHTML();
     if ($('#hbf-time-list')) syncTimeRows();
@@ -1660,18 +1722,18 @@
       return;
     }
     var date = $('#hbf-date').value;
-    if (!validISO(date)) return fail('#hbf-date', 'กรุณาใส่วันที่');
-    if (date > today) return fail('#hbf-date', 'วันที่ต้องไม่เกินวันนี้');
+    if (!validISO(date)) return fail('#hbf-date', t('v.date'));
+    if (date > today) return fail('#hbf-date', t('v.future'));
     var rec;
     if (kind === 'weight'){
       var raw = $('#hbf-kg').value.replace(',', '.').trim(), kg = parseFloat(raw);
-      if (!/^\d+(\.\d+)?$/.test(raw) || !(kg >= 0.1 && kg <= 150)) return fail('#hbf-kg', 'น้ำหนักต้องเป็นตัวเลข 0.1–150 กิโลกรัม เช่น 4.5');
+      if (!/^\d+(\.\d+)?$/.test(raw) || !(kg >= 0.1 && kg <= 150)) return fail('#hbf-kg', t('v.kg'));
       rec = {date:date, kg:Math.round(kg * 10) / 10};
     } else {
       var name = cleanStr($('#hbf-name').value, 60), due = $('#hbf-due').value;
-      if (!name) return fail('#hbf-name', kind === 'vaccine' ? 'กรุณาใส่ชื่อวัคซีน' : 'กรุณาใส่ชื่อยาหรือผลิตภัณฑ์');
-      if (due && !validISO(due)) return fail('#hbf-due', 'วันนัดไม่ถูกต้อง');
-      if (due && due < date) return fail('#hbf-due', 'วันนัดครั้งถัดไปต้องไม่ก่อนวันที่ให้');
+      if (!name) return fail('#hbf-name', kind === 'vaccine' ? t('v.vax') : t('v.prod'));
+      if (due && !validISO(due)) return fail('#hbf-due', t('v.due'));
+      if (due && due < date) return fail('#hbf-due', t('v.dueBefore'));
       rec = {date:date, nextDue:due || '', note:cleanStr($('#hbf-note').value, 200)};
       rec[kind === 'vaccine' ? 'name' : 'product'] = name;
     }
@@ -1682,49 +1744,49 @@
     var old = hbForm && hbForm.id ? list.filter(function(x){ return x.id === hbForm.id; })[0] : null;
     if (old) Object.keys(rec).forEach(function(k){ old[k] = rec[k]; });
     else {
-      if (list.length >= HB_CAP[kind]) return fail(capSel, 'บันทึกครบ ' + HB_CAP[kind] + ' รายการแล้ว ลบรายการเก่าก่อน');
+      if (list.length >= HB_CAP[kind]) return fail(capSel, t('v.cap', {n:HB_CAP[kind]}));
       if (kind === 'med') rec.doses = [];
       rec.id = newId(kind.charAt(0)); list.push(rec);
     }
     saveBook(); hbForm = null;
     rerenderKeep('.hb-add');
-    savedToast('บันทึก' + HB_NAME[kind] + 'แล้ว');
+    savedToast(t('hb.saved', {name:hbName(kind)}));
   }
   function readMedForm(fail){
     var name = cleanStr($('#hbf-name').value, 60);
-    if (!name) return fail('#hbf-name', 'กรุณาใส่ชื่อยา');
+    if (!name) return fail('#hbf-name', t('v.med'));
     var inputs = $$('#hbf-time-list input'), times = [];
     for (var i = 0; i < inputs.length; i++){
       var v = inputs[i].value.trim();
       if (!v && inputs.length > 1) continue;
-      if (!TIME_RE.test(v)) return fail('#' + inputs[i].id, v ? 'เวลาไม่ถูกต้อง ใช้รูปแบบ ชั่วโมง:นาที เช่น 08:00' : 'กรุณาใส่เวลาให้ยาอย่างน้อย 1 เวลา');
-      if (times.indexOf(v) !== -1) return fail('#' + inputs[i].id, 'มีเวลา ' + v + ' ซ้ำกัน');
+      if (!TIME_RE.test(v)) return fail('#' + inputs[i].id, v ? t('v.time', {ex:'08:00'}) : t('v.timeReq'));
+      if (times.indexOf(v) !== -1) return fail('#' + inputs[i].id, t('v.timeDup', {t:v}));
       times.push(v);
     }
-    if (!times.length) return fail('#' + inputs[0].id, 'กรุณาใส่เวลาให้ยาอย่างน้อย 1 เวลา');
-    if (times.length > MAX_TIMES) return fail('#' + inputs[0].id, 'ใส่ได้สูงสุด ' + MAX_TIMES + ' เวลาต่อวัน');
+    if (!times.length) return fail('#' + inputs[0].id, t('v.timeReq'));
+    if (times.length > MAX_TIMES) return fail('#' + inputs[0].id, t('v.timeMax', {n:MAX_TIMES}));
     var start = $('#hbf-start').value, end = $('#hbf-end').value, refill = $('#hbf-refill').value;
-    if (!validISO(start)) return fail('#hbf-start', 'กรุณาใส่วันเริ่ม');
-    if (end && !validISO(end)) return fail('#hbf-end', 'วันสิ้นสุดไม่ถูกต้อง');
-    if (end && end < start) return fail('#hbf-end', 'วันสิ้นสุดต้องไม่ก่อนวันเริ่ม');
-    if (refill && !validISO(refill)) return fail('#hbf-refill', 'วันรับยาไม่ถูกต้อง');
+    if (!validISO(start)) return fail('#hbf-start', t('v.start'));
+    if (end && !validISO(end)) return fail('#hbf-end', t('v.end'));
+    if (end && end < start) return fail('#hbf-end', t('v.endBefore'));
+    if (refill && !validISO(refill)) return fail('#hbf-refill', t('v.refill'));
     return {name:name, instructions:cleanStr($('#hbf-instr').value, 200), times:times.sort(), start:start, end:end || '',
       refillDate:refill || '', note:cleanStr($('#hbf-note').value, 200)};
   }
   function readApptForm(fail){
     var date = $('#hbf-date').value, time = $('#hbf-time').value.trim();
-    if (!validISO(date)) return fail('#hbf-date', 'กรุณาใส่วันนัด');
-    if (time && !TIME_RE.test(time)) return fail('#hbf-time', 'เวลาไม่ถูกต้อง ใช้รูปแบบ ชั่วโมง:นาที เช่น 14:30');
+    if (!validISO(date)) return fail('#hbf-date', t('v.apptDate'));
+    if (time && !TIME_RE.test(time)) return fail('#hbf-time', t('v.time', {ex:'14:30'}));
     return {date:date, time:time, clinic:cleanStr($('#hbf-clinic').value, 80), reason:cleanStr($('#hbf-reason').value, 60),
       note:cleanStr($('#hbf-note').value, 200), done:$('#hbf-done').checked};
   }
   function deleteEntry(btn){
     var kind = btn.getAttribute('data-kind'), id = btn.getAttribute('data-id'), p = activePet();
     if (!p) return;
-    askInline(btn.closest('.hb-item'), 'ลบบันทึกนี้? ลบแล้วกู้คืนไม่ได้', 'ลบบันทึก', function(){
+    askInline(btn.closest('.hb-item'), t('del.ask'), t('del.yes'), function(){
       p[HB_LIST[kind]] = p[HB_LIST[kind]].filter(function(x){ return x.id !== id; });
       if (hbForm && hbForm.id === id) hbForm = null;
-      saveBook(); rerenderKeep('.hb-add'); savedToast('ลบบันทึกแล้ว');
+      saveBook(); rerenderKeep('.hb-add'); savedToast(t('del.done'));
     });
   }
 
@@ -1737,39 +1799,40 @@
   function renderPetForm(){
     closeConfirm();
     var p = pfEditId ? petById(pfEditId) : null, today = todayISO();
-    $('#prof-h').textContent = p ? 'แก้ไขข้อมูล ' + p.name : 'เพิ่มน้อง';
+    $('#prof-h').textContent = p ? t('pf.edit', {name:p.name}) : t('pf.add');
     var m = p ? ageMonthsOf(p) : null, approx = !!(p && !p.birthDate && m != null);
-    var html = storeNoteHTML() + '<form id="pet-form" novalidate>'+
-      '<div class="form-row"><label for="pf-name">ชื่อน้อง <span class="req">(จำเป็น)</span></label>'+
+    function opts(list){ return list.map(function(o){ return [o[0], esc(t(o[1]))]; }); }
+    var html = storeNoteHTML() + '<form id="pet-form" class="pet-form" novalidate>'+
+      '<div class="form-row"><label for="pf-name">'+esc(t('pf.name'))+reqMark()+'</label>'+
         '<input class="text-in" id="pf-name" type="text" maxlength="30" autocomplete="off" required value="'+esc(p ? p.name : '')+'" aria-describedby="pf-err"></div>'+
-      '<fieldset class="form-row" id="pf-sp-row"><legend>น้องหมา หรือ น้องแมว <span class="req">(จำเป็น)</span></legend><div class="opt-grid two">'+
-        ['dog', 'cat'].map(function(s){
-          return '<label class="opt sp-opt sp-'+s+'"><input type="radio" name="pf-sp" value="'+s+'"'+(p && p.species === s ? ' checked' : '')+'>'+
-            '<span><img class="pet-ph" src="'+SPECIES[s].icon+'" alt="" width="64" height="64">'+SPECIES[s].name+'</span></label>';
+      '<fieldset class="form-row" id="pf-sp-row"><legend>'+esc(t('pf.sp'))+reqMark()+'</legend><div class="opt-grid two">'+
+        ['dog', 'cat'].map(function(sp){
+          return '<label class="opt sp-opt sp-'+sp+'"><input type="radio" name="pf-sp" value="'+sp+'"'+(p && p.species === sp ? ' checked' : '')+'>'+
+            '<span><img class="pet-ph" src="'+SPECIES[sp].icon+'" alt="" width="64" height="64">'+esc(spName(sp))+'</span></label>';
         }).join('')+'</div></fieldset>'+
-      '<fieldset class="form-row"><legend>อายุ (ไม่บังคับ)</legend>'+
-        '<div class="opt-grid two">'+optRadios('pf-agemode', [['birth', 'รู้วันเกิด'], ['approx', 'อายุโดยประมาณ']], approx ? 'approx' : 'birth')+'</div>'+
-        '<div class="age-box" id="pf-birth-box"><label for="pf-birth">วันเกิด</label>'+
+      '<fieldset class="form-row"><legend>'+esc(t('pf.age'))+'</legend>'+
+        '<div class="opt-grid two">'+optRadios('pf-agemode', opts([['birth', 'pf.knowBirth'], ['approx', 'pf.approx']]), approx ? 'approx' : 'birth')+'</div>'+
+        '<div class="age-box" id="pf-birth-box"><label for="pf-birth">'+esc(t('pf.birth'))+'</label>'+
           '<input class="text-in" type="date" id="pf-birth" min="1980-01-01" max="'+today+'" value="'+esc(p ? p.birthDate : '')+'" aria-describedby="pf-age-out"></div>'+
         '<div class="age-box hb-approx" id="pf-approx-box">'+
-          '<div><label for="pf-ay">ปี</label><input class="text-in" type="number" id="pf-ay" min="0" max="40" step="1" inputmode="numeric" value="'+(approx ? Math.floor(m / 12) : '')+'" aria-describedby="pf-age-out"></div>'+
-          '<div><label for="pf-am">เดือน</label><input class="text-in" type="number" id="pf-am" min="0" max="11" step="1" inputmode="numeric" value="'+(approx ? m % 12 : '')+'" aria-describedby="pf-age-out"></div></div>'+
+          '<div><label for="pf-ay">'+esc(t('pf.years'))+'</label><input class="text-in" type="number" id="pf-ay" min="0" max="40" step="1" inputmode="numeric" value="'+(approx ? Math.floor(m / 12) : '')+'" aria-describedby="pf-age-out"></div>'+
+          '<div><label for="pf-am">'+esc(t('pf.months'))+'</label><input class="text-in" type="number" id="pf-am" min="0" max="11" step="1" inputmode="numeric" value="'+(approx ? m % 12 : '')+'" aria-describedby="pf-age-out"></div></div>'+
         '<p class="hint" id="pf-age-out" aria-live="polite"></p></fieldset>'+
-      '<fieldset class="form-row"><legend>เพศ</legend><div class="opt-grid">'+optRadios('pf-sex', [['male', 'ผู้'], ['female', 'เมีย'], ['', 'ไม่ระบุ']], p ? p.sex : '')+'</div></fieldset>'+
-      '<fieldset class="form-row"><legend>ทำหมัน</legend><div class="opt-grid">'+optRadios('pf-ster', [['yes', 'ทำแล้ว'], ['no', 'ยังไม่ทำ'], ['', 'ไม่ทราบ']], p ? p.sterilized : '')+'</div></fieldset>'+
-      '<fieldset class="form-row" aria-describedby="pf-stage-hint"><legend>ช่วงวัย</legend><div class="opt-grid">'+
-        optRadios('pf-stage', [['young', 'ลูก'], ['adult', 'โต'], ['senior', 'สูงวัย']], p ? p.lifeStage : 'adult')+'</div>'+
+      '<fieldset class="form-row"><legend>'+esc(t('pf.sex'))+'</legend><div class="opt-grid">'+optRadios('pf-sex', opts([['male', 'sex.male'], ['female', 'sex.female'], ['', 'pf.sex.none']]), p ? p.sex : '')+'</div></fieldset>'+
+      '<fieldset class="form-row"><legend>'+esc(t('pf.ster'))+'</legend><div class="opt-grid">'+optRadios('pf-ster', opts([['yes', 'pf.ster.yes'], ['no', 'pf.ster.no'], ['', 'pf.ster.none']]), p ? p.sterilized : '')+'</div></fieldset>'+
+      '<fieldset class="form-row" aria-describedby="pf-stage-hint"><legend>'+esc(t('pf.stage'))+'</legend><div class="opt-grid">'+
+        optRadios('pf-stage', opts([['young', 'stage.young'], ['adult', 'stage.adult'], ['senior', 'stage.senior']]), p ? p.lifeStage : 'adult')+'</div>'+
         '<p class="hint" id="pf-stage-hint"></p></fieldset>'+
-      '<fieldset class="form-row"><legend>ภาวะพิเศษ</legend>'+
-        '<label class="check"><input type="checkbox" id="pf-over"'+(p && p.flags.overweight ? ' checked' : '')+'>น้ำหนักเกิน</label>'+
-        '<label class="check"><input type="checkbox" id="pf-kidney"'+(p && p.flags.kidney ? ' checked' : '')+'>โรคไต</label></fieldset>'+
-      (p ? '' : '<div class="form-row"><label for="pf-kg">น้ำหนักวันนี้ (กิโลกรัม, ไม่บังคับ)</label>'+
-        '<input class="text-in" id="pf-kg" type="text" inputmode="decimal" placeholder="เช่น 4.5" aria-describedby="pf-kg-hint pf-err">'+
-        '<p class="hint" id="pf-kg-hint">จะเป็นบันทึกน้ำหนักแรกในสมุด ใช้คำนวณปริมาณขนมโดยประมาณ</p></div>')+
+      '<fieldset class="form-row"><legend>'+esc(t('pf.flags'))+'</legend>'+
+        '<label class="check"><input type="checkbox" id="pf-over"'+(p && p.flags.overweight ? ' checked' : '')+'>'+esc(t('flag.over'))+'</label>'+
+        '<label class="check"><input type="checkbox" id="pf-kidney"'+(p && p.flags.kidney ? ' checked' : '')+'>'+esc(t('flag.kidney'))+'</label></fieldset>'+
+      (p ? '' : '<div class="form-row"><label for="pf-kg">'+esc(t('pf.kg'))+'</label>'+
+        '<input class="text-in" id="pf-kg" type="text" inputmode="decimal" placeholder="'+esc(t('ef.kg.ph'))+'" aria-describedby="pf-kg-hint pf-err">'+
+        '<p class="hint" id="pf-kg-hint">'+esc(t('pf.kg.hint'))+'</p></div>')+
       '<p class="field-err" id="pf-err" role="alert" hidden></p>'+
-      '<div class="form-actions"><button type="submit" class="btn-primary">บันทึก</button>'+
-        '<button type="button" class="btn-sec" data-action="pet-cancel">ยกเลิก</button></div>'+
-      (p ? '<div class="del-host" id="pf-del-host"><button type="button" class="btn-del-outline" data-action="pet-delete">'+icon('i-trash')+'ลบ '+esc(p.name)+' ออกจากสมุด</button></div>' : '')+
+      '<div class="form-actions"><button type="submit" class="btn-primary">'+esc(t('save'))+'</button>'+
+        '<button type="button" class="btn-sec" data-action="pet-cancel">'+esc(t('cancel'))+'</button></div>'+
+      (p ? '<div class="del-host" id="pf-del-host"><button type="button" class="btn-del-outline" data-action="pet-delete">'+icon('i-trash')+esc(t('pf.delete', {name:p.name}))+'</button></div>' : '')+
       '</form>';
     $('#hb-root').innerHTML = html;
     petFormAge();
@@ -1790,40 +1853,40 @@
     $('#pf-birth-box').hidden = mode !== 'birth';
     $('#pf-approx-box').hidden = mode !== 'approx';
     var m = formAgeMonths(), young = m != null && m < 12;
-    $('#pf-age-out').textContent = m == null ? '' : 'อายุตอนนี้: ' + ageText(m);
+    $('#pf-age-out').textContent = m == null ? '' : t('pf.ageNow', {v:ageText(m)});
     $$('input[name="pf-stage"]').forEach(function(r){
       if (young){ r.checked = r.value === 'young'; r.disabled = r.value !== 'young'; }
       else r.disabled = false;
     });
-    $('#pf-stage-hint').textContent = young ? 'อายุน้อยกว่า 1 ปี จึงตั้งเป็น “ลูก” ให้อัตโนมัติ' : '';
+    $('#pf-stage-hint').textContent = young ? t('pf.youngAuto') : '';
   }
   function savePet(){
     var p = pfEditId ? petById(pfEditId) : null, err = $('#pf-err'), today = todayISO();
     $$('#pet-form [aria-invalid]').forEach(function(el){ el.removeAttribute('aria-invalid'); });
     function fail(sel, msg){ var el = $(sel); el.setAttribute('aria-invalid', 'true'); err.hidden = false; err.textContent = msg; el.focus(); return false; }
     var name = cleanStr($('#pf-name').value, 30);
-    if (!name) return fail('#pf-name', 'กรุณาใส่ชื่อน้อง');
+    if (!name) return fail('#pf-name', t('pf.v.name'));
     var sp = radioVal('pf-sp');
-    if (!SPECIES[sp]) return fail('input[name="pf-sp"]', 'กรุณาเลือกว่าเป็นน้องหมาหรือน้องแมว');
+    if (!SPECIES[sp]) return fail('input[name="pf-sp"]', t('pf.v.sp'));
     var mode = radioVal('pf-agemode'), birth = '', ay = null, am = null, setAt = '';
     if (mode === 'birth'){
       birth = $('#pf-birth').value;
-      if (birth && (!validISO(birth) || birth > today)) return fail('#pf-birth', 'วันเกิดไม่ถูกต้อง ต้องไม่เกินวันนี้');
+      if (birth && (!validISO(birth) || birth > today)) return fail('#pf-birth', t('pf.v.birth'));
     } else {
       var y = $('#pf-ay').value.trim(), mo = $('#pf-am').value.trim();
       if (y !== '' || mo !== ''){
         ay = y === '' ? 0 : Number(y); am = mo === '' ? 0 : Number(mo);
-        if (!(ay >= 0 && ay <= 40 && ay % 1 === 0)) return fail('#pf-ay', 'ปีต้องเป็นจำนวนเต็ม 0–40');
-        if (!(am >= 0 && am <= 11 && am % 1 === 0)) return fail('#pf-am', 'เดือนต้องเป็นจำนวนเต็ม 0–11');
+        if (!(ay >= 0 && ay <= 40 && ay % 1 === 0)) return fail('#pf-ay', t('pf.v.years'));
+        if (!(am >= 0 && am <= 11 && am % 1 === 0)) return fail('#pf-am', t('pf.v.months'));
         setAt = today;
       }
     }
     var kg = null;
     if (!p && $('#pf-kg').value.trim()){
       var raw = $('#pf-kg').value.replace(',', '.').trim(); kg = parseFloat(raw);
-      if (!/^\d+(\.\d+)?$/.test(raw) || !(kg >= 0.1 && kg <= 150)) return fail('#pf-kg', 'น้ำหนักต้องเป็นตัวเลข 0.1–150 กิโลกรัม เช่น 4.5');
+      if (!/^\d+(\.\d+)?$/.test(raw) || !(kg >= 0.1 && kg <= 150)) return fail('#pf-kg', t('v.kg'));
     }
-    if (!p && book.pets.length >= MAX_PETS) return fail('#pf-name', 'เพิ่มน้องได้สูงสุด ' + MAX_PETS + ' ตัว');
+    if (!p && book.pets.length >= MAX_PETS) return fail('#pf-name', t('pf.v.max', {n:MAX_PETS}));
     var m = formAgeMonths();
     var data = {
       name:name, species:sp, birthDate:birth, ageYears:ay, ageMonths:am, ageSetAt:setAt,
@@ -1840,17 +1903,17 @@
     }
     setActive(p.id);
     hbForm = null; hbTab = 'weight';
-    savedToast('บันทึกข้อมูล ' + p.name + ' แล้ว');
+    savedToast(t('pf.saved', {name:p.name}));
     return true;
   }
   function deletePet(){
     var p = petById(pfEditId); if (!p) return;
-    askInline($('#pf-del-host'), 'ลบ ' + p.name + ' และบันทึกสุขภาพทั้งหมดของน้อง? ลบแล้วกู้คืนไม่ได้ ถ้าไม่มีไฟล์สำรอง', 'ลบน้อง', function(){
+    askInline($('#pf-del-host'), t('pf.del.ask', {name:p.name}), t('pf.del.yes'), function(){
       book.pets = book.pets.filter(function(x){ return x.id !== p.id; });
       book.activeId = book.pets[0] ? book.pets[0].id : null;
       if (book.pets[0]) setSpecies(book.pets[0].species);
       saveBook(); hbForm = null; pfEditId = null;
-      savedToast('ลบ ' + p.name + ' แล้ว');
+      savedToast(t('pf.deleted', {name:p.name}));
       go('profile', {replace:true});
     });
   }
@@ -1859,28 +1922,28 @@
   function doBackup(){
     var data = {app:'kindaimai', type:'health-book-backup', version:1, exportedAt:new Date().toISOString(), data:book};
     if (downloadFile(JSON.stringify(data, null, 2), 'kindaimai-backup-' + todayISO() + '.json', 'application/json'))
-      toast('ดาวน์โหลดไฟล์สำรองแล้ว เก็บไฟล์ไว้ในที่ปลอดภัย');
+      toast(t('bk.done'));
   }
   function onRestoreFile(input){
     var f = input.files && input.files[0], err = $('#restore-err');
     function fail(m){ err.hidden = false; err.textContent = m; input.value = ''; }
     err.hidden = true; closeConfirm();
     if (!f) return;
-    if (f.size > 2 * 1024 * 1024) return fail('ไฟล์ใหญ่เกินไป ไม่ใช่ไฟล์สำรองของแอปนี้');
+    if (f.size > 2 * 1024 * 1024) return fail(t('bk.tooBig'));
     var r = new FileReader();
-    r.onerror = function(){ fail('อ่านไฟล์ไม่ได้ ลองเลือกไฟล์อีกครั้ง'); };
+    r.onerror = function(){ fail(t('bk.readErr')); };
     r.onload = function(){
       var obj, nb;
-      try { obj = JSON.parse(String(r.result)); } catch(e){ return fail('อ่านไฟล์ไม่ได้ ต้องเป็นไฟล์สำรอง .json จากแอปนี้'); }
+      try { obj = JSON.parse(String(r.result)); } catch(e){ return fail(t('bk.parseErr')); }
       if (!obj || typeof obj !== 'object' || obj.app !== 'kindaimai' || obj.type !== 'health-book-backup' || obj.version !== 1)
-        return fail('ไฟล์นี้ไม่ใช่ไฟล์สำรองสมุดสุขภาพของแอป กินได้ไหม?');
-      try { nb = validateBook(obj.data); } catch(e){ return fail('ไฟล์สำรองไม่ถูกต้อง: ' + e.message + ' จึงไม่ได้นำเข้า'); }
+        return fail(t('bk.notOurs'));
+      try { nb = validateBook(obj.data); } catch(e){ return fail(t('bk.invalid', {msg:e.message})); }
       input.value = '';
-      askInline($('#restore-host'), 'แทนที่ข้อมูลในเครื่องนี้ด้วยไฟล์สำรอง? ไฟล์มีน้อง ' + nb.pets.length + ' ตัว ข้อมูลเดิมในเครื่องจะถูกแทนที่ทั้งหมด', 'แทนที่ข้อมูล', function(){
+      askInline($('#restore-host'), t('bk.ask', {n:nb.pets.length}), t('bk.yes'), function(){
         book = nb; hbForm = null; hbTab = 'weight';
         var a = activePet(); if (a) setSpecies(a.species);
         saveBook(); renderProfile(); focusMain($('#prof-h'));
-        savedToast('กู้คืนข้อมูลแล้ว');
+        savedToast(t('bk.restored'));
       });
     };
     r.readAsText(f);
@@ -1889,8 +1952,8 @@
   function updateHomeProfileLabel(){
     var p = activePet(), w = latestWeight(p), n = book.pets.length;
     $('#home-profile-label').textContent = p
-      ? 'สมุดสุขภาพ: ' + p.name + (w ? ' · ' + kgFmt(w.kg) + ' กก.' : '') + (n > 1 ? ' และอีก ' + (n - 1) + ' ตัว' : '')
-      : 'สมุดสุขภาพน้อง (ไม่บังคับ)';
+      ? t('home.book.pet', {name:p.name}) + (w ? ' · ' + kgTxt(w.kg) : '') + (n > 1 ? t('home.book.more', {n:n - 1}) : '')
+      : t('home.book');
   }
 
   /* ---------- about ---------- */
@@ -1901,10 +1964,10 @@
     FOODS.forEach(function(f){ (f.sources || []).forEach(function(s){
       if (s && safeUrl(s.url) && !seen[s.url]){ seen[s.url] = 1; all.push(s); }
     }); });
-    all.push({title:'WSAVA – Feeding treats to your cat (แนวทางขนมไม่เกิน 10%)', url:WSAVA_URL});
+    all.push({title:t('about.wsava'), url:WSAVA_URL});
     all.sort(function(a, b){ return String(a.title).localeCompare(String(b.title)); });
     $('#about-sources').innerHTML = sourceItems(all);
-    $('#about-src-sum').textContent = 'ดูรายการแหล่งอ้างอิง (' + all.length + ')';
+    $('#about-src-sum').textContent = t('about.all.sumN', {n:all.length});
     renderPrivacyBox();
   }
   function renderPrivacyBox(){
@@ -1912,16 +1975,16 @@
     $('#optout').checked = optedOut();
     $('#optout-row').hidden = !on;
     $('#privacy-state').textContent = on
-      ? 'แอปส่งข้อมูลแบบไม่ระบุตัวตนไปยังแบบฟอร์ม Google ของผู้จัดทำ ได้แก่ การกด “มีประโยชน์/ยังไม่ชัด” ชื่ออาหารที่ค้นหาแล้วไม่เจอ และคำขอให้เพิ่มเมนู ไม่ส่งชื่อ เบอร์โทร หรืออีเมล เว้นแต่คุณพิมพ์เอง'
-      : 'ตอนนี้แอปไม่ส่งข้อมูลการใช้งานออกจากเครื่องของคุณ';
+      ? t('priv.on')
+      : t('priv.off');
   }
 
   /* ---------- copy helpers ---------- */
   function copyText(text, onFail){
-    function fail(){ if (onFail) onFail(); else toast('คัดลอกไม่ได้ กดค้างที่ข้อความเพื่อคัดลอก'); }
+    function fail(){ if (onFail) onFail(); else toast(t('copy.fail')); }
     try {
       if (navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(text).then(function(){ toast('คัดลอกแล้ว'); }, fail);
+        navigator.clipboard.writeText(text).then(function(){ toast(t('copy.done')); }, fail);
       } else fail();
     } catch(e){ fail(); }
   }
@@ -2008,36 +2071,36 @@
 
   /* ---------- events ---------- */
   document.addEventListener('click', function(e){
-    var t = e.target.closest('button, a'); if (!t) return;
-    if (t.classList.contains('sp-card')){
-      setSpecies(t.getAttribute('data-sp'));
+    var tg = e.target.closest('button, a'); if (!tg) return;
+    if (tg.classList.contains('sp-card')){
+      setSpecies(tg.getAttribute('data-sp'));
       $('#q').value = ''; clearResults();
       var next = pendingToken; pendingToken = null;
       if (next) go(next); else goSearch(true);
       return;
     }
-    if (t.hasAttribute('data-food')){ go('food-' + t.getAttribute('data-food')); return; }
-    if (t.hasAttribute('data-cat')){ showCategory(t.getAttribute('data-cat')); return; }
-    if (t.hasAttribute('data-emg-sp')){
-      emgSpecies = t.getAttribute('data-emg-sp');
+    if (tg.hasAttribute('data-food')){ go('food-' + tg.getAttribute('data-food')); return; }
+    if (tg.hasAttribute('data-cat')){ showCategory(tg.getAttribute('data-cat')); return; }
+    if (tg.hasAttribute('data-emg-sp')){
+      emgSpecies = tg.getAttribute('data-emg-sp');
       if (!species) setSpecies(emgSpecies);
       renderEmergency(); return;
     }
-    if (t.hasAttribute('data-emg-food')){
-      emgFoodId = t.getAttribute('data-emg-food');
+    if (tg.hasAttribute('data-emg-food')){
+      emgFoodId = tg.getAttribute('data-emg-food');
       renderEmergency();
       var ans = $('#emg-answer');
       if (ans.firstElementChild){ ans.setAttribute('tabindex', '-1'); focusMain(ans); ans.scrollIntoView && ans.scrollIntoView({block:'start'}); }
       return;
     }
-    var a = t.getAttribute('data-action');
+    var a = tg.getAttribute('data-action');
     if (!a){
-      if (t.id === 'brand-link'){ e.preventDefault(); go(species ? 'search' : 'pet'); }
-      else if (t.id === 'clear-q' || t.id === 'clear-results'){ $('#q').value = ''; clearResults(); renderSaved(); $('#clear-q').hidden = true; $('#q').focus(); }
-      else if (t.id === 'clear-eq'){ $('#eq').value = ''; emgFoodId = null; renderEmergency(); $('#eq').focus(); }
+      if (tg.id === 'brand-link' || tg.classList.contains('js-brand')){ e.preventDefault(); go(species ? 'search' : 'pet'); }
+      else if (tg.id === 'clear-q' || tg.id === 'clear-results'){ $('#q').value = ''; clearResults(); renderSaved(); $('#clear-q').hidden = true; $('#q').focus(); }
+      else if (tg.id === 'clear-eq'){ $('#eq').value = ''; emgFoodId = null; renderEmergency(); $('#eq').focus(); }
       return;
     }
-    if (t.tagName === 'A') e.preventDefault();
+    if (tg.tagName === 'A') e.preventDefault();
     switch (a){
       case 'change-pet': go('pet'); break;
       case 'back-search': goSearch(true); break;
@@ -2045,19 +2108,19 @@
       case 'home-or-search': go(species ? 'search' : 'pet'); break;
       case 'emergency': go('emergency'); break;
       case 'emergency-food':
-        emgFoodId = t.getAttribute('data-id'); emgSpecies = species;
-        $('#eq').value = BY_ID[emgFoodId] ? BY_ID[emgFoodId].name_th : '';
+        emgFoodId = tg.getAttribute('data-id'); emgSpecies = species;
+        $('#eq').value = BY_ID[emgFoodId] ? foodName(BY_ID[emgFoodId]) : '';
         go('emergency'); break;
       case 'emg-clear': emgFoodId = null; $('#eq').value = ''; renderEmergency(); $('#eq').focus(); break;
       case 'emg-full':
         if (emgSpecies) setSpecies(emgSpecies);
-        go('food-' + t.getAttribute('data-id')); break;
+        go('food-' + tg.getAttribute('data-id')); break;
       case 'profile': go('profile'); break;
       case 'about': go('about'); break;
       case 'nearby': go('nearby'); break;
       case 'adopt': go('adopt'); break;
       case 'rh-interest': {
-        var pid = t.getAttribute('data-id');
+        var pid = tg.getAttribute('data-id');
         rhOpen[pid] = !rhOpen[pid];
         if (rhOpen[pid]) sendAuto('adopt-interest', {food: 'หาบ้าน:' + pid});
         renderRehome();
@@ -2065,12 +2128,12 @@
         break;
       }
       case 'rh-report': {
-        var rid = t.getAttribute('data-id'), rname = t.getAttribute('data-name') || '';
+        var rid = tg.getAttribute('data-id'), rname = tg.getAttribute('data-name') || '';
         if (remoteConfigured()){
           postForm({type:'report', food:'หาบ้าน:' + rid, comment:'แจ้งโพสต์: ' + rname}).then(function(ok){
-            toast(ok ? 'ส่งเรื่องให้ผู้ดูแลแอปแล้ว ขอบคุณค่ะ' : 'ยังส่งไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง');
+            toast(ok ? t('rh.report.sent') : t('rh.report.fail'));
           });
-        } else toast('ยังแจ้งผ่านแอปไม่ได้ กรุณาติดต่อผู้ดูแลแอป');
+        } else toast(t('rh.report.off'));
         break;
       }
       case 'tab-home': go('pet'); break;
@@ -2080,39 +2143,39 @@
         if (currentFoodId) go('food-' + currentFoodId, {replace:true});
         break;
       case 'fav': {
-        var id = t.getAttribute('data-id'), favs = getFavs(), i = favs.indexOf(id);
+        var id = tg.getAttribute('data-id'), favs = getFavs(), i = favs.indexOf(id);
         if (i === -1) favs.unshift(id); else favs.splice(i, 1);
         var ok = lsSet(LS.favs, favs);
-        t.setAttribute('aria-pressed', String(i === -1));
-        toast(!ok ? 'บันทึกในเครื่องนี้ไม่ได้' : (i === -1 ? 'บันทึกแล้ว' : 'นำออกจากรายการที่บันทึกแล้ว'));
+        tg.setAttribute('aria-pressed', String(i === -1));
+        toast(!ok ? t('fav.fail') : (i === -1 ? t('fav.saved') : t('fav.removed')));
         break;
       }
       case 'copy-share': {
         var box = $('.copy-fallback'), ta = $('#share-text');
-        copyText(ta.value, function(){ box.hidden = false; selectEl(ta); toast('คัดลอกอัตโนมัติไม่ได้ เลือกข้อความไว้ให้แล้ว'); });
+        copyText(ta.value, function(){ box.hidden = false; selectEl(ta); toast(t('copy.selected')); });
         break;
       }
       case 'copy-phone': {
-        var phone = t.getAttribute('data-phone'), span = t.parentNode.querySelector('.phone');
-        copyText(phone, function(){ selectEl(span); toast('เลือกเบอร์ไว้ให้แล้ว กดค้างเพื่อคัดลอก'); });
+        var phone = tg.getAttribute('data-phone'), span = tg.parentNode.querySelector('.phone');
+        copyText(phone, function(){ selectEl(span); toast(t('copy.phoneSel')); });
         break;
       }
       case 'request-food': {
-        var q = t.getAttribute('data-q'), done = t.parentNode.querySelector('.req-done');
+        var q = tg.getAttribute('data-q'), done = tg.parentNode.querySelector('.req-done');
         var saved = requestFood(q, species);
-        t.disabled = true;
+        tg.disabled = true;
         done.hidden = false;
-        done.textContent = saved ? 'บันทึกคำขอแล้ว ขอบคุณค่ะ' : 'บันทึกคำขอในเครื่องนี้ไม่ได้ ขอบคุณค่ะ';
+        done.textContent = saved ? t('req.saved') : t('req.fail');
         break;
       }
-      case 'help-yes': onHelpful(t, true); break;
-      case 'help-no': onHelpful(t, false); break;
-      case 'help-send': sendUnclear(t); break;
+      case 'help-yes': onHelpful(tg, true); break;
+      case 'help-no': onHelpful(tg, false); break;
+      case 'help-send': sendUnclear(tg); break;
       case 'feedback': go('feedback'); break;
       case 'fb-again': resetFeedback(); renderFeedback(); focusMain($('#fb-h')); break;
       case 'fb-copy': {
         var fta = $('#fb-copy-text');
-        copyText(fta.value, function(){ selectEl(fta); toast('คัดลอกอัตโนมัติไม่ได้ เลือกข้อความไว้ให้แล้ว'); });
+        copyText(fta.value, function(){ selectEl(fta); toast(t('copy.selected')); });
         break;
       }
       case 'retry-data': loadFoods(); break;
@@ -2121,10 +2184,10 @@
       case 'update-app': applyUpdate(); break;
       case 'notice-show': openNotice(); break;
       case 'clear-local':
-        askInline($('#clear-host'), 'ลบสมุดสุขภาพน้องทุกตัว รายการที่บันทึก ประวัติการค้นหา และการตั้งค่าทั้งหมดในเครื่องนี้? ถ้ายังไม่ได้สำรองข้อมูล จะกู้คืนไม่ได้', 'ลบทั้งหมด', function(){
+        askInline($('#clear-host'), t('about.clear.ask'), t('about.clear.yes'), function(){
           Object.keys(LS).forEach(function(k){ if (k !== 'notice') lsDel(LS[k]); });
           book = emptyBook(); species = null; helpedThisVisit = {}; hbForm = null;
-          renderPrivacyBox(); toast('ลบข้อมูลในเครื่องนี้แล้ว');
+          renderPrivacyBox(); toast(t('about.clear.done'));
           var b = $('[data-action="clear-local"]'); if (b) b.focus();
         });
         break;
@@ -2143,23 +2206,23 @@
       case 'pet-cancel': go('profile', {replace:true}); break;
       case 'pet-delete': deletePet(); break;
       case 'pet-pick': {
-        var pid2 = t.getAttribute('data-id'), pp = petById(pid2);
+        var pid2 = tg.getAttribute('data-id'), pp = petById(pid2);
         if (!pp) break;
         setActive(pid2); hbForm = null;
         rerenderKeep('.pet-chip[data-id="' + pid2 + '"]');
-        toast('กำลังดูสมุดของ ' + pp.name);
+        toast(t('pet.viewing', {name:pp.name}));
         break;
       }
-      case 'hb-tab': hbTab = t.getAttribute('data-k'); hbForm = null; rerenderKeep('#tab-' + hbTab); break;
-      case 'hb-add': openEntryForm(t.getAttribute('data-kind'), null); break;
+      case 'hb-tab': hbTab = tg.getAttribute('data-k'); hbForm = null; rerenderKeep('#tab-' + hbTab); break;
+      case 'hb-add': openEntryForm(tg.getAttribute('data-kind'), null); break;
       case 'hb-add-weight': openEntryForm('weight', null); break;
       case 'quick-weight': go('profile'); if (activePet()) openEntryForm('weight', null); break;
-      case 'hb-edit': openEntryForm(t.getAttribute('data-kind'), t.getAttribute('data-id')); break;
+      case 'hb-edit': openEntryForm(tg.getAttribute('data-kind'), tg.getAttribute('data-id')); break;
       case 'hb-cancel': hbForm = null; rerenderKeep('.hb-add'); break;
-      case 'hb-del': deleteEntry(t); break;
-      case 'ics': downloadIcs(t.getAttribute('data-pet'), t.getAttribute('data-kind'), t.getAttribute('data-id')); break;
-      case 'ics-med': downloadMedIcs(t.getAttribute('data-pet'), t.getAttribute('data-id')); break;
-      case 'dose-give': giveDoseFromCard(t); break;
+      case 'hb-del': deleteEntry(tg); break;
+      case 'ics': downloadIcs(tg.getAttribute('data-pet'), tg.getAttribute('data-kind'), tg.getAttribute('data-id')); break;
+      case 'ics-med': downloadMedIcs(tg.getAttribute('data-pet'), tg.getAttribute('data-id')); break;
+      case 'dose-give': giveDoseFromCard(tg); break;
       case 'time-add': {
         var tl = $('#hbf-time-list'); if (!tl || tl.children.length >= MAX_TIMES) break;
         var tmp = document.createElement('div'); tmp.innerHTML = timeRowHTML(tl.children.length, '');
@@ -2168,7 +2231,7 @@
         break;
       }
       case 'time-del': {
-        var tr = t.closest('.time-row'), tl2 = $('#hbf-time-list');
+        var tr = tg.closest('.time-row'), tl2 = $('#hbf-time-list');
         if (!tr || !tl2 || tl2.children.length < 2) break;
         var idx = Array.prototype.indexOf.call(tl2.children, tr);
         tl2.removeChild(tr); syncTimeRows();
@@ -2176,20 +2239,20 @@
         break;
       }
       case 'due-open': {
-        setActive(t.getAttribute('data-pet'));
-        hbTab = t.getAttribute('data-kind'); hbForm = null;
+        setActive(tg.getAttribute('data-pet'));
+        hbTab = tg.getAttribute('data-kind'); hbForm = null;
         if (current !== 'profile') go('profile'); else renderProfile();
         var tb = $('#tab-' + hbTab);
         if (tb){ tb.focus({preventScroll:true}); tb.scrollIntoView({block:'start'}); }
         break;
       }
       case 'backup': doBackup(); break;
-      case 'clear-recent': lsDel(LS.recent); renderSaved(); toast('ล้างประวัติแล้ว'); break;
+      case 'clear-recent': lsDel(LS.recent); renderSaved(); toast(t('recent.cleared')); break;
     }
   });
   // "ให้แล้ว" on the today card (home or profile): record, re-render, keep focus in the card
   function giveDoseFromCard(btn){
-    var inHome = !!btn.closest('#home-meds'), what = btn.getAttribute('aria-label').replace(/^ให้แล้ว: /, '');
+    var inHome = !!btn.closest('#home-meds'), what = btn.getAttribute('data-what') || '';
     var list = btn.closest('.dose-list'), rows = list ? $$('.dr-give', list) : [], idx = rows.indexOf(btn);
     if (!setDose(btn.getAttribute('data-pet'), btn.getAttribute('data-med'), btn.getAttribute('data-time'), true)) return;
     var cardSel = inHome ? '#home-meds' : '.hb-today';
@@ -2197,7 +2260,7 @@
     var next = $$(cardSel + ' .dr-give');
     var el = next[Math.min(idx, next.length - 1)] || (inHome ? $('#pet-h') : $('#prof-h'));
     if (!next.length) focusMain(el); else { try { el.focus({preventScroll:true}); } catch(e){ el.focus(); } }
-    savedToast('บันทึกแล้ว: ให้ ' + what);
+    savedToast(t('dose.saved', {what:what}));
   }
   // reminders are computed when the app is open: refresh the home cards when it comes back to the front
   document.addEventListener('visibilitychange', function(){
@@ -2219,7 +2282,7 @@
   });
   $('#fb-form').addEventListener('submit', function(e){ e.preventDefault(); submitFeedback(); });
   $('#fb-wish').addEventListener('input', function(){
-    $('#fb-wish-count').textContent = this.value.length + '/500 ตัวอักษร';
+    $('#fb-wish-count').textContent = t('fb.count', {n:this.value.length});
   });
   $('#fb-form').addEventListener('change', function(e){
     var row = e.target.closest('.form-row');
@@ -2230,7 +2293,7 @@
   });
   $('#optout').addEventListener('change', function(){
     lsSet(LS.optout, this.checked);
-    toast(this.checked ? 'ปิดการส่งข้อมูลการใช้งานแล้ว' : 'เปิดการส่งข้อมูลการใช้งานแล้ว');
+    toast(this.checked ? t('optout.on') : t('optout.off'));
   });
   // health book forms are re-rendered, so their events are delegated
   document.addEventListener('submit', function(e){
@@ -2244,7 +2307,7 @@
     else if (el.hasAttribute && el.hasAttribute('data-dose')){
       var ok = setDose(el.getAttribute('data-pet'), el.getAttribute('data-med'), el.getAttribute('data-time'), el.checked);
       rerenderKeep('#' + el.id);
-      if (ok) savedToast(el.checked ? 'บันทึกว่าให้ยาเวลา ' + el.getAttribute('data-time') + ' แล้ว' : 'ยกเลิกการบันทึกให้ยาเวลา ' + el.getAttribute('data-time'));
+      if (ok) savedToast(t(el.checked ? 'dose.mark' : 'dose.unmark', {t:el.getAttribute('data-time')}));
     }
     else if (el.hasAttribute && el.hasAttribute('data-appt-done')){
       var ap = activePet(), aid = el.getAttribute('data-id'), a = ap && ap.appts.filter(function(x){ return x.id === aid; })[0];
@@ -2253,7 +2316,7 @@
       // a done appointment moves into the collapsed "นัดที่ไปแล้ว" list: keep focus on its summary
       var moved = $('#' + el.id), det = moved && moved.closest('details');
       if (det && !det.open) det.querySelector('summary').focus();
-      if (a) savedToast(el.checked ? 'บันทึกว่าไปตามนัดแล้ว' : 'ย้ายกลับไปเป็นนัดที่รออยู่');
+      if (a) savedToast(el.checked ? t('appt.markDone') : t('appt.unmark'));
     }
     else if (el.closest && el.closest('#pet-form')) petFormAge();
   });
@@ -2274,8 +2337,8 @@
   window.addEventListener('popstate', function(e){
     var st = e.state;
     if (st && typeof st.q === 'string') nfQuery = st.q;
-    var t = (st && typeof st.t === 'string') ? st.t : tokenFromLocation();
-    render(t);
+    var tok = (st && typeof st.t === 'string') ? st.t : tokenFromLocation();
+    render(tok);
   });
   window.addEventListener('hashchange', function(){
     var t = tokenFromLocation();
@@ -2332,7 +2395,7 @@
     deferredPrompt = e;
     setInstallVisible(true);
   });
-  window.addEventListener('appinstalled', function(){ deferredPrompt = null; setInstallVisible(false); toast('ติดตั้งแอปแล้ว'); });
+  window.addEventListener('appinstalled', function(){ deferredPrompt = null; setInstallVisible(false); toast(t('installed')); });
   function doInstall(){
     if (!deferredPrompt) return;
     var p = deferredPrompt; deferredPrompt = null;
@@ -2406,6 +2469,18 @@
     if (b){ rhSp = b.getAttribute('data-rh-sp'); renderRehome(); }
   });
   (function(){ var rq = $('#rh-q'), tm; if (rq) rq.addEventListener('input', function(){ clearTimeout(tm); tm = setTimeout(renderRehome, 200); }); })();
+
+  /* ---------- language switch (ไทย | EN): re-render the current screen in place ---------- */
+  document.addEventListener('kdm-langchange', function(){
+    relang = true;
+    try {
+      $('#legend').innerHTML = legendHTML();
+      if (dataReady) renderCategories();
+      if (current === 'emergency' || isStatic(current) || dataReady) render(current, {keepFocus:true});
+      if (!$('#fb-err').hidden || $$('#fb-form .invalid').length){ var n = validateFeedback().length; $('#fb-err').hidden = !n; if (n) $('#fb-err').textContent = t('fb.err.count', {n:n}); }
+      if (fbBusy) $('#fb-submit span').textContent = t('fb.sending');
+    } finally { relang = false; }
+  });
 
   /* ---------- init ---------- */
   $('#legend').innerHTML = legendHTML();

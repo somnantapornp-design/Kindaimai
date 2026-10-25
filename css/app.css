@@ -389,15 +389,15 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px))}
   box-shadow:0 -4px 16px rgba(90,55,20,.08);
   padding:6px max(6px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(6px, env(safe-area-inset-left, 0px))}
 @media (min-width:481px){.tabbar{border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:18px 18px 0 0}}
-.tabbar button{appearance:none;border:0;background:none;color:var(--ink-2);font:inherit;font-size:.72rem;font-weight:600;line-height:1.25;
+.tabbar button[data-tab]{appearance:none;border:0;background:none;color:var(--ink-2);font:inherit;font-size:.72rem;font-weight:600;line-height:1.25;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-height:52px;padding:4px 2px;border-radius:12px;cursor:pointer;text-align:center}
-.tabbar button svg{width:24px;height:24px;padding:2px 12px;box-sizing:content-box;border-radius:999px;transition:background .15s}
-.tabbar button[aria-current="page"]{color:var(--primary)}
-.tabbar button[aria-current="page"] svg{background:var(--primary-soft)}
-.tabbar button:hover{color:var(--primary)}
-.tabbar button:focus-visible{outline:3px solid var(--focus);outline-offset:-2px}
+.tabbar button[data-tab] svg{width:24px;height:24px;padding:2px 12px;box-sizing:content-box;border-radius:999px;transition:background .15s}
+.tabbar button[data-tab][aria-current="page"]{color:var(--primary)}
+.tabbar button[data-tab][aria-current="page"] svg{background:var(--primary-soft)}
+.tabbar button[data-tab]:hover{color:var(--primary)}
+.tabbar button[data-tab]:focus-visible{outline:3px solid var(--focus);outline-offset:-2px}
 .toast,.update-bar{bottom:calc(92px + env(safe-area-inset-bottom, 0px))}
-@media (prefers-reduced-motion:reduce){.tabbar button svg{transition:none}}
+@media (prefers-reduced-motion:reduce){.tabbar button[data-tab] svg{transition:none}}
 /* หน้าหาบ้านหมาแมว */
 .adopt-sub{font-size:1rem;margin:18px 0 8px}
 .checklist{padding-left:22px;margin:6px 0 0}
@@ -616,3 +616,134 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px))}
 .text-in[type="time"]{min-width:0;appearance:none;-webkit-appearance:none}
 .hb-two{display:grid;grid-template-columns:1fr;gap:0 10px}
 @media (min-width:400px){ .hb-two{grid-template-columns:1fr 1fr} }
+
+/* ===================================================================
+   Language toggle (ไทย | EN) — header on phones/tablets, sidebar on desktop
+   =================================================================== */
+.lang-toggle{display:inline-flex;flex:none;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:2px;gap:2px}
+.lang-toggle button{appearance:none;border:0;background:none;color:var(--ink-2);font-weight:600;font-size:.88rem;min-width:44px;min-height:40px;padding:0 8px;border-radius:9px;cursor:pointer;line-height:1}
+.lang-toggle button[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink)}
+.lang-toggle button:not([aria-pressed="true"]):hover{background:var(--primary-soft);color:var(--primary)}
+.lang-toggle button:focus-visible{outline:3px solid var(--focus);outline-offset:1px}
+/* brand name hides first on narrow phones so the emergency button + toggle always fit */
+@media (max-width:439px){ .top .brand .brand-text{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)} }
+.side-only{display:none!important}
+
+/* ===================================================================
+   Result + health book: two wrappers per layout. Narrow screens: the
+   wrappers are display:contents and CSS order keeps the reading order.
+   =================================================================== */
+#result-body{display:flex;flex-direction:column}
+.res-col{display:contents}
+.res-o1{order:1} .res-o2{order:2} .res-o3{order:3} .res-o4{order:4}
+.hb-grid{display:flex;flex-direction:column}
+.hb-col{display:contents}
+.hb-o1{order:1} .hb-o2{order:2} .hb-o3{order:3}
+.emg-side > h2:first-child{margin-top:22px}
+
+/* ===================================================================
+   Hover states for mouse users (colors from tokens only)
+   =================================================================== */
+@media (hover:hover){
+  .btn-sec:hover{background:var(--primary-soft)}
+  .btn-primary:hover{box-shadow:0 0 0 3px var(--primary-soft),var(--shadow)}
+  .btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--primary)}
+  .mini-btn:hover{border-color:var(--primary)}
+  .link-btn:hover{text-decoration-thickness:2px}
+  .seg button:hover,.help-btn:not(:disabled):hover{border-color:var(--primary)}
+  .opt span:hover{border-color:var(--primary)}
+  .hb-tabs [role="tab"]:not([aria-selected="true"]):hover{background:var(--surface);color:var(--primary)}
+  .pet-chip:hover .pet-ph{box-shadow:0 0 0 2px var(--primary)}
+  .fav-btn:hover{border-color:var(--heart)}
+  .ios-x:hover,.clear-btn:hover{background:var(--surface-2)}
+  .doc-links a:hover,.sources a:hover{text-decoration-thickness:2px}
+  .check:hover{border-color:var(--primary)}
+}
+
+/* ===================================================================
+   Tablet (720–1023px): wider column, centered bottom bar, 2-col grids
+   =================================================================== */
+@media (min-width:720px){
+  .app{max-width:760px;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+  .tabbar{max-width:720px}
+  .toast,.update-bar{max-width:520px}
+  .home-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+  .home-links .row-btn{height:100%}
+  #adopt-search,#adopt-orgs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rh-list{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .sp-card .pet-ph{width:170px;height:170px}
+  .species{max-width:560px;margin-left:auto;margin-right:auto}
+  .tabbar button[data-tab]{font-size:.8rem}
+}
+
+/* ===================================================================
+   Desktop (≥1024px): left sidebar replaces the bottom bar; content ≤1100px
+   =================================================================== */
+@media (min-width:1024px){
+  :root{--side-w:248px}
+  /* no bottom bar → no bottom-bar padding and no phone safe-area padding */
+  body{padding:0 0 0 var(--side-w)}
+  .app{max-width:1180px;padding:0 40px;margin:0 auto}
+  header.top,.ios-hint{display:none!important}
+  main{padding-top:20px;padding-bottom:32px}
+  .side-only{display:flex!important}
+
+  .tabbar{top:0;bottom:0;left:0;right:auto;width:var(--side-w);max-width:none;margin:0;display:flex;flex-direction:column;align-items:stretch;gap:4px;
+    padding:20px 14px;border-top:0;border-right:1px solid var(--line);border-left:0;border-radius:0;box-shadow:none;overflow-y:auto}
+  .tabbar .brand{min-height:52px;padding:0 10px;margin-bottom:14px;font-size:1.2rem;flex:none;white-space:normal}
+  .tabbar .brand:hover{color:var(--ink)}
+  .tabbar button[data-tab]{flex-direction:row;justify-content:flex-start;gap:12px;min-height:48px;padding:6px 12px;font-size:1rem;text-align:left;border-radius:12px}
+  .tabbar button[data-tab] svg{padding:0;width:24px;height:24px;background:none!important}
+  .tabbar button[data-tab][aria-current="page"]{background:var(--primary-soft);color:var(--primary)}
+  .tabbar button[data-tab]:hover{background:var(--surface-2)}
+  .tabbar button[data-tab][aria-current="page"]:hover{background:var(--primary-soft)}
+  .side-extra{flex-direction:column;gap:14px;margin-top:auto;padding-top:20px}
+  .side-extra .btn-emg{width:100%;justify-content:center;min-height:52px;font-size:1rem;white-space:normal;text-align:left}
+  .side-extra .lang-toggle{align-self:flex-start}
+
+  .toast,.update-bar{left:calc(var(--side-w) + 24px);right:24px;bottom:24px}
+
+  /* comfortable line length for long text */
+  main p,.checklist li,.about li,.redflags li,.welcome-list li{max-width:72ch}
+  #view-about,#view-feedback,#view-nearby{max-width:820px}
+  #view-emergency{max-width:1100px}
+  #view-profile .pet-form{max-width:720px}
+
+  /* home: larger species picker, links in 3 columns */
+  .sp-card .pet-ph{width:200px;height:200px}
+  .species{max-width:640px;margin-left:0}
+  #home-meds,#home-due{max-width:820px}
+
+  /* search: lists in two columns */
+  #view-search .results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #view-search .legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 24px}
+  #view-search .search-wrap,#view-search .for-bar{max-width:720px}
+
+  /* result: verdict card left (sticky), details right */
+  #result-body{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0 40px;align-items:start}
+  .res-col{display:block}
+  .res-verdict{position:sticky;top:20px}
+  #view-result > .btn-primary,#view-notfound > .btn-primary{max-width:420px}
+
+  /* emergency: steps left, hospitals right */
+  .emg-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:0 40px;align-items:start}
+  .emg-side{position:sticky;top:20px}
+  .emg-side > h2:first-child{margin-top:8px}
+
+  /* health book: summary + treat left, reminders + records right */
+  .hb-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0 36px;align-items:start}
+  .hb-col{display:block}
+  .hb-left{position:sticky;top:20px}
+  .hb-right .hb-o1 > .hb-due:first-child > h2:first-child{margin-top:14px}
+
+  /* adopt + nearby grids */
+  .rh-tools{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:end}
+  .rh-tools .rh-where{margin-top:0}
+  .adopt-more{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 40px;align-items:start}
+  #adopt-search,#adopt-orgs{grid-template-columns:1fr}
+  #nearby-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1280px){ .rh-list{grid-template-columns:repeat(3,minmax(0,1fr))} }
+.doc-top .brand{flex:1 1 auto}
+.doc-lang{font-weight:600}
+@media (min-width:720px){ .doc{max-width:72ch} }

@@ -6,7 +6,7 @@
    ให้เพิ่มเลข CACHE_VERSION ด้านล่าง เช่น 'v1' → 'v2'
    ผู้ใช้เดิมจะเห็นแถบ "มีเวอร์ชันใหม่ — แตะเพื่ออัปเดต"
    ========================================================================= */
-const CACHE_VERSION = 'v12';
+const CACHE_VERSION = 'v14';
 
 const APP_CACHE = 'kdm-app-' + CACHE_VERSION;
 const FONT_CACHE = 'kdm-fonts';          // Google Fonts (kept across versions)
@@ -16,6 +16,7 @@ const PRECACHE = [
   './',
   './index.html',
   './css/app.css',
+  './js/i18n.js',
   './js/app.js',
   './js/config.js',
   './js/legal.js',
@@ -23,6 +24,8 @@ const PRECACHE = [
   './manifest.webmanifest',
   './privacy.html',
   './terms.html',
+  './privacy-en.html',
+  './terms-en.html',
   './404.html',
   './icons/icon-192.png',
   './icons/icon-512.png',

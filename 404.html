@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ไม่พบหน้านี้ — กินได้ไหม?</title>
+<title>ไม่พบหน้านี้ · Page not found — กินได้ไหม?</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#4E6B26" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1A1511" media="(prefers-color-scheme: dark)">
@@ -22,6 +22,8 @@ main{max-width:440px;margin:0 auto;min-height:100vh;min-height:100dvh;display:fl
 svg{width:88px;height:88px;color:var(--paw)}
 h1{font-size:1.45rem;line-height:1.35;margin:12px 0 6px}
 p{margin:0 0 18px;color:var(--ink-2)}
+.en{margin-top:-6px}
+h1 .en-h{display:block;font-size:1.1rem;font-weight:600;color:var(--ink-2)}
 a.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:14px;background:var(--primary);color:var(--primary-ink);font-weight:600;text-decoration:none}
 a.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 </style>
@@ -29,9 +31,10 @@ a.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 <body>
 <main>
   <svg aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="6" cy="9" rx="2.2" ry="2.8"/><ellipse cx="10" cy="5.2" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="5.2" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="9" rx="2.2" ry="2.8"/><path d="M12.2 10.5c-3 0-6.2 3.6-6.2 6.4 0 2.1 1.6 3 3.3 3 1.3 0 2-.6 2.9-.6s1.6.6 2.9.6c1.7 0 3.3-.9 3.3-3 0-2.8-3.2-6.4-6.2-6.4z"/></g></svg>
-  <h1>ไม่พบหน้านี้</h1>
+  <h1>ไม่พบหน้านี้ <span class="en-h" lang="en">Page not found</span></h1>
   <p>ลิงก์อาจพิมพ์ผิด หรือหน้านี้ถูกย้ายไปแล้ว กลับไปค้นหาว่าน้องกินอะไรได้บ้างที่หน้าแรก</p>
-  <a class="btn" id="home" href="./">กลับหน้าแรก</a>
+  <p class="en" lang="en">The link may be mistyped, or this page has moved. Go back to the home page to check what your pet can eat.</p>
+  <a class="btn" id="home" href="./">กลับหน้าแรก · <span lang="en">Back to home</span></a>
 </main>
 <script>
 // On GitHub Pages project sites (user.github.io/repo/...), point "home" at /repo/

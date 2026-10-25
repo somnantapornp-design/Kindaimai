@@ -22,6 +22,7 @@ window.APP_CONFIG = {
      2) โรงพยาบาลสัตว์ 24 ชม. ที่แสดงในโหมดฉุกเฉิน
      ใส่เฉพาะที่โทรตรวจสอบแล้วว่าเบอร์ถูกต้องและเปิด 24 ชม. จริง
      ถ้าว่าง [] แอปจะแสดงข้อความแนะนำให้โทรหาโรงพยาบาลใกล้บ้านแทน (ไม่แต่งเบอร์ขึ้นเอง)
+     ใส่ชื่อภาษาอังกฤษเพิ่มได้ (ไม่บังคับ): name_en, province_en, hours_en
      ตัวอย่าง:
      VET_CONTACTS: [
        { name: 'ชื่อโรงพยาบาลสัตว์', province: 'สงขลา', phone: '07x xxx xxxx', hours: '24 ชม.' },
@@ -82,13 +83,20 @@ window.APP_CONFIG = {
      5) ปุ่ม "บริการใกล้ฉัน" — แต่ละปุ่มเปิด Google Maps ด้วยคำค้นที่กำหนด
         แก้ title (ชื่อปุ่ม), sub (คำอธิบายสั้น) หรือ query (คำที่ค้นใน Google Maps) ได้
         เพิ่มหรือลบปุ่มได้ ไอคอนที่ใช้ได้: pin, cross, bowl, scissors, clock
+        title_en / sub_en / query_en = ข้อความและคำค้นเมื่อผู้ใช้เลือกภาษาอังกฤษ (ไม่บังคับ
+        ถ้าไม่ใส่ จะใช้ภาษาไทยแทน)
      ----------------------------------------------------------------------- */
   NEARBY: [
-    { title: 'คลินิก / โรงพยาบาลสัตว์', sub: 'ตรวจรักษา ฉีดวัคซีน', query: 'คลินิกสัตว์ ใกล้ฉัน', icon: 'cross' },
-    { title: 'โรงพยาบาลสัตว์ 24 ชั่วโมง', sub: 'สำหรับเหตุฉุกเฉินนอกเวลา', query: 'โรงพยาบาลสัตว์ 24 ชั่วโมง ใกล้ฉัน', icon: 'clock' },
-    { title: 'ร้านอาหารสัตว์เลี้ยง', sub: 'อาหารเม็ด อาหารเปียก ขนม', query: 'ร้านอาหารสัตว์เลี้ยง ใกล้ฉัน', icon: 'bowl' },
-    { title: 'อาบน้ำ ตัดขน', sub: 'ร้านกรูมมิ่งสุนัขและแมว', query: 'อาบน้ำตัดขนสุนัข แมว ใกล้ฉัน', icon: 'scissors' },
-    { title: 'รับฝากสัตว์เลี้ยง', sub: 'โรงแรมสัตว์เลี้ยง ฝากเลี้ยงรายวัน', query: 'รับฝากสัตว์เลี้ยง ใกล้ฉัน', icon: 'pin' }
+    { title: 'คลินิก / โรงพยาบาลสัตว์', sub: 'ตรวจรักษา ฉีดวัคซีน', query: 'คลินิกสัตว์ ใกล้ฉัน', icon: 'cross',
+      title_en: 'Vet clinic / animal hospital', sub_en: 'Check-ups and vaccinations', query_en: 'veterinary clinic near me' },
+    { title: 'โรงพยาบาลสัตว์ 24 ชั่วโมง', sub: 'สำหรับเหตุฉุกเฉินนอกเวลา', query: 'โรงพยาบาลสัตว์ 24 ชั่วโมง ใกล้ฉัน', icon: 'clock',
+      title_en: '24-hour animal hospital', sub_en: 'For emergencies outside opening hours', query_en: '24 hour animal hospital near me' },
+    { title: 'ร้านอาหารสัตว์เลี้ยง', sub: 'อาหารเม็ด อาหารเปียก ขนม', query: 'ร้านอาหารสัตว์เลี้ยง ใกล้ฉัน', icon: 'bowl',
+      title_en: 'Pet food shop', sub_en: 'Dry food, wet food and treats', query_en: 'pet food store near me' },
+    { title: 'อาบน้ำ ตัดขน', sub: 'ร้านกรูมมิ่งสุนัขและแมว', query: 'อาบน้ำตัดขนสุนัข แมว ใกล้ฉัน', icon: 'scissors',
+      title_en: 'Bathing & grooming', sub_en: 'Groomers for dogs and cats', query_en: 'dog and cat grooming near me' },
+    { title: 'รับฝากสัตว์เลี้ยง', sub: 'โรงแรมสัตว์เลี้ยง ฝากเลี้ยงรายวัน', query: 'รับฝากสัตว์เลี้ยง ใกล้ฉัน', icon: 'pin',
+      title_en: 'Pet boarding', sub_en: 'Pet hotels and day care', query_en: 'pet boarding near me' }
   ],
 
   /* -----------------------------------------------------------------------
@@ -96,10 +104,13 @@ window.APP_CONFIG = {
         ADOPT_SEARCH = ปุ่มค้นใน Google Maps (แก้คำค้นได้)
         ADOPT_ORGS   = องค์กรที่เปิดรับเลี้ยง ใส่เฉพาะที่ตรวจสอบแล้วว่ามีอยู่จริงและเปิดรับเลี้ยง
                        { name: 'ชื่อ', sub: 'คำอธิบายสั้น', url: 'https://...' }
+        ภาษาอังกฤษ (ไม่บังคับ): title_en / sub_en / query_en และ name_en / sub_en
      ----------------------------------------------------------------------- */
   ADOPT_SEARCH: [
-    { title: 'สถานพักพิงสัตว์ใกล้ฉัน', sub: 'ที่พักพิงหมาแมวที่เปิดให้รับเลี้ยง', query: 'สถานพักพิงสัตว์ รับเลี้ยงหมาแมว ใกล้ฉัน' },
-    { title: 'มูลนิธิช่วยเหลือสัตว์ใกล้ฉัน', sub: 'กลุ่มและมูลนิธิดูแลหมาแมวจร', query: 'มูลนิธิช่วยเหลือสัตว์ ใกล้ฉัน' }
+    { title: 'สถานพักพิงสัตว์ใกล้ฉัน', sub: 'ที่พักพิงหมาแมวที่เปิดให้รับเลี้ยง', query: 'สถานพักพิงสัตว์ รับเลี้ยงหมาแมว ใกล้ฉัน',
+      title_en: 'Animal shelters near me', sub_en: 'Shelters with dogs and cats for adoption', query_en: 'animal shelter dog cat adoption near me' },
+    { title: 'มูลนิธิช่วยเหลือสัตว์ใกล้ฉัน', sub: 'กลุ่มและมูลนิธิดูแลหมาแมวจร', query: 'มูลนิธิช่วยเหลือสัตว์ ใกล้ฉัน',
+      title_en: 'Animal rescue foundations near me', sub_en: 'Groups caring for stray dogs and cats', query_en: 'animal rescue foundation near me' }
   ],
   /* โพสต์หาบ้านให้น้อง (ทำตามขั้นตอนใน README หัวข้อ "ตั้งค่าโพสต์หาบ้าน")
      postFormUrl    = ลิงก์ Google Form สำหรับให้คนโพสต์ (ลิงก์ที่ขึ้นต้น https://docs.google.com/forms/.../viewform)
@@ -110,7 +121,8 @@ window.APP_CONFIG = {
     listingsCsvUrl: ''
   },
   ADOPT_ORGS: [
-    { name: 'Soi Dog Foundation (มูลนิธิเพื่อสุนัขในซอย)', sub: 'ภูเก็ต · รับเลี้ยงหมาแมว เน้นผู้รับเลี้ยงในประเทศไทย', url: 'https://www.soidog.org/adopt' }
+    { name: 'Soi Dog Foundation (มูลนิธิเพื่อสุนัขในซอย)', sub: 'ภูเก็ต · รับเลี้ยงหมาแมว เน้นผู้รับเลี้ยงในประเทศไทย', url: 'https://www.soidog.org/adopt',
+      name_en: 'Soi Dog Foundation', sub_en: 'Phuket · Dog and cat adoption, mainly for adopters in Thailand' }
   ],
 
   /* -----------------------------------------------------------------------

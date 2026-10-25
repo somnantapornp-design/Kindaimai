@@ -78,270 +78,283 @@
   </defs>
 </svg>
 
-<div lang="th" class="app">
+<div class="app">
   <header class="top">
-    <a class="brand" href="#" id="brand-link" aria-label="กินได้ไหม? กลับหน้าแรก"><svg aria-hidden="true"><use href="#i-paw"/></svg><span class="brand-text">กินได้ไหม?</span></a>
-    <button type="button" class="btn-emg" data-action="emergency"><svg aria-hidden="true"><use href="#i-siren"/></svg>กินไปแล้ว ทำไงดี?</button>
+    <a class="brand" href="#" id="brand-link" aria-label="กินได้ไหม? กลับหน้าแรก" data-i18n-attr="aria-label:brand.home"><svg aria-hidden="true"><use href="#i-paw"/></svg><span class="brand-text" data-i18n="brand.name">กินได้ไหม?</span></a>
+    <div class="lang-toggle" role="group" aria-label="ภาษา" data-i18n-attr="aria-label:lang.label"><button type="button" data-lang="th" lang="th" aria-pressed="true">ไทย</button><button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button></div>
+    <button type="button" class="btn-emg" data-action="emergency"><svg aria-hidden="true"><use href="#i-siren"/></svg><span data-i18n="emg.btn">กินไปแล้ว ทำไงดี?</span></button>
   </header>
 
   <div class="ios-hint" id="ios-hint" hidden>
     <svg aria-hidden="true"><use href="#i-download"/></svg>
-    <p>ติดตั้งแอป: แตะปุ่มแชร์ แล้วเลือก “เพิ่มไปยังหน้าจอโฮม”</p>
-    <button type="button" class="ios-x" data-action="ios-hint-close" aria-label="ปิดคำแนะนำการติดตั้ง"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+    <p data-i18n="ios.hint">ติดตั้งแอป: แตะปุ่มแชร์ แล้วเลือก “เพิ่มไปยังหน้าจอโฮม”</p>
+    <button type="button" class="ios-x" data-action="ios-hint-close" aria-label="ปิดคำแนะนำการติดตั้ง" data-i18n-attr="aria-label:ios.close"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
 
   <main id="main" tabindex="-1">
     <!-- ===== Screen: loading / data error ===== -->
-    <section class="view" id="view-loading" aria-label="กำลังโหลด">
-      <p class="loading" role="status"><svg aria-hidden="true"><use href="#i-paw"/></svg>กำลังโหลดข้อมูลอาหาร…</p>
+    <section class="view" id="view-loading" aria-label="กำลังโหลด" data-i18n-attr="aria-label:loading.label">
+      <p class="loading" role="status"><svg aria-hidden="true"><use href="#i-paw"/></svg><span data-i18n="loading.text">กำลังโหลดข้อมูลอาหาร…</span></p>
     </section>
     <section class="view" id="view-error" aria-labelledby="err-h" hidden>
       <div class="notfound">
         <svg aria-hidden="true"><use href="#i-unknown"/></svg>
-        <h1 id="err-h" tabindex="-1" class="err-h">โหลดข้อมูลอาหารไม่สำเร็จ</h1>
-        <p>ตรวจการเชื่อมต่ออินเทอร์เน็ต แล้วลองอีกครั้ง ถ้าเคยเปิดแอปนี้มาก่อน ข้อมูลจะใช้งานแบบออฟไลน์ได้หลังโหลดสำเร็จหนึ่งครั้ง</p>
-        <button type="button" class="btn-sec" data-action="retry-data"><svg aria-hidden="true"><use href="#i-refresh"/></svg>ลองอีกครั้ง</button>
+        <h1 id="err-h" tabindex="-1" class="err-h" data-i18n="err.h">โหลดข้อมูลอาหารไม่สำเร็จ</h1>
+        <p data-i18n="err.p">ตรวจการเชื่อมต่ออินเทอร์เน็ต แล้วลองอีกครั้ง ถ้าเคยเปิดแอปนี้มาก่อน ข้อมูลจะใช้งานแบบออฟไลน์ได้หลังโหลดสำเร็จหนึ่งครั้ง</p>
+        <button type="button" class="btn-sec" data-action="retry-data"><svg aria-hidden="true"><use href="#i-refresh"/></svg><span data-i18n="err.retry">ลองอีกครั้ง</span></button>
       </div>
-      <button type="button" class="btn-danger" data-action="emergency"><svg aria-hidden="true"><use href="#i-siren"/></svg>น้องกินอะไรไปแล้ว? เปิดโหมดฉุกเฉิน</button>
+      <button type="button" class="btn-danger" data-action="emergency"><svg aria-hidden="true"><use href="#i-siren"/></svg><span data-i18n="err.emg">น้องกินอะไรไปแล้ว? เปิดโหมดฉุกเฉิน</span></button>
     </section>
 
     <!-- ===== Screen: choose pet (home) ===== -->
     <section class="view" id="view-pet" aria-labelledby="pet-h" hidden>
-      <div class="draft-banner js-draft" hidden><svg aria-hidden="true"><use href="#i-shield"/></svg><span>ฉบับร่าง: ข้อมูลยังรอสัตวแพทย์ตรวจทาน <a href="#about" data-action="about">อ่านเพิ่ม</a></span></div>
-      <h1 id="pet-h">สัตว์เลี้ยงของคุณคือ...</h1>
-      <div class="intro-note"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="muted" style="margin:0">อาหารที่ปลอดภัยสำหรับน้องหมาและน้องแมวไม่เหมือนกัน เลือกสัตว์เลี้ยงก่อน แล้วค่อยค้นหาอาหาร</p></div>
-      <div class="species" role="group" aria-label="เลือกชนิดสัตว์เลี้ยง">
-        <button type="button" class="sp-card" data-sp="dog"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="96" height="96">น้องหมา</button>
-        <button type="button" class="sp-card" data-sp="cat"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="96" height="96">น้องแมว</button>
+      <div class="draft-banner js-draft" hidden><svg aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n-html="draft.banner">ฉบับร่าง: ข้อมูลยังรอสัตวแพทย์ตรวจทาน <a href="#about" data-action="about">อ่านเพิ่ม</a></span></div>
+      <h1 id="pet-h" data-i18n="pet.h">สัตว์เลี้ยงของคุณคือ...</h1>
+      <div class="intro-note"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="muted" style="margin:0" data-i18n="pet.intro">อาหารที่ปลอดภัยสำหรับน้องหมาและน้องแมวไม่เหมือนกัน เลือกสัตว์เลี้ยงก่อน แล้วค่อยค้นหาอาหาร</p></div>
+      <div class="species" role="group" aria-label="เลือกชนิดสัตว์เลี้ยง" data-i18n-attr="aria-label:pet.group">
+        <button type="button" class="sp-card" data-sp="dog"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="96" height="96"><span data-i18n="sp.dog">น้องหมา</span></button>
+        <button type="button" class="sp-card" data-sp="cat"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="96" height="96"><span data-i18n="sp.cat">น้องแมว</span></button>
       </div>
       <section class="home-due home-meds" id="home-meds" aria-labelledby="hm-h" hidden></section>
       <section class="home-due" id="home-due" aria-labelledby="hd-h" hidden></section>
       <div class="home-links">
-        <button type="button" class="row-btn" data-action="quick-weight"><svg aria-hidden="true"><use href="#i-plus"/></svg><span>บันทึกน้ำหนักน้อง<span class="sub">จดน้ำหนักวันนี้ ดูกราฟในสมุดสุขภาพ</span></span></button>
-        <button type="button" class="row-btn" data-action="profile"><svg aria-hidden="true"><use href="#i-user"/></svg><span><span id="home-profile-label">สมุดสุขภาพน้อง (ไม่บังคับ)</span><span class="sub">น้ำหนัก วัคซีน ถ่ายพยาธิ ยา นัดหมอ และปริมาณขนมโดยประมาณ</span></span></button>
-        <button type="button" class="row-btn" data-action="about"><svg aria-hidden="true"><use href="#i-shield"/></svg><span>เกี่ยวกับข้อมูล<span class="sub">ข้อมูลมาจากไหน และอ่านผลอย่างไร</span></span></button>
-        <button type="button" class="row-btn" data-action="feedback"><svg aria-hidden="true"><use href="#i-chat"/></svg><span>ส่งความคิดเห็น<span class="sub">ไม่ระบุตัวตน ใช้เวลาประมาณ 1 นาที</span></span></button>
-        <button type="button" class="row-btn js-install" data-action="install" hidden><svg aria-hidden="true"><use href="#i-download"/></svg><span>ติดตั้งแอปบนมือถือ<span class="sub">เปิดได้จากหน้าจอโฮม ใช้ได้แม้ไม่มีเน็ต</span></span></button>
+        <button type="button" class="row-btn" data-action="quick-weight"><svg aria-hidden="true"><use href="#i-plus"/></svg><span><span data-i18n="home.weight">บันทึกน้ำหนักน้อง</span><span class="sub" data-i18n="home.weight.sub">จดน้ำหนักวันนี้ ดูกราฟในสมุดสุขภาพ</span></span></button>
+        <button type="button" class="row-btn" data-action="profile"><svg aria-hidden="true"><use href="#i-user"/></svg><span><span id="home-profile-label">สมุดสุขภาพน้อง (ไม่บังคับ)</span><span class="sub" data-i18n="home.book.sub">น้ำหนัก วัคซีน ถ่ายพยาธิ ยา นัดหมอ และปริมาณขนมโดยประมาณ</span></span></button>
+        <button type="button" class="row-btn" data-action="about"><svg aria-hidden="true"><use href="#i-shield"/></svg><span><span data-i18n="home.about">เกี่ยวกับข้อมูล</span><span class="sub" data-i18n="home.about.sub">ข้อมูลมาจากไหน และอ่านผลอย่างไร</span></span></button>
+        <button type="button" class="row-btn" data-action="feedback"><svg aria-hidden="true"><use href="#i-chat"/></svg><span><span data-i18n="home.fb">ส่งความคิดเห็น</span><span class="sub" data-i18n="home.fb.sub">ไม่ระบุตัวตน ใช้เวลาประมาณ 1 นาที</span></span></button>
+        <button type="button" class="row-btn js-install" data-action="install" hidden><svg aria-hidden="true"><use href="#i-download"/></svg><span><span data-i18n="home.install">ติดตั้งแอปบนมือถือ</span><span class="sub" data-i18n="home.install.sub">เปิดได้จากหน้าจอโฮม ใช้ได้แม้ไม่มีเน็ต</span></span></button>
       </div>
       <div class="paws" aria-hidden="true"><svg><use href="#i-paw"/></svg><svg><use href="#i-paw"/></svg><svg><use href="#i-paw"/></svg></div>
     </section>
 
     <!-- ===== Screen: search ===== -->
     <section class="view" id="view-search" aria-labelledby="search-h" hidden>
-      <div class="draft-banner js-draft" hidden><svg aria-hidden="true"><use href="#i-shield"/></svg><span>ฉบับร่าง: ข้อมูลยังรอสัตวแพทย์ตรวจทาน <a href="#about" data-action="about">อ่านเพิ่ม</a></span></div>
+      <div class="draft-banner js-draft" hidden><svg aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n-html="draft.banner">ฉบับร่าง: ข้อมูลยังรอสัตวแพทย์ตรวจทาน <a href="#about" data-action="about">อ่านเพิ่ม</a></span></div>
       <div class="for-bar">
-        <span class="who"><img class="pet-ph sp-icon" src="icons/pet-dog.jpg" alt="" width="28" height="28"><span>กำลังค้นหาสำหรับ: <strong class="sp-name">น้องหมา</strong></span></span>
-        <button type="button" class="btn-ghost" data-action="change-pet" aria-label="เปลี่ยนชนิดสัตว์เลี้ยง"><svg aria-hidden="true"><use href="#i-swap"/></svg>เปลี่ยน</button>
+        <span class="who"><img class="pet-ph sp-icon" src="icons/pet-dog.jpg" alt="" width="28" height="28"><span><span data-i18n="search.for">กำลังค้นหาสำหรับ:</span> <strong class="sp-name">น้องหมา</strong></span></span>
+        <button type="button" class="btn-ghost" data-action="change-pet" aria-label="เปลี่ยนชนิดสัตว์เลี้ยง" data-i18n-attr="aria-label:search.change.aria"><svg aria-hidden="true"><use href="#i-swap"/></svg><span data-i18n="search.change">เปลี่ยน</span></button>
       </div>
       <h1 id="search-h">น้องหมากินอันนี้ได้ไหม?</h1>
       <form class="field" role="search" id="search-form" autocomplete="off">
-        <label for="q">พิมพ์ชื่ออาหาร</label>
+        <label for="q" data-i18n="search.label">พิมพ์ชื่ออาหาร</label>
         <div class="search-wrap">
           <svg aria-hidden="true"><use href="#i-search"/></svg>
-          <input id="q" type="search" inputmode="search" enterkeyhint="search" placeholder="เช่น องุ่น ไข่ต้ม ไก่ทอด" aria-describedby="res-status">
-          <button type="button" class="clear-btn" id="clear-q" aria-label="ล้างคำค้นหา" hidden><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+          <input id="q" type="search" inputmode="search" enterkeyhint="search" placeholder="เช่น องุ่น ไข่ต้ม ไก่ทอด" data-i18n-attr="placeholder:search.ph" aria-describedby="res-status">
+          <button type="button" class="clear-btn" id="clear-q" aria-label="ล้างคำค้นหา" data-i18n-attr="aria-label:search.clear.aria" hidden><svg aria-hidden="true"><use href="#i-x"/></svg></button>
         </div>
       </form>
       <p id="res-status" class="sr-only" aria-live="polite"></p>
       <div id="results-area" hidden>
-        <div class="result-head"><p id="res-label"></p><button type="button" class="link-btn" id="clear-results">ล้าง</button></div>
+        <div class="result-head"><p id="res-label"></p><button type="button" class="link-btn" id="clear-results" data-i18n="search.clear">ล้าง</button></div>
         <ul class="results" id="results"></ul>
         <div id="dish-hint"></div>
         <div class="notfound" id="notfound-inline" hidden></div>
       </div>
       <div id="browse">
         <div class="sec-block" id="recent-block" hidden>
-          <div class="sec-head"><h2 id="recent-h">ค้นหาล่าสุด</h2><button type="button" class="link-btn" data-action="clear-recent">ล้างประวัติ</button></div>
+          <div class="sec-head"><h2 id="recent-h" data-i18n="recent.h">ค้นหาล่าสุด</h2><button type="button" class="link-btn" data-action="clear-recent" data-i18n="recent.clear">ล้างประวัติ</button></div>
           <div class="chips" id="recent" role="group" aria-labelledby="recent-h"></div>
         </div>
         <div class="sec-block" id="fav-block">
-          <h2 id="fav-h">รายการที่บันทึก</h2>
+          <h2 id="fav-h" data-i18n="fav.h">รายการที่บันทึก</h2>
           <ul class="results" id="favs" aria-labelledby="fav-h"></ul>
-          <p class="muted small" id="fav-empty">ยังไม่มีรายการ กดรูปหัวใจในหน้าผลลัพธ์เพื่อบันทึกไว้ดูทีหลัง</p>
+          <p class="muted small" id="fav-empty" data-i18n="fav.empty">ยังไม่มีรายการ กดรูปหัวใจในหน้าผลลัพธ์เพื่อบันทึกไว้ดูทีหลัง</p>
         </div>
-        <h2 id="pop-h">ค้นหายอดนิยม</h2>
+        <h2 id="pop-h" data-i18n="pop.h">ค้นหายอดนิยม</h2>
         <div class="chips" id="popular" role="group" aria-labelledby="pop-h"></div>
-        <h2 id="cat-h">ดูตามหมวดอาหาร</h2>
+        <h2 id="cat-h" data-i18n="cat.h">ดูตามหมวดอาหาร</h2>
         <div class="chips" id="categories" role="group" aria-labelledby="cat-h"></div>
       </div>
-      <h2>ความหมายของสัญลักษณ์</h2>
+      <h2 data-i18n="legend.h">ความหมายของสัญลักษณ์</h2>
       <ul class="legend" id="legend"></ul>
     </section>
 
     <!-- ===== Screen: result ===== -->
     <section class="view" id="view-result" aria-labelledby="food-h" hidden>
       <div class="back-row">
-        <button type="button" class="btn-ghost" data-action="back-search"><svg aria-hidden="true"><use href="#i-back"/></svg>กลับไปค้นหา</button>
+        <button type="button" class="btn-ghost" data-action="back-search"><svg aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back.search">กลับไปค้นหา</span></button>
         <button type="button" class="btn-ghost" data-action="other-species" id="other-sp-btn"><svg aria-hidden="true"><use href="#i-swap"/></svg><span></span></button>
       </div>
       <div id="result-body"></div>
-      <button type="button" class="btn-primary" data-action="new-search"><svg aria-hidden="true"><use href="#i-search"/></svg>ค้นหาอาหารอื่น</button>
+      <button type="button" class="btn-primary" data-action="new-search"><svg aria-hidden="true"><use href="#i-search"/></svg><span data-i18n="new.search">ค้นหาอาหารอื่น</span></button>
     </section>
 
     <!-- ===== Screen: not found ===== -->
     <section class="view" id="view-notfound" aria-labelledby="nf-h" hidden>
-      <div class="back-row"><button type="button" class="btn-ghost" data-action="back-search"><svg aria-hidden="true"><use href="#i-back"/></svg>กลับไปค้นหา</button></div>
+      <div class="back-row"><button type="button" class="btn-ghost" data-action="back-search"><svg aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back.search">กลับไปค้นหา</span></button></div>
       <div class="notfound" id="nf-body"></div>
       <div id="nf-dish"></div>
-      <button type="button" class="btn-primary" data-action="new-search"><svg aria-hidden="true"><use href="#i-search"/></svg>ค้นหาอาหารอื่น</button>
+      <button type="button" class="btn-primary" data-action="new-search"><svg aria-hidden="true"><use href="#i-search"/></svg><span data-i18n="new.search">ค้นหาอาหารอื่น</span></button>
     </section>
 
     <!-- ===== Screen: emergency ===== -->
     <section class="view" id="view-emergency" aria-labelledby="emg-h" hidden>
-      <h1 id="emg-h" class="emg-title">กินไปแล้ว ทำไงดี?</h1>
-      <div class="redflags">
-        <h2><svg aria-hidden="true"><use href="#i-siren"/></svg>มีอาการเหล่านี้ ไปโรงพยาบาลสัตว์ทันที</h2>
-        <ul>
-          <li>ชัก</li>
-          <li>หายใจลำบาก</li>
-          <li>ซึมมาก หรือไม่รู้สึกตัว</li>
-          <li>อาเจียนหรือถ่ายมีเลือด</li>
-          <li>ท้องอืดแข็ง</li>
-        </ul>
-        <p class="small" style="margin:0">ไม่ว่าน้องจะกินอะไรไป ถ้ามีอาการข้างต้นให้ไปทันที อย่าทำให้อาเจียนเองหรือให้ยาของคนโดยไม่ได้รับคำแนะนำจากสัตวแพทย์</p>
-      </div>
+      <h1 id="emg-h" class="emg-title" data-i18n="emg.title">กินไปแล้ว ทำไงดี?</h1>
+      <div class="emg-grid">
+        <div class="emg-main">
+          <div class="redflags">
+            <h2><svg aria-hidden="true"><use href="#i-siren"/></svg><span data-i18n="emg.flags.h">มีอาการเหล่านี้ ไปโรงพยาบาลสัตว์ทันที</span></h2>
+            <ul>
+              <li data-i18n="emg.flag1">ชัก</li>
+              <li data-i18n="emg.flag2">หายใจลำบาก</li>
+              <li data-i18n="emg.flag3">ซึมมาก หรือไม่รู้สึกตัว</li>
+              <li data-i18n="emg.flag4">อาเจียนหรือถ่ายมีเลือด</li>
+              <li data-i18n="emg.flag5">ท้องอืดแข็ง</li>
+            </ul>
+            <p class="small" style="margin:0" data-i18n="emg.flags.p">ไม่ว่าน้องจะกินอะไรไป ถ้ามีอาการข้างต้นให้ไปทันที อย่าทำให้อาเจียนเองหรือให้ยาของคนโดยไม่ได้รับคำแนะนำจากสัตวแพทย์</p>
+          </div>
 
-      <h2 id="emg-sp-h">น้องเป็น...</h2>
-      <div class="seg" role="group" aria-labelledby="emg-sp-h">
-        <button type="button" data-emg-sp="dog" aria-pressed="false"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="96" height="96">น้องหมา</button>
-        <button type="button" data-emg-sp="cat" aria-pressed="false"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="96" height="96">น้องแมว</button>
-      </div>
+          <h2 id="emg-sp-h" data-i18n="emg.sp.h">น้องเป็น...</h2>
+          <div class="seg" role="group" aria-labelledby="emg-sp-h">
+            <button type="button" data-emg-sp="dog" aria-pressed="false"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="96" height="96"><span data-i18n="sp.dog">น้องหมา</span></button>
+            <button type="button" data-emg-sp="cat" aria-pressed="false"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="96" height="96"><span data-i18n="sp.cat">น้องแมว</span></button>
+          </div>
 
-      <form class="field" role="search" id="emg-form" autocomplete="off" style="margin-top:14px">
-        <label for="eq">น้องกินอะไรไป?</label>
-        <div class="search-wrap">
-          <svg aria-hidden="true"><use href="#i-search"/></svg>
-          <input id="eq" type="search" inputmode="search" enterkeyhint="search" placeholder="เช่น ช็อกโกแลต องุ่น ยาพารา">
-          <button type="button" class="clear-btn" id="clear-eq" aria-label="ล้างคำค้นหา" hidden><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+          <form class="field" role="search" id="emg-form" autocomplete="off" style="margin-top:14px">
+            <label for="eq" data-i18n="emg.label">น้องกินอะไรไป?</label>
+            <div class="search-wrap">
+              <svg aria-hidden="true"><use href="#i-search"/></svg>
+              <input id="eq" type="search" inputmode="search" enterkeyhint="search" placeholder="เช่น ช็อกโกแลต องุ่น ยาพารา" data-i18n-attr="placeholder:emg.ph">
+              <button type="button" class="clear-btn" id="clear-eq" aria-label="ล้างคำค้นหา" data-i18n-attr="aria-label:search.clear.aria" hidden><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+            </div>
+          </form>
+          <p id="emg-status" class="sr-only" aria-live="polite"></p>
+          <ul class="results" id="emg-results"></ul>
+          <div id="emg-answer" aria-live="polite"></div>
         </div>
-      </form>
-      <p id="emg-status" class="sr-only" aria-live="polite"></p>
-      <ul class="results" id="emg-results"></ul>
-      <div id="emg-answer" aria-live="polite"></div>
-
-      <h2 id="vet-h"><span style="display:inline-flex;gap:8px;align-items:center"><svg aria-hidden="true" style="width:22px;height:22px;color:var(--tox)"><use href="#i-cross"/></svg>โรงพยาบาลสัตว์ 24 ชม.</span></h2>
-      <div id="vet-area"></div>
-      <div id="emg-near"></div>
+        <div class="emg-side">
+          <h2 id="vet-h"><span style="display:inline-flex;gap:8px;align-items:center"><svg aria-hidden="true" style="width:22px;height:22px;color:var(--tox)"><use href="#i-cross"/></svg><span data-i18n="vet.h">โรงพยาบาลสัตว์ 24 ชม.</span></span></h2>
+          <div id="vet-area"></div>
+          <div id="emg-near"></div>
+        </div>
+      </div>
     </section>
 
     <!-- ===== Screen: find a home / adopt (links only; the app lists no animals itself) ===== -->
     <section class="view" id="view-adopt" aria-labelledby="adopt-h" hidden>
-      <h1 id="adopt-h" tabindex="-1">หาบ้านหมาแมว</h1>
-      <p class="muted">น้องหมาน้องแมวที่กำลังรอบ้านใหม่ อยากรับไปดูแล กด "สนใจรับเลี้ยง" เพื่อติดต่อผู้โพสต์</p>
+      <h1 id="adopt-h" tabindex="-1" data-i18n="adopt.h">หาบ้านหมาแมว</h1>
+      <p class="muted" data-i18n="adopt.intro">น้องหมาน้องแมวที่กำลังรอบ้านใหม่ อยากรับไปดูแล กด "สนใจรับเลี้ยง" เพื่อติดต่อผู้โพสต์</p>
 
       <div class="rh-post" id="rh-post"></div>
 
-      <h2 id="rh-h">น้องที่กำลังหาบ้าน</h2>
-      <div class="seg rh-filter" role="group" aria-labelledby="rh-h">
-        <button type="button" data-rh-sp="all" aria-pressed="true">ทั้งหมด</button>
-        <button type="button" data-rh-sp="dog" aria-pressed="false">น้องหมา</button>
-        <button type="button" data-rh-sp="cat" aria-pressed="false">น้องแมว</button>
-      </div>
-      <div class="field rh-where">
-        <label for="rh-q">จังหวัดหรืออำเภอ (ไม่บังคับ)</label>
-        <div class="search-wrap"><svg aria-hidden="true"><use href="#i-pin"/></svg><input id="rh-q" type="search" placeholder="เช่น สงขลา หาดใหญ่" autocomplete="off"></div>
+      <h2 id="rh-h" data-i18n="rh.h">น้องที่กำลังหาบ้าน</h2>
+      <div class="rh-tools">
+        <div class="seg rh-filter" role="group" aria-labelledby="rh-h">
+          <button type="button" data-rh-sp="all" aria-pressed="true" data-i18n="rh.all">ทั้งหมด</button>
+          <button type="button" data-rh-sp="dog" aria-pressed="false" data-i18n="sp.dog">น้องหมา</button>
+          <button type="button" data-rh-sp="cat" aria-pressed="false" data-i18n="sp.cat">น้องแมว</button>
+        </div>
+        <div class="field rh-where">
+          <label for="rh-q" data-i18n="rh.where">จังหวัดหรืออำเภอ (ไม่บังคับ)</label>
+          <div class="search-wrap"><svg aria-hidden="true"><use href="#i-pin"/></svg><input id="rh-q" type="search" placeholder="เช่น สงขลา หาดใหญ่" data-i18n-attr="placeholder:rh.where.ph" autocomplete="off"></div>
+        </div>
       </div>
       <p class="small muted" id="rh-status" aria-live="polite"></p>
       <ul class="rh-list" id="rh-list"></ul>
 
-      <h2>อยากรับน้องไปเลี้ยง</h2>
-      <div class="home-links" id="adopt-search"></div>
-      <h3 class="adopt-sub">องค์กรที่เปิดรับเลี้ยง</h3>
-      <div class="home-links" id="adopt-orgs"></div>
+      <div class="adopt-more">
+        <div>
+          <h2 data-i18n="adopt.want.h">อยากรับน้องไปเลี้ยง</h2>
+          <div class="home-links" id="adopt-search"></div>
+          <h3 class="adopt-sub" data-i18n="adopt.orgs.h">องค์กรที่เปิดรับเลี้ยง</h3>
+          <div class="home-links" id="adopt-orgs"></div>
 
-      <h2>ก่อนรับเลี้ยง ลองถามตัวเอง</h2>
-      <ul class="checklist">
-        <li>มีเวลาดูแลทุกวัน และพร้อมดูแลไปตลอดชีวิตของน้อง</li>
-        <li>มีงบสำหรับอาหาร วัคซีน ทำหมัน และค่ารักษาเมื่อป่วย</li>
-        <li>ที่พักอนุญาตให้เลี้ยงสัตว์ และมีพื้นที่ปลอดภัยพอ</li>
-        <li>คนในบ้านทุกคนเห็นด้วย และไม่มีใครแพ้ขนสัตว์</li>
-        <li>เมื่อรับมาแล้ว พาไปตรวจสุขภาพ ฉีดวัคซีน และปรึกษาสัตวแพทย์เรื่องทำหมัน</li>
-      </ul>
-
-      <h2>อยากหาบ้านใหม่ให้น้อง</h2>
-      <ul class="checklist">
-        <li>ติดต่อมูลนิธิหรือสถานพักพิงก่อน หลายแห่งช่วยประกาศหาบ้านหรือแนะนำทางเลือกได้</li>
-        <li>ประกาศพร้อมรูปที่ชัด นิสัย อายุ ประวัติวัคซีนและการทำหมัน ตามความจริง</li>
-        <li>คุยและพบผู้รับเลี้ยงก่อนส่งมอบ ดูว่าพร้อมดูแลจริง</li>
-        <li>ห้ามนำสัตว์ไปปล่อยหรือทิ้ง เป็นอันตรายต่อน้อง และมีความผิดตามกฎหมายคุ้มครองสวัสดิภาพสัตว์</li>
-        <li>โพสต์หาบ้านในแอปนี้ต้องให้ฟรี ไม่รับโพสต์ขายสัตว์</li>
-      </ul>
-      <div class="intro-note" style="margin-top:16px"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="small" style="margin:0">ผู้ดูแลแอปตรวจโพสต์ก่อนเผยแพร่ แต่ไม่ได้รับรองข้อมูลของผู้โพสต์หรือองค์กรใด การรับเลี้ยงเป็นการตกลงกันเองระหว่างผู้โพสต์กับผู้รับเลี้ยง โปรดพบน้องและตรวจสอบก่อนรับ</p></div>
+          <h2 data-i18n="adopt.ask.h">ก่อนรับเลี้ยง ลองถามตัวเอง</h2>
+          <ul class="checklist">
+            <li data-i18n="adopt.ask1">มีเวลาดูแลทุกวัน และพร้อมดูแลไปตลอดชีวิตของน้อง</li>
+            <li data-i18n="adopt.ask2">มีงบสำหรับอาหาร วัคซีน ทำหมัน และค่ารักษาเมื่อป่วย</li>
+            <li data-i18n="adopt.ask3">ที่พักอนุญาตให้เลี้ยงสัตว์ และมีพื้นที่ปลอดภัยพอ</li>
+            <li data-i18n="adopt.ask4">คนในบ้านทุกคนเห็นด้วย และไม่มีใครแพ้ขนสัตว์</li>
+            <li data-i18n="adopt.ask5">เมื่อรับมาแล้ว พาไปตรวจสุขภาพ ฉีดวัคซีน และปรึกษาสัตวแพทย์เรื่องทำหมัน</li>
+          </ul>
+        </div>
+        <div>
+          <h2 data-i18n="adopt.give.h">อยากหาบ้านใหม่ให้น้อง</h2>
+          <ul class="checklist">
+            <li data-i18n="adopt.give1">ติดต่อมูลนิธิหรือสถานพักพิงก่อน หลายแห่งช่วยประกาศหาบ้านหรือแนะนำทางเลือกได้</li>
+            <li data-i18n="adopt.give2">ประกาศพร้อมรูปที่ชัด นิสัย อายุ ประวัติวัคซีนและการทำหมัน ตามความจริง</li>
+            <li data-i18n="adopt.give3">คุยและพบผู้รับเลี้ยงก่อนส่งมอบ ดูว่าพร้อมดูแลจริง</li>
+            <li data-i18n="adopt.give4">ห้ามนำสัตว์ไปปล่อยหรือทิ้ง เป็นอันตรายต่อน้อง และมีความผิดตามกฎหมายคุ้มครองสวัสดิภาพสัตว์</li>
+            <li data-i18n="adopt.give5">โพสต์หาบ้านในแอปนี้ต้องให้ฟรี ไม่รับโพสต์ขายสัตว์</li>
+          </ul>
+          <div class="intro-note" style="margin-top:16px"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="small" style="margin:0" data-i18n="adopt.note">ผู้ดูแลแอปตรวจโพสต์ก่อนเผยแพร่ แต่ไม่ได้รับรองข้อมูลของผู้โพสต์หรือองค์กรใด การรับเลี้ยงเป็นการตกลงกันเองระหว่างผู้โพสต์กับผู้รับเลี้ยง โปรดพบน้องและตรวจสอบก่อนรับ</p></div>
+        </div>
+      </div>
     </section>
 
     <!-- ===== Screen: nearby services (links to Google Maps; the app never reads location) ===== -->
     <section class="view" id="view-nearby" aria-labelledby="near-h" hidden>
-      <h1 id="near-h" tabindex="-1">บริการใกล้ฉัน</h1>
-      <p class="muted">แตะเพื่อเปิด Google Maps แล้วดูร้านและคลินิกที่อยู่ใกล้คุณ พร้อมเวลาเปิด รีวิว และเส้นทาง</p>
+      <h1 id="near-h" tabindex="-1" data-i18n="near.h">บริการใกล้ฉัน</h1>
+      <p class="muted" data-i18n="near.intro">แตะเพื่อเปิด Google Maps แล้วดูร้านและคลินิกที่อยู่ใกล้คุณ พร้อมเวลาเปิด รีวิว และเส้นทาง</p>
       <div class="home-links" id="nearby-list"></div>
-      <div class="intro-note" style="margin-top:16px"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="small" style="margin:0">รายชื่อมาจาก Google Maps แอปนี้ไม่ได้แนะนำหรือรับรองร้านใด ควรโทรสอบถามเวลาเปิดและบริการก่อนเดินทาง แอปไม่ได้เก็บตำแหน่งของคุณ ส่วน Google Maps อาจใช้ตำแหน่งตามการตั้งค่าในเครื่องของคุณ</p></div>
+      <div class="intro-note" style="margin-top:16px"><svg aria-hidden="true"><use href="#i-info"/></svg><p class="small" style="margin:0" data-i18n="near.note">รายชื่อมาจาก Google Maps แอปนี้ไม่ได้แนะนำหรือรับรองร้านใด ควรโทรสอบถามเวลาเปิดและบริการก่อนเดินทาง แอปไม่ได้เก็บตำแหน่งของคุณ ส่วน Google Maps อาจใช้ตำแหน่งตามการตั้งค่าในเครื่องของคุณ</p></div>
     </section>
 
     <!-- ===== Screen: pet health book (สมุดสุขภาพน้อง) — content rendered by js/app.js ===== -->
     <section class="view" id="view-profile" aria-labelledby="prof-h" hidden>
-      <div class="back-row"><button type="button" class="btn-ghost" data-action="home-or-search"><svg aria-hidden="true"><use href="#i-back"/></svg>กลับ</button></div>
+      <div class="back-row"><button type="button" class="btn-ghost" data-action="home-or-search"><svg aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">กลับ</span></button></div>
       <h1 id="prof-h" tabindex="-1">สมุดสุขภาพน้อง</h1>
-      <p class="muted small">ไม่ต้องสมัครสมาชิก ข้อมูลเก็บไว้ในเครื่องนี้เท่านั้น ไม่ส่งไปที่ไหน</p>
+      <p class="muted small" data-i18n="prof.p">ไม่ต้องสมัครสมาชิก ข้อมูลเก็บไว้ในเครื่องนี้เท่านั้น ไม่ส่งไปที่ไหน</p>
       <div id="hb-root"></div>
     </section>
 
     <!-- ===== Screen: about the data ===== -->
     <section class="view about" id="view-about" aria-labelledby="about-h" hidden>
-      <div class="back-row"><button type="button" class="btn-ghost" data-action="home-or-search"><svg aria-hidden="true"><use href="#i-back"/></svg>กลับ</button></div>
-      <h1 id="about-h">เกี่ยวกับข้อมูล</h1>
+      <div class="back-row"><button type="button" class="btn-ghost" data-action="home-or-search"><svg aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">กลับ</span></button></div>
+      <h1 id="about-h" data-i18n="about.h">เกี่ยวกับข้อมูล</h1>
       <div id="about-review"></div>
-      <h2>ผลแต่ละรายการมาจากไหน</h2>
-      <p>ทีมผู้จัดทำรวบรวมข้อมูลจากแหล่งอ้างอิงด้านสัตวแพทย์และสวัสดิภาพสัตว์ที่เชื่อถือได้ เช่น คู่มือสัตวแพทย์ ศูนย์พิษวิทยาสัตว์ และหน่วยงานรัฐ แยกผลสำหรับน้องหมาและน้องแมว เพราะร่างกายต่างกัน เมื่อแหล่งข้อมูลไม่ตรงกัน เราเลือกคำตอบที่ระมัดระวังกว่าไว้ก่อน ทุกผลลัพธ์มีลิงก์แหล่งอ้างอิงให้ตรวจสอบเองได้</p>
-      <h2>ความหมายของ 5 สถานะ</h2>
+      <h2 data-i18n="about.src.h">ผลแต่ละรายการมาจากไหน</h2>
+      <p data-i18n="about.src.p">ทีมผู้จัดทำรวบรวมข้อมูลจากแหล่งอ้างอิงด้านสัตวแพทย์และสวัสดิภาพสัตว์ที่เชื่อถือได้ เช่น คู่มือสัตวแพทย์ ศูนย์พิษวิทยาสัตว์ และหน่วยงานรัฐ แยกผลสำหรับน้องหมาและน้องแมว เพราะร่างกายต่างกัน เมื่อแหล่งข้อมูลไม่ตรงกัน เราเลือกคำตอบที่ระมัดระวังกว่าไว้ก่อน ทุกผลลัพธ์มีลิงก์แหล่งอ้างอิงให้ตรวจสอบเองได้</p>
+      <h2 data-i18n="about.st.h">ความหมายของ 5 สถานะ</h2>
       <ul class="legend" id="about-legend"></ul>
-      <h2>สิ่งที่แอปนี้ไม่ใช่</h2>
+      <h2 data-i18n="about.not.h">สิ่งที่แอปนี้ไม่ใช่</h2>
       <ul>
-        <li>เป็นความรู้ทั่วไป ไม่ใช่การวินิจฉัยโรค และไม่ใช่คำแนะนำเฉพาะสำหรับน้องแต่ละตัว</li>
-        <li>ไม่ได้บอกปริมาณที่เป็นพิษหรือขนาดยา ถ้าน้องกินอะไรผิดปกติ ให้ติดต่อสัตวแพทย์</li>
-        <li>สัตว์ที่ป่วย ตั้งท้อง ลูกสัตว์ หรือสูงวัย อาจต้องดูแลต่างไปจากนี้</li>
+        <li data-i18n="about.not1">เป็นความรู้ทั่วไป ไม่ใช่การวินิจฉัยโรค และไม่ใช่คำแนะนำเฉพาะสำหรับน้องแต่ละตัว</li>
+        <li data-i18n="about.not2">ไม่ได้บอกปริมาณที่เป็นพิษหรือขนาดยา ถ้าน้องกินอะไรผิดปกติ ให้ติดต่อสัตวแพทย์</li>
+        <li data-i18n="about.not3">สัตว์ที่ป่วย ตั้งท้อง ลูกสัตว์ หรือสูงวัย อาจต้องดูแลต่างไปจากนี้</li>
       </ul>
-      <h2>ผู้จัดทำ</h2>
-      <p>โครงการโดยอาจารย์มหาวิทยาลัย เพื่อให้ความรู้แก่เจ้าของสัตว์เลี้ยงชาวไทย ไม่มีโฆษณาหรือการสนับสนุนจากแบรนด์อาหารสัตว์</p>
-      <h2>แหล่งอ้างอิงทั้งหมด</h2>
+      <h2 data-i18n="about.by.h">ผู้จัดทำ</h2>
+      <p data-i18n="about.by.p">โครงการโดยอาจารย์มหาวิทยาลัย เพื่อให้ความรู้แก่เจ้าของสัตว์เลี้ยงชาวไทย ไม่มีโฆษณาหรือการสนับสนุนจากแบรนด์อาหารสัตว์</p>
+      <h2 data-i18n="about.all.h">แหล่งอ้างอิงทั้งหมด</h2>
       <details class="src"><summary id="about-src-sum">ดูรายการแหล่งอ้างอิง</summary><ul class="sources" id="about-sources"></ul></details>
 
-      <h2 id="priv-h">ข้อมูลของคุณ</h2>
-      <p>สมุดสุขภาพน้อง (ชื่อ วันเกิด น้ำหนัก วัคซีน ถ่ายพยาธิ) รายการที่บันทึก และประวัติการค้นหา เก็บไว้ในเครื่องนี้เท่านั้น ไม่ต้องสมัครสมาชิก</p>
+      <h2 id="priv-h" data-i18n="priv.h">ข้อมูลของคุณ</h2>
+      <p data-i18n="priv.p">สมุดสุขภาพน้อง (ชื่อ วันเกิด น้ำหนัก วัคซีน ถ่ายพยาธิ) รายการที่บันทึก และประวัติการค้นหา เก็บไว้ในเครื่องนี้เท่านั้น ไม่ต้องสมัครสมาชิก</p>
       <p id="privacy-state" class="muted"></p>
-      <label class="check" id="optout-row" hidden><input type="checkbox" id="optout">ไม่ส่งข้อมูลการใช้งาน</label>
+      <label class="check" id="optout-row" hidden><input type="checkbox" id="optout"><span data-i18n="optout">ไม่ส่งข้อมูลการใช้งาน</span></label>
       <div class="about-actions">
-        <button type="button" class="btn-sec" data-action="feedback"><svg aria-hidden="true"><use href="#i-chat"/></svg>ส่งความคิดเห็น</button>
-        <button type="button" class="btn-sec js-install" data-action="install" hidden><svg aria-hidden="true"><use href="#i-download"/></svg>ติดตั้งแอปบนมือถือ</button>
-        <button type="button" class="btn-sec" data-action="notice-show"><svg aria-hidden="true"><use href="#i-info"/></svg>ดูประกาศเรื่องข้อมูลอีกครั้ง</button>
-        <button type="button" class="btn-sec" data-action="clear-local"><svg aria-hidden="true"><use href="#i-x"/></svg>ลบข้อมูลทั้งหมดในเครื่องนี้</button>
+        <button type="button" class="btn-sec" data-action="feedback"><svg aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="home.fb">ส่งความคิดเห็น</span></button>
+        <button type="button" class="btn-sec js-install" data-action="install" hidden><svg aria-hidden="true"><use href="#i-download"/></svg><span data-i18n="home.install">ติดตั้งแอปบนมือถือ</span></button>
+        <button type="button" class="btn-sec" data-action="notice-show"><svg aria-hidden="true"><use href="#i-info"/></svg><span data-i18n="about.notice">ดูประกาศเรื่องข้อมูลอีกครั้ง</span></button>
+        <button type="button" class="btn-sec" data-action="clear-local"><svg aria-hidden="true"><use href="#i-x"/></svg><span data-i18n="about.clear">ลบข้อมูลทั้งหมดในเครื่องนี้</span></button>
       </div>
       <div id="clear-host"></div>
-      <h2>นโยบายและข้อตกลง</h2>
+      <h2 data-i18n="about.docs.h">นโยบายและข้อตกลง</h2>
       <ul class="doc-links">
-        <li><a href="privacy.html"><svg aria-hidden="true"><use href="#i-lock"/></svg>นโยบายความเป็นส่วนตัว</a></li>
-        <li><a href="#nearby" data-action="nearby"><svg aria-hidden="true"><use href="#i-pin"/></svg>บริการใกล้ฉัน</a></li>
-        <li><a href="terms.html"><svg aria-hidden="true"><use href="#i-doc"/></svg>ข้อตกลงการใช้งานและข้อจำกัดความรับผิด</a></li>
+        <li><a href="privacy.html" data-i18n-attr="href:href.privacy"><svg aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="link.privacy">นโยบายความเป็นส่วนตัว</span></a></li>
+        <li><a href="#nearby" data-action="nearby"><svg aria-hidden="true"><use href="#i-pin"/></svg><span data-i18n="near.h">บริการใกล้ฉัน</span></a></li>
+        <li><a href="terms.html" data-i18n-attr="href:href.terms"><svg aria-hidden="true"><use href="#i-doc"/></svg><span data-i18n="link.terms.long">ข้อตกลงการใช้งานและข้อจำกัดความรับผิด</span></a></li>
       </ul>
     </section>
 
     <!-- ===== Screen: feedback survey ===== -->
     <section class="view" id="view-feedback" aria-labelledby="fb-h" hidden>
-      <div class="back-row"><button type="button" class="btn-ghost" data-action="home-or-search"><svg aria-hidden="true"><use href="#i-back"/></svg>กลับ</button></div>
-      <h1 id="fb-h" tabindex="-1">ส่งความคิดเห็น</h1>
-      <p class="muted small">ใช้เวลาประมาณ 1 นาที ไม่ต้องใส่ชื่อ อีเมล หรือเบอร์โทร</p>
+      <div class="back-row"><button type="button" class="btn-ghost" data-action="home-or-search"><svg aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">กลับ</span></button></div>
+      <h1 id="fb-h" tabindex="-1" data-i18n="fb.h">ส่งความคิดเห็น</h1>
+      <p class="muted small" data-i18n="fb.p">ใช้เวลาประมาณ 1 นาที ไม่ต้องใส่ชื่อ อีเมล หรือเบอร์โทร</p>
       <p class="fb-mode small" id="fb-mode" hidden></p>
       <form id="fb-form" novalidate>
         <fieldset class="form-row" id="fb-pets-row" aria-describedby="fb-pets-err">
-          <legend>เลี้ยงอะไร</legend>
+          <legend data-i18n="fb.pets">เลี้ยงอะไร</legend>
           <div class="opt-grid">
-            <label class="opt"><input type="radio" name="fb-pets" value="dog"><span>น้องหมา</span></label>
-            <label class="opt"><input type="radio" name="fb-pets" value="cat"><span>น้องแมว</span></label>
-            <label class="opt"><input type="radio" name="fb-pets" value="both"><span>ทั้งสอง</span></label>
+            <label class="opt"><input type="radio" name="fb-pets" value="dog"><span data-i18n="sp.dog">น้องหมา</span></label>
+            <label class="opt"><input type="radio" name="fb-pets" value="cat"><span data-i18n="sp.cat">น้องแมว</span></label>
+            <label class="opt"><input type="radio" name="fb-pets" value="both"><span data-i18n="sp.both">ทั้งสอง</span></label>
           </div>
           <p class="field-err" id="fb-pets-err" hidden></p>
         </fieldset>
         <fieldset class="form-row" id="fb-ease-row" aria-describedby="fb-ease-hint fb-ease-err">
-          <legend>ใช้งานง่ายไหม</legend>
+          <legend data-i18n="fb.ease">ใช้งานง่ายไหม</legend>
           <div class="opt-grid five">
             <label class="opt"><input type="radio" name="fb-ease" value="1"><span>1</span></label>
             <label class="opt"><input type="radio" name="fb-ease" value="2"><span>2</span></label>
@@ -349,11 +362,11 @@
             <label class="opt"><input type="radio" name="fb-ease" value="4"><span>4</span></label>
             <label class="opt"><input type="radio" name="fb-ease" value="5"><span>5</span></label>
           </div>
-          <p class="scale-ends" id="fb-ease-hint"><span>1 = ยากมาก</span><span>5 = ง่ายมาก</span></p>
+          <p class="scale-ends" id="fb-ease-hint"><span data-i18n="fb.ease.lo">1 = ยากมาก</span><span data-i18n="fb.ease.hi">5 = ง่ายมาก</span></p>
           <p class="field-err" id="fb-ease-err" hidden></p>
         </fieldset>
         <fieldset class="form-row" id="fb-trust-row" aria-describedby="fb-trust-hint fb-trust-err">
-          <legend>เชื่อถือคำตอบในแอปไหม</legend>
+          <legend data-i18n="fb.trust">เชื่อถือคำตอบในแอปไหม</legend>
           <div class="opt-grid five">
             <label class="opt"><input type="radio" name="fb-trust" value="1"><span>1</span></label>
             <label class="opt"><input type="radio" name="fb-trust" value="2"><span>2</span></label>
@@ -361,27 +374,27 @@
             <label class="opt"><input type="radio" name="fb-trust" value="4"><span>4</span></label>
             <label class="opt"><input type="radio" name="fb-trust" value="5"><span>5</span></label>
           </div>
-          <p class="scale-ends" id="fb-trust-hint"><span>1 = ไม่เชื่อเลย</span><span>5 = เชื่อมาก</span></p>
+          <p class="scale-ends" id="fb-trust-hint"><span data-i18n="fb.trust.lo">1 = ไม่เชื่อเลย</span><span data-i18n="fb.trust.hi">5 = เชื่อมาก</span></p>
           <p class="field-err" id="fb-trust-err" hidden></p>
         </fieldset>
         <fieldset class="form-row" id="fb-ret-row" aria-describedby="fb-ret-err">
-          <legend>จะกลับมาใช้อีกไหม</legend>
+          <legend data-i18n="fb.ret">จะกลับมาใช้อีกไหม</legend>
           <div class="opt-grid">
-            <label class="opt"><input type="radio" name="fb-ret" value="yes"><span>ใช้แน่</span></label>
-            <label class="opt"><input type="radio" name="fb-ret" value="maybe"><span>อาจจะ</span></label>
-            <label class="opt"><input type="radio" name="fb-ret" value="no"><span>คงไม่</span></label>
+            <label class="opt"><input type="radio" name="fb-ret" value="yes"><span data-i18n="ret.yes">ใช้แน่</span></label>
+            <label class="opt"><input type="radio" name="fb-ret" value="maybe"><span data-i18n="ret.maybe">อาจจะ</span></label>
+            <label class="opt"><input type="radio" name="fb-ret" value="no"><span data-i18n="ret.no">คงไม่</span></label>
           </div>
           <p class="field-err" id="fb-ret-err" hidden></p>
         </fieldset>
         <div class="form-row">
-          <label for="fb-wish">อยากให้เพิ่มอะไร (ไม่บังคับ)</label>
-          <textarea class="fb-text" id="fb-wish" maxlength="500" aria-describedby="fb-wish-count fb-wish-hint" placeholder="เช่น อาหารที่อยากให้มี หรือสิ่งที่ยังใช้ยาก"></textarea>
+          <label for="fb-wish" data-i18n="fb.wish">อยากให้เพิ่มอะไร (ไม่บังคับ)</label>
+          <textarea class="fb-text" id="fb-wish" maxlength="500" aria-describedby="fb-wish-count fb-wish-hint" placeholder="เช่น อาหารที่อยากให้มี หรือสิ่งที่ยังใช้ยาก" data-i18n-attr="placeholder:fb.wish.ph"></textarea>
           <p class="counter" id="fb-wish-count">0/500 ตัวอักษร</p>
-          <p class="hint" id="fb-wish-hint">กรุณาอย่าพิมพ์ชื่อ เบอร์โทร หรืออีเมลของคุณ</p>
+          <p class="hint" id="fb-wish-hint" data-i18n="fb.wish.hint">กรุณาอย่าพิมพ์ชื่อ เบอร์โทร หรืออีเมลของคุณ</p>
         </div>
         <div class="form-row" id="fb-consent-row">
           <label class="check"><input type="checkbox" id="fb-consent" aria-describedby="fb-consent-err"><span id="fb-consent-label">ยินยอมให้ส่งคำตอบแบบไม่ระบุตัวตนเพื่อพัฒนาแอป</span></label>
-          <p class="hint"><a href="privacy.html">อ่านนโยบายความเป็นส่วนตัว</a></p>
+          <p class="hint"><a href="privacy.html" data-i18n-attr="href:href.privacy" data-i18n="fb.readPriv">อ่านนโยบายความเป็นส่วนตัว</a></p>
           <p class="field-err" id="fb-consent-err" hidden></p>
         </div>
         <p class="field-err" id="fb-err" role="alert" hidden></p>
@@ -392,41 +405,48 @@
   </main>
 
   <footer class="disc">
-    <div class="row"><svg aria-hidden="true"><use href="#i-info"/></svg><span>ข้อมูลนี้เป็นความรู้ทั่วไป ไม่ใช่การวินิจฉัยของสัตวแพทย์ หากสัตว์เลี้ยงมีอาการผิดปกติ โปรดพบสัตวแพทย์</span></div>
-    <nav class="foot-links" aria-label="ลิงก์ท้ายหน้า">
-      <button type="button" class="link-btn" data-action="about">เกี่ยวกับข้อมูล</button>
-      <button type="button" class="link-btn" data-action="feedback">ส่งความคิดเห็น</button>
-      <a class="link-btn" href="privacy.html">นโยบายความเป็นส่วนตัว</a>
-      <a class="link-btn" href="terms.html">ข้อตกลงการใช้งาน</a>
+    <div class="row"><svg aria-hidden="true"><use href="#i-info"/></svg><span data-i18n="foot.disc">ข้อมูลนี้เป็นความรู้ทั่วไป ไม่ใช่การวินิจฉัยของสัตวแพทย์ หากสัตว์เลี้ยงมีอาการผิดปกติ โปรดพบสัตวแพทย์</span></div>
+    <nav class="foot-links" aria-label="ลิงก์ท้ายหน้า" data-i18n-attr="aria-label:foot.nav">
+      <button type="button" class="link-btn" data-action="about" data-i18n="home.about">เกี่ยวกับข้อมูล</button>
+      <button type="button" class="link-btn" data-action="feedback" data-i18n="home.fb">ส่งความคิดเห็น</button>
+      <a class="link-btn" href="privacy.html" data-i18n-attr="href:href.privacy" data-i18n="link.privacy">นโยบายความเป็นส่วนตัว</a>
+      <a class="link-btn" href="terms.html" data-i18n-attr="href:href.terms" data-i18n="link.terms">ข้อตกลงการใช้งาน</a>
     </nav>
   </footer>
 
-  <nav class="tabbar" aria-label="เมนูหลัก">
-    <button type="button" data-tab="home" data-action="tab-home"><svg aria-hidden="true"><use href="#i-home"/></svg><span>หน้าแรก</span></button>
-    <button type="button" data-tab="eat" data-action="tab-eat"><svg aria-hidden="true"><use href="#i-bowl"/></svg><span>กินได้มั้ย</span></button>
-    <button type="button" data-tab="nearby" data-action="nearby"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>ใกล้ฉัน</span></button>
-    <button type="button" data-tab="adopt" data-action="adopt"><svg aria-hidden="true"><use href="#i-adopt"/></svg><span>หาบ้านหมาแมว</span></button>
-    <button type="button" data-tab="profile" data-action="profile"><svg aria-hidden="true"><use href="#i-user"/></svg><span>โปรไฟล์</span></button>
+  <!-- Main navigation: bottom tab bar on phones/tablets, left sidebar on desktop (≥1024px) -->
+  <nav class="tabbar" aria-label="เมนูหลัก" data-i18n-attr="aria-label:nav.main">
+    <a class="brand side-only js-brand" href="#" aria-label="กินได้ไหม? กลับหน้าแรก" data-i18n-attr="aria-label:brand.home"><svg aria-hidden="true"><use href="#i-paw"/></svg><span class="brand-text" data-i18n="brand.name">กินได้ไหม?</span></a>
+    <button type="button" data-tab="home" data-action="tab-home"><svg aria-hidden="true"><use href="#i-home"/></svg><span data-i18n="tab.home">หน้าแรก</span></button>
+    <button type="button" data-tab="eat" data-action="tab-eat"><svg aria-hidden="true"><use href="#i-bowl"/></svg><span data-i18n="tab.eat">กินได้มั้ย</span></button>
+    <button type="button" data-tab="nearby" data-action="nearby"><svg aria-hidden="true"><use href="#i-pin"/></svg><span data-i18n="tab.nearby">ใกล้ฉัน</span></button>
+    <button type="button" data-tab="adopt" data-action="adopt"><svg aria-hidden="true"><use href="#i-adopt"/></svg><span data-i18n="tab.adopt">หาบ้านหมาแมว</span></button>
+    <button type="button" data-tab="profile" data-action="profile"><svg aria-hidden="true"><use href="#i-user"/></svg><span data-i18n="tab.profile">โปรไฟล์</span></button>
+    <div class="side-only side-extra">
+      <button type="button" class="btn-emg" data-action="emergency"><svg aria-hidden="true"><use href="#i-siren"/></svg><span data-i18n="emg.btn">กินไปแล้ว ทำไงดี?</span></button>
+      <div class="lang-toggle" role="group" aria-label="ภาษา" data-i18n-attr="aria-label:lang.label"><button type="button" data-lang="th" lang="th" aria-pressed="true">ไทย</button><button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button></div>
+    </div>
   </nav>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <div class="update-bar" id="update-bar" hidden>
-    <button type="button" data-action="update-app"><svg aria-hidden="true"><use href="#i-refresh"/></svg>มีเวอร์ชันใหม่ — แตะเพื่ออัปเดต</button>
+    <button type="button" data-action="update-app"><svg aria-hidden="true"><use href="#i-refresh"/></svg><span data-i18n="update">มีเวอร์ชันใหม่ — แตะเพื่ออัปเดต</span></button>
   </div>
 
   <dialog class="sheet" id="notice-dlg" aria-labelledby="nt-h">
-    <h2 id="nt-h">ก่อนเริ่มใช้งาน</h2>
+    <h2 id="nt-h" data-i18n="nt.h">ก่อนเริ่มใช้งาน</h2>
     <ul class="welcome-list">
-      <li><svg aria-hidden="true"><use href="#i-info"/></svg><span>ข้อมูลในแอปเป็นความรู้ทั่วไป ไม่ใช่การวินิจฉัยของสัตวแพทย์ ถ้าน้องมีอาการผิดปกติ โปรดพบสัตวแพทย์</span></li>
-      <li id="notice-draft"><svg aria-hidden="true"><use href="#i-shield"/></svg><span>ข้อมูลยังเป็นฉบับร่าง รอสัตวแพทย์ตรวจทาน</span></li>
-      <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span>สมุดสุขภาพน้อง รายการที่บันทึก และประวัติการค้นหา เก็บไว้ในเครื่องนี้เท่านั้น</span></li>
-      <li id="notice-remote" hidden><svg aria-hidden="true"><use href="#i-send"/></svg><span>เพื่อพัฒนาแอป เราส่งข้อมูลแบบไม่ระบุตัวตนไปยัง Google Forms ได้แก่ การกด “มีประโยชน์/ยังไม่ชัด” ชื่ออาหารที่ค้นหาแล้วไม่เจอ และคำขอให้เพิ่มเมนู ไม่ส่งชื่อ เบอร์โทร หรืออีเมล ปิดได้ที่หน้า “เกี่ยวกับข้อมูล”</span></li>
+      <li><svg aria-hidden="true"><use href="#i-info"/></svg><span data-i18n="nt.1">ข้อมูลในแอปเป็นความรู้ทั่วไป ไม่ใช่การวินิจฉัยของสัตวแพทย์ ถ้าน้องมีอาการผิดปกติ โปรดพบสัตวแพทย์</span></li>
+      <li id="notice-draft"><svg aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="nt.draft">ข้อมูลยังเป็นฉบับร่าง รอสัตวแพทย์ตรวจทาน</span></li>
+      <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="nt.local">สมุดสุขภาพน้อง รายการที่บันทึก และประวัติการค้นหา เก็บไว้ในเครื่องนี้เท่านั้น</span></li>
+      <li id="notice-remote" hidden><svg aria-hidden="true"><use href="#i-send"/></svg><span data-i18n="nt.remote">เพื่อพัฒนาแอป เราส่งข้อมูลแบบไม่ระบุตัวตนไปยัง Google Forms ได้แก่ การกด “มีประโยชน์/ยังไม่ชัด” ชื่ออาหารที่ค้นหาแล้วไม่เจอ และคำขอให้เพิ่มเมนู ไม่ส่งชื่อ เบอร์โทร หรืออีเมล ปิดได้ที่หน้า “เกี่ยวกับข้อมูล”</span></li>
     </ul>
-    <p class="small" style="margin:12px 0 0"><a href="privacy.html">นโยบายความเป็นส่วนตัว</a> · <a href="terms.html">ข้อตกลงการใช้งาน</a></p>
-    <form method="dialog"><button type="submit" class="btn-primary" value="ok">เข้าใจแล้ว เริ่มใช้งาน</button></form>
+    <p class="small" style="margin:12px 0 0"><a href="privacy.html" data-i18n-attr="href:href.privacy" data-i18n="link.privacy">นโยบายความเป็นส่วนตัว</a> · <a href="terms.html" data-i18n-attr="href:href.terms" data-i18n="link.terms">ข้อตกลงการใช้งาน</a></p>
+    <form method="dialog"><button type="submit" class="btn-primary" value="ok" data-i18n="nt.ok">เข้าใจแล้ว เริ่มใช้งาน</button></form>
   </dialog>
 </div>
 
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
