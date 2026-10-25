@@ -492,7 +492,14 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px))}
 
 /* tabs */
 .hb-book-h{margin-top:24px}
-.hb-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:var(--surface-2);border-radius:14px;padding:4px}
+/* 5 tabs: one row on wider screens, 3 + 2 on phones (no hidden overflow, arrow keys stay linear) */
+.hb-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;background:var(--surface-2);border-radius:14px;padding:4px}
+.hb-tabs [role="tab"]{grid-column:span 2}
+.hb-tabs [role="tab"]:nth-child(n+4){grid-column:span 3}
+@media (min-width:440px){
+  .hb-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .hb-tabs [role="tab"],.hb-tabs [role="tab"]:nth-child(n+4){grid-column:auto}
+}
 .hb-tabs [role="tab"]{appearance:none;min-height:44px;border:0;border-radius:10px;background:none;color:var(--ink-2);font-weight:600;cursor:pointer;padding:4px 6px;line-height:1.25}
 .hb-tabs [role="tab"][aria-selected="true"]{background:var(--surface);color:var(--primary);box-shadow:var(--shadow);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
 .hb-tabs [role="tab"]:focus-visible{outline-offset:-3px}
@@ -573,3 +580,39 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px))}
 #clear-host .confirm{margin-top:10px}
 
 .hb-quickw{width:100%;margin-top:12px;justify-content:center}
+
+/* ===== ยา และ นัดหมอ ===== */
+.home-meds{margin-top:16px}
+.hb-today{margin-top:12px}
+.dr-sum{margin:0 0 8px}
+.dose-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.dose-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 8px 8px 10px}
+.dose-row.late{background:var(--tox-bg);border-color:var(--tox-line)}
+.dr-ic{width:24px;height:24px;flex:none;color:var(--primary);align-self:flex-start;margin-top:2px}
+.dose-row.late .dr-ic{color:var(--tox)}
+.dr-main{flex:1 1 160px;min-width:0;line-height:1.35}
+.dr-time{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:700}
+.dr-what{display:block;font-weight:600;overflow-wrap:anywhere}
+.dr-how{display:block;font-size:.88rem;color:var(--ink-2);overflow-wrap:anywhere}
+.dr-give{margin-left:auto;background:var(--primary-soft);border-color:var(--primary);color:var(--ink)}
+.dr-give svg{color:var(--primary)}
+.med-how{margin:2px 0 4px;overflow-wrap:anywhere}
+.dose-today{border:1px solid var(--line);border-radius:12px;padding:6px 10px 2px;margin:8px 0 0;min-width:0}
+.dose-today legend{font-weight:600;font-size:.9rem;padding:0 4px}
+.dose-chk{flex-wrap:wrap;gap:6px 10px;margin:4px 0 6px}
+.dose-chk input:checked + span{font-weight:700}
+.appt-clinic{display:flex;align-items:center;gap:4px}
+.appt-clinic svg{width:16px;height:16px;flex:none}
+.appt-done{margin:8px 0 0;width:max-content;max-width:100%}
+.appt-item.is-done .hb-val{color:var(--ink-2)}
+.hb-old{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);padding:0 10px}
+.hb-old summary{min-height:44px;display:flex;align-items:center;font-weight:600;color:var(--primary);cursor:pointer}
+.hb-old[open]{padding-bottom:10px}
+.hb-old .hb-list{margin-top:4px}
+.hb-times{border:0;padding:0;margin-left:0;margin-right:0;min-width:0}
+.hb-times legend{font-weight:500;padding:0;margin-bottom:4px}
+.time-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px;margin-bottom:8px}
+.time-row label{font-weight:500;white-space:nowrap}
+.text-in[type="time"]{min-width:0;appearance:none;-webkit-appearance:none}
+.hb-two{display:grid;grid-template-columns:1fr;gap:0 10px}
+@media (min-width:400px){ .hb-two{grid-template-columns:1fr 1fr} }

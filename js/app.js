@@ -270,12 +270,15 @@
      HEALTH BOOK DATA (สมุดสุขภาพน้อง) — key kdm-pets-v1, on this device only.
      {activeId, pets:[{id,name,species,birthDate,ageYears,ageMonths,ageSetAt,
        sex,sterilized,lifeStage,flags:{overweight,kidney},weights[],vaccines[],
-       deworm[],createdAt}]}
+       deworm[],meds[],appts[],createdAt}]}
+       meds:  [{id,name,instructions,times:['08:00'],start,end,refillDate,note,doses:[{date,time,at}]}]
+       appts: [{id,date,time,clinic,reason,note,done}]
      Works in memory when storage is blocked (storageOK = false → note shown).
      ===================================================================== */
   var TH_MON = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-  var MAX_LIST = 500, MAX_PETS = 50;
-  var ISO_RE = /^\d{4}-\d{2}-\d{2}$/, ID_RE = /^[A-Za-z0-9_-]{1,40}$/;
+  var MAX_LIST = 500, MAX_PETS = 50, MAX_MEDS = 100, MAX_APPTS = 300, MAX_TIMES = 6, MAX_DOSES = 600, DOSE_DAYS = 90;
+  var ISO_RE = /^\d{4}-\d{2}-\d{2}$/, ID_RE = /^[A-Za-z0-9_-]{1,40}$/, TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
+  var STAMP_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
   function pad2(n){ return (n < 10 ? '0' : '') + n; }
   function isoOf(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }   // local date, no UTC shift
   function todayISO(){ return isoOf(new Date()); }
@@ -293,6 +296,12 @@
   function cleanStr(v, max){ return String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max); }
   function kgFmt(kg){ return (Math.round(kg * 10) / 10).toFixed(1); }
   function emptyBook(){ return {activeId:null, pets:[]}; }
+  function nowHM(){ var d = new Date(); return pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+  function addDaysISO(s, n){ var d = parseISO(s); return isoOf(new Date(d.getFullYear(), d.getMonth(), d.getDate() + n)); }
+  function doseCutoff(){ return addDaysISO(todayISO(), -(DOSE_DAYS - 1)); }   // keep the last 90 days (incl. today)
+  function medActive(m, day){ day = day || todayISO(); return m.start <= day && (!m.end || m.end >= day); }
+  function medStopped(m){ return !!m.end && m.end < todayISO(); }
+  function doseGiven(m, day, t){ return m.doses.some(function(d){ return d.date === day && d.time === t; }); }
 
   // Strict validation + sanitising. Returns a clean book, or throws Error(Thai message).
   function validateBook(raw){
@@ -303,7 +312,9 @@
     function optDate(v, what){ if (v == null || v === '') return ''; if (!validISO(v)) bad('วันที่' + what + 'ไม่ถูกต้อง'); return v; }
     function reqDate(v, what){ if (!validISO(v)) bad('วันที่' + what + 'ไม่ถูกต้อง'); return v; }
     function idOf(v){ if (!ID_RE.test(String(v || ''))) bad('รหัสรายการในไฟล์ไม่ถูกต้อง'); return String(v); }
-    function list(v, what){ if (v == null) return []; if (!Array.isArray(v)) bad('ข้อมูล' + what + 'ไม่ถูกต้อง'); if (v.length > MAX_LIST) bad('ข้อมูล' + what + 'มากเกินไป'); return v; }
+    function list(v, what, max){ if (v == null) return []; if (!Array.isArray(v)) bad('ข้อมูล' + what + 'ไม่ถูกต้อง'); if (v.length > (max || MAX_LIST)) bad('ข้อมูล' + what + 'มากเกินไป'); return v; }
+    function optTime(v, what){ if (v == null || v === '') return ''; if (typeof v !== 'string' || !TIME_RE.test(v)) bad('เวลา' + what + 'ไม่ถูกต้อง'); return v; }
+    function reqTime(v, what){ if (typeof v !== 'string' || !TIME_RE.test(v)) bad('เวลา' + what + 'ไม่ถูกต้อง'); return v; }
     function obj(v, what){ if (!v || typeof v !== 'object' || Array.isArray(v)) bad('ข้อมูล' + what + 'ไม่ถูกต้อง'); return v; }
     var seen = {};
     var pets = raw.pets.map(function(p){
@@ -340,6 +351,30 @@
           var n = cleanStr(v.product, 60); if (!n) bad('มีบันทึกถ่ายพยาธิที่ไม่มีชื่อผลิตภัณฑ์');
           return {id:eid(v.id), date:reqDate(v.date, 'ถ่ายพยาธิ'), product:n, nextDue:optDate(v.nextDue, 'นัด'), note:cleanStr(v.note, 200)};
         }),
+        meds: list(p.meds, 'ยา', MAX_MEDS).map(function(m){
+          obj(m, 'ยา');
+          var n = cleanStr(m.name, 60); if (!n) bad('มีบันทึกยาที่ไม่มีชื่อยา');
+          var times = list(m.times, 'เวลาให้ยา', MAX_TIMES).map(function(t){ return reqTime(t, 'ให้ยา ' + n); });
+          if (!times.length) bad('ยา ' + n + ' ไม่มีเวลาให้ยา');
+          times = times.filter(function(t, i){ return times.indexOf(t) === i; }).sort();
+          var start = reqDate(m.start, 'เริ่มให้ยา'), end = optDate(m.end, 'หยุดยา');
+          if (end && end < start) bad('วันสิ้นสุดของยา ' + n + ' อยู่ก่อนวันเริ่ม');
+          var cut = doseCutoff(), dk = {};
+          var doses = list(m.doses, 'การให้ยา', 2000).map(function(d){
+            obj(d, 'การให้ยา');
+            var at = String(d.at == null ? '' : d.at);
+            if (!STAMP_RE.test(at)) bad('เวลาบันทึกการให้ยาไม่ถูกต้อง');
+            return {date:reqDate(d.date, 'ให้ยา'), time:reqTime(d.time, 'ให้ยา'), at:at};
+          }).filter(function(d){ var k = d.date + ' ' + d.time; if (dk[k] || d.date < cut) return false; dk[k] = 1; return true; });
+          return {id:eid(m.id), name:n, instructions:cleanStr(m.instructions, 200), times:times, start:start, end:end,
+            refillDate:optDate(m.refillDate, 'รับยา'), note:cleanStr(m.note, 200), doses:doses.slice(-MAX_DOSES)};
+        }),
+        appts: list(p.appts, 'นัดหมอ', MAX_APPTS).map(function(a){
+          obj(a, 'นัดหมอ');
+          if (a.done != null && typeof a.done !== 'boolean') bad('สถานะนัดหมอไม่ถูกต้อง');
+          return {id:eid(a.id), date:reqDate(a.date, 'นัดหมอ'), time:optTime(a.time, 'นัดหมอ'), clinic:cleanStr(a.clinic, 80),
+            reason:cleanStr(a.reason, 60), note:cleanStr(a.note, 200), done:a.done === true};
+        }),
         createdAt: cleanStr(p.createdAt, 40)
       };
     });
@@ -361,7 +396,7 @@
       lifeStage: p.stage === 'baby' ? 'young' : (p.stage === 'senior' ? 'senior' : 'adult'),
       flags:{overweight:!!p.overweight, kidney:!!p.kidney},
       weights: (kg >= 0.1 && kg <= 150) ? [{id:newId('w'), date:today, kg:Math.round(kg * 10) / 10}] : [],
-      vaccines:[], deworm:[], createdAt:new Date().toISOString()
+      vaccines:[], deworm:[], meds:[], appts:[], createdAt:new Date().toISOString()
     };
     return {activeId:pet.id, pets:[pet]};
   }
@@ -412,12 +447,40 @@
     book.pets.forEach(function(p){
       p.vaccines.forEach(function(v){ if (v.nextDue) out.push({pet:p, kind:'vaccine', item:v, due:v.nextDue, d:daysUntil(v.nextDue)}); });
       p.deworm.forEach(function(v){ if (v.nextDue) out.push({pet:p, kind:'deworm', item:v, due:v.nextDue, d:daysUntil(v.nextDue)}); });
+      p.meds.forEach(function(m){ if (m.refillDate && !medStopped(m)) out.push({pet:p, kind:'med', item:m, due:m.refillDate, d:daysUntil(m.refillDate)}); });
+      p.appts.forEach(function(a){ if (!a.done) out.push({pet:p, kind:'appt', item:a, due:a.date, d:daysUntil(a.date)}); });
     });
-    return out.filter(function(x){ return x.d <= days; }).sort(function(a, b){ return a.d - b.d; });
+    return out.filter(function(x){ return x.d <= days; }).sort(function(a, b){
+      return a.d - b.d || String(a.item.time || '').localeCompare(String(b.item.time || ''));
+    });
   }
   function dueTitle(x){
     if (x.kind === 'vaccine') return (/^วัคซีน/.test(x.item.name) ? '' : 'วัคซีน') + x.item.name;
+    if (x.kind === 'med') return 'รับยา ' + x.item.name;
+    if (x.kind === 'appt') return 'นัดหมอ' + (x.item.reason ? ': ' + x.item.reason : '');
     return 'ถ่ายพยาธิ/เห็บหมัด: ' + x.item.product;
+  }
+
+  // Today's doses not yet given, across all pets (sorted by time)
+  function todayDoses(){
+    var day = todayISO(), now = nowHM(), out = [];
+    book.pets.forEach(function(p){
+      p.meds.forEach(function(m){
+        if (!medActive(m, day)) return;
+        m.times.forEach(function(t){ if (!doseGiven(m, day, t)) out.push({pet:p, med:m, time:t, late:t < now}); });
+      });
+    });
+    return out.sort(function(a, b){ return a.time < b.time ? -1 : a.time > b.time ? 1 : 0; });
+  }
+  function setDose(petId, medId, t, given){
+    var p = petById(petId), m = p && p.meds.filter(function(x){ return x.id === medId; })[0], day = todayISO();
+    if (!m || m.times.indexOf(t) === -1 || !medActive(m, day)) return false;
+    var cut = doseCutoff();
+    m.doses = m.doses.filter(function(d){ return d.date >= cut && !(d.date === day && d.time === t); });
+    if (given) m.doses.push({date:day, time:t, at:new Date().toISOString()});
+    if (m.doses.length > MAX_DOSES) m.doses = m.doses.slice(-MAX_DOSES);
+    saveBook();
+    return true;
   }
 
   /* ---------- state ---------- */
@@ -1086,18 +1149,22 @@
      All three live in #view-profile; the "โปรไฟล์" tab stays highlighted.
      Never computes or suggests vaccine/deworming schedules or doses.
      ===================================================================== */
-  var hbTab = 'weight';          // weight | vaccine | deworm
+  var hbTab = 'weight';          // weight | vaccine | deworm | med | appt
   var hbForm = null;             // {kind, id|null} — inline entry form that is open
   var pfEditId = null;           // pet being edited on the pet form (null = new pet)
   var pendingConfirm = null;     // {fn, back} for the in-page confirmation
-  var HB_TABS = [{k:'weight', t:'น้ำหนัก'}, {k:'vaccine', t:'วัคซีน'}, {k:'deworm', t:'ถ่ายพยาธิ'}];
-  var HB_LIST = {weight:'weights', vaccine:'vaccines', deworm:'deworm'};
-  var HB_NAME = {weight:'น้ำหนัก', vaccine:'วัคซีน', deworm:'ถ่ายพยาธิ / ป้องกันเห็บหมัด'};
+  var HB_TABS = [{k:'weight', t:'น้ำหนัก'}, {k:'vaccine', t:'วัคซีน'}, {k:'deworm', t:'ถ่ายพยาธิ'}, {k:'med', t:'ยา'}, {k:'appt', t:'นัดหมอ'}];
+  var HB_LIST = {weight:'weights', vaccine:'vaccines', deworm:'deworm', med:'meds', appt:'appts'};
+  var HB_NAME = {weight:'น้ำหนัก', vaccine:'วัคซีน', deworm:'ถ่ายพยาธิ / ป้องกันเห็บหมัด', med:'ยา', appt:'นัดหมอ'};
+  var HB_CAP = {weight:MAX_LIST, vaccine:MAX_LIST, deworm:MAX_LIST, med:MAX_MEDS, appt:MAX_APPTS};
   var SEX_TXT = {male:'ผู้', female:'เมีย', '':'ไม่ระบุเพศ'};
   var STER_TXT = {yes:'ทำหมันแล้ว', no:'ยังไม่ทำหมัน', '':'ไม่ทราบเรื่องทำหมัน'};
   var STAGE_TXT = {young:'ลูก', adult:'โต', senior:'สูงวัย'};
   var VAX_SUGGEST = ['พิษสุนัขบ้า','วัคซีนรวมน้องหมา','วัคซีนรวมน้องแมว','ลิวคีเมียแมว','อื่นๆ'];
   var SCHEDULE_NOTE = 'ตารางวัคซีนและการถ่ายพยาธิขึ้นกับอายุ สุขภาพ และการเลี้ยงดู ให้ใส่วันนัดตามที่สัตวแพทย์แนะนำ';
+  var APPT_SUGGEST = ['ตรวจติดตาม','ฉีดวัคซีน','ผ่าตัด','ทำหมัน','ตรวจเลือด','ทำฟัน','ตรวจสุขภาพประจำปี'];
+  var MED_NOTE = 'แอปไม่แนะนำยา ขนาดยา หรือความถี่ในการให้ยา ใส่ตามฉลากหรือที่สัตวแพทย์สั่งเท่านั้น ถ้าน้องมีอาการผิดปกติหลังให้ยา ให้ติดต่อสัตวแพทย์';
+  var REMIND_NOTE = 'แอปเตือนได้เมื่อเปิดแอป หากต้องการให้มือถือเตือนแม้ไม่ได้เปิดแอป กด เพิ่มลงปฏิทิน';
 
   function setActive(id){
     var p = petById(id); if (!p) return;
@@ -1133,7 +1200,7 @@
     } catch(e){ toast('ดาวน์โหลดไฟล์ไม่ได้ในเบราว์เซอร์นี้'); return false; }
   }
   function fileSafe(s){ return String(s).replace(/[\\\/:*?"<>|#%&{}$!'@+`=\u0000-\u001f]+/g, '').replace(/\s+/g, '-').slice(0, 40) || 'pet'; }
-  function icsEsc(s){ return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+  function icsEsc(s){ return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
   // RFC 5545: fold lines at 75 octets without splitting a UTF-8 character
   function icsFold(line){
     var out = [], cur = '', bytes = 0, limit = 75;
@@ -1147,26 +1214,80 @@
     out.push(cur);
     return out.join('\r\n ');
   }
+  function icsStamp(){ return new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z'); }
+  function icsDay(iso){ return iso.replace(/-/g, ''); }
+  function icsAlarm(trigger, text){ return ['BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEsc(text), 'TRIGGER:' + trigger, 'END:VALARM']; }
+  function icsAllDay(uid, iso, summary, desc, extra){
+    return ['BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + icsStamp(),
+      'DTSTART;VALUE=DATE:' + icsDay(iso), 'DTEND;VALUE=DATE:' + icsDay(addDaysISO(iso, 1)),
+      'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc), 'TRANSP:TRANSPARENT'].concat(extra || [],
+      icsAlarm('-P1D', 'พรุ่งนี้: ' + summary), ['END:VEVENT']);
+  }
+  function icsDoc(lines){
+    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//kindaimai//health-book//TH', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH']
+      .concat(lines, ['END:VCALENDAR']).map(icsFold).join('\r\n') + '\r\n';
+  }
+  var ICS_FROM = 'จากสมุดสุขภาพน้อง แอป กินได้ไหม?';
+  // all-day reminder for a vaccine / deworming / refill date
   function icsFor(x){
-    var d = parseISO(x.due), day = x.due.replace(/-/g, '');
-    var end = isoOf(new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1)).replace(/-/g, '');
-    var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z');
     var summary = dueTitle(x) + ' — ' + x.pet.name;
-    var desc = 'นัดจากสมุดสุขภาพน้อง แอป กินได้ไหม?' + (x.item.note ? '\n' + x.item.note : '');
-    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//kindaimai//health-book//TH', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
-      'BEGIN:VEVENT', 'UID:' + x.item.id + '-' + day + '@kindaimai', 'DTSTAMP:' + stamp,
-      'DTSTART;VALUE=DATE:' + day, 'DTEND;VALUE=DATE:' + end,
-      'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc), 'TRANSP:TRANSPARENT',
-      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEsc('พรุ่งนี้: ' + summary), 'TRIGGER:-P1D', 'END:VALARM',
-      'END:VEVENT', 'END:VCALENDAR'].map(icsFold).join('\r\n') + '\r\n';
+    var desc = 'นัด' + ICS_FROM + (x.item.note ? '\n' + x.item.note : '');
+    return icsDoc(icsAllDay(x.item.id + '-' + icsDay(x.due) + '@kindaimai', x.due, summary, desc));
+  }
+  // medicine: one daily repeating event per time of day (floating local time) + refill day
+  function medIcs(p, m){
+    var today = todayISO(), out = [];
+    var from = m.start > today ? m.start : today;
+    var summary = 'ให้ยา ' + m.name + ' — ' + p.name;
+    if (!m.end || m.end >= from){
+      var rule = m.end ? 'RRULE:FREQ=DAILY;UNTIL=' + icsDay(m.end) + 'T235959' : 'RRULE:FREQ=DAILY;COUNT=30';
+      var desc = (m.instructions ? 'วิธีให้ (ตามที่สัตวแพทย์สั่ง): ' + m.instructions : 'ให้ตามฉลากหรือที่สัตวแพทย์สั่ง') +
+        (m.note ? '\nหมายเหตุ: ' + m.note : '') +
+        (m.end ? '' : '\nเตือนไว้ 30 วัน ถ้ายังต้องให้ยาต่อ ให้เปิดแอปแล้วกด เพิ่มลงปฏิทิน อีกครั้งเพื่อต่ออายุการเตือน') +
+        '\n' + ICS_FROM;
+      m.times.forEach(function(t){
+        out = out.concat(['BEGIN:VEVENT', 'UID:' + m.id + '-' + t.replace(':', '') + '-' + icsDay(from) + '@kindaimai', 'DTSTAMP:' + icsStamp(),
+          'DTSTART:' + icsDay(from) + 'T' + t.replace(':', '') + '00', 'DURATION:PT10M', rule,
+          'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc)],
+          icsAlarm('PT0M', summary + ' เวลา ' + t), ['END:VEVENT']);
+      });
+    }
+    if (m.refillDate && m.refillDate >= today)
+      out = out.concat(icsAllDay(m.id + '-refill-' + icsDay(m.refillDate) + '@kindaimai', m.refillDate, 'รับยา ' + m.name + ' — ' + p.name,
+        'นัดรับยา/ยาจะหมด ' + ICS_FROM + (m.note ? '\n' + m.note : '')));
+    return out.length ? icsDoc(out) : '';
+  }
+  // vet appointment: 1-hour timed event (alarms 1 day + 2 hours before) or all-day
+  function apptIcs(p, a){
+    var summary = 'นัดหมอ' + (a.reason ? ': ' + a.reason : '') + ' — ' + p.name;
+    var desc = 'นัด' + ICS_FROM + (a.note ? '\n' + a.note : '');
+    var loc = a.clinic ? ['LOCATION:' + icsEsc(a.clinic)] : [];
+    var uid = a.id + '-' + icsDay(a.date) + '@kindaimai';
+    if (!a.time) return icsDoc(icsAllDay(uid, a.date, summary, desc, loc));
+    return icsDoc(['BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + icsStamp(),
+      'DTSTART:' + icsDay(a.date) + 'T' + a.time.replace(':', '') + '00', 'DURATION:PT1H',
+      'SUMMARY:' + icsEsc(summary), 'DESCRIPTION:' + icsEsc(desc)].concat(loc,
+      icsAlarm('-P1D', 'พรุ่งนี้ ' + a.time + ' น.: ' + summary), icsAlarm('-PT2H', 'อีก 2 ชั่วโมง: ' + summary), ['END:VEVENT']));
+  }
+  function dueOf(kind, e){ return kind === 'med' ? e.refillDate : kind === 'appt' ? e.date : e.nextDue; }
+  function icsDone(text, name){
+    if (text && downloadFile(text, name, 'text/calendar;charset=utf-8'))
+      toast('ดาวน์โหลดไฟล์ปฏิทินแล้ว เปิดไฟล์เพื่อเพิ่มลงปฏิทิน');
   }
   function downloadIcs(petId, kind, id){
     var p = petById(petId); if (!p) return;
     var item = (p[HB_LIST[kind]] || []).filter(function(e){ return e.id === id; })[0];
-    if (!item || !item.nextDue) return;
-    var x = {pet:p, kind:kind, item:item, due:item.nextDue};
-    if (downloadFile(icsFor(x), 'kindaimai-' + fileSafe(p.name) + '-' + item.nextDue + '.ics', 'text/calendar;charset=utf-8'))
-      toast('ดาวน์โหลดไฟล์ปฏิทินแล้ว เปิดไฟล์เพื่อเพิ่มลงปฏิทิน');
+    var due = item && dueOf(kind, item);
+    if (!due) return;
+    var text = kind === 'appt' ? apptIcs(p, item) : icsFor({pet:p, kind:kind, item:item, due:due});
+    icsDone(text, 'kindaimai-' + fileSafe(p.name) + '-' + due + '.ics');
+  }
+  function downloadMedIcs(petId, id){
+    var p = petById(petId); if (!p) return;
+    var m = p.meds.filter(function(e){ return e.id === id; })[0]; if (!m) return;
+    var text = medIcs(p, m);
+    if (!text) return toast('ยานี้หยุดแล้ว ไม่มีเวลาให้ยาที่จะเพิ่มลงปฏิทิน');
+    icsDone(text, 'kindaimai-' + fileSafe(p.name) + '-ยา-' + fileSafe(m.name) + '.ics');
   }
 
   /* ---------- pieces of the book screen ---------- */
@@ -1183,16 +1304,36 @@
     '<button type="button" class="pet-chip add" data-action="pet-new"><span class="pc-plus">'+icon('i-plus')+'</span><span class="pc-name">เพิ่มน้อง</span></button></div>';
   }
   function dueState(x){
-    if (x.d < 0) return {cls:'over', ic:'i-limited', when:'เลยกำหนด ' + (-x.d) + ' วัน'};
+    if (x.d < 0) return {cls:'over', ic:'i-limited', when:(x.kind === 'appt' ? 'เลยวันนัด ' + (-x.d) + ' วัน ยังไม่ได้กด “ไปแล้ว”' : 'เลยกำหนด ' + (-x.d) + ' วัน')};
     return {cls:'soon', ic:'i-clock', when: x.d === 0 ? 'ถึงกำหนดวันนี้' : 'อีก ' + x.d + ' วัน'};
+  }
+  function dueDateText(x){
+    if (x.kind === 'med') return 'นัดรับยา/ยาจะหมด ' + thDate(x.due);
+    if (x.kind === 'appt') return 'นัด ' + thDate(x.due) + (x.item.time ? ' เวลา ' + x.item.time + ' น.' : '') + (x.item.clinic ? ' · ' + esc(x.item.clinic) : '');
+    return 'นัด ' + thDate(x.due);
   }
   function dueRowHTML(x, withCal){
     var s = dueState(x), what = dueTitle(x) + ' — ' + x.pet.name;
     return '<li class="due '+s.cls+'">'+
       '<button type="button" class="due-main" data-action="due-open" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'">'+icon(s.ic)+
-        '<span><span class="due-when">'+s.when+'</span><span class="due-what">'+esc(what)+'</span><span class="due-date">นัด '+thDate(x.due)+'</span></span></button>'+
+        '<span><span class="due-when">'+s.when+'</span><span class="due-what">'+esc(what)+'</span><span class="due-date">'+dueDateText(x)+'</span></span></button>'+
       (withCal && x.d >= 0 ? '<button type="button" class="mini-btn" data-action="ics" data-pet="'+esc(x.pet.id)+'" data-kind="'+x.kind+'" data-id="'+esc(x.item.id)+'" aria-label="เพิ่มลงปฏิทิน: '+esc(what)+'">'+icon('i-cal')+'เพิ่มลงปฏิทิน</button>' : '')+
     '</li>';
+  }
+  function todayRowHTML(x){
+    var what = x.med.name + ' — ' + x.pet.name;
+    return '<li class="dose-row'+(x.late ? ' late' : '')+'">'+icon(x.late ? 'i-limited' : 'i-clock', 'dr-ic')+
+      '<span class="dr-main"><span class="dr-time">'+x.time+' น.'+(x.late ? ' <span class="due-tag over">เลยเวลา</span>' : '')+'</span>'+
+        '<span class="dr-what">'+esc(what)+'</span>'+(x.med.instructions ? '<span class="dr-how">'+esc(x.med.instructions)+'</span>' : '')+'</span>'+
+      '<button type="button" class="mini-btn dr-give" data-action="dose-give" data-pet="'+esc(x.pet.id)+'" data-med="'+esc(x.med.id)+'" data-time="'+x.time+'" aria-label="ให้แล้ว: '+esc(what)+' เวลา '+x.time+'">'+icon('i-check-c')+'ให้แล้ว</button></li>';
+  }
+  function todayDosesHTML(idH){
+    var items = todayDoses();
+    if (!items.length) return '';
+    var late = items.filter(function(x){ return x.late; }).length;
+    return '<h2 id="'+idH+'">'+icon('i-clock')+'วันนี้ต้องให้ยา</h2>'+
+      '<p class="small muted dr-sum">เหลือ '+items.length+' ครั้ง'+(late ? ' (เลยเวลา '+late+' ครั้ง)' : '')+' ของน้องทุกตัว</p>'+
+      '<ul class="dose-list">'+items.map(todayRowHTML).join('')+'</ul>';
   }
   function upcomingHTML(){
     var items = dueItems(30);
@@ -1200,6 +1341,11 @@
     return '<section class="hb-due" aria-labelledby="due-h"><h2 id="due-h">'+icon('i-clock')+'นัดที่ใกล้ถึง</h2>'+
       '<p class="small muted">นัดภายใน 30 วันและนัดที่เลยกำหนด ของน้องทุกตัว</p>'+
       '<ul class="due-list">'+items.map(function(x){ return dueRowHTML(x, true); }).join('')+'</ul></section>';
+  }
+  function renderHomeMeds(){
+    var box = $('#home-meds'); if (!box) return;
+    var html = todayDosesHTML('hm-h');
+    box.hidden = !html; box.innerHTML = html;
   }
   function renderHomeDue(){
     var box = $('#home-due'); if (!box) return;
@@ -1285,7 +1431,70 @@
       '<button type="button" class="mini-btn" data-action="hb-edit" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="แก้ไข '+esc(what)+'">'+icon('i-edit')+'แก้ไข</button>'+
       '<button type="button" class="mini-btn" data-action="hb-del" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="ลบ '+esc(what)+'">'+icon('i-trash')+'ลบ</button></div>';
   }
+  function noteHTML(text, ic){ return '<p class="hb-sched">'+icon(ic || 'i-info')+'<span>'+text+'</span></p>'; }
+  function calBtnHTML(action, p, kind, e, what){
+    return '<button type="button" class="mini-btn hb-cal" data-action="'+action+'" data-pet="'+esc(p.id)+'" data-kind="'+kind+'" data-id="'+esc(e.id)+'" aria-label="เพิ่มลงปฏิทิน: '+esc(what)+'">'+icon('i-cal')+'เพิ่มลงปฏิทิน</button>';
+  }
+  function dueTagHTML(x){ var s = x.d <= 30 ? dueState(x) : null; return s ? ' <span class="due-tag '+s.cls+'">'+icon(s.ic)+s.when+'</span>' : ''; }
+  function medItemHTML(p, m){
+    var today = todayISO(), now = nowHM(), active = medActive(m, today), stopped = medStopped(m);
+    var what = 'ยา ' + m.name;
+    var period = 'เริ่ม ' + thDate(m.start) + ' · ' + (m.end ? 'ถึง ' + thDate(m.end) : 'ต่อเนื่อง');
+    var h = '<li class="hb-item med-item"><div class="hb-main"><span class="hb-val">'+esc(m.name)+'</span>'+
+      (m.instructions ? '<p class="med-how"><span class="muted">วิธีให้: </span>'+esc(m.instructions)+'</p>' : '')+
+      '<span class="hb-date">เวลาให้ยา '+m.times.map(function(t){ return t + ' น.'; }).join(', ')+'</span>'+
+      '<span class="hb-date">'+period+(m.start > today ? ' <span class="due-tag soon">'+icon('i-clock')+'ยังไม่ถึงวันเริ่ม</span>' : '')+'</span>';
+    if (m.refillDate){
+      var x = {pet:p, kind:'med', item:m, due:m.refillDate, d:daysUntil(m.refillDate)};
+      h += '<p class="hb-next">นัดรับยา/ยาจะหมด '+thDate(m.refillDate)+(stopped ? '' : dueTagHTML(x))+'</p>';
+    }
+    if (active){
+      h += '<fieldset class="dose-today"><legend>วันนี้ ('+thDate(today)+')</legend>'+m.times.map(function(t){
+        var given = doseGiven(m, today, t), late = !given && t < now, id = 'dose-' + m.id + '-' + t.replace(':', '');
+        return '<label class="check dose-chk" for="'+id+'"><input type="checkbox" id="'+id+'" data-dose data-pet="'+esc(p.id)+'" data-med="'+esc(m.id)+'" data-time="'+t+'"'+(given ? ' checked' : '')+'>'+
+          '<span>'+t+' น. ให้แล้ว</span>'+(late ? '<span class="due-tag over">'+icon('i-limited')+'เลยเวลา</span>' : '')+'</label>';
+      }).join('')+'</fieldset>';
+    }
+    if (m.note) h += '<p class="hb-note">'+esc(m.note)+'</p>';
+    if (!stopped) h += calBtnHTML('ics-med', p, 'med', m, 'ให้ยา ' + m.name + ' — ' + p.name);
+    return h + '</div>' + itemActs('med', m, what) + '</li>';
+  }
+  function medListHTML(p){
+    var today = todayISO();
+    var cur = p.meds.filter(function(m){ return !medStopped(m); }).sort(function(a, b){
+      var aa = medActive(a, today) ? 0 : 1, bb = medActive(b, today) ? 0 : 1;
+      return aa - bb || (a.start < b.start ? -1 : a.start > b.start ? 1 : a.name.localeCompare(b.name));
+    });
+    var old = p.meds.filter(medStopped).sort(function(a, b){ return a.end < b.end ? 1 : a.end > b.end ? -1 : 0; });
+    var html = !p.meds.length ? '<p class="muted small hb-none">ยังไม่มีบันทึกยา</p>' :
+      (cur.length ? '<ul class="hb-list">'+cur.map(function(m){ return medItemHTML(p, m); }).join('')+'</ul>' : '<p class="muted small hb-none">ไม่มียาที่กำลังให้อยู่</p>');
+    if (old.length) html += '<details class="hb-old"><summary>ยาที่หยุดแล้ว ('+old.length+')</summary><ul class="hb-list">'+old.map(function(m){ return medItemHTML(p, m); }).join('')+'</ul></details>';
+    return html + noteHTML(MED_NOTE) + noteHTML(REMIND_NOTE, 'i-clock');
+  }
+  function apptItemHTML(p, a){
+    var x = {pet:p, kind:'appt', item:a, due:a.date, d:daysUntil(a.date)};
+    var title = a.reason || 'นัดหมอ', what = 'นัดหมอ ' + (a.reason ? a.reason + ' ' : '') + 'วันที่ ' + thDate(a.date), id = 'appt-done-' + a.id;
+    return '<li class="hb-item appt-item'+(a.done ? ' is-done' : '')+'"><div class="hb-main"><span class="hb-val">'+esc(title)+'</span>'+
+      '<span class="hb-date">วันนัด '+thDate(a.date)+(a.time ? ' เวลา '+a.time+' น.' : '')+(a.done ? '' : dueTagHTML(x))+'</span>'+
+      (a.clinic ? '<span class="hb-date appt-clinic">'+icon('i-pin')+esc(a.clinic)+'</span>' : '')+
+      (a.note ? '<p class="hb-note">'+esc(a.note)+'</p>' : '')+
+      '<label class="check appt-done" for="'+id+'"><input type="checkbox" id="'+id+'" data-appt-done data-id="'+esc(a.id)+'"'+(a.done ? ' checked' : '')+'><span>ไปแล้ว</span></label>'+
+      (!a.done && x.d >= 0 ? calBtnHTML('ics', p, 'appt', a, dueTitle(x) + ' — ' + p.name) : '')+
+      '</div>' + itemActs('appt', a, what) + '</li>';
+  }
+  function apptListHTML(p){
+    var today = todayISO();
+    function asc(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : String(a.time).localeCompare(String(b.time)); }
+    var open = p.appts.filter(function(a){ return !a.done; }).sort(asc);
+    var past = p.appts.filter(function(a){ return a.done; }).sort(function(a, b){ return -asc(a, b); });
+    var html = !p.appts.length ? '<p class="muted small hb-none">ยังไม่มีนัดหมอ</p>' :
+      (open.length ? '<ul class="hb-list">'+open.map(function(a){ return apptItemHTML(p, a); }).join('')+'</ul>' : '<p class="muted small hb-none">ไม่มีนัดที่รออยู่</p>');
+    if (past.length) html += '<details class="hb-old"><summary>นัดที่ไปแล้ว ('+past.length+')</summary><ul class="hb-list">'+past.map(function(a){ return apptItemHTML(p, a); }).join('')+'</ul></details>';
+    return html + noteHTML(REMIND_NOTE, 'i-clock');
+  }
   function listHTML(p, kind){
+    if (kind === 'med') return medListHTML(p);
+    if (kind === 'appt') return apptListHTML(p);
     if (kind === 'weight'){
       var asc = weightsAsc(p);
       if (!asc.length) return '<p class="muted small hb-none">ยังไม่มีบันทึกน้ำหนัก</p>';
@@ -1316,10 +1525,64 @@
       }).join('')+'</ul>';
     return html + '<p class="hb-sched">'+icon('i-info')+'<span>'+SCHEDULE_NOTE+'</span></p>';
   }
+  function formRow(forId, label, input){ return '<div class="form-row"><label for="'+forId+'">'+label+'</label>'+input+'</div>'; }
+  function formEnd(){
+    return '<p class="field-err" id="hbf-err" role="alert" hidden></p>'+
+      '<div class="form-actions"><button type="submit" class="btn-primary">บันทึก</button>'+
+      '<button type="button" class="btn-sec" data-action="hb-cancel">ยกเลิก</button></div></form>';
+  }
+  function timeRowHTML(i, v){
+    return '<div class="time-row"><label for="hbf-t'+i+'">เวลาที่ '+(i + 1)+'</label>'+
+      '<input class="text-in" type="time" id="hbf-t'+i+'" step="60" value="'+esc(v || '')+'" aria-describedby="hbf-times-hint hbf-err">'+
+      '<button type="button" class="mini-btn" data-action="time-del" aria-label="ลบเวลาที่ '+(i + 1)+'">'+icon('i-trash')+'ลบ</button></div>';
+  }
+  function syncTimeRows(){
+    var rows = $$('#hbf-time-list .time-row');
+    rows.forEach(function(r, i){
+      var lab = r.querySelector('label'), inp = r.querySelector('input'), del = r.querySelector('button');
+      inp.id = 'hbf-t' + i; lab.setAttribute('for', inp.id); lab.textContent = 'เวลาที่ ' + (i + 1);
+      del.setAttribute('aria-label', 'ลบเวลาที่ ' + (i + 1)); del.hidden = rows.length < 2;
+    });
+    var add = $('[data-action="time-add"]'); if (add) add.hidden = rows.length >= MAX_TIMES;
+  }
+  function medFormHTML(p, e){
+    var today = todayISO(), times = e ? e.times : [''];
+    return '<form class="hb-form" data-kind="med" novalidate aria-labelledby="hbf-h">'+
+      '<h3 id="hbf-h">'+(e ? 'แก้ไข' : 'เพิ่ม')+'บันทึกยา</h3>'+
+      formRow('hbf-name', 'ชื่อยา <span class="req">(จำเป็น)</span>', '<input class="text-in" type="text" id="hbf-name" maxlength="60" autocomplete="off" placeholder="ชื่อตามฉลากยา" value="'+esc(e ? e.name : '')+'" required aria-describedby="hbf-err">')+
+      formRow('hbf-instr', 'วิธีให้ / ขนาดตามที่สัตวแพทย์สั่ง', '<textarea class="fb-text" id="hbf-instr" maxlength="200" placeholder="เช่น ครึ่งเม็ด หลังอาหาร" aria-describedby="hbf-instr-hint">'+esc(e ? e.instructions : '')+'</textarea>'+
+        '<p class="hint" id="hbf-instr-hint">ใส่ตามฉลากหรือที่สัตวแพทย์สั่งเท่านั้น</p>')+
+      '<fieldset class="form-row hb-times"><legend>เวลาให้ยา <span class="req">(จำเป็น 1–'+MAX_TIMES+' เวลา)</span></legend>'+
+        '<div id="hbf-time-list">'+times.map(function(t, i){ return timeRowHTML(i, t); }).join('')+'</div>'+
+        '<button type="button" class="mini-btn" data-action="time-add">'+icon('i-plus')+'เพิ่มเวลา</button>'+
+        '<p class="hint" id="hbf-times-hint">ใส่เวลาตามที่สัตวแพทย์สั่ง</p></fieldset>'+
+      '<div class="hb-two">'+
+        formRow('hbf-start', 'วันเริ่ม', '<input class="text-in" type="date" id="hbf-start" value="'+esc(e ? e.start : today)+'" required aria-describedby="hbf-err">')+
+        formRow('hbf-end', 'วันสิ้นสุด (ไม่บังคับ)', '<input class="text-in" type="date" id="hbf-end" value="'+esc(e ? e.end : '')+'" aria-describedby="hbf-end-hint hbf-err"><p class="hint" id="hbf-end-hint">เว้นว่าง = ให้ต่อเนื่อง</p>')+
+      '</div>'+
+      formRow('hbf-refill', 'วันรับยาครั้งถัดไป (ไม่บังคับ)', '<input class="text-in" type="date" id="hbf-refill" value="'+esc(e ? e.refillDate : '')+'" aria-describedby="hbf-refill-hint hbf-err"><p class="hint" id="hbf-refill-hint">นัดรับยา หรือวันที่ยาจะหมด</p>')+
+      formRow('hbf-note', 'หมายเหตุ (ไม่บังคับ)', '<textarea class="fb-text" id="hbf-note" maxlength="200">'+esc(e ? e.note : '')+'</textarea>')+
+      formEnd();
+  }
+  function apptFormHTML(p, e){
+    return '<form class="hb-form" data-kind="appt" novalidate aria-labelledby="hbf-h">'+
+      '<h3 id="hbf-h">'+(e ? 'แก้ไข' : 'เพิ่ม')+'นัดหมอ</h3>'+
+      '<div class="hb-two">'+
+        formRow('hbf-date', 'วันนัด <span class="req">(จำเป็น)</span>', '<input class="text-in" type="date" id="hbf-date" value="'+esc(e ? e.date : '')+'" required aria-describedby="hbf-err">')+
+        formRow('hbf-time', 'เวลา (ไม่บังคับ)', '<input class="text-in" type="time" id="hbf-time" step="60" value="'+esc(e ? e.time : '')+'" aria-describedby="hbf-err">')+
+      '</div>'+
+      '<label class="check" for="hbf-done"><input type="checkbox" id="hbf-done"'+(e && e.done ? ' checked' : '')+'>ไปแล้ว</label>'+
+      formRow('hbf-clinic', 'คลินิก / โรงพยาบาล (ไม่บังคับ)', '<input class="text-in" type="text" id="hbf-clinic" maxlength="80" autocomplete="off" value="'+esc(e ? e.clinic : '')+'">')+
+      formRow('hbf-reason', 'เรื่องที่นัด (ไม่บังคับ)', '<input class="text-in" type="text" id="hbf-reason" maxlength="60" autocomplete="off" list="appt-list" placeholder="เลือกหรือพิมพ์ เช่น ตรวจติดตาม" value="'+esc(e ? e.reason : '')+'">'+
+        '<datalist id="appt-list">'+APPT_SUGGEST.map(function(v){ return '<option value="'+esc(v)+'">'; }).join('')+'</datalist>')+
+      formRow('hbf-note', 'หมายเหตุ (ไม่บังคับ)', '<textarea class="fb-text" id="hbf-note" maxlength="200" placeholder="เช่น งดอาหารก่อนมา">'+esc(e ? e.note : '')+'</textarea>')+
+      formEnd();
+  }
   function entryFormHTML(p, kind, id){
     var e = id ? (p[HB_LIST[kind]] || []).filter(function(x){ return x.id === id; })[0] : null;
-    var today = todayISO();
-    function row(forId, label, input){ return '<div class="form-row"><label for="'+forId+'">'+label+'</label>'+input+'</div>'; }
+    if (kind === 'med') return medFormHTML(p, e);
+    if (kind === 'appt') return apptFormHTML(p, e);
+    var today = todayISO(), row = formRow;
     var html = '<form class="hb-form" data-kind="'+kind+'" novalidate aria-labelledby="hbf-h">'+
       '<h3 id="hbf-h">'+(e ? 'แก้ไข' : 'เพิ่ม')+'บันทึก'+HB_NAME[kind]+'</h3>'+
       row('hbf-date', kind === 'weight' ? 'วันที่ชั่ง' : kind === 'vaccine' ? 'วันที่ฉีด' : 'วันที่ให้',
@@ -1337,9 +1600,7 @@
         '<p class="hint" id="hbf-due-hint">ใส่ตามที่สัตวแพทย์นัด</p>');
       html += row('hbf-note', 'หมายเหตุ (ไม่บังคับ)', '<textarea class="fb-text" id="hbf-note" maxlength="200">'+esc(e ? e.note : '')+'</textarea>');
     }
-    return html + '<p class="field-err" id="hbf-err" role="alert" hidden></p>'+
-      '<div class="form-actions"><button type="submit" class="btn-primary">บันทึก</button>'+
-      '<button type="button" class="btn-sec" data-action="hb-cancel">ยกเลิก</button></div></form>';
+    return html + formEnd();
   }
   function bookHTML(p){
     var tabs = '<div class="hb-tabs" role="tablist" aria-label="บันทึกสุขภาพของ '+esc(p.name)+'">'+HB_TABS.map(function(t){
@@ -1369,12 +1630,14 @@
     if (p) book.activeId = p.id;
     if (!p){
       html += '<div class="card hb-empty"><div class="hb-empty-ph"><img class="pet-ph" src="icons/pet-dog.jpg" alt="" width="72" height="72"><img class="pet-ph" src="icons/pet-cat.jpg" alt="" width="72" height="72"></div>'+
-        '<h2>ยังไม่มีน้องในสมุดสุขภาพ</h2><p>จดน้ำหนัก วัคซีน และการถ่ายพยาธิของน้องไว้ในที่เดียว พร้อมเตือนวันนัดในแอป</p>'+
+        '<h2>ยังไม่มีน้องในสมุดสุขภาพ</h2><p>จดน้ำหนัก วัคซีน การถ่ายพยาธิ ยา และนัดหมอของน้องไว้ในที่เดียว พร้อมเตือนในแอป</p>'+
         '<button type="button" class="btn-primary" data-action="pet-new">'+icon('i-plus')+'เพิ่มน้องตัวแรก</button></div>';
     } else {
-      html += switcherHTML(p) + upcomingHTML() + summaryHTML(p) + bookHTML(p);
+      var td = todayDosesHTML('td-h');
+      html += switcherHTML(p) + (td ? '<section class="hb-due hb-today" aria-labelledby="td-h">' + td + '</section>' : '') + upcomingHTML() + summaryHTML(p) + bookHTML(p);
     }
     $('#hb-root').innerHTML = html + backupHTML();
+    if ($('#hbf-time-list')) syncTimeRows();
   }
   function rerenderKeep(sel){
     renderProfile();
@@ -1383,7 +1646,7 @@
   }
   function openEntryForm(kind, id){
     hbTab = kind; hbForm = {kind:kind, id:id || null};
-    rerenderKeep('#hbf-' + (kind === 'weight' && !id ? 'kg' : 'date'));
+    rerenderKeep('#hbf-' + (kind === 'weight' && !id ? 'kg' : kind === 'med' ? 'name' : 'date'));
     var f = $('.hb-form'); if (f && f.scrollIntoView) f.scrollIntoView({block:'start'});
   }
   function saveEntry(form){
@@ -1391,6 +1654,11 @@
     if (!p) return;
     $$('[aria-invalid]', form).forEach(function(el){ el.removeAttribute('aria-invalid'); });
     function fail(sel, msg){ var el = $(sel); el.setAttribute('aria-invalid', 'true'); err.hidden = false; err.textContent = msg; el.focus(); }
+    if (kind === 'med' || kind === 'appt'){
+      var r = kind === 'med' ? readMedForm(fail) : readApptForm(fail);
+      if (r) upsertEntry(p, kind, r, fail, kind === 'med' ? '#hbf-name' : '#hbf-date');
+      return;
+    }
     var date = $('#hbf-date').value;
     if (!validISO(date)) return fail('#hbf-date', 'กรุณาใส่วันที่');
     if (date > today) return fail('#hbf-date', 'วันที่ต้องไม่เกินวันนี้');
@@ -1407,16 +1675,48 @@
       rec = {date:date, nextDue:due || '', note:cleanStr($('#hbf-note').value, 200)};
       rec[kind === 'vaccine' ? 'name' : 'product'] = name;
     }
+    upsertEntry(p, kind, rec, fail, '#hbf-date');
+  }
+  function upsertEntry(p, kind, rec, fail, capSel){
     var list = p[HB_LIST[kind]];
     var old = hbForm && hbForm.id ? list.filter(function(x){ return x.id === hbForm.id; })[0] : null;
     if (old) Object.keys(rec).forEach(function(k){ old[k] = rec[k]; });
     else {
-      if (list.length >= MAX_LIST) return fail('#hbf-date', 'บันทึกครบ ' + MAX_LIST + ' รายการแล้ว ลบรายการเก่าก่อน');
+      if (list.length >= HB_CAP[kind]) return fail(capSel, 'บันทึกครบ ' + HB_CAP[kind] + ' รายการแล้ว ลบรายการเก่าก่อน');
+      if (kind === 'med') rec.doses = [];
       rec.id = newId(kind.charAt(0)); list.push(rec);
     }
     saveBook(); hbForm = null;
     rerenderKeep('.hb-add');
     savedToast('บันทึก' + HB_NAME[kind] + 'แล้ว');
+  }
+  function readMedForm(fail){
+    var name = cleanStr($('#hbf-name').value, 60);
+    if (!name) return fail('#hbf-name', 'กรุณาใส่ชื่อยา');
+    var inputs = $$('#hbf-time-list input'), times = [];
+    for (var i = 0; i < inputs.length; i++){
+      var v = inputs[i].value.trim();
+      if (!v && inputs.length > 1) continue;
+      if (!TIME_RE.test(v)) return fail('#' + inputs[i].id, v ? 'เวลาไม่ถูกต้อง ใช้รูปแบบ ชั่วโมง:นาที เช่น 08:00' : 'กรุณาใส่เวลาให้ยาอย่างน้อย 1 เวลา');
+      if (times.indexOf(v) !== -1) return fail('#' + inputs[i].id, 'มีเวลา ' + v + ' ซ้ำกัน');
+      times.push(v);
+    }
+    if (!times.length) return fail('#' + inputs[0].id, 'กรุณาใส่เวลาให้ยาอย่างน้อย 1 เวลา');
+    if (times.length > MAX_TIMES) return fail('#' + inputs[0].id, 'ใส่ได้สูงสุด ' + MAX_TIMES + ' เวลาต่อวัน');
+    var start = $('#hbf-start').value, end = $('#hbf-end').value, refill = $('#hbf-refill').value;
+    if (!validISO(start)) return fail('#hbf-start', 'กรุณาใส่วันเริ่ม');
+    if (end && !validISO(end)) return fail('#hbf-end', 'วันสิ้นสุดไม่ถูกต้อง');
+    if (end && end < start) return fail('#hbf-end', 'วันสิ้นสุดต้องไม่ก่อนวันเริ่ม');
+    if (refill && !validISO(refill)) return fail('#hbf-refill', 'วันรับยาไม่ถูกต้อง');
+    return {name:name, instructions:cleanStr($('#hbf-instr').value, 200), times:times.sort(), start:start, end:end || '',
+      refillDate:refill || '', note:cleanStr($('#hbf-note').value, 200)};
+  }
+  function readApptForm(fail){
+    var date = $('#hbf-date').value, time = $('#hbf-time').value.trim();
+    if (!validISO(date)) return fail('#hbf-date', 'กรุณาใส่วันนัด');
+    if (time && !TIME_RE.test(time)) return fail('#hbf-time', 'เวลาไม่ถูกต้อง ใช้รูปแบบ ชั่วโมง:นาที เช่น 14:30');
+    return {date:date, time:time, clinic:cleanStr($('#hbf-clinic').value, 80), reason:cleanStr($('#hbf-reason').value, 60),
+      note:cleanStr($('#hbf-note').value, 200), done:$('#hbf-done').checked};
   }
   function deleteEntry(btn){
     var kind = btn.getAttribute('data-kind'), id = btn.getAttribute('data-id'), p = activePet();
@@ -1535,7 +1835,7 @@
     else {
       p = data; p.id = newId('p'); p.createdAt = new Date().toISOString();
       p.weights = kg ? [{id:newId('w'), date:today, kg:Math.round(kg * 10) / 10}] : [];
-      p.vaccines = []; p.deworm = [];
+      p.vaccines = []; p.deworm = []; p.meds = []; p.appts = [];
       book.pets.push(p);
     }
     setActive(p.id);
@@ -1670,7 +1970,7 @@
     if (!dataReady){ show(dataFailed ? 'error' : 'loading'); return; }
     if (!species || token === '' || token === 'pet' || !needsSpecies(token)){
       if (needsSpecies(token)) pendingToken = token;
-      updateHomeProfileLabel(); renderHomeDue();
+      updateHomeProfileLabel(); renderHomeMeds(); renderHomeDue();
       show('pet'); focusMain($('#pet-h')); return;
     }
     renderSearchChrome();
@@ -1858,6 +2158,23 @@
       case 'hb-cancel': hbForm = null; rerenderKeep('.hb-add'); break;
       case 'hb-del': deleteEntry(t); break;
       case 'ics': downloadIcs(t.getAttribute('data-pet'), t.getAttribute('data-kind'), t.getAttribute('data-id')); break;
+      case 'ics-med': downloadMedIcs(t.getAttribute('data-pet'), t.getAttribute('data-id')); break;
+      case 'dose-give': giveDoseFromCard(t); break;
+      case 'time-add': {
+        var tl = $('#hbf-time-list'); if (!tl || tl.children.length >= MAX_TIMES) break;
+        var tmp = document.createElement('div'); tmp.innerHTML = timeRowHTML(tl.children.length, '');
+        tl.appendChild(tmp.firstChild); syncTimeRows();
+        tl.lastChild.querySelector('input').focus();
+        break;
+      }
+      case 'time-del': {
+        var tr = t.closest('.time-row'), tl2 = $('#hbf-time-list');
+        if (!tr || !tl2 || tl2.children.length < 2) break;
+        var idx = Array.prototype.indexOf.call(tl2.children, tr);
+        tl2.removeChild(tr); syncTimeRows();
+        tl2.children[Math.max(0, idx - 1)].querySelector('input').focus();
+        break;
+      }
       case 'due-open': {
         setActive(t.getAttribute('data-pet'));
         hbTab = t.getAttribute('data-kind'); hbForm = null;
@@ -1869,6 +2186,22 @@
       case 'backup': doBackup(); break;
       case 'clear-recent': lsDel(LS.recent); renderSaved(); toast('ล้างประวัติแล้ว'); break;
     }
+  });
+  // "ให้แล้ว" on the today card (home or profile): record, re-render, keep focus in the card
+  function giveDoseFromCard(btn){
+    var inHome = !!btn.closest('#home-meds'), what = btn.getAttribute('aria-label').replace(/^ให้แล้ว: /, '');
+    var list = btn.closest('.dose-list'), rows = list ? $$('.dr-give', list) : [], idx = rows.indexOf(btn);
+    if (!setDose(btn.getAttribute('data-pet'), btn.getAttribute('data-med'), btn.getAttribute('data-time'), true)) return;
+    var cardSel = inHome ? '#home-meds' : '.hb-today';
+    if (inHome){ renderHomeMeds(); renderHomeDue(); } else renderProfile();
+    var next = $$(cardSel + ' .dr-give');
+    var el = next[Math.min(idx, next.length - 1)] || (inHome ? $('#pet-h') : $('#prof-h'));
+    if (!next.length) focusMain(el); else { try { el.focus({preventScroll:true}); } catch(e){ el.focus(); } }
+    savedToast('บันทึกแล้ว: ให้ ' + what);
+  }
+  // reminders are computed when the app is open: refresh the home cards when it comes back to the front
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'visible' && !$('#view-pet').hidden){ renderHomeMeds(); renderHomeDue(); }
   });
   $('#q').addEventListener('input', runSearch);
   $('#search-form').addEventListener('submit', function(e){
@@ -1908,6 +2241,20 @@
   document.addEventListener('change', function(e){
     var el = e.target;
     if (el.id === 'restore-file') onRestoreFile(el);
+    else if (el.hasAttribute && el.hasAttribute('data-dose')){
+      var ok = setDose(el.getAttribute('data-pet'), el.getAttribute('data-med'), el.getAttribute('data-time'), el.checked);
+      rerenderKeep('#' + el.id);
+      if (ok) savedToast(el.checked ? 'บันทึกว่าให้ยาเวลา ' + el.getAttribute('data-time') + ' แล้ว' : 'ยกเลิกการบันทึกให้ยาเวลา ' + el.getAttribute('data-time'));
+    }
+    else if (el.hasAttribute && el.hasAttribute('data-appt-done')){
+      var ap = activePet(), aid = el.getAttribute('data-id'), a = ap && ap.appts.filter(function(x){ return x.id === aid; })[0];
+      if (a){ a.done = el.checked; saveBook(); }
+      rerenderKeep('#' + el.id);
+      // a done appointment moves into the collapsed "นัดที่ไปแล้ว" list: keep focus on its summary
+      var moved = $('#' + el.id), det = moved && moved.closest('details');
+      if (det && !det.open) det.querySelector('summary').focus();
+      if (a) savedToast(el.checked ? 'บันทึกว่าไปตามนัดแล้ว' : 'ย้ายกลับไปเป็นนัดที่รออยู่');
+    }
     else if (el.closest && el.closest('#pet-form')) petFormAge();
   });
   document.addEventListener('input', function(e){
